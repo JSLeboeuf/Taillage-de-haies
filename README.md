@@ -3,6 +3,8 @@
 > Gestion d'entreprise - Services de taillage de haies au Quebec
 
 **Site web** : https://taillagehaielite.com/
+**Facebook** : https://www.facebook.com/haielitetaillage/
+**Instagram** : https://www.instagram.com/taillage_haielite/
 
 ## Structure du repo
 
