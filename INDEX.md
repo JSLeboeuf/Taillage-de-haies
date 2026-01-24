@@ -48,6 +48,25 @@
 
 **Utiliser quand:** Structurer acquisition, protéger actifs, planifier exit
 
+### Leadership & Management
+| Document | Concepts Clés |
+|----------|---------------|
+| [extreme-ownership-leadership.md](frameworks/extreme-ownership-leadership.md) | Extreme Ownership, No Bad Teams, Dichotomy of Leadership |
+| [one-minute-manager-blanchard.md](frameworks/one-minute-manager-blanchard.md) | One Minute Goals, Praising, Redirect |
+| [its-your-ship-abrashoff.md](frameworks/its-your-ship-abrashoff.md) | Listen Aggressively, Trust, Results Not Salutes |
+| [dream-manager-kelly.md](frameworks/dream-manager-kelly.md) | 12 Dream Categories, Employee Engagement, Retention |
+
+**Utiliser quand:** Gérer équipe post-acquisition, transformer culture, réduire turnover
+
+### Opérations & Systèmes
+| Document | Concepts Clés |
+|----------|---------------|
+| [emyth-gerber-systemes.md](frameworks/emyth-gerber-systemes.md) | Technicien-Manager-Entrepreneur, Prototype Franchise, Systématisation |
+| [the-goal-goldratt-operations.md](frameworks/the-goal-goldratt-operations.md) | Théorie des Contraintes, Goulot, Drum-Buffer-Rope |
+| [scaling-up-harnish-croissance.md](frameworks/scaling-up-harnish-croissance.md) | 4 Décisions, Rockefeller Habits, OPSP |
+
+**Utiliser quand:** Systématiser opérations, identifier contraintes, préparer croissance
+
 ### Playbook Spécifique Québec
 | Document | Concepts Clés |
 |----------|---------------|
@@ -57,16 +76,36 @@
 
 ---
 
-## Sources Complètes (Livres Extraits)
+## Sources Complètes (13 Livres Extraits)
 
-| Livre | Fichier | Lignes |
-|-------|---------|--------|
-| $100M Offers | [sources-livres/100m-offers...](sources-livres/100m-offers-how-to-make-offers-so-good-people-feel-stupid.md) | ~6,000 |
-| $100M Leads | [sources-livres/100m-leads...](sources-livres/100m-leads-how-to-get-strangers-to-want-to-buy-your-stuff.md) | ~10,000 |
-| $100M Money Models | [sources-livres/100m-money-models...](sources-livres/100m-money-models-how-to-make-money.md) | ~6,000 |
-| Main Street Millionaire | [sources-livres/main-street-millionaire...](sources-livres/main-street-millionaire-how-to-make-extraordinary-wealth.md) | ~10,000 |
-| Asset Protection | [sources-livres/asset-protection-frasier.md](sources-livres/asset-protection-frasier.md) | ~4,700 |
-| Business Wealth Without Risk | [sources-livres/business-wealth-frasier.md](sources-livres/business-wealth-frasier.md) | ~12,500 |
+### Acquisition & Offres (Hormozi + Sanchez)
+| Livre | Fichier |
+|-------|---------|
+| $100M Offers | [sources-livres/100m-offers...](sources-livres/100m-offers-how-to-make-offers-so-good-people-feel-stupid.md) |
+| $100M Leads | [sources-livres/100m-leads...](sources-livres/100m-leads-how-to-get-strangers-to-want-to-buy-your-stuff.md) |
+| $100M Money Models | [sources-livres/100m-money-models...](sources-livres/100m-money-models-how-to-make-money.md) |
+| Main Street Millionaire | [sources-livres/main-street-millionaire...](sources-livres/main-street-millionaire-how-to-make-extraordinary-wealth.md) |
+
+### Finance & Protection (Frasier)
+| Livre | Fichier |
+|-------|---------|
+| Business Wealth Without Risk | [sources-livres/business-wealth-frasier.md](sources-livres/business-wealth-frasier.md) |
+| Asset Protection | [sources-livres/asset-protection-frasier.md](sources-livres/asset-protection-frasier.md) |
+
+### Leadership & Management
+| Livre | Fichier |
+|-------|---------|
+| Extreme Ownership (Willink) | [sources-livres/extreme-ownership-willink.md](sources-livres/extreme-ownership-willink.md) |
+| It's Your Ship (Abrashoff) | [sources-livres/its-your-ship-abrashoff.md](sources-livres/its-your-ship-abrashoff.md) |
+| One Minute Manager (Blanchard) | [sources-livres/one-minute-manager-blanchard.md](sources-livres/one-minute-manager-blanchard.md) |
+| The Dream Manager (Kelly) | [sources-livres/dream-manager-kelly.md](sources-livres/dream-manager-kelly.md) |
+
+### Opérations & Croissance
+| Livre | Fichier |
+|-------|---------|
+| The E-Myth Revisited (Gerber) | [sources-livres/emyth-gerber.md](sources-livres/emyth-gerber.md) |
+| The Goal (Goldratt) | [sources-livres/the-goal-goldratt.md](sources-livres/the-goal-goldratt.md) |
+| Scaling Up (Harnish) | [sources-livres/scaling-up-harnish.md](sources-livres/scaling-up-harnish.md) |
 
 ---
 
@@ -82,6 +121,18 @@
 - **Value Equation**: [Hormozi](frameworks/hormozi-100m-trilogy.md#value-equation)
 - **Grand Slam Offer**: [Hormozi](frameworks/hormozi-100m-trilogy.md#grand-slam-offer)
 - **Augmenter prix sans perdre clients**: [Hormozi](frameworks/hormozi-100m-trilogy.md#pricing)
+
+### Leadership & Équipe
+- **Extreme Ownership**: [Willink](frameworks/extreme-ownership-leadership.md)
+- **Gérer feedback (Praise/Redirect)**: [One Minute Manager](frameworks/one-minute-manager-blanchard.md)
+- **Transformer culture équipe**: [It's Your Ship](frameworks/its-your-ship-abrashoff.md)
+- **Rétention employés**: [Dream Manager](frameworks/dream-manager-kelly.md)
+
+### Opérations & Systèmes
+- **Systématiser (Franchise Prototype)**: [E-Myth](frameworks/emyth-gerber-systemes.md)
+- **Théorie des Contraintes (TOC)**: [The Goal](frameworks/the-goal-goldratt-operations.md)
+- **Scaling (4 Décisions)**: [Scaling Up](frameworks/scaling-up-harnish-croissance.md)
+- **Meeting Rhythm**: [Scaling Up](frameworks/scaling-up-harnish-croissance.md#le-meeting-rhythm)
 
 ### Croissance & Optimisation
 - **10X Tactics**: [Codie](frameworks/codie-sanchez-main-street-millionaire.md#10x-growth)
