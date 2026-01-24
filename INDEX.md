@@ -7,6 +7,7 @@
 
 | Document | Usage |
 |----------|-------|
+| [**APPLICATION.md**](APPLICATION.md) | **Comment appliquer à Henri + toi** |
 | [**PLAYBOOK.md**](PLAYBOOK.md) | Guide étape-par-étape complet |
 | [**CHECKLISTS.md**](CHECKLISTS.md) | Toutes les checklists consolidées |
 | [**INDEX.md**](INDEX.md) | Navigation (ce document) |
