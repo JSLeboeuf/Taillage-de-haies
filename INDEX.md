@@ -64,8 +64,9 @@
 | [emyth-gerber-systemes.md](frameworks/emyth-gerber-systemes.md) | Technicien-Manager-Entrepreneur, Prototype Franchise, Systématisation |
 | [the-goal-goldratt-operations.md](frameworks/the-goal-goldratt-operations.md) | Théorie des Contraintes, Goulot, Drum-Buffer-Rope |
 | [scaling-up-harnish-croissance.md](frameworks/scaling-up-harnish-croissance.md) | 4 Décisions, Rockefeller Habits, OPSP |
+| [road-less-stupid-cunningham.md](frameworks/road-less-stupid-cunningham.md) | Thinking Time, Dumb Tax, 4 Hats, Triangle of Death |
 
-**Utiliser quand:** Systématiser opérations, identifier contraintes, préparer croissance
+**Utiliser quand:** Systématiser opérations, éviter erreurs coûteuses, prendre meilleures décisions
 
 ### Playbook Spécifique Québec
 | Document | Concepts Clés |
@@ -76,7 +77,7 @@
 
 ---
 
-## Sources Complètes (13 Livres Extraits)
+## Sources Complètes (14 Livres Extraits)
 
 ### Acquisition & Offres (Hormozi + Sanchez)
 | Livre | Fichier |
@@ -106,6 +107,7 @@
 | The E-Myth Revisited (Gerber) | [sources-livres/emyth-gerber.md](sources-livres/emyth-gerber.md) |
 | The Goal (Goldratt) | [sources-livres/the-goal-goldratt.md](sources-livres/the-goal-goldratt.md) |
 | Scaling Up (Harnish) | [sources-livres/scaling-up-harnish.md](sources-livres/scaling-up-harnish.md) |
+| The Road Less Stupid (Cunningham) | [sources-livres/road-less-stupid-cunningham.md](sources-livres/road-less-stupid-cunningham.md) |
 
 ---
 
@@ -133,6 +135,8 @@
 - **Théorie des Contraintes (TOC)**: [The Goal](frameworks/the-goal-goldratt-operations.md)
 - **Scaling (4 Décisions)**: [Scaling Up](frameworks/scaling-up-harnish-croissance.md)
 - **Meeting Rhythm**: [Scaling Up](frameworks/scaling-up-harnish-croissance.md#le-meeting-rhythm)
+- **Thinking Time (éviter erreurs)**: [Road Less Stupid](frameworks/road-less-stupid-cunningham.md)
+- **Triangle of Death (Cash/Growth/Control)**: [Road Less Stupid](frameworks/road-less-stupid-cunningham.md#le-triangle-de-la-mort)
 
 ### Croissance & Optimisation
 - **10X Tactics**: [Codie](frameworks/codie-sanchez-main-street-millionaire.md#10x-growth)
