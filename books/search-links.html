@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recherche Livres - Hormozi & Codie Sanchez</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 40px 20px;
+        }
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.3);
+            padding: 40px;
+        }
+        h1 {
+            color: #333;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+        .subtitle {
+            color: #666;
+            margin-bottom: 40px;
+            font-size: 1.1em;
+        }
+        .author-section {
+            margin-bottom: 50px;
+        }
+        .author-title {
+            font-size: 1.8em;
+            color: #667eea;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 3px solid #667eea;
+        }
+        .book-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .book-card {
+            background: #f8f9fa;
+            border-radius: 12px;
+            padding: 20px;
+            border: 2px solid #e9ecef;
+            transition: all 0.3s ease;
+        }
+        .book-card:hover {
+            border-color: #667eea;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(102, 126, 234, 0.2);
+        }
+        .book-title {
+            font-size: 1.3em;
+            font-weight: bold;
+            color: #333;
+            margin-bottom: 15px;
+        }
+        .links {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+        .link-btn {
+            display: inline-block;
+            padding: 12px 20px;
+            background: #667eea;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            text-align: center;
+        }
+        .link-btn:hover {
+            background: #5568d3;
+            transform: scale(1.05);
+        }
+        .link-btn.annas {
+            background: #10b981;
+        }
+        .link-btn.annas:hover {
+            background: #059669;
+        }
+        .link-btn.libgen {
+            background: #f59e0b;
+        }
+        .link-btn.libgen:hover {
+            background: #d97706;
+        }
+        .instructions {
+            background: #fff3cd;
+            border-left: 4px solid #ffc107;
+            padding: 20px;
+            border-radius: 8px;
+            margin-bottom: 30px;
+        }
+        .instructions h3 {
+            color: #856404;
+            margin-bottom: 10px;
+        }
+        .instructions ol {
+            margin-left: 20px;
+            color: #856404;
+        }
+        .instructions li {
+            margin-bottom: 8px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>📚 Recherche Livres</h1>
+        <p class="subtitle">Alex Hormozi & Codie Sanchez</p>
+
+        <div class="instructions">
+            <h3>📋 Instructions</h3>
+            <ol>
+                <li>Cliquez sur les liens ci-dessous pour rechercher chaque livre</li>
+                <li>Sur Anna's Archive : Cliquez sur le livre → Trouvez le lien "GET" ou "Slow download"</li>
+                <li>Sur LibGen : Cliquez sur le livre → Trouvez le lien de téléchargement</li>
+                <li>Les fichiers seront téléchargés dans votre dossier Téléchargements</li>
+                <li>Déplacez-les ensuite dans le dossier <code>books/</code> de ce projet</li>
+            </ol>
+        </div>
+
+        <div class="author-section">
+            <h2 class="author-title">💼 Alex Hormozi</h2>
+            <div class="book-grid">
+                <div class="book-card">
+                    <div class="book-title">$100M Offers</div>
+                    <div class="links">
+                        <a href="https://annas-archive.org/search?q=100M%20Offers%20Alex%20Hormozi&ext=pdf&ext=epub" target="_blank" class="link-btn annas">🔍 Anna's Archive</a>
+                        <a href="https://libgen.is/search.php?req=100M+Offers+Alex+Hormozi&lg_topic=libgen&open=0&view=simple&res=25&phrase=1&column=def" target="_blank" class="link-btn libgen">🔍 LibGen</a>
+                    </div>
+                </div>
+
+                <div class="book-card">
+                    <div class="book-title">$100M Leads</div>
+                    <div class="links">
+                        <a href="https://annas-archive.org/search?q=100M%20Leads%20Alex%20Hormozi&ext=pdf&ext=epub" target="_blank" class="link-btn annas">🔍 Anna's Archive</a>
+                        <a href="https://libgen.is/search.php?req=100M+Leads+Alex+Hormozi&lg_topic=libgen&open=0&view=simple&res=25&phrase=1&column=def" target="_blank" class="link-btn libgen">🔍 LibGen</a>
+                    </div>
+                </div>
+
+                <div class="book-card">
+                    <div class="book-title">Gym Launch Secrets</div>
+                    <div class="links">
+                        <a href="https://annas-archive.org/search?q=Gym%20Launch%20Secrets%20Alex%20Hormozi&ext=pdf&ext=epub" target="_blank" class="link-btn annas">🔍 Anna's Archive</a>
+                        <a href="https://libgen.is/search.php?req=Gym+Launch+Secrets+Alex+Hormozi&lg_topic=libgen&open=0&view=simple&res=25&phrase=1&column=def" target="_blank" class="link-btn libgen">🔍 LibGen</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="author-section">
+            <h2 class="author-title">💰 Codie Sanchez</h2>
+            <div class="book-grid">
+                <div class="book-card">
+                    <div class="book-title">Main Street Millionaire</div>
+                    <div class="links">
+                        <a href="https://annas-archive.org/search?q=Main%20Street%20Millionaire%20Codie%20Sanchez&ext=pdf&ext=epub" target="_blank" class="link-btn annas">🔍 Anna's Archive</a>
+                        <a href="https://libgen.is/search.php?req=Main+Street+Millionaire+Codie+Sanchez&lg_topic=libgen&open=0&view=simple&res=25&phrase=1&column=def" target="_blank" class="link-btn libgen">🔍 LibGen</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div style="margin-top: 40px; padding: 20px; background: #e7f3ff; border-radius: 12px; border-left: 4px solid #2196F3;">
+            <h3 style="color: #1976D2; margin-bottom: 10px;">💡 Note importante</h3>
+            <p style="color: #1565C0;">
+                Ces livres sont relativement récents et peuvent ne pas être disponibles sur ces plateformes. 
+                Si vous ne les trouvez pas, considérez les acheter directement pour soutenir les auteurs.
+            </p>
+        </div>
+    </div>
+</body>
+</html>

@@ -3,14 +3,36 @@
 
 ---
 
+## PLAN D'EXÉCUTION - START HERE
+
+| Document | Usage |
+|----------|-------|
+| [**presentation-henri.html**](plan-affaires/presentation-henri.html) | **PRÉSENTATION VISUELLE - Montrer à Henri** |
+| [**PLAN-ULTIME-REVISE.md**](plan-affaires/PLAN-ULTIME-REVISE.md) | **LE PLAN COMPLET RÉVISÉ - 200k$ → 20M$** |
+| [**REVISION-PAR-ETAPE.md**](plan-affaires/REVISION-PAR-ETAPE.md) | **CE QUI MANQUE - Révision honnête** |
+| [**ACCORD-PARTENARIAT.md**](plan-affaires/ACCORD-PARTENARIAT.md) | Contrat Henri + Jean-Samuel (template) |
+| [**modele-financier.csv**](plan-affaires/modele-financier.csv) | Modèle Excel importable |
+
+---
+
 ## Documents Principaux
 
 | Document | Usage |
 |----------|-------|
-| [**APPLICATION.md**](APPLICATION.md) | **Comment appliquer à Henri + toi** |
+| [**CHECKLIST-MICROSTEPS-20M.md**](CHECKLIST-MICROSTEPS-20M.md) | ~400 micro-steps vers 20M$ |
+| [**ANALYSE-14-LIVRES.md**](ANALYSE-14-LIVRES.md) | Synthèse complète 14 livres + actions |
+| [**reverse-engineering-20m.md**](plan-affaires/reverse-engineering-20m.md) | Chemin inverse: 20M$ → aujourd'hui |
+| [**APPLICATION.md**](APPLICATION.md) | Comment appliquer à Henri + toi |
 | [**PLAYBOOK.md**](PLAYBOOK.md) | Guide étape-par-étape complet |
 | [**CHECKLISTS.md**](CHECKLISTS.md) | Toutes les checklists consolidées |
-| [**INDEX.md**](INDEX.md) | Navigation (ce document) |
+
+---
+
+## Opérations & SOPs
+
+| Document | Usage |
+|----------|-------|
+| [**SOP-TEMPLATE.md**](operations/SOP-TEMPLATE.md) | Template + 2 SOPs complets (téléphone, taillage) |
 
 ---
 
@@ -162,20 +184,44 @@
 ## Structure du Repo
 
 ```
-├── INDEX.md           ← Navigation (ici)
-├── PLAYBOOK.md        ← Guide linéaire complet
-├── CHECKLISTS.md      ← Toutes les checklists
+├── INDEX.md                    ← Navigation (ici)
+├── PLAYBOOK.md                 ← Guide linéaire complet
+├── CHECKLISTS.md               ← Toutes les checklists
+├── CHECKLIST-MICROSTEPS-20M.md ← ~400 micro-steps
+├── ANALYSE-14-LIVRES.md        ← Synthèse 14 livres
 │
-├── quick-ref/         ← Fiches rapides par situation
-│   ├── 01-10          (10 fiches)
+├── plan-affaires/              ← PLAN D'EXÉCUTION
+│   ├── PLAN-ULTIME-9.5.md      ← LE PLAN COMPLET
+│   ├── ACCORD-PARTENARIAT.md   ← Contrat Henri-JS
+│   ├── modele-financier.csv    ← Excel importable
+│   └── reverse-engineering-20m.md
 │
-├── frameworks/        ← Synthèses détaillées par auteur
+├── operations/                 ← SOPs et processus
+│   └── SOP-TEMPLATE.md         ← Template + exemples
+│
+├── quick-ref/                  ← Fiches rapides par situation
+│   └── 01-10                   (10 fiches)
+│
+├── frameworks/                 ← Synthèses détaillées par auteur
 │   └── (15 fichiers)
 │
-└── sources-livres/    ← Textes complets extraits
+└── sources-livres/             ← Textes complets extraits
     └── (14 livres)
 ```
 
 ---
 
-*14 livres • 15 frameworks • 10 quick-refs • ~110,000 lignes*
+## Résumé Exécutif
+
+| Élément | Valeur |
+|---------|--------|
+| Situation actuelle | 250k$ revenus |
+| Objectif ambitieux | 20M$ valorisation |
+| Scénario réaliste 5 ans | 7.2M$ valorisation |
+| Henri on board | OUI |
+| Prochaine étape | Signer ACCORD-PARTENARIAT |
+
+---
+
+*14 livres • 15 frameworks • 10 quick-refs • Plan complet 9.5/10*
+*Dernière mise à jour: Janvier 2026*

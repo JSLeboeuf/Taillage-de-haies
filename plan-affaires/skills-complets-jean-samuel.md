@@ -1,4 +1,4 @@
-# Inventaire Complet des Competences - Mathieu Leboeuf
+# Inventaire Complet des Competences - Jean-Samuel Leboeuf
 
 > Synthese basee sur l'analyse de 60+ repositories GitHub
 

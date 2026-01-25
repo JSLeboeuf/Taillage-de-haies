@@ -1,8 +1,8 @@
-# Ce que Mathieu apporte a la table
+# Ce que Jean-Samuel apporte a la table
 
 ## Resume executif
 
-Mathieu n'est pas un "associe passif" - c'est un **multiplicateur de force** avec des competences uniques qui transforment une entreprise de 250k$ en plateforme de plusieurs millions.
+Jean-Samuel n'est pas un "associe passif" - c'est un **multiplicateur de force** avec des competences uniques qui transforment une entreprise de 250k$ en plateforme de plusieurs millions.
 
 ---
 
@@ -89,9 +89,9 @@ Mathieu n'est pas un "associe passif" - c'est un **multiplicateur de force** ave
 
 ---
 
-## Comparaison : Sans Mathieu vs Avec Mathieu
+## Comparaison : Sans Jean-Samuel vs Avec Jean-Samuel
 
-| Metrique | Sans Mathieu (status quo) | Avec Mathieu (an 3) |
+| Metrique | Sans Jean-Samuel (status quo) | Avec Jean-Samuel (an 3) |
 |----------|--------------------------|---------------------|
 | CA annuel | 250-300k$ | 1.5-2M$ |
 | Marge nette | 10-15% | 20-25% |
@@ -104,5 +104,5 @@ Mathieu n'est pas un "associe passif" - c'est un **multiplicateur de force** ave
 
 ## Conclusion
 
-> Mathieu apporte le **delta entre 250k$ et 10M$**.
+> Jean-Samuel apporte le **delta entre 250k$ et 10M$**.
 > C'est pas 50% de la valeur actuelle - c'est 90% de la valeur future.

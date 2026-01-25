@@ -1,0 +1,1130 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAIE LITE - Plan Stratégique 10M$ Chacun</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 80px;
+            position: relative;
+            border-bottom: 1px solid rgba(45, 90, 39, 0.3);
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at 50% 50%, rgba(45, 90, 39, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .slide-number {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.3);
+            font-weight: 300;
+        }
+
+        h1 {
+            font-size: 72px;
+            font-weight: 800;
+            color: #4a7c43;
+            text-align: center;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+        }
+
+        h2 {
+            font-size: 48px;
+            font-weight: 700;
+            color: #6b9b37;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h3 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #4a7c43;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 28px;
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .big-number {
+            font-size: 100px;
+            font-weight: 800;
+            color: #6b9b37;
+            text-align: center;
+            line-height: 1;
+        }
+
+        .big-number span {
+            font-size: 48px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .quote {
+            font-size: 32px;
+            font-style: italic;
+            color: rgba(255,255,255,0.9);
+            text-align: center;
+            max-width: 900px;
+            line-height: 1.5;
+            border-left: 4px solid #4a7c43;
+            padding-left: 30px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .grid-5 {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .card {
+            background: rgba(45, 90, 39, 0.15);
+            border: 1px solid rgba(74, 124, 67, 0.3);
+            border-radius: 16px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #4a7c43;
+            background: rgba(45, 90, 39, 0.25);
+        }
+
+        .card h4 {
+            font-size: 20px;
+            color: #6b9b37;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .card p {
+            font-size: 15px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.5;
+        }
+
+        .card .icon {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .year-card {
+            text-align: center;
+            padding: 25px 20px;
+        }
+
+        .year-card .year {
+            font-size: 18px;
+            color: #6b9b37;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .year-card .ca {
+            font-size: 32px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .year-card .metrics {
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .year-card .metrics div {
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .year-card .metrics .label {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .year-card .metrics .value {
+            color: #6b9b37;
+            font-weight: 600;
+        }
+
+        .role-card {
+            text-align: center;
+            padding: 40px 30px;
+        }
+
+        .role-card .name {
+            font-size: 32px;
+            font-weight: 700;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+
+        .role-card .title {
+            font-size: 18px;
+            color: #6b9b37;
+            margin-bottom: 25px;
+            font-weight: 500;
+        }
+
+        .role-card ul {
+            list-style: none;
+            text-align: left;
+        }
+
+        .role-card li {
+            padding: 8px 0;
+            color: rgba(255,255,255,0.8);
+            font-size: 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .role-card li::before {
+            content: '→ ';
+            color: #4a7c43;
+        }
+
+        .equity-table {
+            width: 100%;
+            max-width: 900px;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .equity-table th {
+            background: rgba(45, 90, 39, 0.3);
+            padding: 14px 16px;
+            text-align: left;
+            font-size: 14px;
+            color: #6b9b37;
+            border-bottom: 2px solid #4a7c43;
+        }
+
+        .equity-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 16px;
+        }
+
+        .equity-table tr:hover td {
+            background: rgba(45, 90, 39, 0.1);
+        }
+
+        .equity-table .highlight {
+            color: #6b9b37;
+            font-weight: 600;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin: 30px 0;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat .value {
+            font-size: 48px;
+            font-weight: 800;
+            color: #6b9b37;
+        }
+
+        .stat .label {
+            font-size: 16px;
+            color: rgba(255,255,255,0.6);
+            margin-top: 8px;
+        }
+
+        .footer-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            padding: 12px 40px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            border-top: 1px solid rgba(45, 90, 39, 0.3);
+            z-index: 100;
+            flex-wrap: wrap;
+        }
+
+        .footer-nav a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 13px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .footer-nav a:hover {
+            color: #fff;
+            background: rgba(45, 90, 39, 0.3);
+        }
+
+        .service-timeline {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            max-width: 1100px;
+            margin: 30px 0;
+        }
+
+        .service-item {
+            flex: 1;
+            text-align: center;
+            padding: 20px 15px;
+            background: rgba(45, 90, 39, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(74, 124, 67, 0.2);
+        }
+
+        .service-item.active {
+            background: rgba(45, 90, 39, 0.3);
+            border-color: #4a7c43;
+        }
+
+        .service-item .service-year {
+            font-size: 12px;
+            color: #6b9b37;
+            font-weight: 600;
+        }
+
+        .service-item .service-icon {
+            font-size: 28px;
+            margin: 10px 0;
+        }
+
+        .service-item .service-name {
+            font-size: 14px;
+            color: #fff;
+            font-weight: 500;
+        }
+
+        .service-item .service-margin {
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+            margin-top: 5px;
+        }
+
+        .formula {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            font-size: 24px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .formula .operator {
+            color: #4a7c43;
+            font-weight: 300;
+        }
+
+        .formula .element {
+            background: rgba(45, 90, 39, 0.2);
+            padding: 15px 25px;
+            border-radius: 12px;
+            border: 1px solid rgba(74, 124, 67, 0.3);
+        }
+
+        .formula .result {
+            background: linear-gradient(135deg, #2d5a27, #4a7c43);
+            padding: 15px 25px;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(45, 90, 39, 0.3), rgba(45, 90, 39, 0.1));
+            border: 2px solid #4a7c43;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            max-width: 600px;
+            margin: 30px 0;
+        }
+
+        .highlight-box .amount {
+            font-size: 72px;
+            font-weight: 800;
+            color: #6b9b37;
+        }
+
+        .highlight-box .desc {
+            font-size: 20px;
+            color: rgba(255,255,255,0.7);
+            margin-top: 10px;
+        }
+
+        .acquisition-table {
+            width: 100%;
+            max-width: 1000px;
+            border-collapse: collapse;
+        }
+
+        .acquisition-table th {
+            background: rgba(45, 90, 39, 0.3);
+            padding: 12px;
+            text-align: center;
+            font-size: 14px;
+            color: #6b9b37;
+        }
+
+        .acquisition-table td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 15px;
+        }
+
+        .acquisition-table .year-header {
+            background: rgba(45, 90, 39, 0.15);
+            font-weight: 700;
+            color: #fff;
+        }
+
+        @media (max-width: 1024px) {
+            .slide {
+                padding: 40px 30px;
+            }
+
+            h1 { font-size: 48px; }
+            h2 { font-size: 32px; }
+
+            .grid-2, .grid-3, .grid-4, .grid-5 {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .service-timeline {
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-4, .grid-5 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Slide 1: Cover -->
+<section class="slide" id="cover">
+    <span class="slide-number">01</span>
+    <h1>HAIE LITE</h1>
+    <p class="subtitle">Plan Stratégique 2025-2030</p>
+    <div class="highlight-box">
+        <div class="amount">10M$</div>
+        <div class="desc">Chacun à l'exit</div>
+    </div>
+    <p class="subtitle" style="margin-top: 20px; font-size: 20px;">
+        Henri & Jean-Samuel · Cofondateurs
+    </p>
+</section>
+
+<!-- Slide 2: Roadmap Vue d'ensemble -->
+<section class="slide" id="roadmap">
+    <span class="slide-number">02</span>
+    <h2>Roadmap 2025-2030</h2>
+    <div class="grid-5">
+        <div class="card year-card">
+            <div class="year">2025</div>
+            <div class="ca">200k$</div>
+            <div class="metrics">
+                <div><span class="label">TET</span><span class="value">0</span></div>
+                <div><span class="label">Chefs</span><span class="value">0</span></div>
+                <div><span class="label">Acquisitions</span><span class="value">0</span></div>
+                <div><span class="label">Services</span><span class="value">Haies</span></div>
+            </div>
+        </div>
+        <div class="card year-card">
+            <div class="year">2026</div>
+            <div class="ca">1.2M$</div>
+            <div class="metrics">
+                <div><span class="label">TET</span><span class="value">2</span></div>
+                <div><span class="label">Chefs</span><span class="value">2</span></div>
+                <div><span class="label">Acquisitions</span><span class="value">2</span></div>
+                <div><span class="label">Services</span><span class="value">+Neige</span></div>
+            </div>
+        </div>
+        <div class="card year-card">
+            <div class="year">2027</div>
+            <div class="ca">3.1M$</div>
+            <div class="metrics">
+                <div><span class="label">TET</span><span class="value">10</span></div>
+                <div><span class="label">Chefs</span><span class="value">5</span></div>
+                <div><span class="label">Acquisitions</span><span class="value">4</span></div>
+                <div><span class="label">Services</span><span class="value">+Vitres +Gout.</span></div>
+            </div>
+        </div>
+        <div class="card year-card">
+            <div class="year">2028</div>
+            <div class="ca">6M$</div>
+            <div class="metrics">
+                <div><span class="label">TET</span><span class="value">20</span></div>
+                <div><span class="label">Chefs</span><span class="value">10</span></div>
+                <div><span class="label">Acquisitions</span><span class="value">6</span></div>
+                <div><span class="label">Services</span><span class="value">Tous</span></div>
+            </div>
+        </div>
+        <div class="card year-card" style="border-color: #6b9b37;">
+            <div class="year">2029-30</div>
+            <div class="ca">15M$</div>
+            <div class="metrics">
+                <div><span class="label">TET</span><span class="value">45</span></div>
+                <div><span class="label">Chefs</span><span class="value">18</span></div>
+                <div><span class="label">Acquisitions</span><span class="value">10</span></div>
+                <div><span class="label">Exit</span><span class="value">20M$+</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Slide 3: Math TET -->
+<section class="slide" id="math">
+    <span class="slide-number">03</span>
+    <h2>La Math : Capacité par TET</h2>
+    <div class="grid-2" style="max-width: 900px;">
+        <div class="card" style="text-align: center;">
+            <h4>Capacité par TET / Saison</h4>
+            <p style="font-size: 16px; line-height: 2;">
+                Jobs/jour : <strong>4</strong><br>
+                Panier moyen : <strong>500$</strong><br>
+                Revenu/jour : <strong>2 000$</strong><br>
+                Jours/saison : <strong>130</strong><br>
+            </p>
+            <div style="font-size: 36px; font-weight: 800; color: #6b9b37; margin-top: 15px;">
+                260 000$/TET
+            </div>
+        </div>
+        <div class="card" style="text-align: center;">
+            <h4>Capacité par Équipe</h4>
+            <p style="font-size: 16px; line-height: 2;">
+                1 Chef (50% terrain) : <strong>130k$</strong><br>
+                + 2 TET : <strong>520k$</strong><br>
+            </p>
+            <div style="font-size: 36px; font-weight: 800; color: #6b9b37; margin-top: 15px;">
+                650 000$/équipe
+            </div>
+            <p style="margin-top: 15px; font-size: 14px; color: rgba(255,255,255,0.5);">
+                Ratio optimal : 1 chef pour 2 TET
+            </p>
+        </div>
+    </div>
+</section>
+
+<!-- Slide 4: Détail 2026 -->
+<section class="slide" id="2026">
+    <span class="slide-number">04</span>
+    <h2>2026 : 1.2M$ — Breakdown</h2>
+    <div class="grid-3">
+        <div class="card" style="text-align: center;">
+            <div class="icon">🌿</div>
+            <h4>Organique</h4>
+            <p style="font-size: 28px; font-weight: 700; color: #6b9b37;">600k$</p>
+            <p>Henri + 2 TET<br>1 200 clients</p>
+        </div>
+        <div class="card" style="text-align: center;">
+            <div class="icon">🏢</div>
+            <h4>Acquisition #1</h4>
+            <p style="font-size: 28px; font-weight: 700; color: #6b9b37;">300k$</p>
+            <p>Q2 2026<br>600 clients</p>
+        </div>
+        <div class="card" style="text-align: center;">
+            <div class="icon">🏢</div>
+            <h4>Acquisition #2</h4>
+            <p style="font-size: 28px; font-weight: 700; color: #6b9b37;">300k$</p>
+            <p>Q4 2026<br>600 clients</p>
+        </div>
+    </div>
+    <div style="margin-top: 40px; text-align: center; background: rgba(45,90,39,0.15); padding: 25px 40px; border-radius: 12px; display: inline-block;">
+        <span style="font-size: 18px; color: rgba(255,255,255,0.7);">2 TET × 260k$ = 520k$ capacité</span>
+        <span style="margin: 0 20px; color: #4a7c43;">+</span>
+        <span style="font-size: 18px; color: rgba(255,255,255,0.7);">Henri 200k$</span>
+        <span style="margin: 0 20px; color: #4a7c43;">=</span>
+        <span style="font-size: 18px; color: #6b9b37; font-weight: 700;">720k$ capacité organique ✓</span>
+    </div>
+    <div class="stat-row" style="margin-top: 30px;">
+        <div class="stat">
+            <div class="value">2 400</div>
+            <div class="label">Clients total</div>
+        </div>
+        <div class="stat">
+            <div class="value">2</div>
+            <div class="label">Chefs d'équipe</div>
+        </div>
+        <div class="stat">
+            <div class="value">~180k$</div>
+            <div class="label">EBITDA (15%)</div>
+        </div>
+    </div>
+</section>
+
+<!-- Slide 5: Détail 2027 -->
+<section class="slide" id="2027">
+    <span class="slide-number">05</span>
+    <h2>2027 : 3.1M$ — Breakdown</h2>
+
+    <table class="acquisition-table" style="max-width: 800px; margin-bottom: 30px;">
+        <thead>
+            <tr>
+                <th>Source</th>
+                <th>CA</th>
+                <th>Clients</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Haie Lite organique</td>
+                <td style="color: #6b9b37; font-weight: 600;">900k$</td>
+                <td>1 800</td>
+            </tr>
+            <tr>
+                <td>Acquisition #1-2 (optimisées)</td>
+                <td style="color: #6b9b37; font-weight: 600;">900k$</td>
+                <td>1 800</td>
+            </tr>
+            <tr>
+                <td>Acquisition #3 (Q2)</td>
+                <td style="color: #6b9b37; font-weight: 600;">400k$</td>
+                <td>800</td>
+            </tr>
+            <tr>
+                <td>Acquisition #4 (Q4)</td>
+                <td style="color: #6b9b37; font-weight: 600;">400k$</td>
+                <td>800</td>
+            </tr>
+            <tr>
+                <td>🪟 Vitres WaterFed (Q1)</td>
+                <td style="color: #6b9b37; font-weight: 600;">300k$</td>
+                <td>600</td>
+            </tr>
+            <tr>
+                <td>🍂 Gouttières (Q2)</td>
+                <td style="color: #6b9b37; font-weight: 600;">200k$</td>
+                <td>400</td>
+            </tr>
+            <tr style="background: rgba(45,90,39,0.2);">
+                <td><strong>TOTAL</strong></td>
+                <td><strong style="color: #6b9b37;">3.1M$</strong></td>
+                <td><strong>6 200</strong></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div style="text-align: center; background: rgba(45,90,39,0.15); padding: 20px 40px; border-radius: 12px; display: inline-block;">
+        <span style="font-size: 16px; color: rgba(255,255,255,0.7);">10 TET × 260k$ = 2.6M$</span>
+        <span style="margin: 0 15px; color: #4a7c43;">+</span>
+        <span style="font-size: 16px; color: rgba(255,255,255,0.7);">5 chefs × 130k$ = 650k$</span>
+        <span style="margin: 0 15px; color: #4a7c43;">=</span>
+        <span style="font-size: 16px; color: #6b9b37; font-weight: 700;">3.25M$ capacité ✓</span>
+    </div>
+
+    <div class="stat-row" style="margin-top: 25px;">
+        <div class="stat">
+            <div class="value">10</div>
+            <div class="label">TET (+8)</div>
+        </div>
+        <div class="stat">
+            <div class="value">5</div>
+            <div class="label">Chefs d'équipe</div>
+        </div>
+        <div class="stat">
+            <div class="value">~465k$</div>
+            <div class="label">EBITDA (15%)</div>
+        </div>
+    </div>
+</section>
+
+<!-- Slide 6: Timeline Services -->
+<section class="slide" id="services">
+    <span class="slide-number">06</span>
+    <h2>Timeline des Services</h2>
+    <div class="service-timeline">
+        <div class="service-item active">
+            <div class="service-year">2023</div>
+            <div class="service-icon">🌿</div>
+            <div class="service-name">Taillage Haies</div>
+            <div class="service-margin">Marge 65-75%</div>
+        </div>
+        <div class="service-item">
+            <div class="service-year">2026</div>
+            <div class="service-icon">❄️</div>
+            <div class="service-name">Déneigement</div>
+            <div class="service-margin">Marge 50-65%</div>
+        </div>
+        <div class="service-item">
+            <div class="service-year">Q1 2027</div>
+            <div class="service-icon">🪟</div>
+            <div class="service-name">Vitres WaterFed</div>
+            <div class="service-margin">Marge 70-80%</div>
+        </div>
+        <div class="service-item">
+            <div class="service-year">Q2 2027</div>
+            <div class="service-icon">🍂</div>
+            <div class="service-name">Gouttières</div>
+            <div class="service-margin">Marge 65-75%</div>
+        </div>
+        <div class="service-item">
+            <div class="service-year">2028+</div>
+            <div class="service-icon">🌳</div>
+            <div class="service-name">Landscaping</div>
+            <div class="service-margin">Via acquisitions</div>
+        </div>
+    </div>
+
+    <h3 style="text-align: center; margin-top: 50px;">Pourquoi Ces Services?</h3>
+    <div class="grid-3" style="margin-top: 20px;">
+        <div class="card">
+            <h4>Mêmes Clients</h4>
+            <p>Cross-sell naturel : "On fait vos haies, vos vitres aussi?"</p>
+        </div>
+        <div class="card">
+            <h4>Mêmes Équipes</h4>
+            <p>TET polyvalents = utilisation 12 mois/an</p>
+        </div>
+        <div class="card">
+            <h4>Marges Élevées</h4>
+            <p>Vitres 70-80% = meilleure marge du portfolio</p>
+        </div>
+    </div>
+</section>
+
+<!-- Slide 7: Les Rôles -->
+<section class="slide" id="roles">
+    <span class="slide-number">07</span>
+    <h2>Les Rôles</h2>
+    <div class="grid-2">
+        <div class="card role-card">
+            <div class="name">Henri</div>
+            <div class="title">Cofondateur & COO</div>
+            <ul>
+                <li>Opérations terrain</li>
+                <li>Gestion des équipes TET</li>
+                <li>Ventes porte-à-porte</li>
+                <li>Relation clients</li>
+                <li>Qualité des travaux</li>
+                <li>Formation chefs d'équipe</li>
+            </ul>
+        </div>
+        <div class="card role-card">
+            <div class="name">Jean-Samuel</div>
+            <div class="title">Cofondateur & Systèmes</div>
+            <ul>
+                <li>Agents IA / automation</li>
+                <li>Recrutement TET (FERME/EIMT)</li>
+                <li>Finance / modélisation</li>
+                <li>Acquisitions M&A</li>
+                <li>Marketing digital (ads)</li>
+                <li>Tech stack / CRM</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- Slide 8: Modèle Equity -->
+<section class="slide" id="equity">
+    <span class="slide-number">08</span>
+    <h2>Equity Progressive</h2>
+    <p class="subtitle">Pas de demande upfront. Des résultats = des parts.</p>
+    <table class="equity-table">
+        <thead>
+            <tr>
+                <th>Palier</th>
+                <th>Déclencheur</th>
+                <th>Jean-Samuel</th>
+                <th>Henri</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>P0</td>
+                <td>Signature convention</td>
+                <td>0%</td>
+                <td class="highlight">100%</td>
+            </tr>
+            <tr>
+                <td>P1</td>
+                <td>Agent IA + 50 leads/mois</td>
+                <td>10%</td>
+                <td>90%</td>
+            </tr>
+            <tr>
+                <td>P2</td>
+                <td>CA 400k$ (2025)</td>
+                <td>15%</td>
+                <td>85%</td>
+            </tr>
+            <tr>
+                <td>P3</td>
+                <td>CA 750k$ (mi-2026)</td>
+                <td>25%</td>
+                <td>75%</td>
+            </tr>
+            <tr>
+                <td>P4</td>
+                <td>CA 1M$ (fin 2026)</td>
+                <td>35%</td>
+                <td>65%</td>
+            </tr>
+            <tr>
+                <td>P5</td>
+                <td>CA 2M$ (2027)</td>
+                <td>45%</td>
+                <td>55%</td>
+            </tr>
+            <tr>
+                <td>P6</td>
+                <td>Première acquisition</td>
+                <td class="highlight">50%</td>
+                <td class="highlight">50%</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<!-- Slide 9: Structure Holding -->
+<section class="slide" id="structure">
+    <span class="slide-number">09</span>
+    <h2>Structure Holding + OpCos</h2>
+    <div style="text-align: center; margin-bottom: 30px;">
+        <div style="display: inline-block; background: rgba(45,90,39,0.3); padding: 20px 40px; border-radius: 12px; border: 2px solid #4a7c43;">
+            <strong style="font-size: 20px;">HOLDING</strong><br>
+            <span style="color: rgba(255,255,255,0.7);">Henri 50% + Jean-Samuel 50%</span>
+        </div>
+    </div>
+
+    <table class="acquisition-table">
+        <thead>
+            <tr>
+                <th>OpCo</th>
+                <th>Type</th>
+                <th>CA Cible</th>
+                <th>Holding</th>
+                <th>Chef Équipe</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr class="year-header">
+                <td colspan="5">2025-2026</td>
+            </tr>
+            <tr>
+                <td>Haie Lite Original</td>
+                <td>Organique</td>
+                <td>700k$</td>
+                <td>100%</td>
+                <td>0%</td>
+            </tr>
+            <tr>
+                <td>Acquisition #1</td>
+                <td>M&A</td>
+                <td>400k$</td>
+                <td>85%</td>
+                <td>15%</td>
+            </tr>
+            <tr>
+                <td>Acquisition #2</td>
+                <td>M&A</td>
+                <td>400k$</td>
+                <td>85%</td>
+                <td>15%</td>
+            </tr>
+            <tr class="year-header">
+                <td colspan="5">2027</td>
+            </tr>
+            <tr>
+                <td>Vitres WaterFed</td>
+                <td>Nouveau service</td>
+                <td>300k$</td>
+                <td>85%</td>
+                <td>15%</td>
+            </tr>
+            <tr>
+                <td>Gouttières</td>
+                <td>Nouveau service</td>
+                <td>200k$</td>
+                <td>85%</td>
+                <td>15%</td>
+            </tr>
+            <tr>
+                <td>Acquisition #3-4</td>
+                <td>M&A</td>
+                <td>1M$</td>
+                <td>85%</td>
+                <td>15%</td>
+            </tr>
+            <tr class="year-header">
+                <td colspan="5">2028-2030</td>
+            </tr>
+            <tr>
+                <td>Acquisitions #5-10</td>
+                <td>M&A</td>
+                <td>6M$</td>
+                <td>85%</td>
+                <td>15%</td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<!-- Slide 10: Calcul 10M$ Chacun -->
+<section class="slide" id="exit">
+    <span class="slide-number">10</span>
+    <h2>Comment Atteindre 10M$ Chacun</h2>
+
+    <div class="formula">
+        <div class="element">CA 15M$</div>
+        <span class="operator">×</span>
+        <div class="element">15% marge</div>
+        <span class="operator">=</span>
+        <div class="element">2.25M$ EBITDA</div>
+        <span class="operator">×</span>
+        <div class="element">8-10x</div>
+        <span class="operator">=</span>
+        <div class="result">18-22M$</div>
+    </div>
+
+    <div class="grid-3" style="margin-top: 40px;">
+        <div class="card" style="text-align: center;">
+            <h4>Opérateurs (15%)</h4>
+            <p style="font-size: 24px; color: #6b9b37; font-weight: 700;">~2-3M$</p>
+            <p>Réparti entre 10-15 chefs d'équipe</p>
+        </div>
+        <div class="card" style="text-align: center; border-color: #4a7c43;">
+            <h4>Henri (50% Holding)</h4>
+            <p style="font-size: 24px; color: #6b9b37; font-weight: 700;">8-10M$</p>
+            <p>+ dividendes accumulés</p>
+        </div>
+        <div class="card" style="text-align: center; border-color: #4a7c43;">
+            <h4>Jean-Samuel (50% Holding)</h4>
+            <p style="font-size: 24px; color: #6b9b37; font-weight: 700;">8-10M$</p>
+            <p>+ dividendes accumulés</p>
+        </div>
+    </div>
+
+    <p style="text-align: center; margin-top: 40px; color: rgba(255,255,255,0.6); font-size: 18px;">
+        Alternative : Garder + dividendes 500k$/an chacun
+    </p>
+</section>
+
+<!-- Slide 11: Triple Arbitrage -->
+<section class="slide" id="arbitrage">
+    <span class="slide-number">11</span>
+    <h2>Le Triple Arbitrage</h2>
+    <p class="subtitle">Notre avantage compétitif incopiable</p>
+    <div class="grid-3" style="margin-top: 30px;">
+        <div class="card" style="text-align: center; padding: 40px;">
+            <div style="font-size: 64px; font-weight: 800; color: #2d5a27; opacity: 0.3;">01</div>
+            <h4 style="margin-top: -20px;">Main d'œuvre</h4>
+            <p>TET mexicains : -20% coûts, fidélité année après année</p>
+        </div>
+        <div class="card" style="text-align: center; padding: 40px;">
+            <div style="font-size: 64px; font-weight: 800; color: #2d5a27; opacity: 0.3;">02</div>
+            <h4 style="margin-top: -20px;">Capital</h4>
+            <p>Acquisitions balance de vente : 15% down, le reste = cash flow clients</p>
+        </div>
+        <div class="card" style="text-align: center; padding: 40px;">
+            <div style="font-size: 64px; font-weight: 800; color: #2d5a27; opacity: 0.3;">03</div>
+            <h4 style="margin-top: -20px;">Technologie</h4>
+            <p>IA custom : agent vocal, CRM, automation. +15% marge vs compétition</p>
+        </div>
+    </div>
+    <p style="margin-top: 40px; text-align: center; font-size: 20px; color: rgba(255,255,255,0.7);">
+        Acheter à <strong>3-4x</strong> EBITDA → Optimiser → Vendre à <strong>8-10x</strong>
+    </p>
+</section>
+
+<!-- Slide 12: Résumé Chiffres -->
+<section class="slide" id="chiffres">
+    <span class="slide-number">12</span>
+    <h2>Résumé des Chiffres</h2>
+    <table class="acquisition-table" style="max-width: 1100px;">
+        <thead>
+            <tr>
+                <th>Année</th>
+                <th>CA</th>
+                <th>TET</th>
+                <th>Chefs</th>
+                <th>Acquisitions</th>
+                <th>Nouveaux Services</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><strong>2025</strong></td>
+                <td>200k$</td>
+                <td>0</td>
+                <td>0</td>
+                <td>0</td>
+                <td>—</td>
+            </tr>
+            <tr>
+                <td><strong>2026</strong></td>
+                <td>1.2M$</td>
+                <td>2</td>
+                <td>2</td>
+                <td>2</td>
+                <td>Déneigement</td>
+            </tr>
+            <tr>
+                <td><strong>2027</strong></td>
+                <td>3.1M$</td>
+                <td>10 (+8)</td>
+                <td>5</td>
+                <td>4 (+2)</td>
+                <td>Vitres, Gouttières</td>
+            </tr>
+            <tr>
+                <td><strong>2028</strong></td>
+                <td>6M$</td>
+                <td>20</td>
+                <td>10</td>
+                <td>6 (+2)</td>
+                <td>Landscaping</td>
+            </tr>
+            <tr>
+                <td><strong>2029</strong></td>
+                <td>10M$</td>
+                <td>35</td>
+                <td>15</td>
+                <td>8 (+2)</td>
+                <td>—</td>
+            </tr>
+            <tr style="background: rgba(45,90,39,0.2);">
+                <td><strong>2030</strong></td>
+                <td><strong>15M$</strong></td>
+                <td><strong>45</strong></td>
+                <td><strong>18</strong></td>
+                <td><strong>10</strong></td>
+                <td><strong>EXIT</strong></td>
+            </tr>
+        </tbody>
+    </table>
+</section>
+
+<!-- Slide 13: Call to Action -->
+<section class="slide" id="cta" style="padding-bottom: 80px;">
+    <span class="slide-number">13</span>
+    <h2>Prochaine Étape</h2>
+    <p class="quote" style="border: none; font-style: normal; font-size: 28px;">
+        On continue ce qu'on a commencé.
+    </p>
+    <div class="grid-4" style="margin-top: 40px; max-width: 1000px;">
+        <div class="card" style="text-align: center; padding: 25px;">
+            <h4>Cette Semaine</h4>
+            <p>Meeting vision<br>GO/NO-GO</p>
+        </div>
+        <div class="card" style="text-align: center; padding: 25px;">
+            <h4>30 Jours</h4>
+            <p>Convention signée<br>Agent IA déployé</p>
+        </div>
+        <div class="card" style="text-align: center; padding: 25px;">
+            <h4>90 Jours</h4>
+            <p>EIMT soumise<br>Pipeline M&A</p>
+        </div>
+        <div class="card" style="text-align: center; padding: 25px;">
+            <h4>2030</h4>
+            <p>10M$ chacun<br>🎯</p>
+        </div>
+    </div>
+    <p style="margin-top: 50px; font-size: 48px; text-align: center;">🤝</p>
+</section>
+
+<!-- Navigation -->
+<nav class="footer-nav">
+    <a href="#cover">Intro</a>
+    <a href="#roadmap">Roadmap</a>
+    <a href="#math">Math</a>
+    <a href="#2026">2026</a>
+    <a href="#2027">2027</a>
+    <a href="#services">Services</a>
+    <a href="#roles">Rôles</a>
+    <a href="#equity">Equity</a>
+    <a href="#structure">Structure</a>
+    <a href="#exit">10M$</a>
+    <a href="#chiffres">Résumé</a>
+    <a href="#cta">Action</a>
+</nav>
+
+<script>
+    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            document.querySelector(this.getAttribute('href')).scrollIntoView({
+                behavior: 'smooth'
+            });
+        });
+    });
+</script>
+
+</body>
+</html>

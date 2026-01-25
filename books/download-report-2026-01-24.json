@@ -1,0 +1,43 @@
+{
+  "downloaded": [],
+  "failed": [],
+  "notFound": [
+    {
+      "title": "$100M Offers",
+      "author": "Alex Hormozi",
+      "priority": 1,
+      "status": "not_found"
+    },
+    {
+      "title": "$100M Leads",
+      "author": "Alex Hormozi",
+      "priority": 1,
+      "status": "not_found"
+    },
+    {
+      "title": "$100M Leads How To Get",
+      "author": "Alex Hormozi",
+      "priority": 1,
+      "status": "not_found"
+    },
+    {
+      "title": "Main Street Millionaire",
+      "author": "Codie Sanchez",
+      "priority": 1,
+      "status": "not_found"
+    },
+    {
+      "title": "Main Street Millionaire How",
+      "author": "Codie Sanchez",
+      "priority": 1,
+      "status": "not_found"
+    },
+    {
+      "title": "Gym Launch Secrets",
+      "author": "Alex Hormozi",
+      "priority": 2,
+      "status": "not_found"
+    }
+  ],
+  "noUrl": []
+}

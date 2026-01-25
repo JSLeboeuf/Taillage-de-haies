@@ -28,7 +28,7 @@
 - Relation client directe
 - A prouve qu'il peut faire 250k$ seul
 
-### Mathieu (moi)
+### Jean-Samuel (moi)
 **Role** : Strategie + Systemes + Croissance
 - Vente/acquisition clients (porte-a-porte, ads)
 - Automatisation IA

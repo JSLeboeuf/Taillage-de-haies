@@ -4,7 +4,7 @@
 
 > "Je debloque de l'equity au fur et a mesure qu'il y a des resultats"
 
-Principe : Mathieu ne demande pas 50% upfront. Il gagne ses parts en delivrant des resultats mesurables. Henri garde le controle tant que Mathieu n'a pas prouve sa valeur.
+Principe : Jean-Samuel ne demande pas 50% upfront. Il gagne ses parts en delivrant des resultats mesurables. Henri garde le controle tant que Jean-Samuel n'a pas prouve sa valeur.
 
 ---
 
@@ -12,11 +12,11 @@ Principe : Mathieu ne demande pas 50% upfront. Il gagne ses parts en delivrant d
 
 ### Point de depart
 - **Henri** : 100% des parts existantes (il a build 250k$ seul)
-- **Mathieu** : 0% au jour 1
+- **Jean-Samuel** : 0% au jour 1
 
 ### Deblocage par paliers de resultats
 
-| Palier | Declencheur | Equity Mathieu | Equity Henri |
+| Palier | Declencheur | Equity Jean-Samuel | Equity Henri |
 |--------|-------------|----------------|--------------|
 | **P0** | Signature convention | 0% | 100% |
 | **P1** | Agent IA deploye + 50 leads/mois | 10% | 90% |
@@ -85,7 +85,7 @@ Principe : Mathieu ne demande pas 50% upfront. Il gagne ses parts en delivrant d
 
 **Delai cible** : Fin saison 3
 
-**Pourquoi** : A ce niveau, Mathieu a delivre 8x la croissance initiale.
+**Pourquoi** : A ce niveau, Jean-Samuel a delivre 8x la croissance initiale.
 
 ---
 
@@ -97,22 +97,22 @@ Principe : Mathieu ne demande pas 50% upfront. Il gagne ses parts en delivrant d
 
 **Delai cible** : Annee 3-4
 
-**Pourquoi** : L'acquisition est le game-changer vers 10M$+. Mathieu apporte le deal flow, la due diligence, et le capital relationnel.
+**Pourquoi** : L'acquisition est le game-changer vers 10M$+. Jean-Samuel apporte le deal flow, la due diligence, et le capital relationnel.
 
 ---
 
 ## Mecanismes de protection
 
 ### Pour Henri
-1. **Cliff implicite** : Mathieu gagne 0% s'il ne livre pas P1
+1. **Cliff implicite** : Jean-Samuel gagne 0% s'il ne livre pas P1
 2. **Controle majoritaire** : Henri garde >50% jusqu'a P6
-3. **Clause de rachat** : Si Mathieu devient inactif >6 mois, rachat a valeur comptable
+3. **Clause de rachat** : Si Jean-Samuel devient inactif >6 mois, rachat a valeur comptable
 4. **Decisions majeures** : Unanimite requise pour vente, dette >100k$, nouveaux associes
 
-### Pour Mathieu
+### Pour Jean-Samuel
 1. **Irreversibilite** : Une fois un palier atteint, l'equity est acquise definitivement
 2. **Anti-dilution** : Nouveaux investisseurs ne peuvent pas diluer sous le palier atteint
-3. **Tag-along** : Si Henri vend, Mathieu peut vendre aux memes conditions
+3. **Tag-along** : Si Henri vend, Jean-Samuel peut vendre aux memes conditions
 4. **Acces info** : Etats financiers mensuels obligatoires
 
 ---
@@ -127,13 +127,13 @@ Si Henri est nerveux avec 0% -> 50%, une alternative :
 | **Performance** | +5% par palier atteint (P2-P6) |
 | **Plafond** | 50% maximum |
 
-Ceci donne a Mathieu un "skin in the game" immediat tout en gardant l'alignement sur la performance.
+Ceci donne a Jean-Samuel un "skin in the game" immediat tout en gardant l'alignement sur la performance.
 
 ---
 
 ## Valorisation implicite
 
-| Palier | CA | Valorisation estimee (4x CA) | Valeur parts Mathieu |
+| Palier | CA | Valorisation estimee (4x CA) | Valeur parts Jean-Samuel |
 |--------|----|-----------------------------|---------------------|
 | P1 | 250k$ | 1M$ | 100k$ (10%) |
 | P2 | 400k$ | 1.6M$ | 240k$ (15%) |
@@ -142,7 +142,7 @@ Ceci donne a Mathieu un "skin in the game" immediat tout en gardant l'alignement
 | P5 | 2M$ | 8M$ | 3.6M$ (45%) |
 | P6 | 3M$+ | 12M$+ | 6M$+ (50%) |
 
-**Conclusion** : Mathieu peut construire 6M$+ de valeur personnelle sans mettre 1$ de cash. Henri gagne un partenaire aligne qui ne prend que s'il delivre.
+**Conclusion** : Jean-Samuel peut construire 6M$+ de valeur personnelle sans mettre 1$ de cash. Henri gagne un partenaire aligne qui ne prend que s'il delivre.
 
 ---
 
