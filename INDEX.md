@@ -7,6 +7,7 @@
 
 | Document | Usage |
 |----------|-------|
+| [**PLAN-EXECUTION-2M-2026.md**](2026-saison/PLAN-EXECUTION-2M-2026.md) | **PLAN D'EXÉCUTION 2M$** — Le document définitif, semaine par semaine |
 | [**MEETING-HENRI-FEV2026.md**](2026-saison/MEETING-HENRI-FEV2026.md) | Notes meeting Henri — Décisions clés février 2026 |
 | [**EXECUTIVE-SUMMARY.md**](2026-saison/EXECUTIVE-SUMMARY.md) | Résumé exécutif saison 2026 |
 | [**MODELE-FINANCIER-2026.md**](2026-saison/MODELE-FINANCIER-2026.md) | **Modèle financier complet** — P&L, scénarios, cash flow |
