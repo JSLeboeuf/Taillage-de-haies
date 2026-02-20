@@ -3,7 +3,24 @@
 
 ---
 
-## PLAN D'EXÉCUTION - START HERE
+## SAISON 2026 — PLAN OPÉRATIONNEL
+
+| Document | Usage |
+|----------|-------|
+| [**MEETING-HENRI-FEV2026.md**](2026-saison/MEETING-HENRI-FEV2026.md) | Notes meeting Henri — Décisions clés février 2026 |
+| [**EXECUTIVE-SUMMARY.md**](2026-saison/EXECUTIVE-SUMMARY.md) | Résumé exécutif saison 2026 |
+| [**MODELE-FINANCIER-2026.md**](2026-saison/MODELE-FINANCIER-2026.md) | **Modèle financier complet** — P&L, scénarios, cash flow |
+| [**CIBLES-MA.md**](2026-saison/CIBLES-MA.md) | **Pipeline M&A** — 50+ cibles par région, templates contact |
+| [**SUBVENTIONS-2026.md**](2026-saison/SUBVENTIONS-2026.md) | **41 programmes** subventions/aides avec deadlines |
+| [**RECRUTEMENT-ETUDIANTS.md**](2026-saison/RECRUTEMENT-ETUDIANTS.md) | Guide recrutement étudiants (légal, portails, timeline) |
+| [**STRATEGIE-ADS.md**](2026-saison/STRATEGIE-ADS.md) | Stratégie publicitaire Meta/Google/SEO |
+| [**SERVICEM8-INTEGRATION.md**](2026-saison/SERVICEM8-INTEGRATION.md) | Intégration technique ServiceM8 + agent IA |
+| [**CALCULATEURS.md**](2026-saison/CALCULATEURS.md) | 10 calculateurs décisionnels rapides |
+| [**TEMPLATE-SUIVI-MENSUEL.md**](2026-saison/TEMPLATE-SUIVI-MENSUEL.md) | Template suivi mensuel (à dupliquer) |
+
+---
+
+## PLAN D'EXÉCUTION — STRATÉGIE LONG TERME
 
 | Document | Usage |
 |----------|-------|
@@ -190,7 +207,19 @@
 ├── CHECKLIST-MICROSTEPS-20M.md ← ~400 micro-steps
 ├── ANALYSE-14-LIVRES.md        ← Synthèse 14 livres
 │
-├── plan-affaires/              ← PLAN D'EXÉCUTION
+├── 2026-saison/                ← SAISON 2026 — PLAN OPÉRATIONNEL
+│   ├── MEETING-HENRI-FEV2026.md ← Notes meeting février
+│   ├── EXECUTIVE-SUMMARY.md     ← Résumé exécutif
+│   ├── MODELE-FINANCIER-2026.md ← P&L, scénarios, cash flow
+│   ├── CIBLES-MA.md             ← Pipeline M&A 50+ cibles
+│   ├── SUBVENTIONS-2026.md      ← 41 programmes subventions
+│   ├── RECRUTEMENT-ETUDIANTS.md ← Guide recrutement
+│   ├── STRATEGIE-ADS.md         ← Plan publicitaire
+│   ├── SERVICEM8-INTEGRATION.md ← Intégration technique
+│   ├── CALCULATEURS.md          ← 10 calculateurs rapides
+│   └── TEMPLATE-SUIVI-MENSUEL.md ← Suivi mensuel
+│
+├── plan-affaires/              ← PLAN D'EXÉCUTION LONG TERME
 │   ├── PLAN-ULTIME-9.5.md      ← LE PLAN COMPLET
 │   ├── ACCORD-PARTENARIAT.md   ← Contrat Henri-JS
 │   ├── modele-financier.csv    ← Excel importable
@@ -223,5 +252,5 @@
 
 ---
 
-*14 livres • 15 frameworks • 10 quick-refs • Plan complet 9.5/10*
-*Dernière mise à jour: Janvier 2026*
+*14 livres • 15 frameworks • 10 quick-refs • 11 docs saison 2026 • Plan complet 9.5/10*
+*Dernière mise à jour: Février 2026*
