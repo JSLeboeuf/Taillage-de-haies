@@ -1,0 +1,875 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAIE LITE - Kickoff 2026 Henri</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 80px;
+            position: relative;
+            border-bottom: 1px solid rgba(45, 90, 39, 0.3);
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at 50% 50%, rgba(45, 90, 39, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .slide-number {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.3);
+            font-weight: 300;
+        }
+
+        h1 {
+            font-size: 72px;
+            font-weight: 800;
+            color: #4a7c43;
+            text-align: center;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+        }
+
+        h2 {
+            font-size: 48px;
+            font-weight: 700;
+            color: #6b9b37;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h3 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #4a7c43;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 28px;
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .big-number {
+            font-size: 100px;
+            font-weight: 800;
+            color: #6b9b37;
+            text-align: center;
+            line-height: 1;
+        }
+
+        .big-number span {
+            font-size: 48px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .quote {
+            font-size: 32px;
+            font-style: italic;
+            color: rgba(255,255,255,0.9);
+            text-align: center;
+            max-width: 900px;
+            line-height: 1.5;
+            border-left: 4px solid #4a7c43;
+            padding-left: 30px;
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .grid-5 {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .card {
+            background: rgba(45, 90, 39, 0.15);
+            border: 1px solid rgba(74, 124, 67, 0.3);
+            border-radius: 16px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #4a7c43;
+            background: rgba(45, 90, 39, 0.25);
+        }
+
+        .card h4 {
+            font-size: 20px;
+            color: #6b9b37;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .card p {
+            font-size: 15px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.5;
+        }
+
+        .year-card {
+            text-align: center;
+            padding: 25px 20px;
+        }
+
+        .year-card .year {
+            font-size: 18px;
+            color: #6b9b37;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .year-card .ca {
+            font-size: 32px;
+            font-weight: 800;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+
+        .year-card .metrics {
+            text-align: left;
+            font-size: 14px;
+        }
+
+        .year-card .metrics div {
+            padding: 6px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .year-card .metrics .label {
+            color: rgba(255,255,255,0.5);
+        }
+
+        .year-card .metrics .value {
+            color: #6b9b37;
+            font-weight: 600;
+        }
+
+        .equity-table {
+            width: 100%;
+            max-width: 1000px;
+            border-collapse: collapse;
+            margin-top: 20px;
+        }
+
+        .equity-table th {
+            background: rgba(45, 90, 39, 0.3);
+            padding: 14px 16px;
+            text-align: left;
+            font-size: 14px;
+            color: #6b9b37;
+            border-bottom: 2px solid #4a7c43;
+        }
+
+        .equity-table td {
+            padding: 14px 16px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 16px;
+        }
+
+        .equity-table tr:hover td {
+            background: rgba(45, 90, 39, 0.1);
+        }
+
+        .equity-table .highlight {
+            color: #6b9b37;
+            font-weight: 600;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin: 30px 0;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat .value {
+            font-size: 48px;
+            font-weight: 800;
+            color: #6b9b37;
+        }
+
+        .stat .label {
+            font-size: 16px;
+            color: rgba(255,255,255,0.6);
+            margin-top: 8px;
+        }
+
+        .footer-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            padding: 12px 40px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            border-top: 1px solid rgba(45, 90, 39, 0.3);
+            z-index: 100;
+            flex-wrap: wrap;
+        }
+
+        .footer-nav a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 13px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .footer-nav a:hover {
+            color: #fff;
+            background: rgba(45, 90, 39, 0.3);
+        }
+
+        .service-timeline {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            max-width: 1100px;
+            margin: 30px 0;
+        }
+
+        .service-item {
+            flex: 1;
+            text-align: center;
+            padding: 20px 15px;
+            background: rgba(45, 90, 39, 0.1);
+            border-radius: 12px;
+            border: 1px solid rgba(74, 124, 67, 0.2);
+        }
+
+        .service-item.active {
+            background: rgba(45, 90, 39, 0.3);
+            border-color: #4a7c43;
+        }
+
+        .service-item .service-year {
+            font-size: 12px;
+            color: #6b9b37;
+            font-weight: 600;
+        }
+
+        .service-item .service-name {
+            font-size: 14px;
+            color: #fff;
+            font-weight: 500;
+            margin-top: 8px;
+        }
+
+        .service-item .service-margin {
+            font-size: 12px;
+            color: rgba(255,255,255,0.5);
+            margin-top: 5px;
+        }
+
+        .formula {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 20px;
+            font-size: 24px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .formula .operator {
+            color: #4a7c43;
+            font-weight: 300;
+        }
+
+        .formula .element {
+            background: rgba(45, 90, 39, 0.2);
+            padding: 15px 25px;
+            border-radius: 12px;
+            border: 1px solid rgba(74, 124, 67, 0.3);
+        }
+
+        .formula .result {
+            background: linear-gradient(135deg, #2d5a27, #4a7c43);
+            padding: 15px 25px;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(45, 90, 39, 0.3), rgba(45, 90, 39, 0.1));
+            border: 2px solid #4a7c43;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            max-width: 900px;
+            margin: 30px 0;
+        }
+
+        .highlight-box .amount {
+            font-size: 72px;
+            font-weight: 800;
+            color: #6b9b37;
+        }
+
+        .highlight-box .desc {
+            font-size: 20px;
+            color: rgba(255,255,255,0.7);
+            margin-top: 10px;
+        }
+
+        .acquisition-table {
+            width: 100%;
+            max-width: 1000px;
+            border-collapse: collapse;
+        }
+
+        .acquisition-table th {
+            background: rgba(45, 90, 39, 0.3);
+            padding: 12px;
+            text-align: center;
+            font-size: 14px;
+            color: #6b9b37;
+        }
+
+        .acquisition-table td {
+            padding: 12px;
+            text-align: center;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+            font-size: 15px;
+        }
+
+        .acquisition-table .year-header {
+            background: rgba(45, 90, 39, 0.15);
+            font-weight: 700;
+            color: #fff;
+        }
+
+        @media (max-width: 1024px) {
+            .slide {
+                padding: 40px 30px;
+            }
+
+            h1 { font-size: 48px; }
+            h2 { font-size: 32px; }
+
+            .grid-2, .grid-3, .grid-4, .grid-5 {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .service-timeline {
+                flex-wrap: wrap;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-4, .grid-5 {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<section class="slide" id="cover">
+    <span class="slide-number">01</span>
+    <h1>HAIE LITE</h1>
+    <p class="subtitle">Kickoff 2026 avec Henri - 23 fevrier 2026</p>
+    <div class="highlight-box">
+        <div class="amount">2.0M$</div>
+        <div class="desc">Plan annuel complet + execution + accountability</div>
+    </div>
+    <p class="subtitle" style="margin-top: 20px; font-size: 20px;">Objectif de la rencontre: sortir avec des decisions signees</p>
+</section>
+
+<section class="slide" id="targets">
+    <span class="slide-number">02</span>
+    <h2>Targets 2026 a verrouiller</h2>
+    <div class="grid-5">
+        <div class="card year-card">
+            <div class="year">CA</div>
+            <div class="ca">2.0M$</div>
+            <div class="metrics">
+                <div><span class="label">Plancher</span><span class="value">1.6M$</span></div>
+                <div><span class="label">Stretch</span><span class="value">2.243M$</span></div>
+                <div><span class="label">Cible mensuelle</span><span class="value">166,667$</span></div>
+            </div>
+        </div>
+        <div class="card year-card">
+            <div class="year">Clients</div>
+            <div class="ca">4,444</div>
+            <div class="metrics">
+                <div><span class="label">Ticket cible</span><span class="value">450$</span></div>
+                <div><span class="label">Seuil risque</span><span class="value">400$</span></div>
+                <div><span class="label">Retention</span><span class="value">80%</span></div>
+            </div>
+        </div>
+        <div class="card year-card">
+            <div class="year">Operations</div>
+            <div class="ca">5 crews</div>
+            <div class="metrics">
+                <div><span class="label">Chefs</span><span class="value">5</span></div>
+                <div><span class="label">TET</span><span class="value">6</span></div>
+                <div><span class="label">Etudiants</span><span class="value">4-6</span></div>
+            </div>
+        </div>
+        <div class="card year-card">
+            <div class="year">Profitabilite</div>
+            <div class="ca">9%-14%</div>
+            <div class="metrics">
+                <div><span class="label">EBITDA</span><span class="value">180-314k$</span></div>
+                <div><span class="label">CAC cible</span><span class="value">&lt;= 50$</span></div>
+                <div><span class="label">LTV/CAC</span><span class="value">> 10x</span></div>
+            </div>
+        </div>
+        <div class="card year-card" style="border-color: #6b9b37;">
+            <div class="year">Cash</div>
+            <div class="ca">225-350k$</div>
+            <div class="metrics">
+                <div><span class="label">Capital initial</span><span class="value">a figer</span></div>
+                <div><span class="label">Buffer min</span><span class="value">100k$</span></div>
+                <div><span class="label">Ligne credit</span><span class="value">avant 15 mars</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="slide" id="lacunes">
+    <span class="slide-number">03</span>
+    <h2>Lacunes detectees (et correctifs)</h2>
+    <div class="grid-2" style="max-width: 1100px;">
+        <div class="card">
+            <h4>Lacune #1: chiffres multiples selon documents</h4>
+            <p>Break-even, EBITDA et cash initial varient selon les versions. Risque: execution confuse.</p>
+            <p style="margin-top: 10px;"><strong>Correctif:</strong> une seule feuille de verite financiere validee en 48h.</p>
+        </div>
+        <div class="card">
+            <h4>Lacune #2: structure partnership non tranchee</h4>
+            <p>70/30, progressif, ou cash-equity: plusieurs versions en parallele.</p>
+            <p style="margin-top: 10px;"><strong>Correctif:</strong> choisir 1 structure aujourd'hui + signer une entente transitoire sous 7 jours.</p>
+        </div>
+        <div class="card">
+            <h4>Lacune #3: plan trop strategique, pas assez date</h4>
+            <p>Objectifs clairs mais peu de dates absolues owner par owner.</p>
+            <p style="margin-top: 10px;"><strong>Correctif:</strong> chemin critique 23 fev - 31 mars avec responsables nommes.</p>
+        </div>
+        <div class="card">
+            <h4>Lacune #4: risque execution non outille</h4>
+            <p>Sans gates Go/No-Go hebdo, le plan peut deriver rapidement.</p>
+            <p style="margin-top: 10px;"><strong>Correctif:</strong> scorecard hebdo + seuils rouges/oranges/verts obligatoires.</p>
+        </div>
+    </div>
+</section>
+
+<section class="slide" id="scenario">
+    <span class="slide-number">04</span>
+    <h2>Scenario recommande pour 2026</h2>
+    <div class="grid-3" style="max-width: 1150px;">
+        <div class="card">
+            <h4>Scenario A (defensif)</h4>
+            <p>4 crews operationnels. CA cible 1.6M$. Risque plus bas, upside limite.</p>
+        </div>
+        <div class="card" style="border-color: #6b9b37; background: rgba(45, 90, 39, 0.28);">
+            <h4>Scenario B (recommande)</h4>
+            <p>5 crews (3 TET + 2 etudiants). CA cible 2.0M$ avec buffer de capacite a 2.243M$.</p>
+        </div>
+        <div class="card">
+            <h4>Scenario C (agressif)</h4>
+            <p>5+ crews + M&amp;A accelere. CA &gt;2.2M$ possible mais execution plus fragile.</p>
+        </div>
+    </div>
+
+    <div class="highlight-box" style="max-width: 980px; margin-top: 30px;">
+        <div class="desc" style="font-size: 23px; color: #fff;">Decision demandee aujourd'hui</div>
+        <p style="margin-top: 12px; color: rgba(255,255,255,0.8); font-size: 18px;">Confirmer Scenario B comme base 2026. Basculer en A ou C seulement via gates KPI.</p>
+    </div>
+</section>
+
+<section class="slide" id="math">
+    <span class="slide-number">05</span>
+    <h2>Comment atteindre 2.0M$</h2>
+    <div class="formula">
+        <div class="element">4,444 clients</div>
+        <span class="operator">x</span>
+        <div class="element">450$ ticket</div>
+        <span class="operator">=</span>
+        <div class="result">2,000,000$</div>
+    </div>
+
+    <div class="grid-2" style="max-width: 1000px; margin-top: 20px;">
+        <div class="card" style="text-align: center;">
+            <h4>Capacite de production</h4>
+            <p style="font-size: 16px; line-height: 1.9;">
+                3 crews TET x 130 jours = <strong>390 crew-jours</strong><br>
+                2 crews etudiants x 75 jours = <strong>150 crew-jours</strong><br>
+                Total = <strong>540 crew-jours</strong>
+            </p>
+            <p style="font-size: 30px; color: #6b9b37; font-weight: 800; margin-top: 14px;">8.2 clients / crew / jour</p>
+        </div>
+        <div class="card" style="text-align: center;">
+            <h4>Seuils de controle hebdo</h4>
+            <p style="font-size: 16px; line-height: 1.9;">
+                Ticket moyen <strong>&gt;= 400$</strong><br>
+                CAC moyen <strong>&lt;= 50$</strong><br>
+                Conversion quote -&gt; job <strong>&gt;= 25%</strong><br>
+                Cash buffer <strong>&gt;= 100k$</strong>
+            </p>
+            <p style="font-size: 30px; color: #6b9b37; font-weight: 800; margin-top: 14px;">Discipline execution</p>
+        </div>
+    </div>
+</section>
+
+<section class="slide" id="canaux">
+    <span class="slide-number">06</span>
+    <h2>Mix acquisition clients (4,444)</h2>
+    <table class="acquisition-table" style="max-width: 1050px;">
+        <thead>
+            <tr>
+                <th>Canal</th>
+                <th>Clients</th>
+                <th>% du total</th>
+                <th>CAC cible</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>Base clients existants</td><td>480</td><td>11%</td><td>0$</td></tr>
+            <tr><td>M&amp;A #1</td><td>400</td><td>9%</td><td>150$</td></tr>
+            <tr><td>M&amp;A #2</td><td>400</td><td>9%</td><td>150$</td></tr>
+            <tr><td>Referencement client</td><td>400</td><td>9%</td><td>15$</td></tr>
+            <tr><td>Partenariats referral</td><td>300</td><td>7%</td><td>0$</td></tr>
+            <tr><td>Google Ads</td><td>600</td><td>13%</td><td>55$</td></tr>
+            <tr><td>Meta Ads</td><td>800</td><td>18%</td><td>45$</td></tr>
+            <tr><td>GMB + SEO</td><td>400</td><td>9%</td><td>30$</td></tr>
+            <tr><td>Materiaux terrain</td><td>300</td><td>7%</td><td>25$</td></tr>
+            <tr><td>Porte-a-porte</td><td>200</td><td>4%</td><td>0$</td></tr>
+            <tr><td>Organique reseaux/site</td><td>164</td><td>4%</td><td>0$</td></tr>
+            <tr style="background: rgba(45, 90, 39, 0.2);">
+                <td><strong>TOTAL</strong></td>
+                <td><strong>4,444</strong></td>
+                <td><strong>100%</strong></td>
+                <td><strong>~35-50$</strong></td>
+            </tr>
+        </tbody>
+    </table>
+    <p style="margin-top: 22px; color: rgba(255,255,255,0.7); text-align: center;">Plan B si M&amp;A retarde: +20k ads, prix moyen 500$, porte-a-porte intensif.</p>
+</section>
+
+<section class="slide" id="trimestres">
+    <span class="slide-number">07</span>
+    <h2>Roadmap 2026 par trimestre</h2>
+    <div class="grid-4">
+        <div class="card">
+            <h4>Q1 - Setup (jan-mar)</h4>
+            <p>Capital et ligne de credit, recrutement chefs/etudiants, pipeline M&amp;A, assurances, SOPs, configuration ServiceM8.</p>
+        </div>
+        <div class="card">
+            <h4>Q2 - Launch (avr-juin)</h4>
+            <p>Demarrage 3 crews, ajout 2 crews etudiants en mai, cadence commerciale, execution qualite, premier point de cash positif.</p>
+        </div>
+        <div class="card">
+            <h4>Q3 - Peak (juil-sept)</h4>
+            <p>Stabiliser la marge, suivre ticket/CAC quotidiennement, maintenir la performance equipe et la retention clients.</p>
+        </div>
+        <div class="card">
+            <h4>Q4 - Close (oct-dec)</h4>
+            <p>Fermeture saison, revue financiere complete, budget 2027, consolidation SOPs et fiabilisation tech.</p>
+        </div>
+    </div>
+
+    <div class="stat-row" style="margin-top: 35px;">
+        <div class="stat"><div class="value">900k$</div><div class="label">CA cumule fin juin</div></div>
+        <div class="stat"><div class="value">1.9M$</div><div class="label">CA cumule fin septembre</div></div>
+        <div class="stat"><div class="value">2.0M$</div><div class="label">CA annuel cible</div></div>
+    </div>
+</section>
+
+<section class="slide" id="mensuel">
+    <span class="slide-number">08</span>
+    <h2>Plan mensuel 2026 (targets + owner)</h2>
+    <table class="acquisition-table" style="max-width: 1100px;">
+        <thead>
+            <tr>
+                <th>Mois</th>
+                <th>CA cible</th>
+                <th>Priorite execution</th>
+                <th>Owner principal</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>Janvier</td><td>0$</td><td>Budget, structure, pre-saison</td><td>JS + Henri</td></tr>
+            <tr><td>Fevrier</td><td>0$</td><td>Recrutement et pipeline M&amp;A</td><td>Henri (ops) / JS (M&amp;A)</td></tr>
+            <tr><td>Mars</td><td>0$</td><td>Formation, equipement, ads</td><td>Henri (terrain) / JS (systemes)</td></tr>
+            <tr><td>Avril</td><td>200k$</td><td>Demarrage 3 crews</td><td>Henri</td></tr>
+            <tr><td>Mai</td><td>300k$</td><td>Ajout etudiants + rythme vente</td><td>Henri + JS</td></tr>
+            <tr><td>Juin</td><td>400k$</td><td>Pleine capacite</td><td>Henri</td></tr>
+            <tr><td>Juillet</td><td>400k$</td><td>Marge + qualite</td><td>Henri</td></tr>
+            <tr><td>Aout</td><td>400k$</td><td>Retention + upsell</td><td>Henri + JS</td></tr>
+            <tr><td>Septembre</td><td>200k$</td><td>Transition post-etudiants</td><td>Henri</td></tr>
+            <tr><td>Octobre</td><td>100k$</td><td>Cloture jobs profitables</td><td>Henri</td></tr>
+            <tr><td>Novembre</td><td>0$</td><td>Revue complete + plan 2027</td><td>JS + Henri</td></tr>
+            <tr><td>Decembre</td><td>0$</td><td>Budget, gouvernance, recrutement anticipe</td><td>JS + Henri</td></tr>
+            <tr style="background: rgba(45, 90, 39, 0.2);"><td><strong>TOTAL</strong></td><td><strong>2.0M$</strong></td><td><strong>Execution annuelle disciplinee</strong></td><td><strong>Co-pilotage</strong></td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section class="slide" id="critical-path">
+    <span class="slide-number">09</span>
+    <h2>Chemin critique 23 fev - 31 mars 2026</h2>
+    <table class="equity-table" style="max-width: 1050px;">
+        <thead>
+            <tr>
+                <th>Date limite</th>
+                <th>Livrable non-negociable</th>
+                <th>Owner</th>
+                <th>Si non livre</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>26 fev 2026</td><td>Annonces recrutement publiees</td><td>Henri</td><td>Risque de capacite en mai</td></tr>
+            <tr><td>28 fev 2026</td><td>Top 10 cibles M&amp;A contacte</td><td>JS</td><td>Pipeline acquisition insuffisant</td></tr>
+            <tr><td>07 mars 2026</td><td>Structure partnership tranchee</td><td>Henri + JS</td><td>Blocage execution et confiance</td></tr>
+            <tr><td>15 mars 2026</td><td>Ligne credit active + cash plan confirme</td><td>Henri</td><td>Risque de rupture de cash</td></tr>
+            <tr><td>20 mars 2026</td><td>Equipe de base confirmee (chefs + TET)</td><td>Henri</td><td>Scenario degrade a 4 crews</td></tr>
+            <tr><td>31 mars 2026</td><td>SOPs, equipement, campagnes ads live</td><td>JS + Henri</td><td>Demarrage avril sous-optimal</td></tr>
+        </tbody>
+    </table>
+</section>
+
+<section class="slide" id="ma">
+    <span class="slide-number">10</span>
+    <h2>Plan M&amp;A 2026</h2>
+    <table class="acquisition-table" style="max-width: 1050px;">
+        <thead>
+            <tr>
+                <th>Acquisition</th>
+                <th>Timeline</th>
+                <th>Clients cibles</th>
+                <th>Down payment</th>
+                <th>Impact 2026</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>M&amp;A #1 (Rive-Sud)</td><td>Mars-Avril</td><td>400</td><td>60k$</td><td>Base clients immediate</td></tr>
+            <tr><td>M&amp;A #2 (Rive-Nord)</td><td>Avril-Mai</td><td>400</td><td>60k$</td><td>Acceleration haute saison</td></tr>
+            <tr style="background: rgba(45, 90, 39, 0.2);"><td><strong>Total cible</strong></td><td><strong>Q2 2026</strong></td><td><strong>800</strong></td><td><strong>120k$</strong></td><td><strong>18% des clients annuels</strong></td></tr>
+        </tbody>
+    </table>
+
+    <div class="highlight-box" style="margin-top: 28px; max-width: 950px;">
+        <div class="desc" style="font-size: 22px; color: #fff;">Top priorites immediates</div>
+        <p style="margin-top: 12px; color: rgba(255,255,255,0.8); font-size: 18px;">Taille de Haies Rive-Sud, Haie-Xpert Rive Nord, Gemme sa taille, Antoine et Matt.</p>
+    </div>
+</section>
+
+<section class="slide" id="equipe">
+    <span class="slide-number">11</span>
+    <h2>Plan equipe 2026</h2>
+    <div class="service-timeline">
+        <div class="service-item active">
+            <div class="service-year">Fev</div>
+            <div class="service-name">Recrutement chefs</div>
+            <div class="service-margin">1 existant + 4 a confirmer</div>
+        </div>
+        <div class="service-item active">
+            <div class="service-year">Mars</div>
+            <div class="service-name">Formation et onboarding</div>
+            <div class="service-margin">Securite + SOPs</div>
+        </div>
+        <div class="service-item active">
+            <div class="service-year">Avril</div>
+            <div class="service-name">3 crews TET actifs</div>
+            <div class="service-margin">Saison complete</div>
+        </div>
+        <div class="service-item">
+            <div class="service-year">Mai-Aout</div>
+            <div class="service-name">2 crews etudiants</div>
+            <div class="service-margin">Peak saison</div>
+        </div>
+        <div class="service-item">
+            <div class="service-year">Sept-Oct</div>
+            <div class="service-name">Retour base TET</div>
+            <div class="service-margin">Cloture controlee</div>
+        </div>
+    </div>
+
+    <div class="grid-3" style="margin-top: 25px;">
+        <div class="card"><h4>Objectif RH</h4><p>5 chefs, 6 TET, 4 a 6 etudiants avec buffer de recrutement pour absorber l'attrition.</p></div>
+        <div class="card"><h4>Risque RH</h4><p>Attrition etudiants &gt;30%. Mitigation: sur-recruter 50%, offres signees avant 7 avril.</p></div>
+        <div class="card"><h4>Rythme management</h4><p>Rituel hebdo operations + scorecard standard pour piloter qualite, productivite et securite.</p></div>
+    </div>
+</section>
+
+<section class="slide" id="gouvernance">
+    <span class="slide-number">12</span>
+    <h2>Decisions de gouvernance a sortir aujourd'hui</h2>
+    <table class="equity-table">
+        <thead>
+            <tr>
+                <th>Decision</th>
+                <th>Option a trancher</th>
+                <th>Deadline</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td>Structure partenariat</td><td>50/50 holding vs equity progressif vs 70/30 vesting</td><td>23 fev</td></tr>
+            <tr><td>Capital 2026</td><td>Montant confirme + ligne credit active</td><td>15 mars</td></tr>
+            <tr><td>Modele financier unique</td><td>Un seul scenario officiel pour execution</td><td>25 fev</td></tr>
+            <tr><td>M&amp;A cadence</td><td>2 deals ou plan B commercial</td><td>31 mars</td></tr>
+            <tr><td>Operating cadence</td><td>Weekly KPI + monthly review + quarterly strategy</td><td>immediat</td></tr>
+        </tbody>
+    </table>
+
+    <div class="stat-row" style="margin-top: 32px;">
+        <div class="stat"><div class="value">5</div><div class="label">Decisions a signer</div></div>
+        <div class="stat"><div class="value">1</div><div class="label">Single source of truth</div></div>
+        <div class="stat"><div class="value">0</div><div class="label">Ambiguite acceptee</div></div>
+    </div>
+</section>
+
+<section class="slide" id="kpi">
+    <span class="slide-number">13</span>
+    <h2>Scorecard hebdo + gates Go/No-Go</h2>
+    <div class="grid-4">
+        <div class="card">
+            <h4>Vert (on accelere)</h4>
+            <p>Ticket &gt;= 450$, CAC &lt;= 40$, cash &gt;= 150k$, conversion &gt;= 30%.</p>
+        </div>
+        <div class="card">
+            <h4>Orange (corriger)</h4>
+            <p>Ticket 400-449$, CAC 41-60$, cash 100-149k$, conversion 20-29%.</p>
+        </div>
+        <div class="card">
+            <h4>Rouge (urgence)</h4>
+            <p>Ticket &lt; 400$, CAC &gt; 60$, cash &lt; 100k$, conversion &lt; 20%.</p>
+        </div>
+        <div class="card">
+            <h4>Action 72h</h4>
+            <p>En rouge: meeting urgence, couper depenses non critiques, activer plan B commercial.</p>
+        </div>
+    </div>
+
+    <div class="stat-row" style="margin-top: 35px;">
+        <div class="stat"><div class="value">1x</div><div class="label">Review hebdo</div></div>
+        <div class="stat"><div class="value">1x</div><div class="label">Review mensuel</div></div>
+        <div class="stat"><div class="value">1x</div><div class="label">Review trimestriel</div></div>
+    </div>
+</section>
+
+<section class="slide" id="action" style="padding-bottom: 80px;">
+    <span class="slide-number">14</span>
+    <h2>Commitments fin de rencontre</h2>
+    <p class="quote" style="border: none; font-style: normal; font-size: 28px;">Un plan unique. Des owners clairs. Des dates fixes.</p>
+
+    <div class="grid-4" style="margin-top: 36px; max-width: 1050px;">
+        <div class="card" style="text-align: center; padding: 25px;">
+            <h4>J+1</h4>
+            <p>Compte-rendu des 5 decisions signees + scenario officiel.</p>
+        </div>
+        <div class="card" style="text-align: center; padding: 25px;">
+            <h4>J+7</h4>
+            <p>Entente transitoire + scorecard hebdo en production.</p>
+        </div>
+        <div class="card" style="text-align: center; padding: 25px;">
+            <h4>J+30</h4>
+            <p>Chemin critique execute, equipe de base confirmee, machine prete.</p>
+        </div>
+        <div class="card" style="text-align: center; padding: 25px;">
+            <h4>Dec 2026</h4>
+            <p>2.0M$ atteint, base 2027 solide, governance stabilisee.</p>
+        </div>
+    </div>
+</section>
+
+<nav class="footer-nav">
+    <a href="#cover">Intro</a>
+    <a href="#targets">Targets</a>
+    <a href="#lacunes">Lacunes</a>
+    <a href="#scenario">Scenario</a>
+    <a href="#math">Math</a>
+    <a href="#canaux">Canaux</a>
+    <a href="#trimestres">Trimestres</a>
+    <a href="#mensuel">Mensuel</a>
+    <a href="#critical-path">Critical Path</a>
+    <a href="#ma">M&amp;A</a>
+    <a href="#equipe">Equipe</a>
+    <a href="#gouvernance">Decisions</a>
+    <a href="#kpi">Gates</a>
+    <a href="#action">Action</a>
+</nav>
+
+<script>
+    document.querySelectorAll('a[href^="#"]').forEach(function(anchor) {
+        anchor.addEventListener('click', function (e) {
+            e.preventDefault();
+            var target = document.querySelector(this.getAttribute('href'));
+            if (target) {
+                target.scrollIntoView({ behavior: 'smooth' });
+            }
+        });
+    });
+</script>
+
+</body>
+</html>

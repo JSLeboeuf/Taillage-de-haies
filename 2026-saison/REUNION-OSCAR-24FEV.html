@@ -1,0 +1,778 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Reunion Oscar — Achat Clientele | 24 fev 16h30</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;700&family=Satoshi:wght@300;400;500;700;900&display=swap');
+
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+
+  :root {
+    --bg: #0f1117;
+    --surface: #181a22;
+    --surface-2: #1e2130;
+    --border: #2a2d3a;
+    --text: #e4e5ea;
+    --text-dim: #8b8d98;
+    --accent: #4ade80;
+    --accent-dim: #22543d;
+    --warning: #f59e0b;
+    --warning-dim: #78350f;
+    --danger: #ef4444;
+    --danger-dim: #7f1d1d;
+    --blue: #60a5fa;
+    --blue-dim: #1e3a5f;
+  }
+
+  body {
+    font-family: 'Satoshi', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    line-height: 1.6;
+    padding: 20px;
+    max-width: 800px;
+    margin: 0 auto;
+  }
+
+  header {
+    text-align: center;
+    padding: 32px 0 24px;
+    border-bottom: 1px solid var(--border);
+    margin-bottom: 32px;
+  }
+
+  header h1 {
+    font-size: 1.8rem;
+    font-weight: 900;
+    letter-spacing: -0.03em;
+    margin-bottom: 8px;
+  }
+
+  header .meta {
+    font-size: 0.9rem;
+    color: var(--text-dim);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  header .meta span {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  /* Sections */
+  section {
+    margin-bottom: 36px;
+  }
+
+  .section-label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    color: var(--text-dim);
+    margin-bottom: 8px;
+  }
+
+  h2 {
+    font-size: 1.3rem;
+    font-weight: 900;
+    margin-bottom: 16px;
+    letter-spacing: -0.02em;
+  }
+
+  h3 {
+    font-size: 1.05rem;
+    font-weight: 700;
+    margin: 20px 0 10px;
+    color: var(--blue);
+  }
+
+  /* Phase cards */
+  .phase {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 24px;
+    margin-bottom: 16px;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .phase::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+  }
+
+  .phase-green::before { background: var(--accent); }
+  .phase-yellow::before { background: var(--warning); }
+  .phase-red::before { background: var(--danger); }
+  .phase-blue::before { background: var(--blue); }
+
+  .phase-number {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    font-weight: 700;
+    color: var(--text-dim);
+    margin-bottom: 6px;
+  }
+
+  .phase h3 {
+    margin-top: 0;
+    color: var(--text);
+  }
+
+  .phase-time {
+    display: inline-block;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.75rem;
+    color: var(--accent);
+    background: var(--accent-dim);
+    padding: 2px 8px;
+    border-radius: 4px;
+    margin-bottom: 12px;
+  }
+
+  /* Questions */
+  .question {
+    background: var(--surface-2);
+    border-left: 3px solid var(--accent);
+    padding: 14px 16px;
+    margin: 10px 0;
+    border-radius: 0 8px 8px 0;
+    font-size: 0.95rem;
+  }
+
+  .question strong {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .question .why {
+    display: block;
+    font-size: 0.8rem;
+    color: var(--text-dim);
+    margin-top: 6px;
+    font-style: italic;
+  }
+
+  /* Checkboxes */
+  .checklist {
+    list-style: none;
+  }
+
+  .checklist li {
+    padding: 8px 0 8px 32px;
+    position: relative;
+    border-bottom: 1px solid var(--border);
+    font-size: 0.92rem;
+  }
+
+  .checklist li:last-child { border-bottom: none; }
+
+  .checklist li::before {
+    content: '';
+    position: absolute;
+    left: 4px;
+    top: 10px;
+    width: 18px;
+    height: 18px;
+    border: 2px solid var(--border);
+    border-radius: 4px;
+  }
+
+  /* Response cards */
+  .response {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 8px;
+    margin: 10px 0;
+  }
+
+  .response-card {
+    padding: 12px;
+    border-radius: 8px;
+    font-size: 0.85rem;
+  }
+
+  .response-good {
+    background: var(--accent-dim);
+    border: 1px solid #2d6a4f;
+  }
+
+  .response-bad {
+    background: var(--danger-dim);
+    border: 1px solid #991b1b;
+  }
+
+  .response-card .label {
+    font-size: 0.7rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    margin-bottom: 4px;
+    display: block;
+  }
+
+  .response-good .label { color: var(--accent); }
+  .response-bad .label { color: var(--danger); }
+
+  /* Script blocks */
+  .script {
+    background: var(--surface-2);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 16px;
+    margin: 10px 0;
+    font-size: 0.92rem;
+    position: relative;
+  }
+
+  .script::before {
+    content: 'DIRE';
+    position: absolute;
+    top: -8px;
+    left: 12px;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.65rem;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    color: var(--bg);
+    background: var(--warning);
+    padding: 1px 8px;
+    border-radius: 4px;
+  }
+
+  /* Alert box */
+  .alert {
+    background: var(--danger-dim);
+    border: 1px solid #991b1b;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 12px 0;
+    font-size: 0.9rem;
+  }
+
+  .alert-title {
+    font-weight: 900;
+    color: var(--danger);
+    margin-bottom: 4px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* Tip box */
+  .tip {
+    background: var(--accent-dim);
+    border: 1px solid #2d6a4f;
+    border-radius: 8px;
+    padding: 16px;
+    margin: 12px 0;
+    font-size: 0.9rem;
+  }
+
+  .tip-title {
+    font-weight: 900;
+    color: var(--accent);
+    margin-bottom: 4px;
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+  }
+
+  /* Price table */
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 12px 0;
+    font-size: 0.88rem;
+  }
+
+  th {
+    text-align: left;
+    padding: 10px 12px;
+    background: var(--surface-2);
+    color: var(--text-dim);
+    font-size: 0.75rem;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    border-bottom: 2px solid var(--border);
+  }
+
+  td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--border);
+  }
+
+  tr:last-child td { border-bottom: none; }
+
+  .mono {
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .highlight {
+    color: var(--accent);
+    font-weight: 700;
+  }
+
+  .dim { color: var(--text-dim); }
+
+  /* Divider */
+  hr {
+    border: none;
+    height: 1px;
+    background: var(--border);
+    margin: 32px 0;
+  }
+
+  /* Bottom bar */
+  .bottom-bar {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background: var(--surface);
+    border-top: 1px solid var(--border);
+    padding: 12px 20px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 0.8rem;
+    z-index: 100;
+  }
+
+  .bottom-bar .price {
+    color: var(--accent);
+    font-weight: 700;
+    font-size: 1rem;
+  }
+
+  .bottom-bar .rule {
+    color: var(--danger);
+  }
+
+  /* Spacer for fixed bottom bar */
+  .spacer { height: 70px; }
+
+  /* Print */
+  @media print {
+    body { background: white; color: black; }
+    .bottom-bar { display: none; }
+    .phase { border: 1px solid #ccc; }
+    .question { border-left-color: #333; }
+  }
+
+  @media (max-width: 600px) {
+    body { padding: 12px; }
+    .response { grid-template-columns: 1fr; }
+    header h1 { font-size: 1.4rem; }
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>Reunion Oscar Rubio</h1>
+  <div class="meta">24 fev 2026 &middot; <span>16h30</span> &middot; Google Meet</div>
+  <div class="meta" style="margin-top:4px;">Achat clientele &middot; ~15 000$ CA &middot; ~33 clients</div>
+</header>
+
+<!-- ============================================ -->
+<!-- PHASE 1 -->
+<!-- ============================================ -->
+
+<div class="phase phase-green">
+  <div class="phase-number">PHASE 1</div>
+  <h3>Comprendre sa business</h3>
+  <div class="phase-time">0 — 15 min</div>
+
+  <div class="question">
+    <strong>"Oscar, parle-nous de ce que tu fais. Ca fait combien de temps que tu tailles des haies ?"</strong>
+    <span class="why">Confirmer les 5 ans. Plus c'est long = meilleure retention.</span>
+  </div>
+
+  <div class="question">
+    <strong>"T'as combien de clients actifs en ce moment ?"</strong>
+    <span class="why">Valider le 15 000$ / confirmer le nombre exact.</span>
+  </div>
+
+  <div class="question">
+    <strong>"Ils sont dans quel coin ? Quel secteur geographique ?"</strong>
+    <span class="why">Si c'est dans ta zone = plus de valeur. Si c'est loin = moins.</span>
+  </div>
+
+  <div class="question">
+    <strong>"C'est quoi ton prix moyen par client ?"</strong>
+    <span class="why">Valider le ticket moyen. 15 000$ / 33 clients = ~450$.</span>
+  </div>
+
+  <div class="question">
+    <strong>"Tu fais juste de la taille de haies, ou d'autres services aussi ?"</strong>
+    <span class="why">Cedres seulement vs feuillus vs paysagement. Impact sur la compatibilite.</span>
+  </div>
+
+  <div class="question">
+    <strong>"Tes clients, ils te rappellent chaque annee ou c'est toi qui les relances ?"</strong>
+    <span class="why">Clients qui appellent eux-memes = beaucoup plus fiables au transfert.</span>
+  </div>
+
+  <div class="tip">
+    <div class="tip-title">Regle</div>
+    Pendant cette phase, tu ECOUTES. Tu hoches la tete, tu prends des notes. Tu ne parles pas de prix.
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- PHASE 2 -->
+<!-- ============================================ -->
+
+<div class="phase phase-green">
+  <div class="phase-number">PHASE 2</div>
+  <h3>Evaluer la qualite de la clientele</h3>
+  <div class="phase-time">15 — 25 min</div>
+
+  <div class="question">
+    <strong>"Sur tes 33 clients, combien reviennent CHAQUE annee depuis 5 ans ?"</strong>
+    <span class="why">Differencier le noyau fidele des clients ponctuels.</span>
+  </div>
+
+  <div class="question">
+    <strong>"Y a-t-il des contrats signes ou c'est des ententes verbales ?"</strong>
+    <span class="why">Contrat signe = valeur. Verbal = risque.</span>
+  </div>
+
+  <div class="question">
+    <strong>"Combien de clients t'ont deja contacte pour booker 2026 ?"</strong>
+    <span class="why">Ca determine si tu achetes du revenu garanti ou une liste de contacts.</span>
+  </div>
+
+  <div class="question">
+    <strong>"Est-ce que t'as perdu des clients ces dernieres annees ? Combien par an ?"</strong>
+    <span class="why">Taux d'attrition naturel. S'il perd 5/an, il reste 28, pas 33.</span>
+  </div>
+
+  <div class="question">
+    <strong>"Ton plus gros client, il represente combien du total ?"</strong>
+    <span class="why">Si 1 client = 20%+ du CA, c'est un risque de concentration.</span>
+  </div>
+
+  <div class="question">
+    <strong>"T'as une liste complete avec noms, adresses, telephones, emails ?"</strong>
+    <span class="why">Pas de liste = pas de deal. C'est l'actif principal.</span>
+  </div>
+
+  <div class="response">
+    <div class="response-card response-good">
+      <span class="label">Signaux positifs</span>
+      25+ clients reviennent chaque annee<br>
+      Plusieurs deja confirmes 2026<br>
+      Zone concentree pres de chez Henri<br>
+      Clients rappellent d'eux-memes
+    </div>
+    <div class="response-card response-bad">
+      <span class="label">Signaux negatifs</span>
+      Beaucoup de clients ponctuels<br>
+      Personne confirme pour 2026<br>
+      Clients disperses sur grand territoire<br>
+      Pas de liste organisee
+    </div>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- PHASE 3 -->
+<!-- ============================================ -->
+
+<div class="phase phase-yellow">
+  <div class="phase-number">PHASE 3</div>
+  <h3>Comprendre ses motivations</h3>
+  <div class="phase-time">25 — 30 min</div>
+
+  <div class="question">
+    <strong>"Qu'est-ce qui fait que tu veux vendre ta clientele ?"</strong>
+    <span class="why">LA question cle. Sa raison de vendre = ton levier.</span>
+  </div>
+
+  <div class="response">
+    <div class="response-card response-good">
+      <span class="label">S'il dit...</span>
+      "Je change de domaine"<br>
+      "Je suis fatigue physiquement"<br>
+      "J'ai pas le temps cette annee"<br>
+      = <strong>Il DOIT vendre. Tu as le levier.</strong>
+    </div>
+    <div class="response-card response-bad">
+      <span class="label">S'il dit...</span>
+      "Je teste le marche"<br>
+      "J'ai d'autres offres"<br>
+      "Je suis pas presse"<br>
+      = <strong>Moins de levier. Patience.</strong>
+    </div>
+  </div>
+
+  <div class="question">
+    <strong>"Si tu vends pas, tu fais quoi ? Tu continues cette saison ?"</strong>
+    <span class="why">S'il continue pas = urgence de vendre = ton avantage.</span>
+  </div>
+
+  <div class="question">
+    <strong>"T'as parle a d'autres acheteurs potentiels ?"</strong>
+    <span class="why">Verifier s'il y a competition reelle. Souvent c'est du bluff.</span>
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- PHASE 4 -->
+<!-- ============================================ -->
+
+<div class="phase phase-red">
+  <div class="phase-number">PHASE 4</div>
+  <h3>Le prix — Laisser venir</h3>
+  <div class="phase-time">30 — 40 min</div>
+
+  <div class="alert">
+    <div class="alert-title">Regle absolue</div>
+    Ne donne JAMAIS ton prix en premier. Laisse Oscar dire son chiffre.
+  </div>
+
+  <div class="question">
+    <strong>"OK Oscar, c'est clair. T'as un prix en tete ?"</strong>
+    <span class="why">Puis SILENCE. 5-10 secondes. Ne parle pas. Attends.</span>
+  </div>
+
+  <h3>Quand il donne son prix</h3>
+
+  <div class="script">
+    "OK. Comment t'arrives a ce chiffre-la ?"
+  </div>
+  <p class="dim" style="font-size:0.85rem; margin: 6px 0 16px;">Puis silence encore. Laisse-le se justifier. Il va souvent baisser lui-meme.</p>
+
+  <h3>Recadrer la valeur</h3>
+
+  <div class="script">
+    "Je comprends ta logique, Oscar. De mon cote, voici comment je le vois : 15 000$ c'est le chiffre d'affaires. Mais moi j'ai des couts — main-d'oeuvre, transport, equipement. Le profit net sur cette clientele, c'est environ 4 000 a 5 000$ par an. C'est ca, la valeur reelle."
+  </div>
+
+  <div class="script">
+    "L'autre facteur, c'est que tes clients te connaissent toi. Quand moi je vais les appeler, certains vont dire non. C'est normal, ca arrive dans chaque transfert de clientele. Je peux pas payer pour des clients que je suis pas certain de garder."
+  </div>
+
+  <div class="script">
+    "S'il y avait des contrats signes pour 2026, ce serait une autre histoire. La, c'est une liste de clients fideles — et c'est de la valeur — mais c'est pas du revenu garanti."
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- PHASE 5 -->
+<!-- ============================================ -->
+
+<div class="phase phase-blue">
+  <div class="phase-number">PHASE 5</div>
+  <h3>Ton offre</h3>
+  <div class="phase-time">40 — 50 min</div>
+
+  <table>
+    <tr>
+      <th>Element</th>
+      <th>Ton depart</th>
+      <th>Max acceptable</th>
+    </tr>
+    <tr>
+      <td>Prix total</td>
+      <td class="mono highlight">6 000$</td>
+      <td class="mono">10 000$</td>
+    </tr>
+    <tr>
+      <td>A la signature</td>
+      <td class="mono">2 500$</td>
+      <td class="mono">4 000$</td>
+    </tr>
+    <tr>
+      <td>A 3 mois (retention)</td>
+      <td class="mono">1 750$</td>
+      <td class="mono">3 000$</td>
+    </tr>
+    <tr>
+      <td>Fin saison (retention)</td>
+      <td class="mono">1 750$</td>
+      <td class="mono">3 000$</td>
+    </tr>
+  </table>
+
+  <div class="script">
+    "Oscar, je suis pret a t'offrir 6 000$ pour ta clientele. 2 500$ a la signature, et le reste en deux versements si les clients restent. C'est un deal juste — tu es paye, et on partage le risque."
+  </div>
+
+  <h3>S'il negocie a la hausse</h3>
+
+  <div class="script">
+    "OK, je peux monter, mais les termes changent. A 8 000$, je veux 50% en earn-out, une non-concurrence de 5 ans, et tu appelles chaque client avec moi personnellement."
+  </div>
+
+  <div class="script">
+    "Si tu veux le prix maximum, je veux le risque minimum. C'est normal."
+  </div>
+
+  <div class="alert">
+    <div class="alert-title">Plafond absolu</div>
+    Ne depasse JAMAIS 10 000$ pour 15 000$ de CA sans contrats signes. C'est 0.67x — deja genereux.
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- PHASE 6 -->
+<!-- ============================================ -->
+
+<div class="phase phase-yellow">
+  <div class="phase-number">PHASE 6</div>
+  <h3>Conditions non-negociables</h3>
+  <div class="phase-time">50 — 55 min</div>
+
+  <p style="margin-bottom: 12px;">Quel que soit le prix, ces 4 points doivent etre dans le deal :</p>
+
+  <ul class="checklist">
+    <li><strong>Non-concurrence 3-5 ans</strong> — Oscar ne fait plus de taille de haies dans le territoire des clients</li>
+    <li><strong>Transition assistee</strong> — Oscar appelle chaque client avec toi pour presenter le transfert</li>
+    <li><strong>Paiement echelonne</strong> — minimum 50% du prix lie a la retention reelle</li>
+    <li><strong>Liste complete</strong> — nom, adresse, telephone, email, historique services, montants payes</li>
+  </ul>
+
+  <div class="question">
+    <strong>"Oscar, es-tu pret a signer une clause de non-concurrence ?"</strong>
+    <span class="why">S'il refuse = dealbreaker. Il pourrait reprendre ses clients en juin.</span>
+  </div>
+
+  <div class="question">
+    <strong>"Est-ce que tu serais disponible pour appeler tes clients avec nous pour faire la transition ?"</strong>
+    <span class="why">C'est ce qui fait la difference entre 80% et 60% de retention.</span>
+  </div>
+
+  <div class="script">
+    "Sans non-concurrence, je peux pas mettre un dollar sur la table. C'est la base. Avec, on peut s'entendre sur un bon prix pour toi."
+  </div>
+</div>
+
+<!-- ============================================ -->
+<!-- PHASE 7 -->
+<!-- ============================================ -->
+
+<div class="phase phase-green">
+  <div class="phase-number">PHASE 7</div>
+  <h3>Fermer la reunion</h3>
+  <div class="phase-time">55 — 60 min</div>
+
+  <div class="alert">
+    <div class="alert-title">Important</div>
+    Ne signe RIEN aujourd'hui. C'est une premiere rencontre.
+  </div>
+
+  <div class="script">
+    "Oscar, je pense qu'on peut s'entendre. Voici ce que je te propose : donne-moi 48h, je te prepare une offre ecrite propre avec tous les details, et on finalise ca cette semaine. Ca te va ?"
+  </div>
+
+  <h3>Avant de raccrocher, confirmer :</h3>
+
+  <ul class="checklist">
+    <li>Oscar envoie sa liste de clients (au moins les noms et le secteur)</li>
+    <li>On s'entend sur une fourchette de prix approximative</li>
+    <li>Oscar est OK avec le principe de non-concurrence</li>
+    <li>Oscar est OK avec la transition assistee (appels clients)</li>
+    <li>Date de suivi fixee (ex: mercredi ou jeudi)</li>
+  </ul>
+</div>
+
+<hr>
+
+<!-- ============================================ -->
+<!-- REPONSES SI... -->
+<!-- ============================================ -->
+
+<section>
+  <div class="section-label">Aide-memoire</div>
+  <h2>Si Oscar dit...</h2>
+
+  <table>
+    <tr>
+      <th style="width:40%">Lui</th>
+      <th>Toi</th>
+    </tr>
+    <tr>
+      <td>"Je veux 15 000$"</td>
+      <td>"Comment t'arrives a ce chiffre ?" <span class="dim">+ silence</span></td>
+    </tr>
+    <tr>
+      <td>"C'est a prendre ou a laisser"</td>
+      <td>"Je respecte ca. Laisse-moi y reflechir, je te reviens demain."</td>
+    </tr>
+    <tr>
+      <td>"J'ai un autre acheteur interesse"</td>
+      <td>"Pas de probleme. Mon offre est la. Prends le temps de comparer."</td>
+    </tr>
+    <tr>
+      <td>"Je veux tout cash upfront"</td>
+      <td>"Si c'est tout cash, le prix descend. Avec un earn-out, le prix monte. C'est le trade-off."</td>
+    </tr>
+    <tr>
+      <td>"Je refuse la non-concurrence"</td>
+      <td>"Sans non-concurrence, y'a pas de deal. C'est la protection de base pour moi."</td>
+    </tr>
+    <tr>
+      <td>"Mes clients vont tous rester"</td>
+      <td>"Parfait, alors l'earn-out devrait pas te faire peur. Tu seras paye a 100%."</td>
+    </tr>
+    <tr>
+      <td>"C'est pas assez"</td>
+      <td>"Qu'est-ce qui serait acceptable pour toi ? On va essayer de trouver un terrain d'entente."</td>
+    </tr>
+    <tr>
+      <td>"Pourquoi je te ferais confiance ?"</td>
+      <td>"L'earn-out te protege. Si je traite pas bien tes clients, c'est moi qui perds. On est alignes."</td>
+    </tr>
+  </table>
+</section>
+
+<hr>
+
+<!-- ============================================ -->
+<!-- RECAP RAPIDE -->
+<!-- ============================================ -->
+
+<section>
+  <div class="section-label">Resume</div>
+  <h2>Cheat sheet</h2>
+
+  <div class="phase phase-green" style="font-family: 'JetBrains Mono', monospace; font-size: 0.85rem; line-height: 2;">
+    <span class="dim">1.</span> ECOUTER — questions, notes, pas de prix<br>
+    <span class="dim">2.</span> EVALUER — qualite, contrats, zone, retention<br>
+    <span class="dim">3.</span> MOTIVATIONS — pourquoi il vend, urgence<br>
+    <span class="dim">4.</span> SON PRIX — "t'as un chiffre ?" + silence<br>
+    <span class="dim">5.</span> RECADRER — profit pas CA, risque transfert<br>
+    <span class="dim">6.</span> OFFRIR — 6 000$ pour finir a 7-8k$<br>
+    <span class="dim">7.</span> PROTEGER — non-concurrence, earn-out, transition<br>
+    <span class="dim">8.</span> FERMER — offre ecrite dans 48h, pas de signature aujourd'hui
+  </div>
+</section>
+
+<div class="spacer"></div>
+
+<div class="bottom-bar">
+  <div>
+    <span class="rule">MAX 10 000$</span>
+    &nbsp;&middot;&nbsp;
+    <span class="dim">offrir</span> <span class="price">6 000$</span>
+    &nbsp;&middot;&nbsp;
+    <span class="dim">finir a</span> 7-8k$
+  </div>
+  <div class="dim">Ne signe rien aujourd'hui</div>
+</div>
+
+</body>
+</html>

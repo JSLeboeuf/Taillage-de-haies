@@ -11,7 +11,8 @@
 | [**MEETING-HENRI-FEV2026.md**](2026-saison/MEETING-HENRI-FEV2026.md) | Notes meeting Henri — Décisions clés février 2026 |
 | [**EXECUTIVE-SUMMARY.md**](2026-saison/EXECUTIVE-SUMMARY.md) | Résumé exécutif saison 2026 |
 | [**MODELE-FINANCIER-2026.md**](2026-saison/MODELE-FINANCIER-2026.md) | **Modèle financier complet** — P&L, scénarios, cash flow |
-| [**CIBLES-MA.md**](2026-saison/CIBLES-MA.md) | **Pipeline M&A** — 50+ cibles par région, templates contact |
+| [**CIBLES-MA.md**](2026-saison/CIBLES-MA.md) | **Pipeline M&A** — 70+ cibles par région, pipeline actif, templates contact |
+| [**REUNION-24FEV-TRANSCRIPTION.md**](2026-saison/REUNION-24FEV-TRANSCRIPTION.md) | Transcription rencontre Henri + JS + Oscar Rubio — Deals, appels à froid, script v2 |
 | [**SUBVENTIONS-2026.md**](2026-saison/SUBVENTIONS-2026.md) | **41 programmes** subventions/aides avec deadlines |
 | [**RECRUTEMENT-ETUDIANTS.md**](2026-saison/RECRUTEMENT-ETUDIANTS.md) | Guide recrutement étudiants (légal, portails, timeline) |
 | [**STRATEGIE-ADS.md**](2026-saison/STRATEGIE-ADS.md) | Stratégie publicitaire Meta/Google/SEO |
@@ -212,7 +213,8 @@
 │   ├── MEETING-HENRI-FEV2026.md ← Notes meeting février
 │   ├── EXECUTIVE-SUMMARY.md     ← Résumé exécutif
 │   ├── MODELE-FINANCIER-2026.md ← P&L, scénarios, cash flow
-│   ├── CIBLES-MA.md             ← Pipeline M&A 50+ cibles
+│   ├── CIBLES-MA.md             ← Pipeline M&A 70+ cibles + pipeline actif
+│   ├── REUNION-24FEV-TRANSCRIPTION.md ← Rencontre Henri+JS+Oscar (24 fév)
 │   ├── SUBVENTIONS-2026.md      ← 41 programmes subventions
 │   ├── RECRUTEMENT-ETUDIANTS.md ← Guide recrutement
 │   ├── STRATEGIE-ADS.md         ← Plan publicitaire
@@ -253,5 +255,5 @@
 
 ---
 
-*14 livres • 15 frameworks • 10 quick-refs • 11 docs saison 2026 • Plan complet 9.5/10*
-*Dernière mise à jour: Février 2026*
+*14 livres • 15 frameworks • 10 quick-refs • 12 docs saison 2026 • Plan complet 9.5/10*
+*Dernière mise à jour: 24 février 2026*

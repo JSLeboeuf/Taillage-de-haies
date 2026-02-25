@@ -515,7 +515,182 @@ Ce document présente le pipeline complet des cibles d'acquisition pour **Haie L
 
 **Document préparé pour:** Haie Lite
 **Date:** Février 2026
+**Mise à jour:** 24 février 2026 (ajout nouvelles cibles + statut pipeline actif)
 **Prochaine révision:** Mai 2026 (post T1 contacts)
+
+---
+
+## 🔥 Pipeline Actif — Statut des Démarches (24 février 2026)
+
+### Deals en cours
+
+| Entreprise | Statut | Détails | Prochaine étape |
+|-----------|--------|---------|----------------|
+| **Oscar Rubio** | 🟡 Négociation | ~30 clients Brossard/Greenfield Park. CA 12-15k$. 100% cash, aucun contrat. Offre max 6 000$ (40% CA). | Henri close les chiffres 25 fév. Oscar fournit liste exacte semaine du 2 mars. |
+
+### Meetings bookés
+
+| Date | Heure | Entreprise | Téléphone | Détails |
+|------|-------|-----------|-----------|---------|
+| **4 mars 2026** | 15h | **Tailles-Haies Rive-Sud** (Châteauguay) | (514) 946-3235 | 5.0★ (12 avis). Veut peut-être vendre. |
+| **4 mars 2026** | 17h | **R. Perreault Paysagement** (Beauharnois) | (438) 828-8495 / (438) 521-4969 | Paysagiste 15+ ans. Taille, tonte, pavé uni, déneigement. 27 ans, veut aller en construction. Proche Saint-Zotique. rperreaultpaysagement.com |
+| **11 ou 18 mars** | 15h | **Robert** (Taillage Rive-Sud / Longueuil) | — | 12-14 ans d'expérience. ~80% paiements sur papier. Réceptif. Via Google Meet. |
+
+### Messages laissés (en attente de retour)
+
+| Entreprise | Téléphone | Site | Notes |
+|-----------|-----------|------|-------|
+| **Gemme sa Taille** (Luc Gemme) | (450) 522-6458 | gemmesataille.com | Solo, ~20 ans (fondée 2006), Granby. Pas de relève. Très bon profil vendeur. |
+| **Pro Haies** (Marc-André) | (514) 436-1991 | prohaies.ca | Saint-Constant. 10 ans. Ouvre compagnie époxy. Rappeler en fin de saison quand brûlé. |
+| **Haie Xpresse** | (514) 703-4444 | haies-xpress.com | Message vocal laissé |
+| **Émondage Tanguay Inc.** | (514) 503-1868 / (514) 730-2664 | emondagetanguay.ca | Arboriculteur 15+ ans. Mont-Saint-Hilaire, Beloeil, Chambly. SIAQ. |
+
+### Contactés — Pas intéressés / Vendus
+
+| Entreprise | Statut | Notes |
+|-----------|--------|-------|
+| Les Agents de la Haie (Longueuil) | ❌ Vendu | — |
+| Taïdé | ❌ Vendu | Henri a manqué d'une année |
+| Entreprise inconnue | ❌ Vendu | — |
+
+### À contacter (pas encore appelés)
+
+| Entreprise | Téléphone | Site | Région | Notes |
+|-----------|-----------|------|--------|-------|
+| **Taille de Haies Rive-Sud** | (514) 623-3141 | tailledehaiesrivesud.com | Brossard | 4.7★ (72 avis). 20+ ans. Peut-être vouloir vendre. |
+| **Robi-Taille** | (438) 505-9067 | robi-taille.ca | Rive-Sud | — |
+
+### Ressource — Courtier
+
+| Nom | Site | Notes |
+|-----|------|-------|
+| **Martin DuTou** | entreprisesavendre.quebec/vendeur/martin-dutou/ | Courtier en vente d'entreprises. Peut avoir mandats confidentiels paysage/taillage. |
+
+---
+
+## 🆕 Nouvelles Cibles Identifiées (Recherche 24 février 2026)
+
+### Tier 1 — Priorité maximale (Score 9-10/10)
+
+#### BEAUCE ÉMONDAGE — Score 10/10 ⭐
+**Région:** Saint-Georges (Chaudière-Appalaches)
+**Fondation:** 1987 (**39 ans d'opération**)
+**Propriétaire:** **Alain Brochu**
+
+**Services:**
+- Élagage, émondage, essouchage, abattage
+- Taille de haies de cèdres et plantation
+- Excavation, nacelle (60 pieds), lignes électriques
+- Nettoyage après sinistre
+
+**Signal d'opportunité:**
+- 39 ans = propriétaire 60-70 ans quasi certain
+- Diversification services = clientèle large
+- Dominance régionale Beauce
+- Équipement lourd (nacelle, excavation) = actifs tangibles
+
+**Contact:**
+- Adresse: 5820, 6e Avenue, Saint-Georges G5Z 1P2
+- Site: beauceemondage.com
+
+**Stratégie d'approche:** Contact direct Alain Brochu. Emphase sur l'héritage de 39 ans et la continuité régionale.
+
+---
+
+#### ARBOSOIN+ — Score 9/10 ⭐
+**Région:** Montréal / Laval / Rive-Sud
+**Fondation:** 22+ ans d'opération
+**Propriétaire:** **Claude Brabant**
+
+**Services:**
+- Élagage, émondage professionnel
+- Taille de haies (spécialisée forme conique/pyramidale)
+- Taille d'arbres fruitiers
+- Inspection arbres et arbustes (maladies, structure)
+
+**Signal d'opportunité:**
+- Propriétaire identifié, arboriculteur certifié SIAQ
+- Technologue en aménagement forestier ET horticulture ornementale
+- 22+ ans = âge 55-65 ans probable
+- Solo/petit = acquisition simple, clientèle transférable
+- Excellente réputation, expertise technique premium
+
+**Contact:**
+- Site: arbosoinplus.com
+
+**Stratégie d'approche:** Email personnalisé à Claude Brabant, valoriser son expertise technique unique. Proposition rôle consultant post-acquisition.
+
+---
+
+#### ÉMONDEUR MONTRÉAL — Score 9/10 ⭐
+**Région:** Montréal / Laval / Rive-Sud / Rive-Nord (couverture massive)
+**Fondation:** **25+ ans d'opération**
+**Propriétaire:** Non identifié (à chercher via REQ)
+
+**Services:**
+- Taille de haies de cèdres (spécialité)
+- Émondage, élagage, abattage
+- Couverture: Châteauguay, Delson, La Prairie, Longueuil, Boucherville, Brossard, Candiac, Carignan, Chambly, Saint-Bruno, Sainte-Julie, Saint-Lambert, Varennes
+
+**Signal d'opportunité:**
+- 25+ ans d'opération = retraite potentielle
+- Membre SIAQ, assurance 2M$
+- Couverture géographique exceptionnelle (tout le Grand Montréal)
+
+**Contact:**
+- Site: emondeurmontreal.ca
+
+**Stratégie d'approche:** Identifier propriétaire via REQ/WHOIS. Contact direct.
+
+---
+
+### Tier 2 — Forte priorité (Score 7-8/10)
+
+| Entreprise | Score | Région | Ancienneté | Propriétaire | Contact | Site |
+|-----------|-------|--------|-----------|-------------|---------|------|
+| **Les Entreprises Gariépy** | 8/10 | Québec (Ste-Foy, Charlesbourg, Beauport) | 15+ ans | Non identifié | — | entreprisesgariepy.com |
+| **Entretien Paysager Budget Enr** | 8/10 | Laval | **21 ans** | Non identifié | Via PagesJaunes | — |
+| **Concept Paysager Dubois** | 7/10 | Blainville (Rive-Nord) | **15+ ans** | Non identifié | — | conceptpaysagerdubois.com |
+| **Pro DT Services** | 7/10 | Montréal / Laval | Établi | Non identifié | (514) 714-8837 | prodt.ca |
+| **Haie du Québec** | 7/10 | Terrebonne, Blainville, Laval, Repentigny, Montréal | Plusieurs années | Non identifié | (514) 916-7140 | haieduquebec.ca |
+| **Services d'Arbres Messier** | 7/10 | Lanaudière (L'Épiphanie, Joliette, Rawdon) | Établi | Non identifié | — | servicesarbresmessier.com |
+| **Émondage Lévis** | 7/10 | Lévis | Établi | Non identifié | (581) 702-6282 | emondagelevis.com |
+| **Émondage Orlando** | 7/10 | Rive-Sud de Montréal | **10+ ans** | Non identifié | — | emondageorlando.ca |
+| **Clavette Émondage** | 7/10 | Longueuil / Boucherville / Rive-Sud | **10+ ans** | **Cédric Clavette** | — | emondagerivesud.com |
+| **Entretien Paysager BV** | 7/10 | Gatineau (Outaouais) | Établi | Non identifié | — | entretienpaysagerbv.com |
+
+### Tier 3 — Potentiel secondaire (Score 5-6/10)
+
+| Entreprise | Score | Région | Contact | Site | Notes |
+|-----------|-------|--------|---------|------|-------|
+| **Taille Haie Expert** | 6/10 | St-Jérôme / Blainville | — | taillehaiexpert.com | 10+ ans, spécialiste cèdre |
+| **Pro K** | 6/10 | St-Jérôme / Rive-Nord | — | tailledehaieprok.com | Résidentiel + commercial |
+| **Bio Climax** | 6/10 | Rive-Nord | — | bioclimax.ca | Taille haies + approche bio |
+| **CedCedre** | 6/10 | Rive-Nord / Lanaudière / Laurentides | — | cedcedre.ca | Multi-régions, 24/7 |
+| **Taillage Profhaiessionnel** | 6/10 | Mascouche / Rive-Nord | — | taillageprofhaiessionnel.com | 3 équipes, depuis 2016 |
+| **Summum Entretien Paysager** | 5/10 | Saint-Georges / Beauce | — | summumentretienpaysager.com | Complément Beauce Émondage |
+| **Élagage MC** | 5/10 | Montréal / Rive-Nord / Rive-Sud | — | elagagemc.com | Spécialisé hauteur |
+| **Taille de Haie TL** | 5/10 | Rive-Nord | — | tailledehaietl.ca | Spécialiste réduction |
+| **Paysagement Gilles-Junior** | 5/10 | Laval | Via PagesJaunes | — | Murets + haies + émondage |
+| **Entretien Paysager Metlau** | 5/10 | Gatineau | — | entretienpaysagermetlau.com | Tonte + taille + entretien |
+
+---
+
+## 🏪 Entreprises Activement à Vendre (Marketplace)
+
+| Annonce | Région | Prix | Plateforme | Notes |
+|---------|--------|------|-----------|-------|
+| **Entreprise aménagement paysager** | Laurentides | **2 500 000$** | OccasionsAffaires.ca | 10 ans, 20 employés. Hors scope 2026, cible 2028-2029. |
+| **Entreprise déneigement + entretien paysager** | Québec | Non publié | LaVitrine.biz | 15 employés saisonniers. Tonte + fertilisation + taille haies. Propriétaire en supervision. Aligné avec diversification déneigement 2026. |
+
+### Plateformes à surveiller
+
+| Plateforme | URL | Notes |
+|-----------|-----|-------|
+| **Repreneuriat Québec (CTEQ)** | repreneuriat.quebec | S'inscrire sur INDEX pour annonces confidentielles |
+| **Occasions Affaires** | occasionsaffaires.ca | Annonces publiques PME à vendre |
+| **LaVitrine.biz** | lavitrine.biz | Annonces entreprises Québec |
+| **BizBuySell** | bizbuysell.com | Filtre par région/industrie |
 
 ---
 
@@ -547,7 +722,7 @@ Au plaisir d'échanger,
 [Téléphone]
 ```
 
-### Script Téléphonique — Premier Contact
+### Script Téléphonique — Premier Contact (v1)
 
 ```
 Bonjour, est-ce que je parle bien à [Prénom]?
@@ -569,6 +744,48 @@ Parfait, je vous envoie un email de suite avec mes coordonnées. Prenez le temps
 Bonne journée!
 ```
 
+### Script Téléphonique — Version Raffinée (v2, testé 24 février 2026)
+
+```
+Bonjour, est-ce que je parle bien à [Prénom]?
+
+Je m'appelle [Nom], de Taillage Élite. On est une compagnie de taillage de haies
+en croissance sur la Rive-Sud / Grand Montréal.
+
+Je vous appelle parce que je connais votre entreprise depuis un bout.
+Vous êtes fermé à l'idée de vendre dans les cinq prochaines années?
+
+[Technique: la question en négatif force "Non, je ne suis pas fermé" = porte ouverte]
+
+[Si hésitation:]
+C'est normal, avec juste un appel comme ça, tu ne peux pas savoir. Justement,
+quelqu'un que j'ai acheté récemment ne voulait pas vendre au départ.
+Il a vu les chiffres et s'est rendu compte que ça faisait du sens.
+
+[Établir crédibilité:]
+- "On n'est pas à la première acquisition — j'ai aussi deux cliniques
+  vétérinaires et de l'immobilier commercial."
+- "C'est un processus structuré — les CPA parlent ensemble, on fait
+  un bilan financier, le propriétaire reste en place 1-2 ans pour la transition."
+
+[Si intéressé — booker un meeting:]
+Parfait, on pourrait se faire un petit appel de 15 minutes cette semaine
+pour voir si ça fait du sens? Mercredi ou jeudi, ça marche?
+
+[Si pas intéressé maintenant:]
+Pas de trouble. Je vais vous envoyer mes coordonnées par email.
+Si jamais dans 2-3 ans ça vous parle, vous aurez notre numéro.
+
+[Closing:]
+Bonne fin de journée!
+```
+
+**Notes tactiques (réunion 24 fév):**
+- Meilleur moment pour rappeler: **fin de saison** quand le propriétaire est brûlé
+- **Double canal**: appeler + envoyer campagne email blast en parallèle
+- Argument cash: "Les paiements cash, c'est comme si ça n'avait jamais existé. Ça n'a aucune valeur comptable."
+- Conseil au vendeur: "Si vous pensez vendre dans 5 ans, commencez à tout passer sur papier."
+
 ---
 
-*Fin du document*
+*Fin du document — Dernière mise à jour: 24 février 2026*
