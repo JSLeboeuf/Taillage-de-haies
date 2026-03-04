@@ -1,0 +1,745 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Prep Meeting — Rémy Perreault</title>
+    <style>
+      :root {
+        --bg: #0f1117;
+        --card: #1a1d27;
+        --card-alt: #21242f;
+        --border: #2a2d3a;
+        --text: #e4e4e7;
+        --muted: #8b8d98;
+        --accent: #3b82f6;
+        --green: #22c55e;
+        --amber: #f59e0b;
+        --red: #ef4444;
+        --orange: #f97316;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        line-height: 1.6;
+        padding: 24px;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+
+      /* Header */
+      .header {
+        background: linear-gradient(135deg, #1e3a5f 0%, #1a1d27 100%);
+        border: 1px solid var(--border);
+        border-radius: 16px;
+        padding: 32px;
+        margin-bottom: 24px;
+      }
+      .header h1 {
+        font-size: 28px;
+        font-weight: 700;
+        margin-bottom: 4px;
+      }
+      .header .subtitle {
+        color: var(--muted);
+        font-size: 15px;
+        margin-bottom: 20px;
+      }
+      .header-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 12px;
+      }
+      .header-item {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        font-size: 14px;
+      }
+      .header-item .label {
+        color: var(--muted);
+        min-width: 80px;
+      }
+      .header-item a {
+        color: var(--accent);
+        text-decoration: none;
+      }
+      .badge {
+        display: inline-block;
+        padding: 2px 10px;
+        border-radius: 100px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+      .badge-amber {
+        background: rgba(245, 158, 11, 0.15);
+        color: var(--amber);
+      }
+      .badge-green {
+        background: rgba(34, 197, 94, 0.15);
+        color: var(--green);
+      }
+
+      /* Cards */
+      .card {
+        background: var(--card);
+        border: 1px solid var(--border);
+        border-radius: 12px;
+        padding: 24px;
+        margin-bottom: 16px;
+      }
+      .card h2 {
+        font-size: 18px;
+        font-weight: 700;
+        margin-bottom: 16px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+      .card h2 .num {
+        background: var(--accent);
+        color: #fff;
+        width: 28px;
+        height: 28px;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 14px;
+        flex-shrink: 0;
+      }
+      .card h3 {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        margin: 20px 0 10px;
+      }
+      .card h3:first-of-type {
+        margin-top: 0;
+      }
+
+      /* Alert */
+      .alert {
+        border-radius: 10px;
+        padding: 16px 20px;
+        margin-bottom: 16px;
+        font-size: 14px;
+        display: flex;
+        gap: 12px;
+        align-items: flex-start;
+      }
+      .alert-amber {
+        background: rgba(245, 158, 11, 0.08);
+        border: 1px solid rgba(245, 158, 11, 0.25);
+      }
+      .alert-red {
+        background: rgba(239, 68, 68, 0.08);
+        border: 1px solid rgba(239, 68, 68, 0.25);
+      }
+      .alert-icon {
+        font-size: 20px;
+        flex-shrink: 0;
+      }
+      .alert strong {
+        color: var(--amber);
+      }
+      .alert-red strong {
+        color: var(--red);
+      }
+
+      /* Info grid */
+      .info-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+      }
+      .info-item {
+        background: var(--card-alt);
+        border-radius: 8px;
+        padding: 12px 16px;
+      }
+      .info-item .info-label {
+        font-size: 11px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--muted);
+        margin-bottom: 4px;
+      }
+      .info-item .info-value {
+        font-size: 15px;
+        font-weight: 600;
+      }
+
+      /* Tags */
+      .tags {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 6px;
+        margin-top: 10px;
+      }
+      .tag {
+        background: var(--card-alt);
+        border: 1px solid var(--border);
+        border-radius: 6px;
+        padding: 4px 10px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+
+      /* Questions */
+      .question-block {
+        background: var(--card-alt);
+        border-radius: 10px;
+        padding: 16px;
+        margin-bottom: 10px;
+        border-left: 3px solid var(--accent);
+      }
+      .question-block .q {
+        font-size: 15px;
+        font-weight: 600;
+        margin-bottom: 4px;
+      }
+      .question-block .why {
+        font-size: 13px;
+        color: var(--muted);
+      }
+
+      /* Technique cards */
+      .technique {
+        background: var(--card-alt);
+        border-radius: 10px;
+        padding: 16px 20px;
+        margin-bottom: 10px;
+        border-left: 3px solid var(--green);
+      }
+      .technique .t-name {
+        font-weight: 700;
+        font-size: 14px;
+        color: var(--green);
+        margin-bottom: 6px;
+      }
+      .technique p,
+      .technique li {
+        font-size: 14px;
+      }
+      .technique ul {
+        padding-left: 18px;
+        margin-top: 6px;
+      }
+      .technique blockquote {
+        border-left: 2px solid var(--border);
+        padding-left: 12px;
+        margin-top: 8px;
+        font-style: italic;
+        color: var(--muted);
+      }
+
+      /* Comparison table */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        font-size: 14px;
+      }
+      th {
+        text-align: left;
+        padding: 10px 12px;
+        background: var(--card-alt);
+        color: var(--muted);
+        font-size: 12px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        border-bottom: 1px solid var(--border);
+      }
+      td {
+        padding: 10px 12px;
+        border-bottom: 1px solid var(--border);
+      }
+      tr:last-child td {
+        border-bottom: none;
+      }
+      .td-unknown {
+        color: var(--amber);
+        font-weight: 600;
+      }
+
+      /* Checklist */
+      .checklist {
+        list-style: none;
+        padding: 0;
+      }
+      .checklist li {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 0;
+        font-size: 14px;
+        border-bottom: 1px solid var(--border);
+      }
+      .checklist li:last-child {
+        border-bottom: none;
+      }
+      .check-box {
+        width: 20px;
+        height: 20px;
+        border: 2px solid var(--border);
+        border-radius: 4px;
+        flex-shrink: 0;
+      }
+
+      /* Règles */
+      .rules-bar {
+        background: rgba(239, 68, 68, 0.08);
+        border: 1px solid rgba(239, 68, 68, 0.2);
+        border-radius: 10px;
+        padding: 16px 20px;
+        margin-bottom: 16px;
+      }
+      .rules-bar h2 {
+        color: var(--red);
+        font-size: 16px;
+        margin-bottom: 10px;
+      }
+      .rules-bar ul {
+        padding-left: 18px;
+      }
+      .rules-bar li {
+        font-size: 14px;
+        margin-bottom: 4px;
+      }
+
+      @media (max-width: 600px) {
+        body {
+          padding: 12px;
+        }
+        .header-grid {
+          grid-template-columns: 1fr;
+        }
+        .info-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- HEADER -->
+    <div class="header">
+      <h1>Rémy Perreault</h1>
+      <div class="subtitle">
+        R. Perreault Paysagement inc. &mdash; Beauharnois, QC
+      </div>
+      <div class="header-grid">
+        <div class="header-item">
+          <span class="label">Meeting</span>
+          <strong>Mercredi 4 mars, 17h</strong>
+        </div>
+        <div class="header-item">
+          <span class="label">Format</span> Vidéoconférence
+        </div>
+        <div class="header-item"><span class="label">Âge</span> 27 ans</div>
+        <div class="header-item">
+          <span class="label">Motivation</span>
+          <span class="badge badge-amber">Veut aller en construction</span>
+        </div>
+        <div class="header-item">
+          <span class="label">Tél</span>
+          <a href="tel:4388288495">(438) 828-8495</a>
+        </div>
+        <div class="header-item">
+          <span class="label">Site</span>
+          <a href="https://rperreaultpaysagement.com/" target="_blank"
+            >rperreaultpaysagement.com</a
+          >
+        </div>
+        <div class="header-item">
+          <span class="label">Instagram</span>
+          <a href="https://www.instagram.com/remy_perreault/" target="_blank"
+            >@remy_perreault</a
+          >
+          (959 abonnés)
+        </div>
+        <div class="header-item">
+          <span class="label">Email</span> info@rpaysagement.com
+        </div>
+      </div>
+    </div>
+
+    <!-- ALERTES -->
+    <div class="alert alert-amber">
+      <span class="alert-icon">&#9888;</span>
+      <div>
+        <strong>15 ans d'expérience mais 27 ans</strong> — il aurait commencé à
+        12 ans? Probablement de l'expérience familiale ou du marketing exagéré.
+        À clarifier d'entrée de jeu.
+      </div>
+    </div>
+
+    <!-- PROFIL ENTREPRISE -->
+    <div class="card">
+      <h2>Profil entreprise</h2>
+
+      <div class="info-grid">
+        <div class="info-item">
+          <div class="info-label">Expérience affichée</div>
+          <div class="info-value">~15 ans</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Clientèle</div>
+          <div class="info-value">Résidentiel + Commercial</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Base</div>
+          <div class="info-value">Beauharnois, QC</div>
+        </div>
+        <div class="info-item">
+          <div class="info-label">Déneigement</div>
+          <div class="info-value" style="color: var(--green)">
+            Oui (revenu hiver)
+          </div>
+        </div>
+      </div>
+
+      <h3>Territoire</h3>
+      <div class="tags">
+        <span class="tag">Châteauguay</span>
+        <span class="tag">Vaudreuil-Dorion</span>
+        <span class="tag">Valleyfield</span>
+        <span class="tag">Mercier</span>
+        <span class="tag">Saint-Lazare</span>
+        <span class="tag">Beauharnois</span>
+        <span class="tag">Longueuil</span>
+        <span class="tag">La Vallée-du-Richelieu</span>
+      </div>
+
+      <h3>16 services</h3>
+      <div class="tags">
+        <span class="tag">Taillage de haies</span>
+        <span class="tag">Émondage</span>
+        <span class="tag">Entretien paysager</span>
+        <span class="tag">Pavé uni</span>
+        <span class="tag">Excavation</span>
+        <span class="tag">Tourbe</span>
+        <span class="tag">Déneigement</span>
+        <span class="tag">Béton</span>
+        <span class="tag">Irrigation</span>
+        <span class="tag">Murets</span>
+        <span class="tag">Pergolas</span>
+        <span class="tag">Piscines</span>
+        <span class="tag">Horticulture</span>
+        <span class="tag">Pavage</span>
+        <span class="tag">Tonte de pelouse</span>
+        <span class="tag">Terrassement</span>
+      </div>
+
+      <h3>Réputation</h3>
+      <p style="font-size: 14px; color: var(--muted)">
+        Témoignages positifs sur le site. « Très professionnel et courtois,
+        taillage de haies de cèdres, arbustes, buis. » — 0 avis Soumission
+        Rénovation, pas de RBQ affiché.
+      </p>
+    </div>
+
+    <!-- RÈGLES -->
+    <div class="rules-bar">
+      <h2>Règles du meeting</h2>
+      <ul>
+        <li>
+          <strong>Ne rien offrir aujourd'hui</strong> — c'est exploratoire
+        </li>
+        <li><strong>Le laisser parler en premier</strong> sur le prix</li>
+        <li><strong>Écouter plus que parler</strong> — on veut ses chiffres</li>
+        <li>
+          Finir par : « Envoie-nous les états financiers via ton comptable »
+        </li>
+      </ul>
+    </div>
+
+    <!-- QUESTIONS BLOC 1 -->
+    <div class="card">
+      <h2><span class="num">1</span> Ouverture (2-3 min)</h2>
+      <div class="question-block">
+        <div class="q">Se présenter : Taillage Élite, ce qu'on fait</div>
+        <div class="why">
+          Mettre à l'aise — « C'est exploratoire, zéro engagement »
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="q">
+          « Parle-moi de ton parcours, comment t'as parti ta business? »
+        </div>
+        <div class="why">
+          Valider les « 15 ans d'expérience » vs son âge de 27 ans
+        </div>
+      </div>
+    </div>
+
+    <!-- QUESTIONS BLOC 2 -->
+    <div class="card">
+      <h2><span class="num">2</span> Découverte entreprise (5-7 min)</h2>
+      <div class="question-block">
+        <div class="q">Ça fait combien de temps que t'as ta business?</div>
+        <div class="why">Ancienneté = valeur de la clientèle</div>
+      </div>
+      <div class="question-block">
+        <div class="q">
+          C'est quoi tes services? Taillage, élagage, paysagement? En quel
+          pourcentage?
+        </div>
+        <div class="why">
+          Comprendre le mix — on veut surtout le taillage/élagage
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="q">T'as combien de clients actifs par saison?</div>
+        <div class="why">Volume de la clientèle</div>
+      </div>
+      <div class="question-block">
+        <div class="q">C'est quoi le ticket moyen par job?</div>
+        <div class="why">Revenu par client</div>
+      </div>
+      <div class="question-block">
+        <div class="q">Tes clients sont où géographiquement?</div>
+        <div class="why">Chevauchement avec notre territoire</div>
+      </div>
+      <div class="question-block">
+        <div class="q">Clients récurrents chaque année ou du one-shot?</div>
+        <div class="why">Rétention = valeur du book</div>
+      </div>
+    </div>
+
+    <!-- QUESTIONS BLOC 3 -->
+    <div class="card">
+      <h2><span class="num">3</span> Chiffres (5-7 min)</h2>
+      <div class="question-block">
+        <div class="q">
+          C'est quoi ton chiffre d'affaires annuel? Les 2-3 dernières années?
+        </div>
+        <div class="why">Tendance de croissance</div>
+      </div>
+      <div class="question-block">
+        <div class="q">
+          Si tout était comptabilisé, avec le cash, ça donne quoi?
+        </div>
+        <div class="why">Vrais chiffres vs déclaré</div>
+      </div>
+      <div class="question-block">
+        <div class="q">C'est quoi ton profit après toutes les dépenses?</div>
+        <div class="why">BAIIA — base de la valorisation</div>
+      </div>
+      <div class="question-block">
+        <div class="q">
+          C'est quoi tes dépenses principales? Salaires, gaz, équipement,
+          assurances?
+        </div>
+        <div class="why">Structure de coûts</div>
+      </div>
+      <div class="question-block">
+        <div class="q">Combien est déclaré vs cash?</div>
+        <div class="why">Levier de négociation massif</div>
+      </div>
+    </div>
+
+    <!-- QUESTIONS BLOC 4 -->
+    <div class="card">
+      <h2><span class="num">4</span> Opérations (3-5 min)</h2>
+      <div class="question-block">
+        <div class="q">Combien d'employés? Sont-ils formés et fiables?</div>
+        <div class="why">Capacité + transférabilité</div>
+      </div>
+      <div class="question-block">
+        <div class="q">Toi, tu travailles activement sur le terrain?</div>
+        <div class="why">Si oui → le profit doit être ajusté sans lui</div>
+      </div>
+      <div class="question-block">
+        <div class="q">
+          C'est quoi ton équipement? Véhicules, outils, remorques?
+        </div>
+        <div class="why">Valeur des actifs tangibles</div>
+      </div>
+      <div class="question-block">
+        <div class="q">
+          Ta saison, ça va de quand à quand? Combien de jours/semaine?
+        </div>
+        <div class="why">Capacité de revenu + déneigement hiver?</div>
+      </div>
+    </div>
+
+    <!-- QUESTIONS BLOC 5 -->
+    <div class="card">
+      <h2><span class="num">5</span> Contrats et paiements (2-3 min)</h2>
+      <div class="question-block">
+        <div class="q">T'as des contrats signés avec tes clients?</div>
+        <div class="why">Valeur comptable de la clientèle</div>
+      </div>
+      <div class="question-block">
+        <div class="q">Les paiements : factures ou cash?</div>
+        <div class="why">Levier — cash = aucune valeur comptable</div>
+      </div>
+      <div class="question-block">
+        <div class="q">T'as un comptable?</div>
+        <div class="why">Due diligence — les 2 CPA doivent se parler</div>
+      </div>
+    </div>
+
+    <!-- QUESTIONS BLOC 6 -->
+    <div class="card">
+      <h2><span class="num">6</span> Intention de vente (3-5 min)</h2>
+      <div class="question-block">
+        <div class="q">Qu'est-ce qui t'amène à vouloir vendre?</div>
+        <div class="why">Motivation = niveau d'urgence</div>
+      </div>
+      <div class="question-block">
+        <div class="q">
+          Tu voulais vendre quand? Cette année, l'an prochain?
+        </div>
+        <div class="why">Timeline du deal</div>
+      </div>
+      <div class="question-block">
+        <div class="q">T'as une idée de ce que tu penses que ça vaut?</div>
+        <div class="why" style="color: var(--amber); font-weight: 600">
+          LE LAISSER PARLER EN PREMIER — ne pas donner ton chiffre
+        </div>
+      </div>
+      <div class="question-block">
+        <div class="q">
+          Serais-tu ouvert à rester un certain temps pour la transition?
+        </div>
+        <div class="why">Idéal : 3-5 ans</div>
+      </div>
+      <div class="question-block">
+        <div class="q">Tu ferais quoi après? Construction?</div>
+        <div class="why">Confirmer le profil et la motivation</div>
+      </div>
+    </div>
+
+    <!-- TECHNIQUES -->
+    <div class="card">
+      <h2>Techniques de négociation</h2>
+
+      <div class="technique">
+        <div class="t-name">Si il donne un prix</div>
+        <ul>
+          <li>
+            CA &ne; profit &mdash; ce qu'on achète c'est le
+            <strong>profit</strong>
+          </li>
+          <li>Cash = aucune valeur comptable &rarr; levier énorme</li>
+          <li>Pas de contrats signés = clientèle non garantie</li>
+          <li>S'il travaille sur le terrain &rarr; profit ajusté sans lui</li>
+        </ul>
+      </div>
+
+      <div class="technique">
+        <div class="t-name">Feel-Felt-Found (s'il hésite)</div>
+        <blockquote>
+          « La dernière personne avec qui on a parlé se sentait exactement comme
+          toi. Une fois qu'elle a vu les chiffres et le processus, elle s'est
+          rendue compte que c'était la bonne décision pour elle. »
+        </blockquote>
+      </div>
+
+      <div class="technique">
+        <div class="t-name">Processus à expliquer</div>
+        <ul>
+          <li>Les deux CPA se parlent</li>
+          <li>
+            Prix basé sur le <strong>BAIIA</strong> (multiple 1-3x du profit)
+          </li>
+          <li>
+            Propriétaire reste <strong>3-5 ans</strong> pour la transition
+          </li>
+          <li>Deal structuré : upfront + conditionnel à la rétention</li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- COMPARAISON -->
+    <div class="card">
+      <h2>Comparaison avec les autres deals</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Élément</th>
+            <th>Oscar</th>
+            <th>Robert (Châtaignier)</th>
+            <th>Perreault</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Ancienneté</td>
+            <td>~5 ans clients</td>
+            <td>14+ ans</td>
+            <td class="td-unknown">?</td>
+          </tr>
+          <tr>
+            <td>CA</td>
+            <td>12-15K$</td>
+            <td>300K$</td>
+            <td class="td-unknown">?</td>
+          </tr>
+          <tr>
+            <td>Employés</td>
+            <td>Aucun</td>
+            <td>7-8</td>
+            <td class="td-unknown">?</td>
+          </tr>
+          <tr>
+            <td>Cash</td>
+            <td>Majorité</td>
+            <td>~50%</td>
+            <td class="td-unknown">?</td>
+          </tr>
+          <tr>
+            <td>Contrats</td>
+            <td>Non</td>
+            <td>Non</td>
+            <td class="td-unknown">?</td>
+          </tr>
+          <tr>
+            <td>Motivation</td>
+            <td>Construction</td>
+            <td>Immobilier (2-5 ans)</td>
+            <td class="td-unknown">Construction?</td>
+          </tr>
+          <tr>
+            <td>Prix</td>
+            <td>Max 6K$</td>
+            <td>150K$</td>
+            <td class="td-unknown">?</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- APRÈS LA RENCONTRE -->
+    <div class="card">
+      <h2>Après la rencontre</h2>
+      <ul class="checklist">
+        <li>
+          <span class="check-box"></span> Remplir les « ? » du tableau
+          comparatif
+        </li>
+        <li>
+          <span class="check-box"></span> Évaluer : deal intéressant ou pas?
+        </li>
+        <li>
+          <span class="check-box"></span> Si oui : demander états financiers du
+          comptable (3 dernières années)
+        </li>
+        <li>
+          <span class="check-box"></span> Mettre à jour le pipeline
+          d'acquisitions
+        </li>
+      </ul>
+    </div>
+  </body>
+</html>

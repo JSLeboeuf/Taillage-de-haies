@@ -1,0 +1,593 @@
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Recrutement — Taillage Haie Elite</title>
+    <style>
+      :root {
+        --green: #4a7c43;
+        --green-light: #6b9b37;
+        --green-dark: #2d5a27;
+        --bg: #111;
+        --text: #ffffff;
+        --muted: #a1a1a1;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+        background: #1a1a1a;
+        color: var(--text);
+        padding: 32px 24px;
+      }
+
+      .page {
+        max-width: 680px;
+        margin: 0 auto;
+      }
+
+      /* === CONTROLS BAR === */
+      .controls {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+      }
+      .controls button {
+        background: #2a2a2a;
+        border: 1px solid #444;
+        color: #fff;
+        padding: 8px 16px;
+        border-radius: 8px;
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: background 0.15s;
+      }
+      .controls button:hover {
+        background: #3a3a3a;
+      }
+      .controls button.active {
+        background: var(--green);
+        border-color: var(--green);
+      }
+      .controls .label {
+        font-size: 12px;
+        color: var(--muted);
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        font-weight: 600;
+      }
+
+      /* === IMAGE CARDS === */
+      .image-wrapper {
+        display: flex;
+        justify-content: center;
+        margin-bottom: 32px;
+      }
+
+      .image-card {
+        background: linear-gradient(
+          160deg,
+          #0d1a0b 0%,
+          #1a2e17 40%,
+          #0d1a0b 100%
+        );
+        overflow: hidden;
+        position: relative;
+        display: flex;
+        align-items: center;
+        border-radius: 0; /* clean screenshot */
+      }
+      .image-card.square {
+        width: 1080px;
+        height: 1080px;
+        transform-origin: top center;
+      }
+      .image-card.portrait {
+        width: 1080px;
+        height: 1350px;
+        transform-origin: top center;
+      }
+      .image-card.story {
+        width: 1080px;
+        height: 1920px;
+        transform-origin: top center;
+      }
+
+      /* Scale to fit screen */
+      @media (max-width: 1120px) {
+        .image-card.square,
+        .image-card.portrait,
+        .image-card.story {
+          width: 100%;
+          height: auto;
+        }
+        .image-card.square {
+          aspect-ratio: 1 / 1;
+        }
+        .image-card.portrait {
+          aspect-ratio: 4 / 5;
+        }
+        .image-card.story {
+          aspect-ratio: 9 / 16;
+        }
+      }
+
+      .image-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse at 25% 15%,
+            rgba(74, 124, 67, 0.25) 0%,
+            transparent 55%
+          ),
+          radial-gradient(
+            ellipse at 75% 85%,
+            rgba(107, 155, 55, 0.12) 0%,
+            transparent 50%
+          );
+        pointer-events: none;
+      }
+
+      .card-content {
+        position: relative;
+        padding: 8% 7%;
+        text-align: center;
+        width: 100%;
+      }
+
+      .badge-top {
+        display: inline-block;
+        background: rgba(107, 155, 55, 0.15);
+        border: 1px solid rgba(107, 155, 55, 0.3);
+        border-radius: 100px;
+        padding: 0.6% 2.5%;
+        font-size: clamp(11px, 1.3vw, 16px);
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--green-light);
+        margin-bottom: 3%;
+      }
+
+      .number-callout {
+        font-size: clamp(48px, 7vw, 88px);
+        font-weight: 900;
+        line-height: 1;
+        letter-spacing: -3px;
+        color: var(--green-light);
+        margin-bottom: 0.5%;
+      }
+      .number-callout .dollar {
+        font-size: 0.55em;
+        vertical-align: top;
+        letter-spacing: 0;
+      }
+      .number-callout .per-day {
+        display: block;
+        font-size: clamp(12px, 1.6vw, 20px);
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-top: 0.5%;
+      }
+
+      .hook {
+        font-size: clamp(20px, 2.8vw, 34px);
+        font-weight: 800;
+        line-height: 1.2;
+        margin: 3% 0 1%;
+      }
+      .sub-hook {
+        font-size: clamp(13px, 1.5vw, 18px);
+        color: var(--muted);
+        margin-bottom: 4%;
+      }
+
+      .divider {
+        width: 50px;
+        height: 3px;
+        background: var(--green);
+        border-radius: 2px;
+        margin: 0 auto 3.5%;
+      }
+
+      .perks {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: clamp(8px, 1.2vw, 14px);
+        margin-bottom: 4%;
+      }
+      .perk {
+        background: rgba(74, 124, 67, 0.08);
+        border: 1px solid rgba(74, 124, 67, 0.18);
+        border-radius: 12px;
+        padding: 3% 2%;
+        text-align: center;
+      }
+      .perk-icon {
+        font-size: clamp(22px, 2.8vw, 34px);
+        margin-bottom: 6px;
+      }
+      .perk-label {
+        font-size: clamp(11px, 1.2vw, 15px);
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--green-light);
+        line-height: 1.3;
+      }
+      .perk-detail {
+        font-size: clamp(10px, 1vw, 13px);
+        color: var(--muted);
+        margin-top: 2px;
+      }
+
+      .cta-box {
+        background: var(--green);
+        border-radius: 14px;
+        padding: 2.5% 3%;
+        margin-bottom: 2.5%;
+      }
+      .cta-box .cta-text {
+        font-size: clamp(15px, 1.8vw, 22px);
+        font-weight: 800;
+      }
+      .cta-box .cta-sub {
+        font-size: clamp(12px, 1.3vw, 16px);
+        opacity: 0.9;
+        margin-top: 2px;
+      }
+
+      .footer-card {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        font-size: clamp(11px, 1.1vw, 14px);
+        color: var(--muted);
+      }
+      .footer-card a {
+        color: var(--green-light);
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .dot {
+        opacity: 0.3;
+      }
+
+      /* Story has more vertical space — bump up sizes */
+      .story .card-content {
+        padding: 12% 8%;
+      }
+      .story .number-callout {
+        font-size: clamp(56px, 9vw, 110px);
+      }
+      .story .hook {
+        font-size: clamp(24px, 3.5vw, 42px);
+      }
+      .story .perks {
+        gap: clamp(10px, 1.5vw, 18px);
+        margin-bottom: 6%;
+      }
+      .story .perk {
+        padding: 4% 3%;
+      }
+      .story .badge-top {
+        margin-bottom: 5%;
+      }
+      .story .divider {
+        margin-bottom: 5%;
+      }
+      .story .cta-box {
+        padding: 3.5% 4%;
+        margin-bottom: 4%;
+      }
+
+      /* === CAPTION SECTIONS === */
+      .caption-section {
+        background: #1f1f1f;
+        border: 1px solid #333;
+        border-radius: 12px;
+        margin-bottom: 20px;
+        overflow: hidden;
+      }
+      .caption-header {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 14px 20px;
+        background: #252525;
+        border-bottom: 1px solid #333;
+      }
+      .caption-header .platform {
+        font-size: 14px;
+        font-weight: 700;
+      }
+      .caption-header .char-count {
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .caption-header .copy-btn {
+        background: var(--green);
+        border: none;
+        color: #fff;
+        padding: 6px 14px;
+        border-radius: 6px;
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+      }
+      .caption-header .copy-btn:hover {
+        opacity: 0.85;
+      }
+      .caption-body {
+        padding: 20px;
+      }
+      .caption-body pre {
+        white-space: pre-wrap;
+        word-wrap: break-word;
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+        font-size: 14px;
+        line-height: 1.7;
+        color: #d4d4d4;
+      }
+
+      /* Format badges */
+      .format-info {
+        display: flex;
+        gap: 16px;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+      }
+      .format-badge {
+        background: #252525;
+        border: 1px solid #333;
+        border-radius: 8px;
+        padding: 10px 16px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .format-badge strong {
+        color: #fff;
+      }
+
+      h2.section-title {
+        font-size: 20px;
+        font-weight: 800;
+        margin-bottom: 16px;
+        padding-bottom: 10px;
+        border-bottom: 1px solid #333;
+      }
+
+      .hidden {
+        display: none;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="page">
+      <!-- FORMAT CONTROLS -->
+      <h2 class="section-title">Image du post</h2>
+      <div class="controls">
+        <span class="label">Format :</span>
+        <button class="active" onclick="switchFormat('square')">
+          1:1 Carré (Feed)
+        </button>
+        <button onclick="switchFormat('portrait')">4:5 Portrait (Feed)</button>
+        <button onclick="switchFormat('story')">9:16 Story / Reel</button>
+      </div>
+
+      <div class="format-info">
+        <div class="format-badge" id="format-size">
+          <strong>1080 x 1080</strong> px
+        </div>
+        <div class="format-badge" id="format-use">
+          <strong>Facebook + Instagram</strong> feed
+        </div>
+        <div class="format-badge">Screenshot l'image &rarr; poste-la</div>
+      </div>
+
+      <!-- IMAGE -->
+      <div class="image-wrapper">
+        <div class="image-card square" id="imageCard">
+          <div class="card-content">
+            <div class="badge-top">On cherche 2 machines</div>
+
+            <div class="number-callout">
+              250<span class="dollar">$</span>
+              <span class="per-day">par jour</span>
+            </div>
+
+            <h1 class="hook">Travaille dehors au soleil<br />avec ton chum</h1>
+            <p class="sub-hook">Taillage de haies &mdash; Saison 2026</p>
+
+            <div class="divider"></div>
+
+            <div class="perks">
+              <div class="perk">
+                <div class="perk-icon">&#9728;&#65039;</div>
+                <div class="perk-label">Au soleil</div>
+                <div class="perk-detail">Pas dans un bureau</div>
+              </div>
+              <div class="perk">
+                <div class="perk-icon">&#128661;</div>
+                <div class="perk-label">Pick-up fourni</div>
+                <div class="perk-detail">Truck + tout l'équip</div>
+              </div>
+              <div class="perk">
+                <div class="perk-icon">&#129309;</div>
+                <div class="perk-label">Viens en duo</div>
+                <div class="perk-detail">Amène ton ami</div>
+              </div>
+              <div class="perk">
+                <div class="perk-icon">&#128170;</div>
+                <div class="perk-label">On te forme</div>
+                <div class="perk-detail">0 expérience requise</div>
+              </div>
+            </div>
+
+            <div class="cta-box">
+              <div class="cta-text">Envoie ton CV maintenant</div>
+              <div class="cta-sub">DM ou Joannetteh1@hotmail.com</div>
+            </div>
+
+            <div class="footer-card">
+              <span>Taillage Haie &Eacute;lite</span>
+              <span class="dot">|</span>
+              <span>Rive-Sud</span>
+              <span class="dot">|</span>
+              <span>@taillage_haielite</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== CAPTIONS ========== -->
+      <h2 class="section-title">Texte du post (copier-coller)</h2>
+
+      <!-- FACEBOOK -->
+      <div class="caption-section">
+        <div class="caption-header">
+          <span class="platform">Facebook</span>
+          <span class="char-count" id="fb-count"></span>
+          <button class="copy-btn" onclick="copyCaption('fb')">Copier</button>
+        </div>
+        <div class="caption-body">
+          <pre id="fb-caption">
+On cherche 2 machines pour compléter notre équipe cette saison. &#128293;
+
+T'es jeune. T'es travaillant. T'es tanné d'être enfermé dans un bureau ou un entrepôt?
+
+On fait du taillage de haies sur la Rive-Sud.
+Dehors, au soleil, tout l'été.
+
+&#9472;&#9472;&#9472;
+
+Ce qu'on t'offre :
+
+&#128176; 250$/jour — payé chaque semaine
+&#128661; Pick-up + équipement fourni — t'apportes juste toi
+&#9728;&#65039; Travail extérieur — zéro bureau, zéro entrepôt
+&#129309; Viens avec ton ami — on embauche en duo
+&#128170; On te forme — aucune expérience requise
+
+&#9472;&#9472;&#9472;
+
+Ce qu'on demande :
+
+&#10004;&#65039; Être fiable — te présenter à l'heure
+&#10004;&#65039; Être travaillant — on cherche des vrais, pas des touristes
+&#10004;&#65039; Avoir de l'énergie — c'est physique pis c'est dehors
+
+&#9472;&#9472;&#9472;
+
+La saison commence bientôt. On est basés sur la Rive-Sud.
+2 places seulement.
+
+&#128233; Envoie ton CV en message privé ou à Joannetteh1@hotmail.com
+
+Tag un chum qui serait down! &#128071;</pre
+          >
+        </div>
+      </div>
+
+      <!-- INSTAGRAM -->
+      <div class="caption-section">
+        <div class="caption-header">
+          <span class="platform">Instagram</span>
+          <span class="char-count" id="ig-count"></span>
+          <button class="copy-btn" onclick="copyCaption('ig')">Copier</button>
+        </div>
+        <div class="caption-body">
+          <pre id="ig-caption">
+On cherche 2 machines pour compléter notre équipe. &#128293;
+
+250$/jour. Pick-up fourni. Équipement fourni. Tu travailles dehors au soleil avec ton chum tout l'été.
+
+Ce qu'on t'offre :
+&#128176; 250$/jour — payé chaque semaine
+&#128661; Pick-up + équipement fourni
+&#9728;&#65039; Zéro bureau, zéro entrepôt
+&#129309; Viens avec un ami
+&#128170; On te forme
+
+Ce qu'on demande :
+&#10004;&#65039; Fiable
+&#10004;&#65039; Travaillant
+&#10004;&#65039; Pas un touriste
+
+Rive-Sud | 2 places seulement.
+&#128233; DM ou à Joannetteh1@hotmail.com
+
+Tag un chum! &#128071;
+.
+.
+.
+#emploi #recrutement #taillagedehaies #rivesud #montérégie #jobdété #travaillerdehors #paysagement #hiring #taillagehaielite #hardworkers #outdoorjob #québec #emploiquébec #job2026 #landscaping #hedgetrimming #summerwork #workoutdoors #noexperienceneeded</pre
+          >
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Format switcher
+      function switchFormat(format) {
+        const card = document.getElementById("imageCard");
+        const sizeEl = document.getElementById("format-size");
+        const useEl = document.getElementById("format-use");
+
+        card.className = "image-card " + format;
+
+        document
+          .querySelectorAll(".controls button")
+          .forEach((b) => b.classList.remove("active"));
+        event.target.classList.add("active");
+
+        const info = {
+          square: { size: "1080 x 1080", use: "Facebook + Instagram feed" },
+          portrait: {
+            size: "1080 x 1350",
+            use: "Instagram feed (plus visible)",
+          },
+          story: {
+            size: "1080 x 1920",
+            use: "Instagram/Facebook story + Reel",
+          },
+        };
+        sizeEl.innerHTML = "<strong>" + info[format].size + "</strong> px";
+        useEl.innerHTML = "<strong>" + info[format].use + "</strong>";
+      }
+
+      // Copy caption
+      function copyCaption(platform) {
+        const el = document.getElementById(platform + "-caption");
+        navigator.clipboard.writeText(el.textContent).then(() => {
+          const btn = el.closest(".caption-section").querySelector(".copy-btn");
+          btn.textContent = "Copie!";
+          setTimeout(() => (btn.textContent = "Copier"), 2000);
+        });
+      }
+
+      // Char counts
+      function updateCounts() {
+        const fb = document.getElementById("fb-caption").textContent.length;
+        const ig = document.getElementById("ig-caption").textContent.length;
+        document.getElementById("fb-count").textContent = fb + " / 63 206 car.";
+        document.getElementById("ig-count").textContent = ig + " / 2 200 car.";
+      }
+      updateCounts();
+    </script>
+  </body>
+</html>
