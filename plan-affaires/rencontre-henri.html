@@ -1,0 +1,564 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rencontre Henri - Guide</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            text-align: center;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            color: #00d4aa;
+        }
+
+        .subtitle {
+            text-align: center;
+            color: #888;
+            margin-bottom: 30px;
+            font-size: 1.2rem;
+        }
+
+        .card {
+            background: rgba(255,255,255,0.05);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 20px;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .card h2 {
+            color: #00d4aa;
+            margin-bottom: 15px;
+            font-size: 1.4rem;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .card h2 .emoji {
+            font-size: 1.6rem;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, #00d4aa22 0%, #00d4aa11 100%);
+            border-left: 4px solid #00d4aa;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+        }
+
+        .highlight-box.warning {
+            background: linear-gradient(135deg, #ff6b6b22 0%, #ff6b6b11 100%);
+            border-left-color: #ff6b6b;
+        }
+
+        .highlight-box.blue {
+            background: linear-gradient(135deg, #4dabf722 0%, #4dabf711 100%);
+            border-left-color: #4dabf7;
+        }
+
+        .two-cols {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+        }
+
+        @media (max-width: 700px) {
+            .two-cols {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .role-card {
+            background: rgba(0,0,0,0.3);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+
+        .role-card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 10px;
+        }
+
+        .role-card.henri h3 { color: #4dabf7; }
+        .role-card.mathieu h3 { color: #00d4aa; }
+
+        .role-card ul {
+            list-style: none;
+            text-align: left;
+        }
+
+        .role-card li {
+            padding: 8px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .role-card li:last-child {
+            border-bottom: none;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 15px 0;
+        }
+
+        th, td {
+            padding: 12px;
+            text-align: left;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+
+        th {
+            color: #00d4aa;
+            font-weight: 600;
+        }
+
+        .equity-bar {
+            display: flex;
+            height: 40px;
+            border-radius: 8px;
+            overflow: hidden;
+            margin: 10px 0;
+        }
+
+        .equity-henri {
+            background: #4dabf7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            transition: width 0.5s;
+        }
+
+        .equity-mathieu {
+            background: #00d4aa;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            transition: width 0.5s;
+        }
+
+        .timeline {
+            position: relative;
+            padding-left: 30px;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            left: 10px;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: #00d4aa;
+        }
+
+        .timeline-item {
+            position: relative;
+            padding: 15px 0;
+        }
+
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -24px;
+            top: 20px;
+            width: 12px;
+            height: 12px;
+            background: #00d4aa;
+            border-radius: 50%;
+        }
+
+        .timeline-item h4 {
+            color: #00d4aa;
+            margin-bottom: 5px;
+        }
+
+        .question-list {
+            list-style: none;
+        }
+
+        .question-list li {
+            padding: 12px 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 8px;
+            margin: 8px 0;
+            font-size: 1.1rem;
+        }
+
+        .question-list li::before {
+            content: '→ ';
+            color: #00d4aa;
+        }
+
+        .big-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #00d4aa;
+            text-align: center;
+        }
+
+        .big-number span {
+            display: block;
+            font-size: 1rem;
+            color: #888;
+            font-weight: normal;
+        }
+
+        .objection {
+            background: rgba(0,0,0,0.3);
+            border-radius: 8px;
+            padding: 15px;
+            margin: 10px 0;
+        }
+
+        .objection-q {
+            color: #ff6b6b;
+            font-weight: bold;
+            margin-bottom: 8px;
+        }
+
+        .objection-a {
+            color: #00d4aa;
+            padding-left: 15px;
+            border-left: 2px solid #00d4aa;
+        }
+
+        .formula {
+            background: linear-gradient(135deg, #00d4aa 0%, #00a896 100%);
+            color: #000;
+            padding: 30px;
+            border-radius: 16px;
+            text-align: center;
+            margin: 20px 0;
+        }
+
+        .formula h2 {
+            color: #000;
+            font-size: 1.8rem;
+            margin-bottom: 15px;
+        }
+
+        .formula-grid {
+            display: grid;
+            grid-template-columns: 1fr auto 1fr auto 1fr;
+            align-items: center;
+            gap: 15px;
+            font-size: 1.2rem;
+        }
+
+        .formula-item {
+            background: rgba(0,0,0,0.2);
+            padding: 15px;
+            border-radius: 8px;
+        }
+
+        .formula-item strong {
+            display: block;
+            font-size: 1.4rem;
+        }
+
+        .formula-op {
+            font-size: 2rem;
+            font-weight: bold;
+        }
+
+        .checklist {
+            list-style: none;
+        }
+
+        .checklist li {
+            padding: 10px 0;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .checklist li::before {
+            content: '☐';
+            font-size: 1.3rem;
+        }
+
+        .footer {
+            text-align: center;
+            padding: 30px;
+            color: #666;
+        }
+
+        .print-hide {
+            display: block;
+        }
+
+        @media print {
+            .print-hide { display: none; }
+            body { background: #fff; color: #000; }
+            .card { border: 1px solid #ccc; }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Rencontre avec Henri</h1>
+        <p class="subtitle">Guide de conversation - Formule Gagnant-Gagnant</p>
+
+        <!-- FORMULE PRINCIPALE -->
+        <div class="formula">
+            <h2>LA FORMULE GAGNANT-GAGNANT</h2>
+            <div class="formula-grid">
+                <div class="formula-item">
+                    <strong>HENRI</strong>
+                    Terrain + Clients + Execution
+                </div>
+                <div class="formula-op">+</div>
+                <div class="formula-item">
+                    <strong>MATHIEU</strong>
+                    Systemes + Croissance + Capital
+                </div>
+                <div class="formula-op">=</div>
+                <div class="formula-item">
+                    <strong>10x</strong>
+                    250k$ → 2M$+
+                </div>
+            </div>
+        </div>
+
+        <!-- MINDSET -->
+        <div class="card">
+            <h2><span class="emoji">🧠</span> Mindset de la rencontre</h2>
+            <div class="highlight-box">
+                <strong>IL T'A DEMANDÉ DE REVENIR.</strong><br>
+                Tu ne supplies pas. Tu négocies les termes d'un partenariat qu'IL veut.
+            </div>
+            <div class="highlight-box warning">
+                <strong>⚠️ NE PAS FAIRE:</strong><br>
+                • Pitcher tes 60 repos GitHub<br>
+                • Parler d'IA pendant 20 minutes<br>
+                • Donner l'impression que tu sais mieux que lui<br>
+                • Demander 50% tout de suite
+            </div>
+        </div>
+
+        <!-- RÔLES -->
+        <div class="card">
+            <h2><span class="emoji">👥</span> Répartition des rôles</h2>
+            <div class="two-cols">
+                <div class="role-card henri">
+                    <h3>🔧 HENRI</h3>
+                    <ul>
+                        <li>Operations terrain</li>
+                        <li>Execution des travaux</li>
+                        <li>Gestion des équipes</li>
+                        <li>Relation client directe</li>
+                        <li>Contrôle qualité</li>
+                    </ul>
+                </div>
+                <div class="role-card mathieu">
+                    <h3>🚀 MATHIEU</h3>
+                    <ul>
+                        <li>Systèmes & automatisation</li>
+                        <li>Acquisition clients (ads, leads)</li>
+                        <li>Recrutement TET</li>
+                        <li>Finance & dossiers bancaires</li>
+                        <li>Stratégie de croissance</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="highlight-box blue" style="margin-top: 20px;">
+                <strong>MESSAGE CLÉ:</strong> "Tu restes le boss du terrain. Moi je build les systèmes pour que t'aies plus de clients et moins de paperasse."
+            </div>
+        </div>
+
+        <!-- QUESTIONS À POSER -->
+        <div class="card">
+            <h2><span class="emoji">❓</span> Questions à poser (dans l'ordre)</h2>
+            <ol class="question-list">
+                <li><strong>"C'est quoi ta vision pour Haie Lite dans 3 ans?"</strong></li>
+                <li><strong>"C'est quoi ton plus gros problème en ce moment?"</strong></li>
+                <li><strong>"Tu perds combien de clients parce que tu peux pas répondre?"</strong></li>
+                <li><strong>"Tu me vois faire quoi exactement?"</strong></li>
+                <li><strong>"Comment tu vois le partage entre nous?"</strong></li>
+            </ol>
+        </div>
+
+        <!-- MODÈLE EQUITY -->
+        <div class="card">
+            <h2><span class="emoji">📊</span> Modèle d'equity progressif</h2>
+            <p style="margin-bottom: 15px; color: #888;">Principe: Tu gagnes tes parts en livrant des résultats. Henri garde le contrôle.</p>
+
+            <table>
+                <tr>
+                    <th>Palier</th>
+                    <th>Déclencheur</th>
+                    <th>Henri</th>
+                    <th>Mathieu</th>
+                </tr>
+                <tr>
+                    <td>Départ</td>
+                    <td>Signature</td>
+                    <td>100%</td>
+                    <td>0%</td>
+                </tr>
+                <tr>
+                    <td>P1</td>
+                    <td>Agent IA déployé + résultats</td>
+                    <td>90%</td>
+                    <td>10%</td>
+                </tr>
+                <tr>
+                    <td>P2</td>
+                    <td>CA atteint 400k$</td>
+                    <td>85%</td>
+                    <td>15%</td>
+                </tr>
+                <tr>
+                    <td>P3</td>
+                    <td>CA atteint 750k$</td>
+                    <td>75%</td>
+                    <td>25%</td>
+                </tr>
+                <tr>
+                    <td>P4</td>
+                    <td>CA atteint 1M$</td>
+                    <td>65%</td>
+                    <td>35%</td>
+                </tr>
+                <tr>
+                    <td>P5</td>
+                    <td>CA atteint 2M$ ou acquisition</td>
+                    <td>50%</td>
+                    <td>50%</td>
+                </tr>
+            </table>
+
+            <div class="highlight-box">
+                <strong>PITCH:</strong> "Je te demande rien au départ. Je livre des résultats d'abord. Si ça marche, je gagne des parts. Si ça marche pas, t'as rien perdu. C'est tout risque pour moi."
+            </div>
+        </div>
+
+        <!-- QUICK WINS -->
+        <div class="card">
+            <h2><span class="emoji">⚡</span> Quick Wins à proposer</h2>
+            <div class="two-cols">
+                <div class="highlight-box">
+                    <strong>#1 Agent IA réceptionniste</strong><br>
+                    Répond 24/7, qualifie les leads, book les RDV<br>
+                    <span style="color: #00d4aa;">Impact: +39k$/an (appels manqués récupérés)</span><br>
+                    <span style="color: #888;">Délai: 2-4 semaines</span>
+                </div>
+                <div class="highlight-box">
+                    <strong>#2 Pipeline TET mexicains</strong><br>
+                    Main d'œuvre fiable qui revient chaque année<br>
+                    <span style="color: #00d4aa;">Impact: Capacité x2-3</span><br>
+                    <span style="color: #888;">Délai: Démarrer maintenant pour prochaine saison</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- OBJECTIONS -->
+        <div class="card">
+            <h2><span class="emoji">🛡️</span> Réponses aux objections</h2>
+
+            <div class="objection">
+                <div class="objection-q">"T'as d'autres business, tu vas pas t'impliquer"</div>
+                <div class="objection-a">"C'est pour ça que je build des systèmes. Je les monte UNE fois, après ça roule tout seul. Ça me prend pas de temps au quotidien, mais ça t'enlève des heures à toi."</div>
+            </div>
+
+            <div class="objection">
+                <div class="objection-q">"Je veux garder le contrôle"</div>
+                <div class="objection-a">"100%. C'est TON business. Je commence à 0%. Tu gardes le contrôle total. Je gagne des parts seulement si je livre."</div>
+            </div>
+
+            <div class="objection">
+                <div class="objection-q">"Comment je sais que tu vas rester?"</div>
+                <div class="objection-a">"Mon equity est liée aux résultats. Si je pars, je perds tout ce que j'ai construit. J'ai aucun intérêt à partir."</div>
+            </div>
+
+            <div class="objection">
+                <div class="objection-q">"C'est compliqué ton affaire d'IA"</div>
+                <div class="objection-a">"Toi t'as rien à faire. Je m'occupe de tout. Toi tu réponds juste au téléphone comme d'habitude, sauf que maintenant y'a quelqu'un qui répond quand t'es sur une échelle."</div>
+            </div>
+        </div>
+
+        <!-- PROJECTION -->
+        <div class="card">
+            <h2><span class="emoji">📈</span> Ce qu'on peut faire ensemble</h2>
+            <div class="two-cols" style="text-align: center;">
+                <div>
+                    <div class="big-number">
+                        250k$
+                        <span>Aujourd'hui (Henri seul)</span>
+                    </div>
+                </div>
+                <div>
+                    <div class="big-number">
+                        2M$+
+                        <span>Dans 3 ans (ensemble)</span>
+                    </div>
+                </div>
+            </div>
+            <div class="timeline" style="margin-top: 20px;">
+                <div class="timeline-item">
+                    <h4>Année 1 - Valider</h4>
+                    <p>Agent IA + 1-2 TET + atteindre 500k$</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>Année 2 - Scaler</h4>
+                    <p>3-4 équipes + dénèigement + atteindre 1M$</p>
+                </div>
+                <div class="timeline-item">
+                    <h4>Année 3 - Multiplier</h4>
+                    <p>Acquisitions + 6+ équipes + atteindre 2M$+</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- CHECKLIST -->
+        <div class="card">
+            <h2><span class="emoji">✅</span> Checklist de la rencontre</h2>
+            <ul class="checklist">
+                <li>Écouter sa vision à lui (laisser parler 70% du temps)</li>
+                <li>Identifier son pain point #1</li>
+                <li>Proposer UN quick win (pas 10)</li>
+                <li>Expliquer le modèle equity progressif</li>
+                <li>Rassurer sur le contrôle (il reste le boss)</li>
+                <li>Définir la prochaine étape concrète</li>
+            </ul>
+        </div>
+
+        <!-- PHRASE DE FIN -->
+        <div class="card" style="text-align: center;">
+            <h2><span class="emoji">🎯</span> Phrase de conclusion</h2>
+            <div style="font-size: 1.4rem; padding: 20px; background: rgba(0,212,170,0.1); border-radius: 12px; margin-top: 15px;">
+                "Henri, t'as construit quelque chose de solide. Moi j'ai des skills pour t'aider à aller 10x plus loin. On commence simple: je te règle ton problème de [X], on voit si ça marche, et après on structure le reste. Deal?"
+            </div>
+        </div>
+
+        <div class="footer">
+            <p>Bonne rencontre! 🤝</p>
+        </div>
+    </div>
+</body>
+</html>

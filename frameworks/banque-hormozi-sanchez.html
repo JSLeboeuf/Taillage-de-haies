@@ -1,0 +1,1142 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Banque de Frameworks - Hormozi & Codie Sanchez</title>
+    <style>
+        :root {
+            --primary: #1a1a2e;
+            --secondary: #16213e;
+            --accent: #e94560;
+            --accent2: #0f3460;
+            --text: #eaeaea;
+            --text-muted: #a0a0a0;
+            --success: #00d26a;
+            --warning: #ffc107;
+            --border: #2a2a4a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: linear-gradient(135deg, var(--primary) 0%, var(--secondary) 100%);
+            color: var(--text);
+            line-height: 1.6;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+        }
+
+        header {
+            text-align: center;
+            padding: 3rem 0;
+            border-bottom: 2px solid var(--accent);
+            margin-bottom: 2rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            background: linear-gradient(90deg, var(--accent), #ff6b6b);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 1.2rem;
+        }
+
+        nav {
+            background: var(--secondary);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        nav h2 {
+            color: var(--accent);
+            margin-bottom: 1rem;
+            font-size: 1.2rem;
+        }
+
+        .nav-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 0.5rem;
+        }
+
+        nav a {
+            color: var(--text);
+            text-decoration: none;
+            padding: 0.5rem 1rem;
+            border-radius: 6px;
+            transition: all 0.3s;
+            display: block;
+        }
+
+        nav a:hover {
+            background: var(--accent2);
+            color: var(--accent);
+        }
+
+        section {
+            background: var(--secondary);
+            border-radius: 12px;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border: 1px solid var(--border);
+        }
+
+        h2 {
+            color: var(--accent);
+            font-size: 1.8rem;
+            margin-bottom: 1.5rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--accent);
+        }
+
+        h3 {
+            color: var(--text);
+            font-size: 1.3rem;
+            margin: 1.5rem 0 1rem;
+        }
+
+        h4 {
+            color: var(--accent);
+            font-size: 1.1rem;
+            margin: 1rem 0 0.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1rem 0;
+            font-size: 0.95rem;
+        }
+
+        th {
+            background: var(--accent2);
+            color: var(--accent);
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid var(--border);
+        }
+
+        tr:hover {
+            background: rgba(233, 69, 96, 0.1);
+        }
+
+        .script-box {
+            background: #0d1117;
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+            font-family: 'Fira Code', 'Consolas', monospace;
+            font-size: 0.9rem;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+
+        .script-box .label {
+            color: var(--accent);
+            font-weight: bold;
+        }
+
+        .quote {
+            border-left: 4px solid var(--accent);
+            padding: 1rem 1.5rem;
+            margin: 1rem 0;
+            background: rgba(233, 69, 96, 0.1);
+            border-radius: 0 8px 8px 0;
+            font-style: italic;
+        }
+
+        .quote cite {
+            display: block;
+            margin-top: 0.5rem;
+            color: var(--accent);
+            font-style: normal;
+            font-weight: 600;
+        }
+
+        .checklist {
+            list-style: none;
+            padding: 0;
+        }
+
+        .checklist li {
+            padding: 0.5rem 0;
+            padding-left: 2rem;
+            position: relative;
+        }
+
+        .checklist li::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0.7rem;
+            width: 16px;
+            height: 16px;
+            border: 2px solid var(--accent);
+            border-radius: 3px;
+        }
+
+        .red-flag::before {
+            border-color: #ff4444 !important;
+            background: rgba(255, 68, 68, 0.2);
+        }
+
+        .card-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 1rem 0;
+        }
+
+        .card {
+            background: var(--primary);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+        }
+
+        .card h4 {
+            margin-top: 0;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+
+        .badge-success {
+            background: var(--success);
+            color: var(--primary);
+        }
+
+        .badge-warning {
+            background: var(--warning);
+            color: var(--primary);
+        }
+
+        .badge-accent {
+            background: var(--accent);
+            color: white;
+        }
+
+        .tree {
+            font-family: 'Fira Code', monospace;
+            background: #0d1117;
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin: 1rem 0;
+            line-height: 1.8;
+        }
+
+        .tree .folder {
+            color: var(--accent);
+        }
+
+        .tree .value {
+            color: var(--success);
+        }
+
+        .highlight {
+            background: rgba(233, 69, 96, 0.2);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+        }
+
+        .two-col {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        @media (max-width: 768px) {
+            .two-col {
+                grid-template-columns: 1fr;
+            }
+
+            h1 {
+                font-size: 1.8rem;
+            }
+
+            .container {
+                padding: 1rem;
+            }
+        }
+
+        .tactic-num {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 28px;
+            height: 28px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            font-weight: bold;
+            font-size: 0.85rem;
+            margin-right: 0.5rem;
+        }
+
+        .framework-letter {
+            font-size: 2rem;
+            font-weight: bold;
+            color: var(--accent);
+            margin-right: 0.5rem;
+        }
+
+        footer {
+            text-align: center;
+            padding: 2rem;
+            color: var(--text-muted);
+            border-top: 1px solid var(--border);
+            margin-top: 2rem;
+        }
+
+        .quick-index {
+            position: fixed;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--secondary);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 0.5rem;
+            z-index: 100;
+        }
+
+        .quick-index a {
+            display: block;
+            width: 36px;
+            height: 36px;
+            text-align: center;
+            line-height: 36px;
+            color: var(--text-muted);
+            text-decoration: none;
+            border-radius: 4px;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        .quick-index a:hover {
+            background: var(--accent);
+            color: white;
+        }
+
+        @media (max-width: 1300px) {
+            .quick-index {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="quick-index">
+        <a href="#s1" title="Negociation">1</a>
+        <a href="#s2" title="R.I.C.H.">2</a>
+        <a href="#s3" title="Valorisation">3</a>
+        <a href="#s4" title="Deals">4</a>
+        <a href="#s5" title="Scripts">5</a>
+        <a href="#s6" title="Pitch">6</a>
+        <a href="#s7" title="Fiscalite">7</a>
+        <a href="#s8" title="Checklists">8</a>
+        <a href="#s9" title="Cas">9</a>
+        <a href="#s10" title="Quebec">10</a>
+    </div>
+
+    <div class="container">
+        <header>
+            <h1>Banque de Frameworks</h1>
+            <p class="subtitle">Hormozi & Codie Sanchez - Acquisitions et Scaling PME</p>
+        </header>
+
+        <nav>
+            <h2>Table des Matieres</h2>
+            <div class="nav-grid">
+                <a href="#s1">1. Frameworks de Negociation</a>
+                <a href="#s2">2. Framework R.I.C.H.</a>
+                <a href="#s3">3. Valorisation & Multiples</a>
+                <a href="#s4">4. Structures de Deals</a>
+                <a href="#s5">5. Scripts Prets a l'Emploi</a>
+                <a href="#s6">6. Framework Pitch Hormozi</a>
+                <a href="#s7">7. Strategies Fiscales</a>
+                <a href="#s8">8. Checklists Operationnelles</a>
+                <a href="#s9">9. Cas d'Etudes</a>
+                <a href="#s10">10. Application Quebec</a>
+            </div>
+        </nav>
+
+        <!-- SECTION 1 -->
+        <section id="s1">
+            <h2>1. Frameworks de Negociation</h2>
+
+            <h3>1.1 Les 13 Tactiques Codie Sanchez</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Tactique</th>
+                        <th>Description</th>
+                        <th>Application Concrete</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td><span class="tactic-num">1</span></td>
+                        <td><strong>See from the balcony</strong></td>
+                        <td>Vue 3e personne, recul emotionnel</td>
+                        <td>Vendeur dit "500k$ ferme" → Pourquoi ce prix? Ego? Besoin cash?</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tactic-num">2</span></td>
+                        <td><strong>Search the shadows</strong></td>
+                        <td>Identifier le VRAI decideur</td>
+                        <td>Vendeur 65 ans, mais sa femme influence? Enfants veulent heriter?</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tactic-num">3</span></td>
+                        <td><strong>Dive to iceberg bottom</strong></td>
+                        <td>Aller sous la surface</td>
+                        <td>Surface: "je veux 500k$". Realite: epuise, veut sortir dignement</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tactic-num">4</span></td>
+                        <td><strong>Study their language</strong></td>
+                        <td>93% comm = non-verbal</td>
+                        <td>S'il se penche en arriere a "15% down" → trop bas pour lui</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tactic-num">5</span></td>
+                        <td><strong>Do homework</strong></td>
+                        <td>Recherche pre-call</td>
+                        <td>LinkedIn, autres business, historique, motivations</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tactic-num">6</span></td>
+                        <td><strong>Write their victory speech</strong></td>
+                        <td>Visualiser leur succes</td>
+                        <td>"Qu'est-ce qu'il va dire a sa femme/amis si on fait deal?"</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tactic-num">7</span></td>
+                        <td><strong>Emotion canyon</strong></td>
+                        <td>Jamais reagir immediat</td>
+                        <td>Email angry? 24h. Call tendu? "Je te reviens demain"</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tactic-num">8</span></td>
+                        <td><strong>Appear to need less</strong></td>
+                        <td>Projeter l'abondance</td>
+                        <td>"J'ai 2 autres deals en pipeline, mais le tien m'interesse"</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tactic-num">9</span></td>
+                        <td><strong>Embrace silence</strong></td>
+                        <td>Silence = pouvoir</td>
+                        <td>Apres ton offre → tais-toi 30 sec. Premier qui parle perd</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tactic-num">10</span></td>
+                        <td><strong>Say yes to non-monetary</strong></td>
+                        <td>Concessions gratuites</td>
+                        <td>"Oui je garde le nom", "Oui tu restes consultant 6 mois"</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tactic-num">11</span></td>
+                        <td><strong>Respect costs nothing</strong></td>
+                        <td>Valider leur parcours</td>
+                        <td>"T'as bati quelque chose d'incroyable, respect total"</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tactic-num">12</span></td>
+                        <td><strong>Focus win-win</strong></td>
+                        <td>Jamais adversarial</td>
+                        <td>"Comment on fait pour que ca marche pour nous deux?"</td>
+                    </tr>
+                    <tr>
+                        <td><span class="tactic-num">13</span></td>
+                        <td><strong>Be conscious</strong></td>
+                        <td>Clarte, zero jargon</td>
+                        <td>Parler concretement, pas de bullshit pour impressionner</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>1.2 Template Conversation Negociation</h3>
+            <div class="script-box">
+<span class="label">OUVERTURE :</span>
+"Ecoute, j'ai vraiment du respect pour ce que t'as bati. [X] ans a servir
+ces clients, c'est impressionnant." <span style="color: var(--text-muted)">[Tactique #11 - Respect]</span>
+
+<span class="label">POSITIONNEMENT :</span>
+"J'ai 2 autres deals en cours, mais le tien m'interesse vraiment parce
+que [raison specifique]." <span style="color: var(--text-muted)">[Tactique #8 - Appear less needy]</span>
+
+<span class="label">RECONNAISSANCE :</span>
+"Tu demandes [prix]. Je comprends pourquoi — t'as mis ton coeur la-dedans."
+<span style="color: var(--text-muted)">[Tactique #4 - Their language]</span>
+
+<span class="label">OFFRE :</span>
+"De mon cote, j'ai fait mes chiffres et je peux aller a [ton prix] avec
+cette structure : [details]. Si c'est le prix qui est non-negociable,
+je peux aller a [prix plus haut] mais mes terms changent."
+<span style="color: var(--text-muted)">[Tactique #5 - Homework]</span>
+
+<span class="label">CLOSE :</span>
+"Qu'est-ce qui marche mieux pour toi?" <span style="color: var(--text-muted)">[Tactique #12 - Win-win]</span>
+
+<span style="color: var(--warning); font-weight: bold;">[SILENCE 30 SECONDES]</span> <span style="color: var(--text-muted)">[Tactique #9]</span>
+            </div>
+        </section>
+
+        <!-- SECTION 2 -->
+        <section id="s2">
+            <h2>2. Framework R.I.C.H. (Acquisition)</h2>
+            <p style="color: var(--text-muted); margin-bottom: 1.5rem;">Source: Main Street Millionaire - Codie Sanchez</p>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h4><span class="framework-letter">R</span> = RESEARCH</h4>
+                    <p>Trouver le bon business</p>
+                    <table style="margin-top: 1rem;">
+                        <tr><td>Cash flow</td><td><span class="badge badge-success">60k$+</span></td></tr>
+                        <tr><td>Historique</td><td><span class="badge badge-success">5+ ans</span></td></tr>
+                        <tr><td>Type</td><td><span class="badge badge-accent">Essentiel</span></td></tr>
+                        <tr><td>Age owner</td><td><span class="badge badge-warning">55+</span></td></tr>
+                        <tr><td>Multiple</td><td><span class="badge badge-success">1.5-4x SDE</span></td></tr>
+                    </table>
+                </div>
+
+                <div class="card">
+                    <h4><span class="framework-letter">I</span> = INVEST</h4>
+                    <p>Structurer le deal</p>
+                    <table style="margin-top: 1rem;">
+                        <tr><td>Seller financing</td><td>60-90%</td></tr>
+                        <tr><td>BDC (Canada)</td><td>50-80%</td></tr>
+                        <tr><td>Earnout</td><td>20-30%</td></tr>
+                        <tr><td>Equity rollover</td><td>10-30%</td></tr>
+                        <tr><td>Down payment</td><td>10-20%</td></tr>
+                    </table>
+                </div>
+
+                <div class="card">
+                    <h4><span class="framework-letter">C</span> = COMMAND</h4>
+                    <p>Operer et ameliorer</p>
+                    <table style="margin-top: 1rem;">
+                        <tr><td>Raise prices</td><td><span class="badge badge-success">+10-15%</span></td></tr>
+                        <tr><td>Add tech</td><td><span class="badge badge-success">-20% admin</span></td></tr>
+                        <tr><td>Cross-sell</td><td><span class="badge badge-success">+20-40%</span></td></tr>
+                        <tr><td>Reduce costs</td><td><span class="badge badge-success">-10-25%</span></td></tr>
+                    </table>
+                </div>
+
+                <div class="card">
+                    <h4><span class="framework-letter">H</span> = HARNESS</h4>
+                    <p>Scale et multiplie</p>
+                    <table style="margin-top: 1rem;">
+                        <tr><td>Automate</td><td>40h → 10h/sem</td></tr>
+                        <tr><td>Scale (roll-up)</td><td>2-5 ans</td></tr>
+                        <tr><td>Exit</td><td>8-10x EBITDA</td></tr>
+                    </table>
+                </div>
+            </div>
+
+            <div class="quote">
+                "Your salary will never set you free. Your financial freedom can only come through ownership."
+                <cite>— Codie Sanchez</cite>
+            </div>
+
+            <h3>Red Flags Eliminatoires</h3>
+            <ul class="checklist">
+                <li class="red-flag">Fraude financiere (bank statements ≠ declarations)</li>
+                <li class="red-flag">Passifs caches >100k$ (poursuites, dettes fiscales)</li>
+                <li class="red-flag">Business fantome (clients partent avec owner)</li>
+                <li class="red-flag">Non-conformite legale (TET illegaux, CNESST)</li>
+            </ul>
+        </section>
+
+        <!-- SECTION 3 -->
+        <section id="s3">
+            <h2>3. Valorisation & Multiples</h2>
+
+            <div class="two-col">
+                <div>
+                    <h3>SDE (Seller's Discretionary Earnings)</h3>
+                    <div class="tree">
+Revenus
+- Couts des ventes (COGS)
+- Depenses operationnelles
+<span class="value">+ Owner salary (add-back)</span>
+<span class="value">+ Owner benefits (auto, cell)</span>
+<span class="value">+ One-time expenses</span>
+= <span class="folder">SDE</span>
+                    </div>
+                    <p style="color: var(--text-muted);">Utilise pour: Businesses &lt;1M$ CA ou owner actif</p>
+                </div>
+                <div>
+                    <h3>EBITDA</h3>
+                    <div class="tree">
+Revenus
+- COGS
+- OpEx (incluant salaire GM)
+<span class="value">+ Depreciation</span>
+<span class="value">+ Amortization</span>
+= <span class="folder">EBITDA</span>
+                    </div>
+                    <p style="color: var(--text-muted);">Utilise pour: Businesses 1M$+ CA avec management</p>
+                </div>
+            </div>
+
+            <h3>Multiples par Taille</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>CA Business</th>
+                        <th>Metrique</th>
+                        <th>Multiple</th>
+                        <th>Prix Typique</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>&lt;500k$</td><td>SDE</td><td><span class="badge badge-accent">1.5-2.5x</span></td><td>90-250k$</td></tr>
+                    <tr><td>500k-1M$</td><td>SDE</td><td><span class="badge badge-accent">2-3x</span></td><td>120-300k$</td></tr>
+                    <tr><td>1-8M$</td><td>SDE/EBITDA</td><td><span class="badge badge-accent">2.5-4x</span></td><td>250k-1.5M$</td></tr>
+                    <tr><td>10-25M$</td><td>EBITDA</td><td><span class="badge badge-success">5-6x</span></td><td>1-6M$</td></tr>
+                    <tr><td>100M$+</td><td>EBITDA</td><td><span class="badge badge-success">8-10x</span></td><td>8M$+</td></tr>
+                </tbody>
+            </table>
+
+            <h3>Exemple Calcul Complet</h3>
+            <h4>Business landscaping 800k$ CA</h4>
+            <div class="tree">
+<span class="folder">DONNEES BRUTES :</span>
+├── Revenus : 800k$
+├── COGS : 480k$
+├── Gross profit : 320k$
+├── OpEx : 200k$
+└── Net profit : 120k$
+
+<span class="folder">AJUSTEMENTS SDE :</span>
+├── <span class="value">+ Owner salary : 80k$</span>
+├── <span class="value">+ Owner truck : 15k$/an</span>
+├── <span class="value">+ One-time legal : 10k$</span>
+├── - Salaire GM normalise : -60k$
+└── = <span style="color: var(--accent); font-weight: bold;">SDE : 165k$</span>
+
+<span class="folder">VALUATION :</span>
+├── Low (2.5x) : 412k$
+├── Mid (3x) : 495k$
+└── High (3.5x) : 577k$
+
+→ <span style="color: var(--success); font-weight: bold;">Prix juste : 450-550k$</span>
+            </div>
+        </section>
+
+        <!-- SECTION 4 -->
+        <section id="s4">
+            <h2>4. Structures de Deals</h2>
+
+            <h3>4.1 Structure Type (Business 500k$)</h3>
+            <div class="tree">
+<span class="folder">PRIX TOTAL : 500k$</span>
+
+<span class="folder">SOURCES :</span>
+├── Down payment (acheteur) : <span class="value">75k$ (15%)</span>
+├── BDC loan : <span class="value">250k$ (50%)</span>
+└── Seller financing : <span class="value">175k$ (35%)</span>
+    ├── Terme : 4 ans
+    ├── Interet : 6%
+    └── Paiements : ~4 100$/mois
+
+<span class="folder">MENSUALITES :</span>
+├── BDC : ~2 900$/mois (10 ans @ 7%)
+├── Seller : ~4 100$/mois
+└── Total : ~7 000$/mois
+
+<span class="folder">CASH FLOW REQUIS :</span>
+└── EBITDA minimum : <span style="color: var(--warning);">120k$/an (10k$/mois)</span> pour etre viable
+            </div>
+
+            <h3>4.2 Options Creatives</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Option</th>
+                        <th>Quand l'Utiliser</th>
+                        <th>Avantage</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>Standby seller note</strong></td><td>Vendeur flexible, BDC strict</td><td>Zero paiements jusqu'a BDC rembourse</td></tr>
+                    <tr><td><strong>Earnout</strong></td><td>Incertitude sur performance</td><td>Partage risque, prix plus haut acceptable</td></tr>
+                    <tr><td><strong>Equity rollover</strong></td><td>Vendeur veut rester investi</td><td>Moins cash down, alignment interets</td></tr>
+                    <tr><td><strong>Asset deal</strong></td><td>Passifs inconnus</td><td>Achete assets seulement, pas dettes</td></tr>
+                    <tr><td><strong>Management buyout</strong></td><td>Tu es deja employe</td><td>Financement plus facile</td></tr>
+                </tbody>
+            </table>
+
+            <h3>4.3 Calcul ROI</h3>
+            <div class="tree">
+<span class="folder">EXEMPLE : Deal 680k$, down 130k$</span>
+
+<span class="folder">ANNEE 1 :</span>
+├── EBITDA : 140k$
+├── Debt service : -50k$
+├── Salaire operateur : -60k$
+└── Net cash flow : <span class="value">30k$</span>
+
+<span class="folder">ROI :</span>
+├── Cash investi : 130k$
+├── Cash flow annuel : 30k$
+├── Payback : 4.3 ans
+└── ROI annuel : <span class="value">23%</span>
+
+<span class="folder">APRES 18 MOIS (avec ameliorations) :</span>
+├── EBITDA : 195k$ (+39%)
+├── Salaire : 60k$
+├── Dividendes : 60k$
+├── Total comp : 120k$/an
+└── ROI sur 130k$ investi : <span style="color: var(--success); font-weight: bold;">92%/an</span>
+            </div>
+        </section>
+
+        <!-- SECTION 5 -->
+        <section id="s5">
+            <h2>5. Scripts Prets a l'Emploi</h2>
+
+            <h3>5.1 Script Seller Financing - Phase Budget</h3>
+            <div class="script-box">
+<span class="label">TOI :</span> "Salut [Nom], j'ai vraiment aime notre premiere rencontre. Avant
+qu'on parle structure, j'aimerais etre transparent sur mon budget.
+
+J'ai analyse les chiffres, et base sur l'EBITDA moyen de <span style="color: var(--warning)">[X]k$</span> sur 3 ans,
+avec un multiple standard de 3-3.5x pour le secteur, je suis confortable
+dans une fourchette de <span style="color: var(--warning)">[Y-Z]k$</span>.
+
+Toi, t'etais a combien dans ta tete?"
+
+<span class="label">VENDEUR :</span> "Moi je pensais plus [prix plus haut]."
+
+<span class="label">TOI :</span> "OK, je comprends. Laisse-moi te montrer comment je pourrais
+arriver a <span style="color: var(--success)">[son prix - 5-10%]</span>, mais va falloir qu'on soit creatifs
+sur la structure."
+            </div>
+
+            <h3>5.2 Script Presentation Options</h3>
+            <div class="script-box">
+<span class="label">TOI :</span> "Voici ce que je propose :
+
+<span style="color: var(--accent); font-weight: bold;">OPTION A</span> (favorable a toi - prix plus bas, terms meilleurs) :
+├── Prix : [X]k$
+├── Down : [15%]
+├── BDC : [50%]
+└── Seller finance : [35%] sur 4 ans @ 6%
+
+Pourquoi c'est bon pour toi :
+1. Tu fais 6% interet = [Y]k$ extra sur 4 ans
+2. Taxes etalees (pas [Z]k$ impots annee 1)
+3. Tu restes invested — si je reussis, tu profites
+
+<span style="color: var(--accent); font-weight: bold;">OU OPTION B</span> (favorable a lui - son prix, mais terms differents) :
+├── Prix : [son prix]
+├── Down : [20%]
+├── BDC : [50%]
+└── Seller + earnout : [30%] avec conditions performance
+
+Qu'est-ce qui resonne plus avec toi?"
+
+<span style="color: var(--warning); font-weight: bold;">[SILENCE 30 SECONDES]</span>
+            </div>
+
+            <h3>5.3 Script Objection "Je Veux Tout Cash"</h3>
+            <div class="script-box">
+<span class="label">VENDEUR :</span> "Je sais pas... j'aimerais mieux tout cash."
+
+<span class="label">TOI :</span> "Je comprends totalement. Laisse-moi te partager pourquoi
+seller financing est devenu standard :
+
+<span style="color: var(--accent);">1. BANQUES EXIGENT :</span> BDC finance 50%, mais ils VEULENT voir que toi,
+   le vendeur, tu gardes skin in the game.
+
+<span style="color: var(--accent);">2. TAXES :</span> Vendeur qui prend 500k$ cash annee 1 = 220k$ impots Quebec.
+   Meme vendeur qui prend 100k$/an sur 5 ans = 140k$ impots total.
+   <span style="color: var(--success);">Tu SAUVES 80k$.</span>
+
+<span style="color: var(--accent);">3. INTERET :</span> Tu deviens ma banque. 6% sur 150k$ = 9k$/an que tu
+   ferais PAS si all-cash.
+
+Est-ce que ca fait du sens?"
+
+<span class="label">VENDEUR :</span> "OK... mais si tu paies pas?"
+
+<span class="label">TOI :</span> "Super question. Voici ce qu'on met dans le contrat :
+
+1. <span style="color: var(--success);">COLLATERAL</span> : La balance est secured contre les assets du business.
+2. <span style="color: var(--success);">TRANSPARENCE</span> : Je te donne acces monthly P&L.
+3. <span style="color: var(--success);">FIRST RIGHT</span> : Si je revends, tu as premier droit d'acheter.
+
+Et regarde mon track record : [tes accomplissements]."
+            </div>
+        </section>
+
+        <!-- SECTION 6 -->
+        <section id="s6">
+            <h2>6. Framework Pitch Hormozi</h2>
+
+            <h3>6.1 Structure HPSC (Hook-Problem-Solution-Close)</h3>
+            <div class="script-box">
+<span style="color: var(--accent); font-weight: bold; font-size: 1.1em;">HOOK</span> (Accroche - 1 phrase) :
+"T'es probablement meilleur que moi sur le terrain. Mais t'as pas
+le temps de faire la paperasse, les RH, le marketing, et les
+acquisitions. <span style="color: var(--warning);">C'est pour ca que tu plafonnes.</span>"
+
+<span style="color: var(--accent); font-weight: bold; font-size: 1.1em;">PROBLEM</span> (Probleme - quantifie) :
+"Les gars comme toi font 300-600k$ de chiffre d'affaires.
+Travaillent 60-70h/semaine. Font 80-150k$ de profit. Et quand
+ils veulent vendre? <span style="color: var(--warning);">3x leur profit. Donc 250-450k$ apres 10 ans.</span>"
+
+<span style="color: var(--accent); font-weight: bold; font-size: 1.1em;">SOLUTION</span> (4 piliers) :
+1. <span class="value">MAIN D'OEUVRE</span> : TET mexicains, -15-20%, reviennent chaque annee
+2. <span class="value">SYSTEMES</span> : IA, CRM, automation - toi tu fais juste le terrain
+3. <span class="value">CAPITAL</span> : Je structure les deals, tu integres les equipes
+4. <span class="value">EXIT</span> : Groupe = 8-10x EBITDA vs 3x seul
+
+<span style="color: var(--accent); font-weight: bold; font-size: 1.1em;">OFFER</span> (Concret) :
+├── Salaire : 50-70k$
+├── Equity : 15% de ta cellule
+├── Dividendes : 15% des profits
+└── Exit : 15% de la vente (a multiple groupe)
+
+<span style="color: var(--accent); font-weight: bold; font-size: 1.1em;">CLOSE</span> (Urgence + filtre) :
+"Je cherche 3-4 operateurs. Si t'es le genre de gars qui fait
+deja 30-50 jobs/semaine et qui veut scaler sans tout gerer
+toi-meme, on devrait parler. <span style="color: var(--success);">Pas d'argent a mettre. Juste
+ton expertise terrain.</span>"
+            </div>
+
+            <h3>6.2 Version Texto (10 lignes max)</h3>
+            <div class="script-box" style="background: linear-gradient(135deg, #1a1a2e, #0f3460);">
+T'es bon sur le terrain mais tu plafonnes a 300-500k$ tout seul?
+
+On a un modele different:
+- Equipes mexicaines (moins cher, plus fiables)
+- J'ai l'IA, le CRM, le marketing, le capital
+- Toi tu geres TON equipe, ta region
+
+Tu prends 15% equity de ta cellule.
+Salaire + dividendes + exit quand on vend le groupe.
+
+Un gars seul vend 3x. Un groupe structure vend 8-10x.
+
+<span style="color: var(--success);">Interesse? On jase.</span>
+            </div>
+
+            <h3>6.3 Reponses aux Objections</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Objection</th>
+                        <th>Reponse</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>"C'est quoi la catch?"</td><td>"Pas de catch. Je cherche des operateurs parce que je peux pas etre sur le terrain. On se complete."</td></tr>
+                    <tr><td>"Pourquoi donner de l'equity?"</td><td>"85% de quelque chose de gros > 100% de quelque chose de petit. Si tu restes et performes, tout le monde gagne."</td></tr>
+                    <tr><td>"Et si ca marche pas?"</td><td>"Tu repars avec ton experience, tes contacts, zero dette. Le risque est de mon cote."</td></tr>
+                    <tr><td>"C'est quoi la timeline?"</td><td>"Phase 1: 500k$-1M$ en 18-24 mois. Phase 2: acquisitions. Phase 3: vente groupe 5-7 ans."</td></tr>
+                </tbody>
+            </table>
+        </section>
+
+        <!-- SECTION 7 -->
+        <section id="s7">
+            <h2>7. Strategies Fiscales</h2>
+
+            <h3>7.1 Top 10 Strategies (Canada/Quebec)</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>#</th>
+                        <th>Strategie</th>
+                        <th>Application</th>
+                        <th>Benefice</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>1</td><td><strong>QSBC exemption</strong></td><td>Si OpCo = qualified small business</td><td><span class="badge badge-success">971k$ exonere</span></td></tr>
+                    <tr><td>2</td><td><strong>REER</strong></td><td>Contributions fondateurs</td><td>140k$/an tax-deferred</td></tr>
+                    <tr><td>3</td><td><strong>Hire tes enfants</strong></td><td>Salaire deductible</td><td>0 tax si &lt;15k$</td></tr>
+                    <tr><td>4</td><td><strong>Asset-based lending</strong></td><td>Loan contre business</td><td>No tax event</td></tr>
+                    <tr><td>5</td><td><strong>Cash Balance Plan</strong></td><td>Si revenus 500k$+</td><td>Pension deductible</td></tr>
+                    <tr><td>6</td><td><strong>Depreciation acceleree</strong></td><td>Trucks, outils</td><td>Write-off immediat</td></tr>
+                    <tr><td>7</td><td><strong>Entity structuring</strong></td><td>Holding + OpCos</td><td>Protection + optimisation</td></tr>
+                    <tr><td>8</td><td><strong>Family trust</strong></td><td>Gel valuation</td><td>Succession protegee</td></tr>
+                    <tr><td>9</td><td><strong>RS&DE credits</strong></td><td>Developpement IA</td><td><span class="badge badge-success">50-100k$/an</span></td></tr>
+                    <tr><td>10</td><td><strong>Programmes provinciaux</strong></td><td>Investissement Quebec</td><td>Prets avantageux</td></tr>
+                </tbody>
+            </table>
+
+            <h3>7.2 Structure Holding Recommandee</h3>
+            <div class="tree">
+<span class="folder">HOLDING COMPANY (Quebec)</span>
+│
+├── <span class="value">OpCo 1 (Taillage Haie)</span> - Inc
+│   └── Assets: equipements, contrats clients
+│
+├── <span class="value">OpCo 2 (Lavage Vitres)</span> - Inc
+│   └── Assets: equipements, contrats
+│
+├── <span class="value">OpCo 3 (Deneigement)</span> - Inc
+│   └── Assets: equipements, contrats
+│
+└── <span class="value">Real Estate Co</span> (optionnel)
+    └── Assets: immeubles, terrain
+
+<span class="folder">PRINCIPES :</span>
+1. Chaque OpCo isolee (poursuite OpCo 1 ≠ affecte OpCo 2)
+2. Holding possede equity, pas d'assets operationnels
+3. Cash remonte holding via dividendes inter-societes (tax-free)
+4. Fondateurs sont actionnaires du holding seulement
+            </div>
+        </section>
+
+        <!-- SECTION 8 -->
+        <section id="s8">
+            <h2>8. Checklists Operationnelles</h2>
+
+            <h3>8.1 Due Diligence - 3 Phases</h3>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h4><span class="badge badge-accent">PHASE 1</span> Screening (1-2h)</h4>
+                    <ul class="checklist">
+                        <li>Revenus 3 ans (croissance ou stable?)</li>
+                        <li>EBITDA/SDE calcule et verifie</li>
+                        <li>Nombre clients et concentration (&lt;20%)</li>
+                        <li>Age owner et motivation vente</li>
+                        <li>Red flags evidents (poursuites, dettes)</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4><span class="badge badge-warning">PHASE 2</span> Pre-LOI (2-4h)</h4>
+                    <ul class="checklist">
+                        <li>Bank statements 12 mois (match?)</li>
+                        <li>Liste clients top 20 avec revenus</li>
+                        <li>Contrats employes et TET</li>
+                        <li>Baux et engagements</li>
+                        <li>Equipements et etat</li>
+                        <li>Licences et assurances</li>
+                    </ul>
+                </div>
+
+                <div class="card">
+                    <h4><span class="badge badge-success">PHASE 3</span> Post-LOI (60-90j)</h4>
+                    <ul class="checklist">
+                        <li>Quality of Earnings report (CPA)</li>
+                        <li>Interviews clients cles (3-5 min)</li>
+                        <li>Inspection equipements terrain</li>
+                        <li>Verification CNESST et conformite</li>
+                        <li>Revue contrats fournisseurs</li>
+                        <li>Background check owner</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3>8.3 Profil Ideal Operateur</h3>
+            <div class="two-col">
+                <div>
+                    <h4 style="color: var(--success);">CHERCHE</h4>
+                    <ul class="checklist">
+                        <li>Fait deja 250k$+ CA</li>
+                        <li>Gere equipe 2-5 personnes</li>
+                        <li>Veut scaler mais manque ressources</li>
+                        <li>Pas peur de deleguer</li>
+                        <li>Vision long terme (5+ ans)</li>
+                    </ul>
+                </div>
+                <div>
+                    <h4 style="color: #ff4444;">RED FLAGS</h4>
+                    <ul class="checklist">
+                        <li class="red-flag">Veut 50% equity jour 1</li>
+                        <li class="red-flag">Ne fait pas confiance aux TET</li>
+                        <li class="red-flag">Veut tout controler</li>
+                        <li class="red-flag">Vision court terme (flip rapide)</li>
+                        <li class="red-flag">Historique conflits partenaires</li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 9 -->
+        <section id="s9">
+            <h2>9. Cas d'Etudes</h2>
+
+            <div class="card-grid">
+                <div class="card">
+                    <h4>SpringSprout Landscaping</h4>
+                    <p style="color: var(--text-muted);">Acquisition Codie-style</p>
+                    <table style="margin-top: 1rem;">
+                        <tr><td>CA</td><td>550k$/an</td></tr>
+                        <tr><td>EBITDA</td><td>140k$ (25%)</td></tr>
+                        <tr><td>Prix negocie</td><td>680k$</td></tr>
+                        <tr><td>Down</td><td>130k$ (19%)</td></tr>
+                    </table>
+                    <div style="margin-top: 1rem; padding: 1rem; background: rgba(0,210,106,0.1); border-radius: 8px;">
+                        <strong style="color: var(--success);">Resultats 18 mois:</strong><br>
+                        CA: +31% | EBITDA: +39%<br>
+                        ROI: 92%/an
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h4>Master Lawn</h4>
+                    <p style="color: var(--text-muted);">Croissance organique</p>
+                    <table style="margin-top: 1rem;">
+                        <tr><td>Strategie</td><td>Porte-a-porte 6j/sem</td></tr>
+                        <tr><td>Pricing</td><td>Premium +15-20%</td></tr>
+                        <tr><td>Timeline</td><td>18 mois</td></tr>
+                    </table>
+                    <div style="margin-top: 1rem; padding: 1rem; background: rgba(0,210,106,0.1); border-radius: 8px;">
+                        <strong style="color: var(--success);">Resultats:</strong><br>
+                        CA: 0 → 1.2M$<br>
+                        EBITDA: 216k$ (18%)
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h4>Earthscape</h4>
+                    <p style="color: var(--text-muted);">Transformation tech</p>
+                    <table style="margin-top: 1rem;">
+                        <tr><td>CRM</td><td>Jobber</td></tr>
+                        <tr><td>Ads</td><td>3k$/mois</td></tr>
+                        <tr><td>Recurring</td><td>55% CA</td></tr>
+                    </table>
+                    <div style="margin-top: 1rem; padding: 1rem; background: rgba(0,210,106,0.1); border-radius: 8px;">
+                        <strong style="color: var(--success);">Resultats 3 ans:</strong><br>
+                        CA: 250k → 2M$<br>
+                        EBITDA: 440k$ (22%)
+                    </div>
+                </div>
+
+                <div class="card">
+                    <h4>TLC Landscaping</h4>
+                    <p style="color: var(--text-muted);">Exit PE</p>
+                    <table style="margin-top: 1rem;">
+                        <tr><td>CA</td><td>15M$</td></tr>
+                        <tr><td>Recurrent</td><td>70%</td></tr>
+                        <tr><td>Management</td><td>100% autonome</td></tr>
+                    </table>
+                    <div style="margin-top: 1rem; padding: 1rem; background: rgba(233,69,96,0.1); border-radius: 8px;">
+                        <strong style="color: var(--accent);">Valorisation:</strong><br>
+                        8-10x EBITDA<br>
+                        Prix: 45-60M$
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- SECTION 10 -->
+        <section id="s10">
+            <h2>10. Application Quebec</h2>
+
+            <h3>10.1 Ton Avantage Competitif</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Dimension</th>
+                        <th>Codie USA</th>
+                        <th>Toi Quebec</th>
+                        <th>Edge</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td>Main d'oeuvre</td><td>Employes US standard</td><td>TET mexicains</td><td><span class="badge badge-success">-20% + fidelite</span></td></tr>
+                    <tr><td>Financement</td><td>SBA 90%</td><td>BDC 50-80%</td><td>Balance vente commune</td></tr>
+                    <tr><td>Competition</td><td>Saturee (millions)</td><td>Faible</td><td><span class="badge badge-success">First-mover</span></td></tr>
+                    <tr><td>Tech</td><td>Achete software</td><td>Tu CODES l'IA</td><td><span class="badge badge-success">Margin unique</span></td></tr>
+                    <tr><td>Dealflow</td><td>Doit chercher</td><td>Clients = cibles</td><td><span class="badge badge-success">Built-in pipeline</span></td></tr>
+                    <tr><td>Partenaire</td><td>Solo</td><td>Henri jour 1</td><td><span class="badge badge-success">Scale 2x</span></td></tr>
+                </tbody>
+            </table>
+
+            <h3>10.2 Programmes Quebec Specifiques</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>Programme</th>
+                        <th>Utilisation</th>
+                        <th>Benefice</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr><td><strong>FERME Quebec</strong></td><td>Recrutement TET</td><td>Pipeline legal main d'oeuvre</td></tr>
+                    <tr><td><strong>BDC</strong></td><td>Financement acquisition</td><td>50-80% du deal</td></tr>
+                    <tr><td><strong>Investissement Quebec</strong></td><td>Subventions croissance</td><td>Prets avantageux</td></tr>
+                    <tr><td><strong>RS&DE</strong></td><td>Credits R&D (IA)</td><td><span class="badge badge-success">50-100k$/an</span></td></tr>
+                    <tr><td><strong>PEQ</strong></td><td>Immigration TET permanente</td><td>Retention long terme</td></tr>
+                </tbody>
+            </table>
+
+            <h3>10.3 Roadmap 5 Ans Quebec</h3>
+            <div class="tree">
+<span class="folder">ANNEE 1 : Build - 250k → 500k$</span>
+├── Prouve modele TET + IA + Henri
+├── Genere 50-100k$ cash pour acquisitions
+└── Documente tous les SOPs
+
+<span class="folder">ANNEE 2 : Acquisition #1 - 300-500k$ CA</span>
+├── 15% down + BDC + seller finance
+├── Applique playbook R.I.C.H.
+└── Double EBITDA en 18 mois
+
+<span class="folder">ANNEE 3-4 : Roll-up - 2 acquisitions/an</span>
+├── 4-6 OpCos total
+├── 3-6M$ CA
+└── Structure holding + managers equity
+
+<span class="folder">ANNEE 5 : Portfolio 8-12 OpCos</span>
+├── CA total : 8-12M$
+├── EBITDA : 1.2-1.8M$
+└── OPTIONS :
+    A) Vends a PE : <span class="value">12-15M$</span> (ton 50% = <span style="color: var(--success);">6-7.5M$</span>)
+    B) Garde, prends <span class="value">500k$/an</span> dividendes a vie
+
+<span style="color: var(--success); font-size: 1.2em; font-weight: bold;">RESULTAT : Millionnaire avant 30 ans</span>
+            </div>
+        </section>
+
+        <footer>
+            <p>Banque de donnees generee le 24 janvier 2026</p>
+            <p style="color: var(--accent);">Source: Repository Taillage de haies</p>
+            <p style="margin-top: 1rem;">Hormozi & Codie Sanchez Frameworks</p>
+        </footer>
+    </div>
+</body>
+</html>
