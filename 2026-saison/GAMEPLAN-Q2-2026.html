@@ -457,14 +457,7 @@
             color: rgba(255,255,255,0.7);
         }
 
-        .task-check {
-            width: 14px;
-            height: 14px;
-            border: 2px solid rgba(74, 124, 67, 0.4);
-            border-radius: 3px;
-            flex-shrink: 0;
-            margin-top: 2px;
-        }
+        /* .task-check replaced by .task-check-input (interactive checkboxes) */
 
         .task-critical { font-weight: 600; color: #fff; }
         .task-deadline { color: #ef4444; font-weight: 700; font-size: 11px; }
@@ -669,14 +662,180 @@
             h1 { font-size: 36px; }
         }
 
+        /* Scroll Snap */
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        .slide {
+            scroll-snap-align: start;
+            contain: layout style;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #4a7c43, #6b9b37);
+            z-index: 200;
+            width: 0%;
+            transition: width 0.15s ease-out;
+            will-change: width;
+        }
+
+        /* Slide Counter */
+        .slide-counter {
+            position: fixed;
+            top: 12px;
+            right: 16px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.35);
+            z-index: 200;
+            font-variant-numeric: tabular-nums;
+            pointer-events: none;
+        }
+
+        /* Animations */
+        .animate-in {
+            opacity: 0;
+            transform: translateY(30px);
+            will-change: opacity, transform;
+        }
+
+        .animate-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Nav Active State */
+        .footer-nav a.active {
+            color: #fff;
+            background: rgba(45, 90, 39, 0.4);
+        }
+
+        /* Interactive Checkboxes */
+        .task-check-input {
+            width: 14px;
+            height: 14px;
+            border: 2px solid rgba(74, 124, 67, 0.4);
+            border-radius: 3px;
+            flex-shrink: 0;
+            margin-top: 2px;
+            appearance: none;
+            -webkit-appearance: none;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .task-check-input:checked {
+            background: #4a7c43;
+            border-color: #6b9b37;
+        }
+
+        .task-check-input:checked::after {
+            content: '';
+            position: absolute;
+            top: 1px;
+            left: 3px;
+            width: 4px;
+            height: 7px;
+            border: solid #fff;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .task-check-input:checked + span {
+            text-decoration: line-through;
+            opacity: 0.45;
+        }
+
+        /* Mobile Timeline Cards */
+        @media (max-width: 768px) {
+            .timeline-table thead { display: none; }
+            .timeline-table, .timeline-table tbody, .timeline-table tr, .timeline-table td {
+                display: block;
+                width: 100%;
+            }
+            .timeline-table tr {
+                background: rgba(45, 90, 39, 0.08);
+                border: 1px solid rgba(74, 124, 67, 0.2);
+                border-radius: 16px;
+                padding: 20px;
+                margin-bottom: 16px;
+            }
+            .timeline-table td {
+                padding: 8px 0;
+                border-bottom: 1px solid rgba(255,255,255,0.04);
+            }
+            .timeline-table td:first-child {
+                font-size: 18px;
+                padding-bottom: 12px;
+                border-bottom: 1px solid rgba(74, 124, 67, 0.3);
+                margin-bottom: 8px;
+            }
+            .timeline-table td:before {
+                content: attr(data-label);
+                display: block;
+                font-size: 10px;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                color: #6b9b37;
+                margin-bottom: 4px;
+                font-weight: 600;
+            }
+            .timeline-table td:first-child:before,
+            .timeline-table td:nth-child(2):before { display: none; }
+
+            .cf-table { font-size: 12px; }
+            .cf-table th, .cf-table td { padding: 8px 6px; }
+        }
+
+        /* Print Styles */
         @media print {
-            body { background: #0a0a0a; }
-            .slide { min-height: auto; padding: 30px; page-break-inside: avoid; }
-            .footer-nav { display: none; }
+            html { scroll-snap-type: none; }
+            body { background: #fff !important; color: #111 !important; }
+            .slide {
+                min-height: auto;
+                padding: 30px;
+                page-break-inside: avoid;
+                page-break-after: always;
+                border-bottom: 1px solid #ccc;
+            }
+            .slide::before { display: none; }
+            .footer-nav, .progress-bar, .slide-counter { display: none; }
+            h1, h2, h3, .card h4, .ws-card h3 { color: #1a3a16 !important; }
+            .stat .value, .big-number { color: #2d5a27 !important; }
+            .card, .ws-card, .section-block, .reality-check, .milestone, .risk-card {
+                background: #f5f5f5 !important;
+                border-color: #ccc !important;
+                color: #222 !important;
+            }
+            .card p, .ws-card .ws-desc, .ws-card .ws-metric,
+            .reality-item, .milestone .ms-criteria, .risk-card p,
+            .subtitle, .section-desc, .stat .label {
+                color: #444 !important;
+            }
+            .task-check-input { border-color: #666 !important; }
+            .task-check-input:checked { background: #2d5a27 !important; }
+            .animate-in { opacity: 1 !important; transform: none !important; }
+            a { color: #111 !important; }
         }
     </style>
 </head>
 <body>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- SLIDE COUNTER -->
+<div class="slide-counter" id="slideCounter">1/9</div>
 
 <!-- NAV -->
 <nav class="footer-nav">
@@ -889,34 +1048,34 @@
                 <tr>
                     <td class="week-label">S1 <span class="week-dates">11-16 mars</span></td>
                     <td><span class="phase-label phase-prep">PREP</span></td>
-                    <td>
+                    <td data-label="Acquisitions">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span class="task-critical">Relancer Robert (Le Chataignier) &mdash; demander etats financiers pour valorisation</span></li>
-                            <li><span class="task-check"></span><span>Downloader tous les docs Martin Dittou, analyser immobilisations</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">Relancer Robert (Le Chataignier) &mdash; demander etats financiers pour valorisation</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Downloader tous les docs Martin Dittou, analyser immobilisations</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Operations">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span class="task-critical">Recall clients: 2 pages/jour (objectif: 5 pages done)</span></li>
-                            <li><span class="task-check"></span><span>Commencer entretien nacelle</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">Recall clients: 2 pages/jour (objectif: 5 pages done)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Commencer entretien nacelle</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="RH / Recrutement">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Publier annonce etudiants ete (18-22$/h + bonus 500$)</span></li>
-                            <li><span class="task-check"></span><span>Evaluer employe ~40 ans: potentiel chef crew 2?</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Publier annonce etudiants ete (18-22$/h + bonus 500$)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Evaluer employe ~40 ans: potentiel chef crew 2?</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Marketing">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span class="task-critical">Contacter Jean-Michel pour planifier ads</span></li>
-                            <li><span class="task-check"></span><span>Creer compte SEAO</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">Contacter Jean-Michel pour planifier ads</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Creer compte SEAO</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Finance">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Changer REQ de Saint-Hyacinthe &rarr; Longueuil (Tania + Equinox)</span></li>
-                            <li><span class="task-check"></span><span>Si acquisition: appeler Desjardins pour marge credit 100k$</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Changer REQ de Saint-Hyacinthe &rarr; Longueuil (Tania + Equinox)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Si acquisition: appeler Desjardins pour marge credit 100k$</span></li>
                         </ul>
                     </td>
                 </tr>
@@ -925,34 +1084,34 @@
                 <tr>
                     <td class="week-label">S2 <span class="week-dates">17-23 mars</span></td>
                     <td><span class="phase-label phase-prep">PREP</span></td>
-                    <td>
+                    <td data-label="Acquisitions">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Meeting Robert (Le Chataignier) + son comptable &mdash; discuter valorisation</span></li>
-                            <li><span class="task-check"></span><span>Meeting Martin Dittou + comptable &mdash; chiffrer service dette</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Meeting Robert (Le Chataignier) + son comptable &mdash; discuter valorisation</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Meeting Martin Dittou + comptable &mdash; chiffrer service dette</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Operations">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Recall clients: pages 6-8 (cumulatif 30k$+)</span></li>
-                            <li><span class="task-check"></span><span>Entretien trucks: changements huile, check mecanique</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Recall clients: pages 6-8 (cumulatif 30k$+)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Entretien trucks: changements huile, check mecanique</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="RH / Recrutement">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Diffuser annonces etudiants portails universites (UQAM, UdeM, McGill)</span></li>
-                            <li><span class="task-check"></span><span>Tri premiers CV etudiants &mdash; entrevues tel</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Diffuser annonces etudiants portails universites (UQAM, UdeM, McGill)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Tri premiers CV etudiants &mdash; entrevues tel</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Marketing">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Preparer creativs Facebook (avant/apres)</span></li>
-                            <li><span class="task-check"></span><span>Ajouter lavage de vitres sur site web (GoDaddy)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Preparer creativs Facebook (avant/apres)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Ajouter lavage de vitres sur site web (GoDaddy)</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Finance">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Relancer M4 (post changement REQ)</span></li>
-                            <li><span class="task-check"></span><span>Soumissionner SEAO: Paysagement CSS Patriotes <span class="task-deadline">DEADLINE 31 MARS</span></span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Relancer M4 (post changement REQ)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Soumissionner SEAO: Paysagement CSS Patriotes <span class="task-deadline">DEADLINE 31 MARS</span></span></li>
                         </ul>
                     </td>
                 </tr>
@@ -961,34 +1120,34 @@
                 <tr>
                     <td class="week-label">S3 <span class="week-dates">24-30 mars</span></td>
                     <td><span class="phase-label phase-prep">PREP</span></td>
-                    <td>
+                    <td data-label="Acquisitions">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span class="task-critical">Robert: evaluer si deal futur viable &mdash; pas de LOI en 2026</span></li>
-                            <li><span class="task-check"></span><span>Due diligence Martin: etats financiers 3 ans, liste clients</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">Robert: evaluer si deal futur viable &mdash; pas de LOI en 2026</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Due diligence Martin: etats financiers 3 ans, liste clients</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Operations">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span class="task-critical">Terminer recall complet (12-13 pages) &mdash; objectif 80k$+</span></li>
-                            <li><span class="task-check"></span><span>Acheter equipement: 14.5k$ (secateurs, EPI, outils)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">Terminer recall complet (12-13 pages) &mdash; objectif 80k$+</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Acheter equipement: 14.5k$ (secateurs, EPI, outils)</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="RH / Recrutement">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>2-4 etudiants offres signees (debut mai)</span></li>
-                            <li><span class="task-check"></span><span>Booker formation CNESST (sante-securite obligatoire)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>2-4 etudiants offres signees (debut mai)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Booker formation CNESST (sante-securite obligatoire)</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Marketing">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span class="task-critical">Lancer ads Facebook/Instagram &mdash; budget 1,500$/mois</span></li>
-                            <li><span class="task-check"></span><span>Setup Google My Business complet (photos, avis, FAQs)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">Lancer ads Facebook/Instagram &mdash; budget 1,500$/mois</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Setup Google My Business complet (photos, avis, FAQs)</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Finance">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span class="task-critical">Souscrire assurances RC 2M$ + vehicules</span></li>
-                            <li><span class="task-check"></span><span>Soumettre demande MPAR (~5k$ formation)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">Souscrire assurances RC 2M$ + vehicules</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Soumettre demande MPAR (~5k$ formation)</span></li>
                         </ul>
                     </td>
                 </tr>
@@ -997,35 +1156,35 @@
                 <tr class="go-nogo-row">
                     <td class="week-label">S4 <span class="week-dates">31 mars - 6 avr</span></td>
                     <td><span class="phase-label" style="background:rgba(239,68,68,0.2);color:#ef4444;">GO/NO-GO</span></td>
-                    <td>
+                    <td data-label="Acquisitions">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Si Martin avance: offre formelle 650k$ (87k$ + 552k$ VTB)</span></li>
-                            <li><span class="task-check"></span><span>Robert: maintenir contact &mdash; deal possible 2027-2030</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Si Martin avance: offre formelle 650k$ (87k$ + 552k$ VTB)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Robert: maintenir contact &mdash; deal possible 2027-2030</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Operations">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Porte-a-porte: quartiers cibles (Rive-Sud, Longueuil)</span></li>
-                            <li><span class="task-check"></span><span>Vehicule #2: confirmer location si crew 2 pret</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Porte-a-porte: quartiers cibles (Rive-Sud, Longueuil)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Vehicule #2: confirmer location si crew 2 pret</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="RH / Recrutement">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span class="task-critical">Employe ~40 ans: test autonomie &mdash; pret a gerer crew 2?</span></li>
-                            <li><span class="task-check"></span><span>Confirmer 2+ etudiants pour debut mai</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">Employe ~40 ans: test autonomie &mdash; pret a gerer crew 2?</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Confirmer 2+ etudiants pour debut mai</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Marketing">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Augmenter budget ads: 2,500$/mois avril</span></li>
-                            <li><span class="task-check"></span><span>Lancer Google Ads (LSA + Search)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Augmenter budget ads: 2,500$/mois avril</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Lancer Google Ads (LSA + Search)</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Finance">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span class="task-critical">&#9888; DECISION GO/NO-GO</span></li>
-                            <li><span class="task-check"></span><span>Budget mars verifie: depenses vs plan</span></li>
-                            <li><span class="task-check"></span><span>Demande PAMT soumise (15k$/apprenti)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">&#9888; DECISION GO/NO-GO</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Budget mars verifie: depenses vs plan</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Demande PAMT soumise (15k$/apprenti)</span></li>
                         </ul>
                     </td>
                 </tr>
@@ -1034,30 +1193,30 @@
                 <tr>
                     <td class="week-label">S5 <span class="week-dates">7-13 avr</span></td>
                     <td><span class="phase-label phase-launch">LANCEMENT</span></td>
-                    <td>
+                    <td data-label="Acquisitions">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Si Martin avance: negociation finale + rencontre BDC</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Si Martin avance: negociation finale + rencontre BDC</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Operations">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span class="task-critical">DEBUT SAISON &mdash; Crew 1 sur le terrain (Henri + employe ~40 ans)</span></li>
-                            <li><span class="task-check"></span><span>Objectif: 5-7 clients/jour</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">DEBUT SAISON &mdash; Crew 1 sur le terrain (Henri + employe ~40 ans)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Objectif: 5-7 clients/jour</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="RH / Recrutement">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Formation terrain employe ~40 ans (supervision Henri)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Formation terrain employe ~40 ans (supervision Henri)</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Marketing">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Leads entrants: tracker CPL, ajuster creativs</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Leads entrants: tracker CPL, ajuster creativs</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Finance">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Premiers revenus! Tracking quotidien CA vs cout</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Premiers revenus! Tracking quotidien CA vs cout</span></li>
                         </ul>
                     </td>
                 </tr>
@@ -1066,31 +1225,31 @@
                 <tr>
                     <td class="week-label">S6 <span class="week-dates">14-20 avr</span></td>
                     <td><span class="phase-label phase-launch">LANCEMENT</span></td>
-                    <td>
+                    <td data-label="Acquisitions">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Si Martin close: signer + planifier integration clients</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Si Martin close: signer + planifier integration clients</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Operations">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Crew 1: monter a 8-9 clients/jour</span></li>
-                            <li><span class="task-check"></span><span>Crew 2 lance (employe ~40 ans chef + 1 etudiant/local)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Crew 1: monter a 8-9 clients/jour</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Crew 2 lance (employe ~40 ans chef + 1 etudiant/local)</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="RH / Recrutement">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Employe ~40 ans autonome &mdash; valider</span></li>
-                            <li><span class="task-check"></span><span>Preparer logement TET (mi-mai)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Employe ~40 ans autonome &mdash; valider</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Preparer logement TET (mi-mai)</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Marketing">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Objectif: 40-60 leads avril total</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Objectif: 40-60 leads avril total</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Finance">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Semaine 2 revenus &mdash; verifier breakeven en vue</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Semaine 2 revenus &mdash; verifier breakeven en vue</span></li>
                         </ul>
                     </td>
                 </tr>
@@ -1099,30 +1258,30 @@
                 <tr>
                     <td class="week-label">S7 <span class="week-dates">21-27 avr</span></td>
                     <td><span class="phase-label phase-launch">LANCEMENT</span></td>
-                    <td>
+                    <td data-label="Acquisitions">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Si acquisition closee: integration clients semaine 1</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Si acquisition closee: integration clients semaine 1</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Operations">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>2 crews actifs: 16-18 clients/jour total</span></li>
-                            <li><span class="task-check"></span><span>Setup KPI dashboard: masse salariale/jour, CA/jour</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>2 crews actifs: 16-18 clients/jour total</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Setup KPI dashboard: masse salariale/jour, CA/jour</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="RH / Recrutement">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Formation etudiants: 2 jours theorie + equipement</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Formation etudiants: 2 jours theorie + equipement</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Marketing">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Review avis Google: objectif 4.7+ etoiles</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Review avis Google: objectif 4.7+ etoiles</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Finance">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Soumettre demande subvention salariale (Services Quebec)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Soumettre demande subvention salariale (Services Quebec)</span></li>
                         </ul>
                     </td>
                 </tr>
@@ -1131,30 +1290,30 @@
                 <tr>
                     <td class="week-label">S8 <span class="week-dates">28 avr - 4 mai</span></td>
                     <td><span class="phase-label phase-ramp">RAMP-UP</span></td>
-                    <td>
+                    <td data-label="Acquisitions">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Si acquisition: transition clients semaine 2</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Si acquisition: transition clients semaine 2</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Operations">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Etudiants: premiere semaine terrain supervisee</span></li>
-                            <li><span class="task-check"></span><span>Objectif: 2 crews stables, 80k$ CA avril</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Etudiants: premiere semaine terrain supervisee</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Objectif: 2 crews stables, 80k$ CA avril</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="RH / Recrutement">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Etudiants debut terrain (crew 3 avec supervision Henri)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Etudiants debut terrain (crew 3 avec supervision Henri)</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Marketing">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Analyser ROI ads avril: CPL, CTR, close rate</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Analyser ROI ads avril: CPL, CTR, close rate</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Finance">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>BREAKEVEN cash atteint? Verifier (objectif: avril net +32k$)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>BREAKEVEN cash atteint? Verifier (objectif: avril net +32k$)</span></li>
                         </ul>
                     </td>
                 </tr>
@@ -1163,29 +1322,29 @@
                 <tr>
                     <td class="week-label">S9 <span class="week-dates">5-11 mai</span></td>
                     <td><span class="phase-label phase-ramp">RAMP-UP</span></td>
-                    <td>
+                    <td data-label="Acquisitions">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Si acquisition: integration complete, tous clients actifs</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Si acquisition: integration complete, tous clients actifs</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Operations">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>2 crews stables + crew 3 en rodage: 20-25 clients/jour</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>2 crews stables + crew 3 en rodage: 20-25 clients/jour</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="RH / Recrutement">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span class="task-critical">2 TET arrivent mi-mai &mdash; accueil + logement + orientation</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">2 TET arrivent mi-mai &mdash; accueil + logement + orientation</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Marketing">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Ajuster budget ads selon capacite restante</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Ajuster budget ads selon capacite restante</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Finance">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Soumettre C3i (equipement electrique)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Soumettre C3i (equipement electrique)</span></li>
                         </ul>
                     </td>
                 </tr>
@@ -1194,31 +1353,31 @@
                 <tr>
                     <td class="week-label">S10 <span class="week-dates">12-18 mai</span></td>
                     <td><span class="phase-label phase-ramp">RAMP-UP</span></td>
-                    <td>
+                    <td data-label="Acquisitions">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Soumissionner contrats SEAO ete si capacite OK</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Soumissionner contrats SEAO ete si capacite OK</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Operations">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span class="task-critical">2 TET integres aux crews &mdash; 1 TET par crew existant</span></li>
-                            <li><span class="task-check"></span><span>3 crews actifs: 27-30 clients/jour</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">2 TET integres aux crews &mdash; 1 TET par crew existant</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>3 crews actifs: 27-30 clients/jour</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="RH / Recrutement">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Formation TET: 1 semaine terrain supervise</span></li>
-                            <li><span class="task-check"></span><span>Evaluer: crew 3 (etudiants + 1 TET) autonome?</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Formation TET: 1 semaine terrain supervise</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Evaluer: crew 3 (etudiants + 1 TET) autonome?</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Marketing">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Review avis Google: objectif 4.7+ etoiles</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Review avis Google: objectif 4.7+ etoiles</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Finance">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Mai: objectif 135k$ CA &mdash; tracker quotidien</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Mai: objectif 135k$ CA &mdash; tracker quotidien</span></li>
                         </ul>
                     </td>
                 </tr>
@@ -1227,30 +1386,30 @@
                 <tr>
                     <td class="week-label">S11 <span class="week-dates">19-25 mai</span></td>
                     <td><span class="phase-label phase-ramp">RAMP-UP</span></td>
-                    <td>
+                    <td data-label="Acquisitions">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Lavage de vitres: lancer pilot si capacite permet</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Lavage de vitres: lancer pilot si capacite permet</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Operations">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>3 crews = 27-30 clients/jour = PLEINE CAPACITE BASE</span></li>
-                            <li><span class="task-check"></span><span>Stretch: crew 4 si acquisition (clients integres)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>3 crews = 27-30 clients/jour = PLEINE CAPACITE BASE</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Stretch: crew 4 si acquisition (clients integres)</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="RH / Recrutement">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Bonus performance: implementer structure (500$ fin saison)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Bonus performance: implementer structure (500$ fin saison)</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Marketing">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Ajuster budget: reduire si pipeline plein</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Ajuster budget: reduire si pipeline plein</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Finance">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Mai 135k$ &mdash; sur la bonne voie pour 1M$?</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Mai 135k$ &mdash; sur la bonne voie pour 1M$?</span></li>
                         </ul>
                     </td>
                 </tr>
@@ -1259,30 +1418,30 @@
                 <tr>
                     <td class="week-label">S12 <span class="week-dates">26 mai - 1 juin</span></td>
                     <td><span class="phase-label phase-peak">PEAK</span></td>
-                    <td>
+                    <td data-label="Acquisitions">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Explorer branches regionales si demande deborde</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Explorer branches regionales si demande deborde</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Operations">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span class="task-critical">3 crews en vitesse de croisiere</span></li>
-                            <li><span class="task-check"></span><span>KPI: 9-10 clients/crew/jour, ticket 450$+</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">3 crews en vitesse de croisiere</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>KPI: 9-10 clients/crew/jour, ticket 450$+</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="RH / Recrutement">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Review attrition: remplacement si departs etudiants</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Review attrition: remplacement si departs etudiants</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Marketing">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Rive-Nord: ouvrir territoire si demande</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Rive-Nord: ouvrir territoire si demande</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Finance">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Cash cumule: devrait etre 200k$+ &mdash; confortable</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Cash cumule: devrait etre 200k$+ &mdash; confortable</span></li>
                         </ul>
                     </td>
                 </tr>
@@ -1291,31 +1450,31 @@
                 <tr>
                     <td class="week-label">S13 <span class="week-dates">2-8 juin</span></td>
                     <td><span class="phase-label phase-peak">PEAK</span></td>
-                    <td>
+                    <td data-label="Acquisitions">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Planifier 2027: combien de TET demander? (4-6)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Planifier 2027: combien de TET demander? (4-6)</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Operations">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Production stable: 250k$/mois</span></li>
-                            <li><span class="task-check"></span><span>Objectif ete: maintenir 250k$/mois juin-aout</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Production stable: 250k$/mois</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Objectif ete: maintenir 250k$/mois juin-aout</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="RH / Recrutement">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Review mi-saison: performance chaque employe</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Review mi-saison: performance chaque employe</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Marketing">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>Review mi-saison: ROI par canal, optimiser</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Review mi-saison: ROI par canal, optimiser</span></li>
                         </ul>
                     </td>
-                    <td>
+                    <td data-label="Finance">
                         <ul class="task-list">
-                            <li><span class="task-check"></span><span>EBITDA check: 15%+ marge?</span></li>
-                            <li><span class="task-check"></span><span>Planifier Q3: expansion ou consolidation?</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>EBITDA check: 15%+ marge?</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Planifier Q3: expansion ou consolidation?</span></li>
                         </ul>
                     </td>
                 </tr>
@@ -1653,5 +1812,115 @@
     Prochaine revision: Weekly call 18 mars 2026
 </div>
 
+<script>
+(function() {
+    'use strict';
+
+    var STORAGE_KEY = 'gameplan-q2-2026-checks';
+    var slides = document.querySelectorAll('.slide');
+    var navLinks = document.querySelectorAll('.footer-nav a');
+    var progressBar = document.getElementById('progressBar');
+    var slideCounter = document.getElementById('slideCounter');
+    var totalSlides = slides.length;
+    var currentSlideIdx = 0;
+
+    // === PROGRESS BAR ===
+    function updateProgress() {
+        var scrollTop = window.scrollY || document.documentElement.scrollTop;
+        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        progressBar.style.width = pct + '%';
+    }
+
+    // === ANIMATE ELEMENTS ===
+    var animTargets = document.querySelectorAll(
+        '.card, .ws-card, .milestone, .risk-card, .stat, .dep-chain, ' +
+        '.reality-item, .highlight-box, .scenario-banner, .section-block, .reality-check'
+    );
+    animTargets.forEach(function(el) {
+        el.classList.add('animate-in');
+        var parent = el.parentElement;
+        var siblings = parent ? Array.from(parent.children).filter(function(c) {
+            return c.classList.contains('animate-in');
+        }) : [];
+        var idx = siblings.indexOf(el);
+        if (idx > 0) el.style.transitionDelay = (idx * 0.08) + 's';
+    });
+
+    var animObs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+            if (e.isIntersecting) { e.target.classList.add('visible'); animObs.unobserve(e.target); }
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    animTargets.forEach(function(el) { animObs.observe(el); });
+
+    // Table rows
+    var rows = document.querySelectorAll('.timeline-table tbody tr, .cf-table tbody tr, .actions-table tbody tr');
+    rows.forEach(function(r, i) { r.classList.add('animate-in'); r.style.transitionDelay = (i * 0.05) + 's'; });
+    var rowObs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+            if (e.isIntersecting) { e.target.classList.add('visible'); rowObs.unobserve(e.target); }
+        });
+    }, { threshold: 0.1 });
+    rows.forEach(function(r) { rowObs.observe(r); });
+
+    // === NAV ACTIVE + SLIDE COUNTER ===
+    var slideObs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+            if (e.isIntersecting) {
+                var id = e.target.id;
+                navLinks.forEach(function(l) {
+                    l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+                });
+                var idx = Array.from(slides).indexOf(e.target);
+                if (idx >= 0) {
+                    currentSlideIdx = idx;
+                    slideCounter.textContent = (idx + 1) + '/' + totalSlides;
+                }
+            }
+        });
+    }, { threshold: 0.4 });
+    slides.forEach(function(s) { slideObs.observe(s); });
+
+    // === KEYBOARD NAVIGATION ===
+    document.addEventListener('keydown', function(ev) {
+        if (ev.target.tagName === 'INPUT' || ev.target.tagName === 'TEXTAREA') return;
+        if (ev.key === 'ArrowDown' || ev.key === 'PageDown') {
+            ev.preventDefault();
+            if (currentSlideIdx < totalSlides - 1) slides[currentSlideIdx + 1].scrollIntoView({ behavior: 'smooth' });
+        } else if (ev.key === 'ArrowUp' || ev.key === 'PageUp') {
+            ev.preventDefault();
+            if (currentSlideIdx > 0) slides[currentSlideIdx - 1].scrollIntoView({ behavior: 'smooth' });
+        } else if (ev.key === 'Escape' || ev.key === 'Home') {
+            ev.preventDefault();
+            slides[0].scrollIntoView({ behavior: 'smooth' });
+        } else if (ev.key === 'End') {
+            ev.preventDefault();
+            slides[totalSlides - 1].scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+
+    // === CHECKBOXES + LOCALSTORAGE ===
+    var cbs = document.querySelectorAll('.task-check-input');
+    var saved = {};
+    try { saved = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch(x) {}
+    cbs.forEach(function(cb, i) {
+        cb.dataset.idx = i;
+        if (saved[i]) cb.checked = true;
+        cb.addEventListener('change', function() {
+            try {
+                var st = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+                if (this.checked) st[this.dataset.idx] = true;
+                else delete st[this.dataset.idx];
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(st));
+            } catch(x) {}
+        });
+    });
+
+    // === SCROLL (passive) ===
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+})();
+</script>
 </body>
 </html>
