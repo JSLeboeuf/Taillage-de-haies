@@ -1,0 +1,2161 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HAIE LITE - Game Plan Q2 2026</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+            background: #0a0a0a;
+            color: #fff;
+            overflow-x: hidden;
+        }
+
+        .slide {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 60px 80px;
+            position: relative;
+            border-bottom: 1px solid rgba(45, 90, 39, 0.3);
+        }
+
+        .slide::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: radial-gradient(ellipse at 50% 50%, rgba(45, 90, 39, 0.15) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .slide-number {
+            position: absolute;
+            top: 30px;
+            right: 40px;
+            font-size: 14px;
+            color: rgba(255,255,255,0.3);
+            font-weight: 300;
+        }
+
+        h1 {
+            font-size: 72px;
+            font-weight: 800;
+            color: #4a7c43;
+            text-align: center;
+            margin-bottom: 20px;
+            letter-spacing: -2px;
+        }
+
+        h2 {
+            font-size: 48px;
+            font-weight: 700;
+            color: #6b9b37;
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        h3 {
+            font-size: 28px;
+            font-weight: 600;
+            color: #4a7c43;
+            margin-bottom: 20px;
+        }
+
+        .subtitle {
+            font-size: 28px;
+            color: rgba(255,255,255,0.7);
+            text-align: center;
+            margin-bottom: 40px;
+            font-weight: 300;
+        }
+
+        .big-number {
+            font-size: 100px;
+            font-weight: 800;
+            color: #6b9b37;
+            text-align: center;
+            line-height: 1;
+        }
+
+        .big-number span {
+            font-size: 48px;
+            color: rgba(255,255,255,0.5);
+        }
+
+        .grid-2 {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .grid-3 {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 30px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .grid-4 {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            width: 100%;
+            max-width: 1200px;
+        }
+
+        .grid-5 {
+            display: grid;
+            grid-template-columns: repeat(5, 1fr);
+            gap: 20px;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .card {
+            background: rgba(45, 90, 39, 0.15);
+            border: 1px solid rgba(74, 124, 67, 0.3);
+            border-radius: 16px;
+            padding: 30px;
+            transition: all 0.3s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-5px);
+            border-color: #4a7c43;
+            background: rgba(45, 90, 39, 0.25);
+        }
+
+        .card h4 {
+            font-size: 20px;
+            color: #6b9b37;
+            margin-bottom: 15px;
+            font-weight: 600;
+        }
+
+        .card p {
+            font-size: 15px;
+            color: rgba(255,255,255,0.7);
+            line-height: 1.5;
+        }
+
+        .card .icon {
+            font-size: 36px;
+            margin-bottom: 15px;
+        }
+
+        .stat-row {
+            display: flex;
+            justify-content: center;
+            gap: 60px;
+            margin: 30px 0;
+            flex-wrap: wrap;
+        }
+
+        .stat {
+            text-align: center;
+        }
+
+        .stat .value {
+            font-size: 48px;
+            font-weight: 800;
+            color: #6b9b37;
+        }
+
+        .stat .label {
+            font-size: 16px;
+            color: rgba(255,255,255,0.6);
+            margin-top: 8px;
+        }
+
+        .stat .label-sub {
+            font-size: 12px;
+            color: rgba(255,255,255,0.35);
+            margin-top: 2px;
+        }
+
+        .highlight-box {
+            background: linear-gradient(135deg, rgba(45, 90, 39, 0.3), rgba(45, 90, 39, 0.1));
+            border: 2px solid #4a7c43;
+            border-radius: 20px;
+            padding: 40px;
+            text-align: center;
+            max-width: 600px;
+            margin: 30px 0;
+        }
+
+        .highlight-box .amount {
+            font-size: 72px;
+            font-weight: 800;
+            color: #6b9b37;
+        }
+
+        .highlight-box .desc {
+            font-size: 20px;
+            color: rgba(255,255,255,0.7);
+            margin-top: 10px;
+        }
+
+        /* Section containers */
+        .section-container {
+            width: 100%;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 40px;
+        }
+
+        .section-block {
+            background: rgba(45, 90, 39, 0.08);
+            border: 1px solid rgba(74, 124, 67, 0.2);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 30px;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .section-block h2 {
+            font-size: 32px;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
+        .section-block .section-desc {
+            font-size: 16px;
+            color: rgba(255,255,255,0.5);
+            margin-bottom: 24px;
+        }
+
+        /* Reality Check */
+        .reality-check {
+            background: rgba(234, 88, 12, 0.08);
+            border: 2px solid rgba(234, 88, 12, 0.5);
+            border-radius: 20px;
+            padding: 40px;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .reality-check h2 {
+            color: #ea8c37;
+            font-size: 32px;
+            text-align: left;
+            margin-bottom: 24px;
+        }
+
+        .reality-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+        }
+
+        .reality-col h3 {
+            font-size: 16px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 16px;
+        }
+
+        .reality-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            margin-bottom: 12px;
+            font-size: 15px;
+            color: rgba(255,255,255,0.8);
+        }
+
+        .reality-item .icon { flex-shrink: 0; width: 22px; text-align: center; }
+        .gap-negative { color: #ef4444; font-weight: 600; }
+        .gap-positive { color: #6b9b37; font-weight: 600; }
+
+        /* Workstream cards */
+        .workstreams {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .ws-card {
+            background: rgba(45, 90, 39, 0.12);
+            border-radius: 16px;
+            padding: 28px;
+            border-left: 4px solid rgba(255,255,255,0.1);
+            transition: all 0.3s ease;
+        }
+
+        .ws-card:hover {
+            transform: translateY(-3px);
+            background: rgba(45, 90, 39, 0.2);
+        }
+
+        .ws-card.ws-acq { border-left-color: #ef4444; }
+        .ws-card.ws-ops { border-left-color: #6b9b37; }
+        .ws-card.ws-mkt { border-left-color: #3b82f6; }
+        .ws-card.ws-fin { border-left-color: #8b5cf6; }
+        .ws-card.ws-rh { border-left-color: #ea8c37; }
+
+        .ws-card h3 { font-size: 20px; margin-bottom: 6px; }
+        .ws-card .ws-desc { font-size: 14px; color: rgba(255,255,255,0.45); margin-bottom: 14px; }
+        .ws-card .ws-owner {
+            font-size: 12px;
+            color: #6b9b37;
+            background: rgba(107, 155, 55, 0.15);
+            border: 1px solid rgba(107, 155, 55, 0.3);
+            padding: 3px 10px;
+            border-radius: 100px;
+            display: inline-block;
+            margin-bottom: 10px;
+        }
+        .ws-card .ws-metric { font-size: 14px; color: rgba(255,255,255,0.55); margin-bottom: 4px; }
+        .ws-card .ws-metric strong { color: #fff; }
+
+        /* Milestones */
+        .milestones {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        .milestone {
+            background: rgba(45, 90, 39, 0.1);
+            border-radius: 16px;
+            padding: 28px;
+            border: 1px solid rgba(74, 124, 67, 0.25);
+            position: relative;
+            transition: all 0.3s ease;
+        }
+
+        .milestone:hover {
+            border-color: #4a7c43;
+            background: rgba(45, 90, 39, 0.18);
+        }
+
+        .milestone.ms-critical {
+            border-color: rgba(239, 68, 68, 0.5);
+            background: rgba(239, 68, 68, 0.08);
+        }
+
+        .milestone .ms-date {
+            font-size: 13px;
+            text-transform: uppercase;
+            letter-spacing: 0.08em;
+            color: rgba(255,255,255,0.4);
+            margin-bottom: 6px;
+        }
+
+        .milestone h3 { font-size: 20px; margin-bottom: 12px; }
+
+        .milestone .ms-criteria {
+            font-size: 14px;
+            color: rgba(255,255,255,0.7);
+            list-style: none;
+        }
+
+        .milestone .ms-criteria li {
+            margin-bottom: 6px;
+            padding-left: 4px;
+        }
+
+        .ms-tag {
+            position: absolute;
+            top: 16px;
+            right: 16px;
+            font-size: 11px;
+            text-transform: uppercase;
+            font-weight: 700;
+            padding: 3px 10px;
+            border-radius: 100px;
+            letter-spacing: 0.05em;
+        }
+
+        .ms-tag.go-nogo { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        .ms-tag.checkpoint { background: rgba(107, 155, 55, 0.2); color: #6b9b37; }
+        .ms-tag.expansion { background: rgba(59, 130, 246, 0.2); color: #60a5fa; }
+
+        /* Timeline Table */
+        .timeline-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .timeline-table th {
+            text-align: left;
+            padding: 12px 14px;
+            background: rgba(45, 90, 39, 0.2);
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #6b9b37;
+            border-bottom: 2px solid rgba(74, 124, 67, 0.3);
+            white-space: nowrap;
+        }
+
+        .timeline-table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            vertical-align: top;
+        }
+
+        .timeline-table tr:hover { background: rgba(45, 90, 39, 0.08); }
+
+        .week-label {
+            font-weight: 700;
+            white-space: nowrap;
+            min-width: 90px;
+            color: #fff;
+        }
+
+        .week-dates {
+            font-size: 11px;
+            color: rgba(255,255,255,0.35);
+            display: block;
+        }
+
+        .phase-label {
+            font-size: 10px;
+            text-transform: uppercase;
+            letter-spacing: 0.06em;
+            padding: 3px 8px;
+            border-radius: 6px;
+            display: inline-block;
+            font-weight: 700;
+        }
+
+        .phase-prep { background: rgba(234, 140, 55, 0.15); color: #ea8c37; }
+        .phase-launch { background: rgba(107, 155, 55, 0.15); color: #6b9b37; }
+        .phase-ramp { background: rgba(59, 130, 246, 0.15); color: #60a5fa; }
+        .phase-peak { background: rgba(139, 92, 246, 0.15); color: #a78bfa; }
+
+        .task-list { list-style: none; }
+        .task-list li {
+            margin-bottom: 6px;
+            display: flex;
+            align-items: flex-start;
+            gap: 8px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.7);
+        }
+
+        /* .task-check replaced by .task-check-input (interactive checkboxes) */
+
+        .task-critical { font-weight: 600; color: #fff; }
+        .task-deadline { color: #ef4444; font-weight: 700; font-size: 11px; }
+
+        .go-nogo-row { background: rgba(239, 68, 68, 0.06) !important; }
+
+        /* Cash flow table */
+        .cf-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .cf-table th {
+            text-align: right;
+            padding: 10px 14px;
+            background: rgba(45, 90, 39, 0.2);
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #6b9b37;
+        }
+
+        .cf-table th:first-child { text-align: left; }
+
+        .cf-table td {
+            text-align: right;
+            padding: 10px 14px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            color: rgba(255,255,255,0.7);
+        }
+
+        .cf-table td:first-child { text-align: left; font-weight: 500; color: #fff; }
+        .cf-table .row-total { font-weight: 700; background: rgba(45, 90, 39, 0.1); }
+        .cf-table .row-total td { color: #fff; }
+        .cf-table .negative { color: #ef4444; }
+        .cf-table .positive { color: #6b9b37; font-weight: 600; }
+
+        /* Dependencies */
+        .dep-chain {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 14px;
+            flex-wrap: wrap;
+            font-size: 14px;
+        }
+
+        .dep-node {
+            padding: 8px 16px;
+            border-radius: 10px;
+            font-weight: 500;
+            color: #fff;
+        }
+
+        .dep-arrow { color: rgba(74, 124, 67, 0.5); font-weight: 700; font-size: 18px; }
+
+        .dep-acq { background: rgba(239, 68, 68, 0.15); border: 1px solid rgba(239, 68, 68, 0.3); }
+        .dep-ops { background: rgba(107, 155, 55, 0.15); border: 1px solid rgba(107, 155, 55, 0.3); }
+        .dep-rh { background: rgba(234, 140, 55, 0.15); border: 1px solid rgba(234, 140, 55, 0.3); }
+        .dep-mkt { background: rgba(59, 130, 246, 0.15); border: 1px solid rgba(59, 130, 246, 0.3); }
+        .dep-fin { background: rgba(139, 92, 246, 0.15); border: 1px solid rgba(139, 92, 246, 0.3); }
+
+        /* Risk cards */
+        .risk-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(380px, 1fr));
+            gap: 20px;
+        }
+
+        .risk-card {
+            padding: 24px;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(45, 90, 39, 0.06);
+            transition: all 0.3s ease;
+        }
+
+        .risk-card:hover { transform: translateY(-2px); }
+
+        .risk-card.risk-high {
+            border-color: rgba(239, 68, 68, 0.3);
+            background: rgba(239, 68, 68, 0.06);
+        }
+
+        .risk-card.risk-med {
+            border-color: rgba(234, 140, 55, 0.3);
+            background: rgba(234, 140, 55, 0.06);
+        }
+
+        .risk-card h4 { font-size: 16px; color: #fff; margin-bottom: 8px; }
+        .risk-card p { font-size: 14px; color: rgba(255,255,255,0.6); margin-bottom: 4px; }
+        .risk-card p strong { color: rgba(255,255,255,0.85); }
+
+        .risk-level {
+            font-size: 10px;
+            text-transform: uppercase;
+            font-weight: 700;
+            padding: 3px 8px;
+            border-radius: 6px;
+            display: inline-block;
+            margin-bottom: 8px;
+            letter-spacing: 0.05em;
+        }
+
+        .risk-level.high { background: rgba(239, 68, 68, 0.2); color: #ef4444; }
+        .risk-level.med { background: rgba(234, 140, 55, 0.2); color: #ea8c37; }
+
+        /* Top 10 actions */
+        .actions-urgent {
+            border: 2px solid rgba(239, 68, 68, 0.5) !important;
+        }
+
+        .actions-urgent h2 { color: #ef4444 !important; }
+
+        .actions-table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+        }
+
+        .actions-table th {
+            text-align: left;
+            padding: 12px 14px;
+            background: rgba(239, 68, 68, 0.1);
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: #ef4444;
+            border-bottom: 2px solid rgba(239, 68, 68, 0.2);
+        }
+
+        .actions-table td {
+            padding: 12px 14px;
+            border-bottom: 1px solid rgba(255,255,255,0.06);
+            color: rgba(255,255,255,0.7);
+        }
+
+        .actions-table tr:hover { background: rgba(239, 68, 68, 0.04); }
+        .actions-table td:first-child { color: #ef4444; font-weight: 800; }
+        .actions-table td:nth-child(2) { color: #fff; font-weight: 500; }
+
+        /* Scenario toggle */
+        .scenario-banner {
+            background: rgba(59, 130, 246, 0.08);
+            border: 1px solid rgba(59, 130, 246, 0.3);
+            border-radius: 12px;
+            padding: 16px 24px;
+            margin-top: 20px;
+            max-width: 800px;
+            text-align: center;
+            font-size: 15px;
+            color: rgba(255,255,255,0.7);
+        }
+        .scenario-banner strong { color: #60a5fa; }
+
+        /* Footer nav */
+        .footer-nav {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background: rgba(10, 10, 10, 0.95);
+            padding: 12px 40px;
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            border-top: 1px solid rgba(45, 90, 39, 0.3);
+            z-index: 100;
+            flex-wrap: wrap;
+            backdrop-filter: blur(10px);
+        }
+
+        .footer-nav a {
+            color: rgba(255,255,255,0.6);
+            text-decoration: none;
+            font-size: 13px;
+            padding: 6px 12px;
+            border-radius: 20px;
+            transition: all 0.2s ease;
+        }
+
+        .footer-nav a:hover {
+            color: #fff;
+            background: rgba(45, 90, 39, 0.3);
+        }
+
+        @media (max-width: 1024px) {
+            .slide { padding: 40px 30px; }
+            h1 { font-size: 48px; }
+            h2 { font-size: 32px; }
+            .grid-2, .grid-3, .grid-4, .grid-5 { grid-template-columns: 1fr 1fr; }
+            .reality-grid { grid-template-columns: 1fr; }
+            .section-block { padding: 24px; }
+        }
+
+        @media (max-width: 768px) {
+            .grid-2, .grid-3, .grid-4, .grid-5 { grid-template-columns: 1fr; }
+            .slide { padding: 30px 20px; }
+            h1 { font-size: 36px; }
+        }
+
+        /* Scroll Snap */
+        html {
+            scroll-snap-type: y mandatory;
+            scroll-behavior: smooth;
+        }
+
+        .slide {
+            scroll-snap-align: start;
+            contain: layout style;
+        }
+
+        /* Progress Bar */
+        .progress-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 3px;
+            background: linear-gradient(90deg, #4a7c43, #6b9b37);
+            z-index: 200;
+            width: 0%;
+            transition: width 0.15s ease-out;
+            will-change: width;
+        }
+
+        /* Slide Counter */
+        .slide-counter {
+            position: fixed;
+            top: 12px;
+            right: 16px;
+            font-size: 13px;
+            color: rgba(255,255,255,0.35);
+            z-index: 200;
+            font-variant-numeric: tabular-nums;
+            pointer-events: none;
+        }
+
+        /* Animations */
+        .animate-in {
+            opacity: 0;
+            transform: translateY(30px);
+            will-change: opacity, transform;
+        }
+
+        .animate-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+            transition: opacity 0.6s cubic-bezier(0.16, 1, 0.3, 1),
+                        transform 0.6s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        /* Nav Active State */
+        .footer-nav a.active {
+            color: #fff;
+            background: rgba(45, 90, 39, 0.4);
+        }
+
+        /* Interactive Checkboxes */
+        .task-check-input {
+            width: 14px;
+            height: 14px;
+            border: 2px solid rgba(74, 124, 67, 0.4);
+            border-radius: 3px;
+            flex-shrink: 0;
+            margin-top: 2px;
+            appearance: none;
+            -webkit-appearance: none;
+            background: transparent;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            position: relative;
+        }
+
+        .task-check-input:checked {
+            background: #4a7c43;
+            border-color: #6b9b37;
+        }
+
+        .task-check-input:checked::after {
+            content: '';
+            position: absolute;
+            top: 1px;
+            left: 3px;
+            width: 4px;
+            height: 7px;
+            border: solid #fff;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .task-check-input:checked + span {
+            text-decoration: line-through;
+            opacity: 0.45;
+        }
+
+        /* Mobile Timeline Cards */
+        @media (max-width: 768px) {
+            .timeline-table thead { display: none; }
+            .timeline-table, .timeline-table tbody, .timeline-table tr, .timeline-table td {
+                display: block;
+                width: 100%;
+            }
+            .timeline-table tr {
+                background: rgba(45, 90, 39, 0.08);
+                border: 1px solid rgba(74, 124, 67, 0.2);
+                border-radius: 16px;
+                padding: 20px;
+                margin-bottom: 16px;
+            }
+            .timeline-table td {
+                padding: 8px 0;
+                border-bottom: 1px solid rgba(255,255,255,0.04);
+            }
+            .timeline-table td:first-child {
+                font-size: 18px;
+                padding-bottom: 12px;
+                border-bottom: 1px solid rgba(74, 124, 67, 0.3);
+                margin-bottom: 8px;
+            }
+            .timeline-table td:before {
+                content: attr(data-label);
+                display: block;
+                font-size: 10px;
+                text-transform: uppercase;
+                letter-spacing: 0.08em;
+                color: #6b9b37;
+                margin-bottom: 4px;
+                font-weight: 600;
+            }
+            .timeline-table td:first-child:before,
+            .timeline-table td:nth-child(2):before { display: none; }
+
+            .cf-table { font-size: 12px; }
+            .cf-table th, .cf-table td { padding: 8px 6px; }
+        }
+
+        /* Print Styles */
+        @media print {
+            html { scroll-snap-type: none; }
+            body { background: #fff !important; color: #111 !important; }
+            .slide {
+                min-height: auto;
+                padding: 30px;
+                page-break-inside: avoid;
+                page-break-after: always;
+                border-bottom: 1px solid #ccc;
+            }
+            .slide::before { display: none; }
+            .footer-nav, .progress-bar, .slide-counter { display: none; }
+            h1, h2, h3, .card h4, .ws-card h3 { color: #1a3a16 !important; }
+            .stat .value, .big-number { color: #2d5a27 !important; }
+            .card, .ws-card, .section-block, .reality-check, .milestone, .risk-card {
+                background: #f5f5f5 !important;
+                border-color: #ccc !important;
+                color: #222 !important;
+            }
+            .card p, .ws-card .ws-desc, .ws-card .ws-metric,
+            .reality-item, .milestone .ms-criteria, .risk-card p,
+            .subtitle, .section-desc, .stat .label {
+                color: #444 !important;
+            }
+            .task-check-input { border-color: #666 !important; }
+            .task-check-input:checked { background: #2d5a27 !important; }
+            .animate-in { opacity: 1 !important; transform: none !important; }
+            a { color: #111 !important; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- PROGRESS BAR -->
+<div class="progress-bar" id="progressBar"></div>
+
+<!-- SLIDE COUNTER -->
+<div class="slide-counter" id="slideCounter">1/10</div>
+
+<!-- NAV -->
+<nav class="footer-nav">
+    <a href="#cover">Accueil</a>
+    <a href="#reality">Realite</a>
+    <a href="#workstreams">Chantiers</a>
+    <a href="#milestones">Milestones</a>
+    <a href="#timeline">Timeline</a>
+    <a href="#cashflow">Cash Flow</a>
+    <a href="#deps">Dependances</a>
+    <a href="#risks">Risques</a>
+    <a href="#actions">Actions</a>
+    <a href="#hormozi">Hormozi</a>
+</nav>
+
+<!-- SLIDE 1: COVER -->
+<section class="slide" id="cover">
+    <span class="slide-number">01</span>
+    <h1>HAIE LITE</h1>
+    <p class="subtitle">Game Plan Q2 2026</p>
+    <p class="subtitle" style="font-size:20px; margin-bottom:40px;">Mars &rarr; Juin &middot; 13 semaines pour atteindre la pleine capacite</p>
+    <div class="stat-row">
+        <div class="stat">
+            <div class="value">1M$</div>
+            <div class="label">CA cible 2026</div>
+            <div class="label-sub">1.5M$ si acquisition</div>
+        </div>
+        <div class="stat">
+            <div class="value">3</div>
+            <div class="label">Crews cible</div>
+            <div class="label-sub">4 si acquisition</div>
+        </div>
+        <div class="stat">
+            <div class="value">2,200</div>
+            <div class="label">Clients cible</div>
+            <div class="label-sub">3,500+ si acquisition</div>
+        </div>
+        <div class="stat">
+            <div class="value">47k$</div>
+            <div class="label">Invest. demarrage</div>
+            <div class="label-sub">depenses mars nettes</div>
+        </div>
+        <div class="stat">
+            <div class="value">150-250k$</div>
+            <div class="label">EBITDA cible</div>
+            <div class="label-sub">15-20% marge</div>
+        </div>
+        <div class="stat">
+            <div class="value">Avril</div>
+            <div class="label">Breakeven</div>
+        </div>
+    </div>
+    <div class="scenario-banner">
+        <strong>Dual scenario</strong> &mdash; Base: 1M$ (3 crews, 0 acquisition) | Stretch: 1.5M$ (4 crews, si Martin Dittou close)
+    </div>
+</section>
+
+<!-- SLIDE 2: REALITY CHECK -->
+<section class="slide" id="reality">
+    <span class="slide-number">02</span>
+    <div class="reality-check">
+        <h2>Ecart Plan vs Realite (au 11 mars 2026)</h2>
+        <div class="reality-grid">
+            <div class="reality-col">
+                <h3>Ce qui avance</h3>
+                <div class="reality-item"><span class="icon">&#9989;</span> <span>Recall clients en cours &mdash; <strong>10k$ bookes</strong> sur 2/12 pages, objectif 80k$</span></div>
+                <div class="reality-item"><span class="icon">&#9989;</span> <span>2 TET Guatemalteques confirmes <strong>1er mai</strong> (2 semaines plus tot que prevu)</span></div>
+                <div class="reality-item"><span class="icon">&#9989;</span> <span>2 employes locaux additionnels disponibles <strong>fin avril</strong> &mdash; Crew 2 avance de ~2 semaines</span></div>
+                <div class="reality-item"><span class="icon">&#9989;</span> <span>1 employe local fiable (~40 ans) en poste</span></div>
+                <div class="reality-item"><span class="icon">&#9989;</span> <span>Acquisition Martin Dittou : <strong>3M$ CA, 11-25 employes</strong> &mdash; deal potentiel majeur (scenario stretch)</span></div>
+                <div class="reality-item"><span class="icon">&#9989;</span> <span>Robert (Le Chataignier) : contact etabli, pas vendeur 2026 &mdash; horizon 2027+ (en attente etats financiers pour valorisation)</span></div>
+                <div class="reality-item"><span class="icon">&#9989;</span> <span>Augmentations prix +4-5% appliquees sur recall</span></div>
+                <div class="reality-item"><span class="icon">&#9989;</span> <span>Contrats SEAO decouverts &mdash; potentiel multi-annees</span></div>
+            </div>
+            <div class="reality-col">
+                <h3>Ecarts a combler</h3>
+                <div class="reality-item"><span class="icon">&#9888;&#65039;</span> <span><span class="gap-negative">Actuel: 1 crew</span> &rarr; Cible: <strong>3 crews</strong> (Henri seul + 1 employe)</span></div>
+                <div class="reality-item"><span class="icon">&#9888;&#65039;</span> <span><span class="gap-negative">0 chef d'equipe recrute</span> &rarr; Besoin: employe ~40 ans a promouvoir ou 1 recrue</span></div>
+                <div class="reality-item"><span class="icon">&#9888;&#65039;</span> <span><span class="gap-negative">0 acquisition closee</span> &rarr; 1 en discussion active (Martin Dittou) + 1 contact futur (Robert, horizon 2027+)</span></div>
+                <div class="reality-item"><span class="icon">&#9888;&#65039;</span> <span><span class="gap-negative">Ads pas lancees</span> &rarr; Jean-Michel pas encore contacte</span></div>
+                <div class="reality-item"><span class="icon">&#9888;&#65039;</span> <span><span class="gap-negative">REQ a Saint-Hyacinthe</span> &rarr; Doit passer a Longueuil (bloque subventions M4)</span></div>
+                <div class="reality-item"><span class="icon">&#9888;&#65039;</span> <span><span class="gap-negative">0 etudiant recrute</span> &rarr; Aucun poste publie</span></div>
+                <div class="reality-item"><span class="icon">&#9888;&#65039;</span> <span><span class="gap-negative">Assurances pas souscrites</span> &rarr; Obligatoire avant debut saison</span></div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 3: 5 WORKSTREAMS -->
+<section class="slide" id="workstreams">
+    <span class="slide-number">03</span>
+    <h2>5 Chantiers Paralleles</h2>
+    <div class="workstreams">
+        <div class="ws-card ws-acq">
+            <h3>Acquisitions (Stretch)</h3>
+            <div class="ws-desc">Optionnel pour le base case &mdash; transforme 1M$ en 1.5M$ si close</div>
+            <span class="ws-owner">JS + Henri</span>
+            <div class="ws-metric">Pipeline: <strong>Martin Dittou</strong> (3M$ CA) &mdash; actif | <strong>Robert</strong> (~300k$ CA, horizon 2027+)</div>
+            <div class="ws-metric">Valorisation Martin: <strong>650k$</strong> (87k$ cash + 552k$ VTB 7 ans)</div>
+            <div class="ws-metric">Impact si close: <strong>+500k$ CA</strong>, +1 crew integre</div>
+        </div>
+        <div class="ws-card ws-ops">
+            <h3>Operations & Equipement</h3>
+            <div class="ws-desc">Preparer la saison: vehicules, equipement, recall clients</div>
+            <span class="ws-owner">Henri</span>
+            <div class="ws-metric">Recall clients: <strong>10k$/80k$</strong> (12% complete)</div>
+            <div class="ws-metric">Entretien: nacelle + trucks + changements huile</div>
+            <div class="ws-metric">Equipement: <strong>14.5k$</strong> a acheter</div>
+        </div>
+        <div class="ws-card ws-rh">
+            <h3>Recrutement & RH</h3>
+            <div class="ws-desc">Assembler 3 crews: Henri + TET + etudiants/locaux</div>
+            <span class="ws-owner">Henri + JS</span>
+            <div class="ws-metric">TET: <strong>2 Guatemalteques</strong> confirmes <strong>1er mai</strong> &#x1F7E2; (cout 130k$/saison &mdash; a confirmer tout inclus)</div>
+            <div class="ws-metric">Local: 1 employe (~40 ans) + <strong>2 employes additionnels fin avril</strong> &#x1F7E2; &mdash; Crew 2 avance</div>
+            <div class="ws-metric">Manque: recruter <strong>4-6 etudiants</strong> pour garder 2-4 (buffer attrition 25-30%)</div>
+        </div>
+        <div class="ws-card ws-mkt">
+            <h3>Marketing & Leads</h3>
+            <div class="ws-desc">Generer 200+ leads pour remplir 3 crews</div>
+            <span class="ws-owner">JS + Jean-Michel</span>
+            <div class="ws-metric">Budget annuel: <strong>~18k$</strong> (ads + SEO)</div>
+            <div class="ws-metric">Canaux: Facebook/IG 50% + Google 37.5% + SEO</div>
+            <div class="ws-metric">Objectif avril: <strong>40-60 leads</strong></div>
+        </div>
+        <div class="ws-card ws-fin">
+            <h3>Finance & Subventions</h3>
+            <div class="ws-desc">Securiser subventions + marge credit (si acquisition)</div>
+            <span class="ws-owner">JS</span>
+            <div class="ws-metric">Sans acquisition: <strong>pas besoin de marge credit</strong> (100k$ cash suffit)</div>
+            <div class="ws-metric">Si acquisition: marge <strong>100k$</strong> pour down payment 87k$</div>
+            <div class="ws-metric">Subventions: M4, PAMT, MFOR &mdash; <strong>~50k$ potentiel</strong> + Premiers Adoptants 75k$ <strong>(deadline 3 avril!)</strong></div>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 4: MILESTONES -->
+<section class="slide" id="milestones">
+    <span class="slide-number">04</span>
+    <h2>Milestones & Checkpoints</h2>
+    <div class="milestones">
+        <div class="milestone ms-critical">
+            <span class="ms-tag go-nogo">GO / NO-GO</span>
+            <div class="ms-date">31 mars 2026</div>
+            <h3>Decision lancement saison</h3>
+            <ul class="ms-criteria">
+                <li>&#9744; 50k$+ clients pre-bookes (recall)</li>
+                <li>&#9744; Assurances RC 2M$ + vehicules souscrites</li>
+                <li>&#9744; Annonces etudiants publiees</li>
+                <li>&#9744; Ads Facebook/Google planifiees avec Jean-Michel</li>
+                <li>&#9744; Si acquisition: marge credit 100k$ approuvee</li>
+            </ul>
+        </div>
+        <div class="milestone">
+            <span class="ms-tag checkpoint">CHECKPOINT</span>
+            <div class="ms-date">27 avril 2026</div>
+            <h3>Semaine 1 de production</h3>
+            <ul class="ms-criteria">
+                <li>&#9744; Crew 1 operationnel (Henri + employe ~40 ans)</li>
+                <li>&#9744; ServiceM8 100% configure</li>
+                <li>&#9744; Ads actives, premiers leads entrants</li>
+                <li>&#9744; 80k$+ pre-bookes total</li>
+            </ul>
+        </div>
+        <div class="milestone">
+            <span class="ms-tag checkpoint">CHECKPOINT</span>
+            <div class="ms-date">1er mai 2026</div>
+            <h3>3 crews actifs + TET arrives</h3>
+            <ul class="ms-criteria">
+                <li>&#9744; Crew 2 lance fin avril (2 employes locaux + employe ~40 ans chef)</li>
+                <li>&#9744; 2 TET Guatemalteques arrives 1er mai + accueil + logement</li>
+                <li>&#9744; 150+ clients servis en avril (80k$ CA)</li>
+                <li>&#9744; Crew 3 en rodage avec TET (1 semaine formation)</li>
+                <li>&#9744; Si acquisition: integration clients en cours</li>
+            </ul>
+        </div>
+        <div class="milestone">
+            <span class="ms-tag checkpoint">CHECKPOINT</span>
+            <div class="ms-date">15 mai 2026</div>
+            <h3>3 crews &mdash; vitesse de croisiere</h3>
+            <ul class="ms-criteria">
+                <li>&#9744; 3 crews actifs: 27-30 clients/jour total (1 mois plus tot que prevu)</li>
+                <li>&#9744; CA mensuel 200-250k$</li>
+                <li>&#9744; EBITDA positif</li>
+                <li>&#9744; Stretch: 4e crew si acquisition closee</li>
+            </ul>
+        </div>
+        <div class="milestone">
+            <span class="ms-tag expansion">EXPANSION</span>
+            <div class="ms-date">Fin mai 2026</div>
+            <h3>Ouverture territoire Rive-Nord</h3>
+            <ul class="ms-criteria">
+                <li>&#9744; Territoire cible identifie (villes, codes postaux)</li>
+                <li>&#9744; 20-30 clients confirmes Rive-Nord avant lancement</li>
+                <li>&#9744; Chef d'equipe dedie affecte au territoire</li>
+                <li>&#9744; Logistique (point de depart, routes) operationnelle</li>
+                <li>&#9744; Campagne ads geo-ciblee Rive-Nord active depuis S11</li>
+            </ul>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 5: TIMELINE -->
+<section class="slide" id="timeline" style="align-items: flex-start; min-height: auto; padding-top: 80px; padding-bottom: 80px;">
+    <span class="slide-number">05</span>
+    <div class="section-block" style="overflow-x: auto;">
+        <h2>Timeline Semaine par Semaine</h2>
+        <div class="section-desc">13 semaines &mdash; du 11 mars au 8 juin 2026. Chaque semaine a des livrables concrets.</div>
+
+        <table class="timeline-table">
+            <thead>
+                <tr>
+                    <th style="width:110px">Semaine</th>
+                    <th style="width:80px">Phase</th>
+                    <th>Acquisitions</th>
+                    <th>Operations</th>
+                    <th>RH / Recrutement</th>
+                    <th>Marketing</th>
+                    <th>Finance</th>
+                </tr>
+            </thead>
+            <tbody>
+
+                <!-- SEMAINE 1 -->
+                <tr>
+                    <td class="week-label">S1 <span class="week-dates">11-16 mars</span></td>
+                    <td><span class="phase-label phase-prep">PREP</span></td>
+                    <td data-label="Acquisitions">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">Relancer Robert (Le Chataignier) &mdash; demander etats financiers pour valorisation</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Downloader tous les docs Martin Dittou, analyser immobilisations</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Operations">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">Recall clients: 2 pages/jour (objectif: 5 pages done)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Commencer entretien nacelle</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="RH / Recrutement">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Publier annonce etudiants ete (18-22$/h + bonus 500$)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Evaluer employe ~40 ans: potentiel chef crew 2?</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Marketing">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">Contacter Jean-Michel pour planifier ads</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Creer compte SEAO</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Finance">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Changer REQ de Saint-Hyacinthe &rarr; Longueuil (Tania + Equinox)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Si acquisition: appeler Desjardins pour marge credit 100k$</span></li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <!-- SEMAINE 2 -->
+                <tr>
+                    <td class="week-label">S2 <span class="week-dates">17-23 mars</span></td>
+                    <td><span class="phase-label phase-prep">PREP</span></td>
+                    <td data-label="Acquisitions">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Meeting Robert (Le Chataignier) + son comptable &mdash; discuter valorisation</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Meeting Martin Dittou + comptable &mdash; chiffrer service dette</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Operations">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Recall clients: pages 6-8 (cumulatif 30k$+)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Entretien trucks: changements huile, check mecanique</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="RH / Recrutement">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Diffuser annonces etudiants portails universites (UQAM, UdeM, McGill)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Tri premiers CV etudiants &mdash; entrevues tel</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Marketing">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Preparer creativs Facebook (avant/apres)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Ajouter lavage de vitres sur site web (GoDaddy)</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Finance">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Relancer M4 (post changement REQ)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Soumissionner SEAO: Paysagement CSS Patriotes <span class="task-deadline">DEADLINE 31 MARS</span></span></li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <!-- SEMAINE 3 -->
+                <tr>
+                    <td class="week-label">S3 <span class="week-dates">24-30 mars</span></td>
+                    <td><span class="phase-label phase-prep">PREP</span></td>
+                    <td data-label="Acquisitions">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">Robert: evaluer si deal futur viable &mdash; pas de LOI en 2026</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Due diligence Martin: etats financiers 3 ans, liste clients</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Operations">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">Terminer recall complet (12-13 pages) &mdash; objectif 80k$+</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Acheter equipement: 14.5k$ (secateurs, EPI, outils)</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="RH / Recrutement">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>2-4 etudiants offres signees (debut mai)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Booker formation CNESST (sante-securite obligatoire)</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Marketing">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">Lancer ads Facebook/Instagram &mdash; budget 1,500$/mois</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Setup Google My Business complet (photos, avis, FAQs)</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Finance">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">Souscrire assurances RC 2M$ + vehicules</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Soumettre demande MPAR (~5k$ formation)</span></li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <!-- SEMAINE 4 — GO/NO-GO -->
+                <tr class="go-nogo-row">
+                    <td class="week-label">S4 <span class="week-dates">31 mars - 6 avr</span></td>
+                    <td><span class="phase-label" style="background:rgba(239,68,68,0.2);color:#ef4444;">GO/NO-GO</span></td>
+                    <td data-label="Acquisitions">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Si Martin avance: offre formelle 650k$ (87k$ + 552k$ VTB)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Robert: maintenir contact &mdash; deal possible 2027-2030</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Operations">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Porte-a-porte: quartiers cibles (Rive-Sud, Longueuil)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Vehicule #2: confirmer location si crew 2 pret</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="RH / Recrutement">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">Employe ~40 ans: test autonomie &mdash; pret a gerer crew 2?</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Confirmer 2+ etudiants pour debut mai</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Marketing">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Augmenter budget ads: 2,500$/mois avril</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Lancer Google Ads (LSA + Search)</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Finance">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">&#9888; DECISION GO/NO-GO</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Budget mars verifie: depenses vs plan</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Demande PAMT soumise (15k$/apprenti)</span></li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <!-- SEMAINE 5 -->
+                <tr>
+                    <td class="week-label">S5 <span class="week-dates">7-13 avr</span></td>
+                    <td><span class="phase-label phase-launch">LANCEMENT</span></td>
+                    <td data-label="Acquisitions">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Si Martin avance: negociation finale + rencontre BDC</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Operations">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">DEBUT SAISON &mdash; Crew 1 sur le terrain (Henri + employe ~40 ans)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Objectif: 5-7 clients/jour</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="RH / Recrutement">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Formation terrain employe ~40 ans (supervision Henri)</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Marketing">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Leads entrants: tracker CPL, ajuster creativs</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Finance">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Premiers revenus! Tracking quotidien CA vs cout</span></li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <!-- SEMAINE 6 -->
+                <tr>
+                    <td class="week-label">S6 <span class="week-dates">14-20 avr</span></td>
+                    <td><span class="phase-label phase-launch">LANCEMENT</span></td>
+                    <td data-label="Acquisitions">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Si Martin close: signer + planifier integration clients</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Operations">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Crew 1: monter a 8-9 clients/jour</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Crew 2 lance (employe ~40 ans chef + 1 etudiant/local)</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="RH / Recrutement">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Employe ~40 ans autonome &mdash; valider</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">Preparer logement TET (arrives 1er mai &mdash; avance!)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">2 employes locaux: briefing + affectation Crew 2 fin avril</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Marketing">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Objectif: 40-60 leads avril total</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Finance">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Semaine 2 revenus &mdash; verifier breakeven en vue</span></li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <!-- SEMAINE 7 -->
+                <tr>
+                    <td class="week-label">S7 <span class="week-dates">21-27 avr</span></td>
+                    <td><span class="phase-label phase-launch">LANCEMENT</span></td>
+                    <td data-label="Acquisitions">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Si acquisition closee: integration clients semaine 1</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Operations">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>2 crews actifs: 16-18 clients/jour total</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Setup KPI dashboard: masse salariale/jour, CA/jour</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="RH / Recrutement">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">2 employes locaux additionnels commencent fin avril &mdash; Crew 2 operationnel</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Formation etudiants: 2 jours theorie + equipement</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Marketing">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Review avis Google: objectif 4.7+ etoiles</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Finance">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Soumettre demande subvention salariale (Services Quebec)</span></li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <!-- SEMAINE 8 -->
+                <tr>
+                    <td class="week-label">S8 <span class="week-dates">28 avr - 4 mai</span></td>
+                    <td><span class="phase-label phase-ramp">RAMP-UP</span></td>
+                    <td data-label="Acquisitions">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Si acquisition: transition clients semaine 2</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Operations">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Etudiants: premiere semaine terrain supervisee</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Objectif: 2 crews stables, 80k$ CA avril</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="RH / Recrutement">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">1er mai: accueil 2 TET Guatemalteques &mdash; logement + orientation + equipement</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Etudiants debut terrain (crew 3 avec supervision Henri)</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Marketing">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Analyser ROI ads avril: CPL, CTR, close rate</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Finance">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>BREAKEVEN cash atteint? Verifier (objectif: avril net +32k$)</span></li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <!-- SEMAINE 9 -->
+                <tr>
+                    <td class="week-label">S9 <span class="week-dates">5-11 mai</span></td>
+                    <td><span class="phase-label phase-ramp">RAMP-UP</span></td>
+                    <td data-label="Acquisitions">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Si acquisition: integration complete, tous clients actifs</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Operations">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>2 crews stables + crew 3 en rodage: 20-25 clients/jour</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="RH / Recrutement">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">TET semaine 1 terrain supervise &mdash; integrer 1 TET par crew existant</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Marketing">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Ajuster budget ads selon capacite restante</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Finance">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Soumettre C3i (equipement electrique)</span></li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <!-- SEMAINE 10 -->
+                <tr>
+                    <td class="week-label">S10 <span class="week-dates">12-18 mai</span></td>
+                    <td><span class="phase-label phase-ramp">RAMP-UP</span></td>
+                    <td data-label="Acquisitions">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Soumissionner contrats SEAO ete si capacite OK</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Operations">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">2 TET integres: 1 par crew &mdash; pleine capacite atteinte (1 mois avant plan original)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>3 crews actifs: 27-30 clients/jour &#x1F7E2;</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="RH / Recrutement">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Formation TET: 1 semaine terrain supervise</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Evaluer: crew 3 (etudiants + 1 TET) autonome?</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Marketing">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Review avis Google: objectif 4.7+ etoiles</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Finance">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Mai: objectif 135k$ CA &mdash; tracker quotidien</span></li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <!-- SEMAINE 11 -->
+                <tr>
+                    <td class="week-label">S11 <span class="week-dates">19-25 mai</span></td>
+                    <td><span class="phase-label phase-ramp">RAMP-UP</span></td>
+                    <td data-label="Acquisitions">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Lavage de vitres: lancer pilot si capacite permet</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Operations">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>3 crews = 27-30 clients/jour = PLEINE CAPACITE BASE</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Stretch: crew 4 si acquisition (clients integres)</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="RH / Recrutement">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Bonus performance: implementer structure (500$ fin saison)</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Marketing">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Ajuster budget: reduire si pipeline plein</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">RIVE-NORD: Identifier zones cibles (codes postaux, villes)</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">RIVE-NORD: Lancer campagne ads geo-ciblee Rive-Nord</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>RIVE-NORD: 20-30 prospects contacts avant lancement S12</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Finance">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Mai 135k$ &mdash; sur la bonne voie pour 1M$?</span></li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <!-- SEMAINE 12 -->
+                <tr>
+                    <td class="week-label">S12 <span class="week-dates">26 mai - 1 juin</span></td>
+                    <td><span class="phase-label phase-peak">PEAK</span></td>
+                    <td data-label="Acquisitions">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Explorer branches regionales si demande deborde</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Operations">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">3 crews en vitesse de croisiere</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>KPI: 9-10 clients/crew/jour, ticket 450$+</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="RH / Recrutement">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Review attrition: remplacement si departs etudiants</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Marketing">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span class="task-critical">RIVE-NORD: LANCEMENT &mdash; premiers jobs confirmes et routes assignees</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Chef d'equipe dedie Rive-Nord identifie et brief</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Point de depart logistique Rive-Nord confirme</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Finance">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Cash cumule: devrait etre 200k$+ &mdash; confortable</span></li>
+                        </ul>
+                    </td>
+                </tr>
+
+                <!-- SEMAINE 13 -->
+                <tr>
+                    <td class="week-label">S13 <span class="week-dates">2-8 juin</span></td>
+                    <td><span class="phase-label phase-peak">PEAK</span></td>
+                    <td data-label="Acquisitions">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Planifier 2027: combien de TET demander? (4-6)</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Operations">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Production stable: 250k$/mois</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Objectif ete: maintenir 250k$/mois juin-aout</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="RH / Recrutement">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Review mi-saison: performance chaque employe</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Marketing">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>Review mi-saison: ROI par canal, optimiser</span></li>
+                        </ul>
+                    </td>
+                    <td data-label="Finance">
+                        <ul class="task-list">
+                            <li><input type="checkbox" class="task-check-input"><span>EBITDA check: 15%+ marge?</span></li>
+                            <li><input type="checkbox" class="task-check-input"><span>Planifier Q3: expansion ou consolidation?</span></li>
+                        </ul>
+                    </td>
+                </tr>
+
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- SLIDE 6: CASH FLOW -->
+<section class="slide" id="cashflow">
+    <span class="slide-number">06</span>
+    <div class="section-block">
+        <h2>Projection Cash Flow &mdash; Scenario Base 1M$ (Sans Acquisition)</h2>
+        <table class="cf-table">
+            <thead>
+                <tr>
+                    <th>Poste</th>
+                    <th>Mars</th>
+                    <th>Avril</th>
+                    <th>Mai</th>
+                    <th>Juin</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>Revenus (recall + operations)</td>
+                    <td>10k$</td>
+                    <td>80k$</td>
+                    <td>135k$</td>
+                    <td>250k$</td>
+                </tr>
+                <tr class="row-total">
+                    <td>Total revenus</td>
+                    <td>10k$</td>
+                    <td>80k$</td>
+                    <td>135k$</td>
+                    <td>250k$</td>
+                </tr>
+                <tr><td colspan="5" style="height:12px;border:none"></td></tr>
+                <tr>
+                    <td>Main-d'oeuvre</td>
+                    <td class="negative">-8k$</td>
+                    <td class="negative">-35k$</td>
+                    <td class="negative">-55k$</td>
+                    <td class="negative">-80k$</td>
+                </tr>
+                <tr>
+                    <td>Marketing (ads + SEO)</td>
+                    <td class="negative">-1.5k$</td>
+                    <td class="negative">-3k$</td>
+                    <td class="negative">-4k$</td>
+                    <td class="negative">-3.5k$</td>
+                </tr>
+                <tr>
+                    <td>Equipement</td>
+                    <td class="negative">-14.5k$</td>
+                    <td>&mdash;</td>
+                    <td>&mdash;</td>
+                    <td>&mdash;</td>
+                </tr>
+                <tr>
+                    <td>Vehicules (location + essence)</td>
+                    <td class="negative">-2k$</td>
+                    <td class="negative">-3.5k$</td>
+                    <td class="negative">-5k$</td>
+                    <td class="negative">-5k$</td>
+                </tr>
+                <tr>
+                    <td>Assurances</td>
+                    <td class="negative">-15k$</td>
+                    <td>&mdash;</td>
+                    <td>&mdash;</td>
+                    <td>&mdash;</td>
+                </tr>
+                <tr>
+                    <td>TET (logement + accueil)</td>
+                    <td>&mdash;</td>
+                    <td>&mdash;</td>
+                    <td class="negative">-5k$</td>
+                    <td>&mdash;</td>
+                </tr>
+                <tr>
+                    <td>Fixes (admin, compta, tel, logiciels)</td>
+                    <td class="negative">-6k$</td>
+                    <td class="negative">-6k$</td>
+                    <td class="negative">-6k$</td>
+                    <td class="negative">-6k$</td>
+                </tr>
+                <tr>
+                    <td>Divers / imprevus</td>
+                    <td>&mdash;</td>
+                    <td>&mdash;</td>
+                    <td>&mdash;</td>
+                    <td class="negative">-5k$</td>
+                </tr>
+                <tr class="row-total">
+                    <td>Total depenses</td>
+                    <td class="negative">-47k$</td>
+                    <td class="negative">-47.5k$</td>
+                    <td class="negative">-75k$</td>
+                    <td class="negative">-99.5k$</td>
+                </tr>
+                <tr><td colspan="5" style="height:12px;border:none"></td></tr>
+                <tr class="row-total" style="font-size:1.1rem">
+                    <td>Cash flow net</td>
+                    <td class="negative">-37k$</td>
+                    <td class="positive">+32.5k$</td>
+                    <td class="positive">+60k$</td>
+                    <td class="positive">+150.5k$</td>
+                </tr>
+                <tr class="row-total">
+                    <td>Cash cumule (depart 100k$, sans marge credit)</td>
+                    <td>63k$</td>
+                    <td>95.5k$</td>
+                    <td>155.5k$</td>
+                    <td class="positive">306k$</td>
+                </tr>
+            </tbody>
+        </table>
+        <p style="margin-top:16px;font-size:13px;color:rgba(255,255,255,0.35);">
+            * Scenario base: pas de marge credit necessaire. Cash descend a 63k$ en mars (minimum) puis remonte.<br>
+            * Revenus annuels: Avr 80k$ + Mai 135k$ + Juin 250k$ + Juil 250k$ + Aout 250k$ + Sept 160k$ + Oct 90k$ = <strong>~1.2M$</strong> (marge de securite vs 1M$ cible).<br>
+            * Si acquisition Martin (87k$ down payment): besoin marge credit ~100k$ pour couvrir le creux de mars.
+        </p>
+    </div>
+</section>
+
+<!-- SLIDE 7: DEPENDENCIES -->
+<section class="slide" id="deps">
+    <span class="slide-number">07</span>
+    <div class="section-block">
+        <h2>Chaines de Dependances Critiques</h2>
+        <div class="section-desc">Si un maillon bloque, tout le downstream est retarde.</div>
+
+        <div class="dep-chain">
+            <span class="dep-node dep-rh">Henri + employe ~40 ans</span>
+            <span class="dep-arrow">&rarr;</span>
+            <span class="dep-node dep-ops">Crew 1 (avril)</span>
+            <span class="dep-arrow">&rarr;</span>
+            <span class="dep-node dep-ops">Premiers revenus 80k$</span>
+            <span class="dep-arrow">&rarr;</span>
+            <span class="dep-node dep-fin">Breakeven avril</span>
+        </div>
+
+        <div class="dep-chain">
+            <span class="dep-node dep-rh">Employe ~40 ans promu chef</span>
+            <span class="dep-arrow">&rarr;</span>
+            <span class="dep-node dep-rh">+ etudiants recrutes</span>
+            <span class="dep-arrow">&rarr;</span>
+            <span class="dep-node dep-ops">Crew 2 (mi-avril)</span>
+            <span class="dep-arrow">&rarr;</span>
+            <span class="dep-node dep-ops">16-18 clients/jour</span>
+        </div>
+
+        <div class="dep-chain">
+            <span class="dep-node dep-rh">2 employes locaux fin avril &#x1F7E2;</span>
+            <span class="dep-arrow">&rarr;</span>
+            <span class="dep-node dep-ops">Crew 2 avance (S7)</span>
+            <span class="dep-arrow">&rarr;</span>
+            <span class="dep-node dep-ops">16-18 clients/jour fin avril</span>
+        </div>
+
+        <div class="dep-chain">
+            <span class="dep-node dep-rh">2 TET arrivent 1er mai &#x1F7E2;</span>
+            <span class="dep-arrow">&rarr;</span>
+            <span class="dep-node dep-rh">1 sem formation</span>
+            <span class="dep-arrow">&rarr;</span>
+            <span class="dep-node dep-ops">Crew 3 operationnel (S9-S10)</span>
+            <span class="dep-arrow">&rarr;</span>
+            <span class="dep-node dep-ops">27-30 clients/jour</span>
+        </div>
+
+        <div class="dep-chain">
+            <span class="dep-node dep-fin">REQ &rarr; Longueuil</span>
+            <span class="dep-arrow">&rarr;</span>
+            <span class="dep-node dep-fin">M4 admissible</span>
+            <span class="dep-arrow">&rarr;</span>
+            <span class="dep-node dep-fin">Subvention formation</span>
+        </div>
+
+        <div class="dep-chain">
+            <span class="dep-node dep-mkt">Jean-Michel contacte</span>
+            <span class="dep-arrow">&rarr;</span>
+            <span class="dep-node dep-mkt">Creativs prepares (S2-S3)</span>
+            <span class="dep-arrow">&rarr;</span>
+            <span class="dep-node dep-mkt">Ads live fin mars</span>
+            <span class="dep-arrow">&rarr;</span>
+            <span class="dep-node dep-ops">Leads avril (40-60)</span>
+        </div>
+
+        <div class="dep-chain" style="opacity:0.6;">
+            <span class="dep-node dep-acq" style="font-style:italic;">STRETCH: Marge credit 100k$</span>
+            <span class="dep-arrow">&rarr;</span>
+            <span class="dep-node dep-acq" style="font-style:italic;">Down payment Martin 87k$</span>
+            <span class="dep-arrow">&rarr;</span>
+            <span class="dep-node dep-ops" style="font-style:italic;">+500k$ CA + crew 4</span>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 8: RISKS -->
+<section class="slide" id="risks">
+    <span class="slide-number">08</span>
+    <div class="section-block">
+        <h2>Risques & Scenarios de Repli</h2>
+        <div class="risk-grid">
+            <div class="risk-card risk-high">
+                <span class="risk-level high">CRITIQUE</span>
+                <h4>Employe ~40 ans pas pret a etre chef</h4>
+                <p><strong>Impact:</strong> Henri = seul manager = max 1.5 crews = plafond ~600k$ CA</p>
+                <p><strong>Repli:</strong> Henri supervise 2 crews en alternance, recruter chef externe 35$/h + bonus perf, chercher dans reseau Zach, profit-sharing 15-20%</p>
+            </div>
+            <div class="risk-card risk-med">
+                <span class="risk-level med">MOYEN</span>
+                <h4>2 TET retardes ou refuses a la frontiere</h4>
+                <p><strong>Impact reduit:</strong> 2 employes locaux (fin avril) couvrent Crew 2 &mdash; plafond sans TET = ~800k$ CA vs 700k$ avant</p>
+                <p><strong>Repli:</strong> Recruter etudiants supplementaires (+4), travailleurs temporaires locaux via agences, contrats SEAO pour compenser volume</p>
+            </div>
+            <div class="risk-card risk-high">
+                <span class="risk-level high">CRITIQUE</span>
+                <h4>Aucun etudiant recrute</h4>
+                <p><strong>Impact:</strong> Crew 3 en sous-effectif &mdash; perd 30% capacite</p>
+                <p><strong>Repli:</strong> Augmenter salaire a 22-24$/h, bonus 500$ fin saison, afficher sur Indeed/Kijiji/Facebook Marketplace, recruter a McGill/Concordia (anglophones)</p>
+            </div>
+            <div class="risk-card risk-med">
+                <span class="risk-level med">MOYEN</span>
+                <h4>Ticket moyen &lt; 400$</h4>
+                <p><strong>Impact:</strong> EBITDA negatif (breakeven a ~405$/ticket)</p>
+                <p><strong>Repli:</strong> Upsell services (lavage vitres, gouttieres), minimum 400$/intervention, cibler grosses proprietes, vendre forfaits annuels</p>
+            </div>
+            <div class="risk-card risk-med">
+                <span class="risk-level med">MOYEN</span>
+                <h4>Attrition etudiants &gt;30%</h4>
+                <p><strong>Impact:</strong> Perte capacite crew 3 en juillet-aout</p>
+                <p><strong>Repli:</strong> Buffer: recruter 4 etudiants (vs 2 minimum), bonus retention 500$, horaire flexible, pool remplacants pre-formes</p>
+            </div>
+            <div class="risk-card risk-med">
+                <span class="risk-level med">MOYEN</span>
+                <h4>Pas assez de leads (ads inefficaces)</h4>
+                <p><strong>Impact:</strong> Crews sous-utilises = perte seche MO</p>
+                <p><strong>Repli:</strong> Porte-a-porte agressif, referral clients existants (bonus 50$/referral), contrats SEAO/MERX, flyers quartiers cibles, partenariats agents immobiliers</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- SLIDE 9: TOP 10 ACTIONS -->
+<section class="slide" id="actions">
+    <span class="slide-number">09</span>
+    <div class="section-block actions-urgent">
+        <h2>Top 10 &mdash; Actions Cette Semaine (11-16 mars)</h2>
+        <div class="section-desc">Par ordre de priorite. La saison commence dans 4 semaines.</div>
+        <table class="actions-table">
+            <thead>
+                <tr>
+                    <th>#</th>
+                    <th>Action</th>
+                    <th>Responsable</th>
+                    <th>Deadline</th>
+                    <th>Bloque</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <td>1</td>
+                    <td>Recall clients: 2 pages/jour minimum (finir 5 pages cette sem)</td>
+                    <td>Henri</td>
+                    <td>Continu</td>
+                    <td>80k$ pre-saison = cashflow mars</td>
+                </tr>
+                <tr>
+                    <td>2</td>
+                    <td>Texter Jean-Michel &mdash; fixer date lancement ads fin mars</td>
+                    <td>Henri</td>
+                    <td>12 mars</td>
+                    <td>Leads avril (40-60)</td>
+                </tr>
+                <tr>
+                    <td>3</td>
+                    <td>Publier annonces etudiants ete (Indeed, portails universites)</td>
+                    <td>JS</td>
+                    <td>14 mars</td>
+                    <td>Crew 3 (mai-juin)</td>
+                </tr>
+                <tr>
+                    <td>4</td>
+                    <td>Evaluer employe ~40 ans: discussion franche sur role chef crew 2</td>
+                    <td>Henri</td>
+                    <td>14 mars</td>
+                    <td>Crew 2 (mi-avril)</td>
+                </tr>
+                <tr>
+                    <td>5</td>
+                    <td>Changer REQ Saint-Hyacinthe &rarr; Longueuil (via Tania + Equinox)</td>
+                    <td>Henri</td>
+                    <td>14 mars</td>
+                    <td>Subvention M4</td>
+                </tr>
+                <tr>
+                    <td>6</td>
+                    <td>Souscrire assurances RC 2M$ + vehicules (obtenir soumissions)</td>
+                    <td>JS</td>
+                    <td>16 mars</td>
+                    <td>GO/NO-GO 31 mars</td>
+                </tr>
+                <tr>
+                    <td>7</td>
+                    <td>Relancer Robert (Le Chataignier) &mdash; demander etats financiers pour valorisation</td>
+                    <td>JS</td>
+                    <td>14 mars</td>
+                    <td>LOI acquisition (optionnel)</td>
+                </tr>
+                <tr>
+                    <td>8</td>
+                    <td>Downloader + analyser tous les docs Martin Dittou</td>
+                    <td>JS</td>
+                    <td>14 mars</td>
+                    <td>Offre formelle (stretch)</td>
+                </tr>
+                <tr>
+                    <td>9</td>
+                    <td>Creer compte SEAO + soumissionner CSS Patriotes (deadline 31 mars)</td>
+                    <td>Henri</td>
+                    <td>16 mars</td>
+                    <td>Contrats gouvernementaux</td>
+                </tr>
+                <tr>
+                    <td>10</td>
+                    <td>Si acquisition probable: appeler Desjardins pour marge credit 100k$</td>
+                    <td>Henri</td>
+                    <td>16 mars</td>
+                    <td>Down payment Martin (87k$)</td>
+                </tr>
+            </tbody>
+        </table>
+    </div>
+</section>
+
+<!-- FOOTER -->
+<div style="text-align:center;padding:60px 40px 100px;color:rgba(255,255,255,0.25);font-size:14px;">
+    HAIE LITE &mdash; Game Plan Q2 2026 &mdash; Revise le 23 mars 2026 (objectif 1M$ base / 1.5M$ stretch)<br>
+    Mise a jour: 2 TET Guatemalteques 1er mai + 2 employes locaux fin avril &mdash; pleine capacite avancee a mi-mai<br>
+    Prochaine revision: Weekly call 25 mars 2026
+</div>
+
+<!-- SLIDE 10: PLAYBOOK HORMOZI -->
+<section class="slide" id="hormozi" style="align-items: flex-start; min-height: auto; padding-top: 80px; padding-bottom: 80px;">
+    <span class="slide-number">10</span>
+    <div class="section-container">
+        <h2 style="text-align:left; margin-bottom:8px;">Playbook Hormozi</h2>
+        <div class="section-desc" style="margin-bottom:40px;">$100M Offers + $100M Leads + $100M Money Models &mdash; appliques a Taillage Elite</div>
+
+        <!-- DIAGNOSTIC -->
+        <div class="section-block" style="margin-bottom:24px;">
+            <h2 style="font-size:22px; color:#ef4444;">Diagnostic : ton vrai probleme</h2>
+            <p style="font-size:16px; color:rgba(255,255,255,0.75); line-height:1.7; margin-bottom:16px;">Tu vends 200-450$/job transactionnel. Tu pourrais vendre <strong style="color:#6b9b37;">2 500-4 500$/client/an</strong> en recurrence. Convertir 30 clients sur 150 en contrats annuels prepaves = <strong style="color:#6b9b37;">75 000$+ crees sans un seul nouveau client.</strong></p>
+            <div style="background:rgba(107,155,55,0.12); border:1px solid rgba(107,155,55,0.3); border-radius:12px; padding:20px; display:inline-block;">
+                <span style="font-size:13px; color:rgba(255,255,255,0.5); text-transform:uppercase; letter-spacing:.08em;">LTV math</span><br>
+                <span style="font-size:28px; font-weight:800; color:#6b9b37;">20 000$</span>
+                <span style="font-size:15px; color:rgba(255,255,255,0.6);"> / client annuel × 8 ans &mdash; justifie 500$ CAC</span>
+            </div>
+        </div>
+
+        <!-- GRAND SLAM OFFER -->
+        <div class="section-block" style="margin-bottom:24px; border-color:rgba(107,155,55,0.4);">
+            <h2 style="font-size:22px; color:#6b9b37;">Grand Slam Offer &mdash; Programme Propriete Parfaite</h2>
+            <p style="font-size:18px; font-style:italic; color:rgba(255,255,255,0.85); margin-bottom:24px; border-left:3px solid #6b9b37; padding-left:16px;">&laquo; 5 passages garantis, saison complete &mdash; ou on revient gratuitement. &raquo;</p>
+            <div class="grid-4" style="max-width:100%;">
+                <div class="card" style="border-color:rgba(107,155,55,0.4);">
+                    <div class="icon">&#127942;</div>
+                    <h4>Valeur revee</h4>
+                    <p>Voisins jaloux, maison impeccable, zero effort</p>
+                </div>
+                <div class="card" style="border-color:rgba(107,155,55,0.4);">
+                    <div class="icon">&#9989;</div>
+                    <h4>Garantie beton</h4>
+                    <p>Insatisfait ? On revient corriger, aucun frais</p>
+                </div>
+                <div class="card" style="border-color:rgba(107,155,55,0.4);">
+                    <div class="icon">&#9889;</div>
+                    <h4>Delai reduit</h4>
+                    <p>Confirme sous 24h, premier passage cette semaine</p>
+                </div>
+                <div class="card" style="border-color:rgba(107,155,55,0.4);">
+                    <div class="icon">&#128247;</div>
+                    <h4>Bonification gratuite</h4>
+                    <p>Inspection photo complete au 1er passage + rapport texto</p>
+                </div>
+            </div>
+            <div style="margin-top:20px; display:flex; gap:20px; flex-wrap:wrap;">
+                <div style="background:rgba(45,90,39,0.2); border:1px solid rgba(107,155,55,0.3); border-radius:10px; padding:14px 24px; text-align:center;">
+                    <div style="font-size:26px; font-weight:800; color:#6b9b37;">1 800 – 4 500$</div>
+                    <div style="font-size:13px; color:rgba(255,255,255,0.5); margin-top:4px;">Prix annuel selon propriete &mdash; prepaye</div>
+                </div>
+                <div style="background:rgba(45,90,39,0.2); border:1px solid rgba(107,155,55,0.3); border-radius:10px; padding:14px 24px; text-align:center;">
+                    <div style="font-size:26px; font-weight:800; color:#6b9b37;">+15%</div>
+                    <div style="font-size:13px; color:rgba(255,255,255,0.5); margin-top:4px;">Augmentation immediate nouveaux clients</div>
+                </div>
+                <div style="background:rgba(45,90,39,0.2); border:1px solid rgba(107,155,55,0.3); border-radius:10px; padding:14px 24px; text-align:center;">
+                    <div style="font-size:26px; font-weight:800; color:#6b9b37;">+4-5%</div>
+                    <div style="font-size:13px; color:rgba(255,255,255,0.5); margin-top:4px;">Augmentation silencieuse renouvellements</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- 5 LEVIERS -->
+        <div class="section-block" style="margin-bottom:24px;">
+            <h2 style="font-size:22px; color:#6b9b37;">Hierarchie des leviers de profit (Hormozi)</h2>
+            <p style="font-size:13px; color:rgba(255,255,255,0.4); margin-bottom:20px; margin-top:4px;">Du plus asymetrique au moins asymetrique &mdash; toujours travailler dans cet ordre</p>
+            <div style="display:flex; flex-direction:column; gap:12px;">
+
+                <div style="display:flex; align-items:flex-start; gap:16px; background:rgba(239,68,68,0.07); border:1px solid rgba(239,68,68,0.3); border-radius:12px; padding:18px;">
+                    <div style="font-size:22px; font-weight:800; color:#ef4444; min-width:32px;">1</div>
+                    <div style="flex:1;">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px;">
+                            <div style="font-size:16px; font-weight:700; color:#ef4444; margin-bottom:4px;">Pricing &mdash; le levier le plus mathematiquement puissant</div>
+                            <div style="background:rgba(239,68,68,0.15); border-radius:8px; padding:4px 12px; font-size:13px; font-weight:700; color:#ef4444; white-space:nowrap;">+10% prix = +100% profit net</div>
+                        </div>
+                        <div style="font-size:14px; color:rgba(255,255,255,0.65); line-height:1.6;">Si ta marge est a 10%, augmenter le prix de 10% double le profit net &mdash; sans toucher aux couts. Tu es a 200$/job. Le marche accepte <strong style="color:rgba(255,255,255,0.85);">300-400$</strong> avec une offre repositionnee. Action immediate : +15% sur tous les nouveaux clients, +4-5% silencieux sur les renouvellements.</div>
+                    </div>
+                </div>
+
+                <div style="display:flex; align-items:flex-start; gap:16px; background:rgba(234,140,55,0.07); border:1px solid rgba(234,140,55,0.3); border-radius:12px; padding:18px;">
+                    <div style="font-size:22px; font-weight:800; color:#ea8c37; min-width:32px;">2</div>
+                    <div style="flex:1;">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px;">
+                            <div style="font-size:16px; font-weight:700; color:#ea8c37; margin-bottom:4px;">Trim &amp; Stack &mdash; valeur percue haute, cout quasi zero</div>
+                            <div style="background:rgba(234,140,55,0.15); border-radius:8px; padding:4px 12px; font-size:13px; font-weight:700; color:#ea8c37; white-space:nowrap;">+30-50% prix sans toucher au COGS</div>
+                        </div>
+                        <div style="font-size:14px; color:rgba(255,255,255,0.65); line-height:1.6;">Empiler des bonifications a valeur percue elevee : photos SMS avant/apres, rapport PDF inspection, rappels auto, garantie satisfaction. Chacun coute &lt;2$ a livrer, justifie 60-90$ de prix supplementaire. C&apos;est le moteur du Grand Slam Offer.</div>
+                    </div>
+                </div>
+
+                <div style="display:flex; align-items:flex-start; gap:16px; background:rgba(107,155,55,0.07); border:1px solid rgba(107,155,55,0.3); border-radius:12px; padding:18px;">
+                    <div style="font-size:22px; font-weight:800; color:#6b9b37; min-width:32px;">3</div>
+                    <div style="flex:1;">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px;">
+                            <div style="font-size:16px; font-weight:700; color:#6b9b37; margin-bottom:4px;">Churn Kill via contrats annuels</div>
+                            <div style="background:rgba(107,155,55,0.15); border-radius:8px; padding:4px 12px; font-size:13px; font-weight:700; color:#6b9b37; white-space:nowrap;">LTV = Prix &divide; Churn rate</div>
+                        </div>
+                        <div style="font-size:14px; color:rgba(255,255,255,0.65); line-height:1.6;">Client transactionnel = churn 35%, LTV 870$. Client contrat annuel = churn 12%, LTV 2 500$+. Meme client, <strong style="color:rgba(255,255,255,0.85);">2.9x plus de valeur</strong>. Convertir 30 clients sur 150 = +75K$ recurrence sans un nouveau client acquis. Abonnements prepaves en avril = cash avant le 27 avril.</div>
+                    </div>
+                </div>
+
+                <div style="display:flex; align-items:flex-start; gap:16px; background:rgba(107,155,55,0.07); border:1px solid rgba(107,155,55,0.2); border-radius:12px; padding:18px;">
+                    <div style="font-size:22px; font-weight:800; color:#6b9b37; min-width:32px;">4</div>
+                    <div style="flex:1;">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px;">
+                            <div style="font-size:16px; font-weight:700; color:#6b9b37; margin-bottom:4px;">Upsell Architecture &mdash; le cas McDonald&apos;s</div>
+                            <div style="background:rgba(107,155,55,0.15); border-radius:8px; padding:4px 12px; font-size:13px; font-weight:700; color:#6b9b37; white-space:nowrap;">+47 000$/an profit pur</div>
+                        </div>
+                        <div style="font-size:14px; color:rgba(255,255,255,0.65); line-height:1.6;">1 250 jobs/an × 150$ upsell moyen (goutieres, vitres, bordures) × 25% taux d&apos;acceptation = <strong style="color:rgba(255,255,255,0.85);">+47K$/an en profit pur</strong>. KPI chef d&apos;equipe : 2 upsells proposes par jour minimum. IA receptionniste capture les 39K$/an d&apos;appels manques.</div>
+                    </div>
+                </div>
+
+                <div style="display:flex; align-items:flex-start; gap:16px; background:rgba(59,130,246,0.07); border:1px solid rgba(59,130,246,0.3); border-radius:12px; padding:18px;">
+                    <div style="font-size:22px; font-weight:800; color:#60a5fa; min-width:32px;">5</div>
+                    <div style="flex:1;">
+                        <div style="display:flex; justify-content:space-between; align-items:flex-start; flex-wrap:wrap; gap:8px;">
+                            <div style="font-size:16px; font-weight:700; color:#60a5fa; margin-bottom:4px;">Profit First saisonnier</div>
+                            <div style="background:rgba(59,130,246,0.15); border-radius:8px; padding:4px 12px; font-size:13px; font-weight:700; color:#60a5fa; white-space:nowrap;">Sortir le profit avant d&apos;operer</div>
+                        </div>
+                        <div style="font-size:14px; color:rgba(255,255,255,0.65); line-height:1.6;">Inverser la formule : Revenue &minus; Profit = Depenses (pas Revenue &minus; Depenses = Profit). En haute saison mai-juillet, alimenter le compte profit agressivement avant de reinvestir. Protege contre le piege de &ldquo;tout est reinvesti, il reste rien&rdquo; en fin de saison.</div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- REGLE 70/20/10 + TOP 5 -->
+        <div class="grid-2" style="max-width:100%;">
+            <div class="section-block" style="margin-bottom:0;">
+                <h2 style="font-size:20px; color:#6b9b37;">Regle 70/20/10 (Marketing)</h2>
+                <div style="margin-top:16px; display:flex; flex-direction:column; gap:10px;">
+                    <div style="display:flex; gap:12px; align-items:flex-start;">
+                        <div style="background:rgba(107,155,55,0.3); border-radius:6px; padding:4px 10px; font-size:13px; font-weight:700; color:#6b9b37; white-space:nowrap;">70%</div>
+                        <div style="font-size:14px; color:rgba(255,255,255,0.75);">Ce qui fonctionne : rappels clients existants, Facebook before/after</div>
+                    </div>
+                    <div style="display:flex; gap:12px; align-items:flex-start;">
+                        <div style="background:rgba(234,140,55,0.3); border-radius:6px; padding:4px 10px; font-size:13px; font-weight:700; color:#ea8c37; white-space:nowrap;">20%</div>
+                        <div style="font-size:14px; color:rgba(255,255,255,0.75);">Tester : porte-a-porte Rive-Nord S11, Google Ads cibles</div>
+                    </div>
+                    <div style="display:flex; gap:12px; align-items:flex-start;">
+                        <div style="background:rgba(59,130,246,0.3); border-radius:6px; padding:4px 10px; font-size:13px; font-weight:700; color:#60a5fa; white-space:nowrap;">10%</div>
+                        <div style="font-size:14px; color:rgba(255,255,255,0.75);">Experimenter : lavage vitres cross-sell, upsell deneigement hiver</div>
+                    </div>
+                </div>
+            </div>
+            <div class="section-block" style="margin-bottom:0;">
+                <h2 style="font-size:20px; color:#6b9b37;">Top 5 Actions — Cette Semaine</h2>
+                <div style="margin-top:16px; display:flex; flex-direction:column; gap:8px;">
+                    <div style="display:flex; gap:10px; align-items:flex-start; font-size:14px; color:rgba(255,255,255,0.8);">
+                        <input type="checkbox" class="task-check-input"><span><strong style="color:#ef4444;">1.</strong> Offrir abonnement prepaye aux 150 clients du recall → 75-100K$ cash en avril</span>
+                    </div>
+                    <div style="display:flex; gap:10px; align-items:flex-start; font-size:14px; color:rgba(255,255,255,0.8);">
+                        <input type="checkbox" class="task-check-input"><span><strong style="color:#ef4444;">2.</strong> Deployer IA receptionniste avant le 27 avril → +39K$/an recuperes</span>
+                    </div>
+                    <div style="display:flex; gap:10px; align-items:flex-start; font-size:14px; color:rgba(255,255,255,0.8);">
+                        <input type="checkbox" class="task-check-input"><span><strong style="color:#ea8c37;">3.</strong> Augmenter prix +15% sur tous les nouveaux clients</span>
+                    </div>
+                    <div style="display:flex; gap:10px; align-items:flex-start; font-size:14px; color:rgba(255,255,255,0.8);">
+                        <input type="checkbox" class="task-check-input"><span><strong style="color:#ea8c37;">4.</strong> Identifier chef d'equipe Rive-Nord maintenant</span>
+                    </div>
+                    <div style="display:flex; gap:10px; align-items:flex-start; font-size:14px; color:rgba(255,255,255,0.8);">
+                        <input type="checkbox" class="task-check-input"><span><strong style="color:#6b9b37;">5.</strong> Structurer l'offre annuelle ecrite (1 page) avant les rappels</span>
+                    </div>
+                </div>
+            </div>
+            <div class="section-block" style="margin-top:32px; border: 1px solid rgba(107,155,55,0.3); border-radius:12px; padding:24px; background: rgba(107,155,55,0.06);">
+                <h2 style="font-size:20px; color:#6b9b37; margin-bottom:4px;">4 Idees Asymetriques — Cette Semaine</h2>
+                <p style="font-size:13px; color:rgba(255,255,255,0.45); margin-bottom:20px;">ROI disproportionne vs effort investi</p>
+                <div style="display:flex; flex-direction:column; gap:16px;">
+                    <div style="display:flex; gap:14px; align-items:flex-start; padding:14px; background:rgba(255,255,255,0.04); border-radius:8px; border-left:3px solid #ef4444;">
+                        <input type="checkbox" class="task-check-input" style="margin-top:3px; flex-shrink:0;">
+                        <div>
+                            <div style="font-size:14px; font-weight:700; color:rgba(255,255,255,0.9); margin-bottom:4px;">Regle des 60 secondes — rappeler les leads en &lt; 60 sec</div>
+                            <div style="font-size:13px; color:rgba(255,255,255,0.55); line-height:1.6;">Une seule embauche dont le seul job est de rappeler les leads en moins d'une minute. Selon Hormozi : <strong style="color:#ef4444;">+391% sur les conversions</strong>. Aucune autre action a ce ROI.</div>
+                        </div>
+                    </div>
+                    <div style="display:flex; gap:14px; align-items:flex-start; padding:14px; background:rgba(255,255,255,0.04); border-radius:8px; border-left:3px solid #f59e0b;">
+                        <input type="checkbox" class="task-check-input" style="margin-top:3px; flex-shrink:0;">
+                        <div>
+                            <div style="font-size:14px; font-weight:700; color:rgba(255,255,255,0.9); margin-bottom:4px;">Rollover upsell gouttières — crediter vers le produit superieur</div>
+                            <div style="font-size:13px; color:rgba(255,255,255,0.55); line-height:1.6;">Proposer le nettoyage de gouttières à 200$, puis crediter ce montant vers les protege-gouttières à 850$ — <strong style="color:#f59e0b;">"il reste seulement 650$"</strong>. Les conversions explosent vs vendre a 850$ froid.</div>
+                        </div>
+                    </div>
+                    <div style="display:flex; gap:14px; align-items:flex-start; padding:14px; background:rgba(255,255,255,0.04); border-radius:8px; border-left:3px solid #6b9b37;">
+                        <input type="checkbox" class="task-check-input" style="margin-top:3px; flex-shrink:0;">
+                        <div>
+                            <div style="font-size:14px; font-weight:700; color:rgba(255,255,255,0.9); margin-bottom:4px;">Contrat annuel upfront à 1 400$/an — arreter les one-time</div>
+                            <div style="font-size:13px; color:rgba(255,255,255,0.55); line-height:1.6;">Vendre des plans annuels <strong style="color:#6b9b37;">payes en avance</strong> au lieu de visites a la carte. La retention est incomparable vs mensuel. Cash arrive avant le 27 avril. Un client annuel vaut 2.9x un client transactionnel.</div>
+                        </div>
+                    </div>
+                    <div style="display:flex; gap:14px; align-items:flex-start; padding:14px; background:rgba(255,255,255,0.04); border-radius:8px; border-left:3px solid #60a5fa;">
+                        <input type="checkbox" class="task-check-input" style="margin-top:3px; flex-shrink:0;">
+                        <div>
+                            <div style="font-size:14px; font-weight:700; color:rgba(255,255,255,0.9); margin-bottom:4px;">1 avatar, 1 canal jusqu'a 500K$ — porte-a-porte dans tes quartiers existants</div>
+                            <div style="font-size:13px; color:rgba(255,255,255,0.55); line-height:1.6;">Frappe les portes des voisins de tes clients actuels. LTV:CAC de <strong style="color:#60a5fa;">100:1</strong>. Zero budget. Zero algo. Chaque voisin converti est une preuve sociale implicite — "ton voisin nous fait deja confiance".</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</section>
+
+<script>
+(function() {
+    'use strict';
+
+    var STORAGE_KEY = 'gameplan-q2-2026-checks';
+    var slides = document.querySelectorAll('.slide');
+    var navLinks = document.querySelectorAll('.footer-nav a');
+    var progressBar = document.getElementById('progressBar');
+    var slideCounter = document.getElementById('slideCounter');
+    var totalSlides = slides.length;
+    var currentSlideIdx = 0;
+
+    // === PROGRESS BAR ===
+    function updateProgress() {
+        var scrollTop = window.scrollY || document.documentElement.scrollTop;
+        var docHeight = document.documentElement.scrollHeight - window.innerHeight;
+        var pct = docHeight > 0 ? (scrollTop / docHeight) * 100 : 0;
+        progressBar.style.width = pct + '%';
+    }
+
+    // === ANIMATE ELEMENTS ===
+    var animTargets = document.querySelectorAll(
+        '.card, .ws-card, .milestone, .risk-card, .stat, .dep-chain, ' +
+        '.reality-item, .highlight-box, .scenario-banner, .section-block, .reality-check'
+    );
+    animTargets.forEach(function(el) {
+        el.classList.add('animate-in');
+        var parent = el.parentElement;
+        var siblings = parent ? Array.from(parent.children).filter(function(c) {
+            return c.classList.contains('animate-in');
+        }) : [];
+        var idx = siblings.indexOf(el);
+        if (idx > 0) el.style.transitionDelay = (idx * 0.08) + 's';
+    });
+
+    var animObs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+            if (e.isIntersecting) { e.target.classList.add('visible'); animObs.unobserve(e.target); }
+        });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+    animTargets.forEach(function(el) { animObs.observe(el); });
+
+    // Table rows
+    var rows = document.querySelectorAll('.timeline-table tbody tr, .cf-table tbody tr, .actions-table tbody tr');
+    rows.forEach(function(r, i) { r.classList.add('animate-in'); r.style.transitionDelay = (i * 0.05) + 's'; });
+    var rowObs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+            if (e.isIntersecting) { e.target.classList.add('visible'); rowObs.unobserve(e.target); }
+        });
+    }, { threshold: 0.1 });
+    rows.forEach(function(r) { rowObs.observe(r); });
+
+    // === NAV ACTIVE + SLIDE COUNTER ===
+    var slideObs = new IntersectionObserver(function(entries) {
+        entries.forEach(function(e) {
+            if (e.isIntersecting) {
+                var id = e.target.id;
+                navLinks.forEach(function(l) {
+                    l.classList.toggle('active', l.getAttribute('href') === '#' + id);
+                });
+                var idx = Array.from(slides).indexOf(e.target);
+                if (idx >= 0) {
+                    currentSlideIdx = idx;
+                    slideCounter.textContent = (idx + 1) + '/' + totalSlides;
+                }
+            }
+        });
+    }, { threshold: 0.4 });
+    slides.forEach(function(s) { slideObs.observe(s); });
+
+    // === KEYBOARD NAVIGATION ===
+    document.addEventListener('keydown', function(ev) {
+        if (ev.target.tagName === 'INPUT' || ev.target.tagName === 'TEXTAREA') return;
+        if (ev.key === 'ArrowDown' || ev.key === 'PageDown') {
+            ev.preventDefault();
+            if (currentSlideIdx < totalSlides - 1) slides[currentSlideIdx + 1].scrollIntoView({ behavior: 'smooth' });
+        } else if (ev.key === 'ArrowUp' || ev.key === 'PageUp') {
+            ev.preventDefault();
+            if (currentSlideIdx > 0) slides[currentSlideIdx - 1].scrollIntoView({ behavior: 'smooth' });
+        } else if (ev.key === 'Escape' || ev.key === 'Home') {
+            ev.preventDefault();
+            slides[0].scrollIntoView({ behavior: 'smooth' });
+        } else if (ev.key === 'End') {
+            ev.preventDefault();
+            slides[totalSlides - 1].scrollIntoView({ behavior: 'smooth' });
+        }
+    });
+
+    // === CHECKBOXES + LOCALSTORAGE ===
+    var cbs = document.querySelectorAll('.task-check-input');
+    var saved = {};
+    try { saved = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {}; } catch(x) {}
+    cbs.forEach(function(cb, i) {
+        cb.dataset.idx = i;
+        if (saved[i]) cb.checked = true;
+        cb.addEventListener('change', function() {
+            try {
+                var st = JSON.parse(localStorage.getItem(STORAGE_KEY)) || {};
+                if (this.checked) st[this.dataset.idx] = true;
+                else delete st[this.dataset.idx];
+                localStorage.setItem(STORAGE_KEY, JSON.stringify(st));
+            } catch(x) {}
+        });
+    });
+
+    // === SCROLL (passive) ===
+    window.addEventListener('scroll', updateProgress, { passive: true });
+    updateProgress();
+})();
+</script>
+</body>
+</html>
