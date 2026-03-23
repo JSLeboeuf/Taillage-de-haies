@@ -13,13 +13,15 @@ const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
 const ManageSubscriptionSchema = z.object({
   subscription_id: z.string().uuid(),
   action: z.enum(['upgrade', 'downgrade', 'cancel']),
-  new_plan: z.enum(['essentiel', 'premium', 'platine']).optional(),
+  new_plan: z.enum(['essentiel', 'premium', 'platine', 'tranquillite', 'immaculee']).optional(),
 });
 
 const PLANS = {
   essentiel: { price: 299, services: 1 },
   premium: { price: 499, services: 2 },
   platine: { price: 799, services: 3 },
+  tranquillite: { price: 1400, services: 6 },
+  immaculee: { price: 2400, services: 9 },
 } as const;
 
 export async function GET(request: NextRequest) {

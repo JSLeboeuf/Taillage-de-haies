@@ -3,6 +3,8 @@ export const runtime = 'edge';
 import { NextRequest, NextResponse } from 'next/server';
 import { servicem8 } from '@/lib/servicem8';
 import { supabaseAdmin } from '@/lib/supabase';
+import { sendSMS } from '@/lib/twilio';
+import { SMS } from '@/lib/sms-templates';
 
 export async function POST(request: NextRequest) {
   try {
@@ -58,7 +60,31 @@ export async function POST(request: NextRequest) {
   }
 }
 
-async function handleJobCompleted(job: { uuid: string; company_uuid: string; total_invoice_amount: string }) {
+async function handleJobCompleted(job: {
+  uuid: string;
+  company_uuid: string;
+  total_invoice_amount: string;
+  job_type?: string;
+  photo_report_url?: string;
+}) {
+  // 0. Send rapport photo SMS immediately (if photo URL available)
+  if (job.photo_report_url) {
+    const { data: company } = await supabaseAdmin
+      .from('companies')
+      .select('phone, name')
+      .eq('servicem8_uuid', job.company_uuid)
+      .single();
+
+    if (company?.phone) {
+      const firstName = company.name?.split(' ')[0] || company.name;
+      try {
+        await sendSMS(company.phone, SMS.rapportPhoto(firstName, job.photo_report_url));
+      } catch (err) {
+        console.error('Failed to send rapport photo SMS:', err);
+      }
+    }
+  }
+
   // 1. Schedule review request (+2h via Supabase)
   const reviewTime = new Date();
   reviewTime.setHours(reviewTime.getHours() + 2);
@@ -92,6 +118,29 @@ async function handleJobCompleted(job: { uuid: string; company_uuid: string; tot
     p_jobs: 1,
     p_revenue: revenue,
   });
+
+  // 4. Schedule annual contract upsell (+14 days) for non-annual clients
+  const { data: subscription } = await supabaseAdmin
+    .from('subscriptions')
+    .select('plan')
+    .eq('company_uuid', job.company_uuid)
+    .eq('status', 'active')
+    .single();
+
+  const isAnnualClient = subscription?.plan === 'tranquillite' || subscription?.plan === 'immaculee';
+
+  if (!isAnnualClient) {
+    const upsellTime = new Date();
+    upsellTime.setDate(upsellTime.getDate() + 14);
+
+    await supabaseAdmin.from('scheduled_actions').insert({
+      action_type: 'annual_contract_upsell',
+      job_uuid: job.uuid,
+      company_uuid: job.company_uuid,
+      scheduled_for: upsellTime.toISOString(),
+      status: 'pending',
+    });
+  }
 }
 
 async function handleJobWorkOrder(job: { uuid: string; company_uuid: string }) {

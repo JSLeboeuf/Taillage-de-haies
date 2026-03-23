@@ -4,6 +4,7 @@ import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
 import { servicem8 } from '@/lib/servicem8';
 import { sendSMS, formatPhoneQC } from '@/lib/twilio';
+import { SMS } from '@/lib/sms-templates';
 import { z } from 'zod';
 import Stripe from 'stripe';
 
@@ -16,7 +17,7 @@ const CreateSubscriptionSchema = z.object({
   phone: z.string().min(10),
   email: z.string().email(),
   address: z.string().min(5),
-  plan: z.enum(['essentiel', 'premium', 'platine']),
+  plan: z.enum(['essentiel', 'premium', 'platine', 'tranquillite', 'immaculee']),
 });
 
 // Plan pricing and details
@@ -27,6 +28,7 @@ const PLANS = {
     interval: 'year',
     services: 1,
     description: '1 taille par année',
+    isAnnualContract: false,
   },
   premium: {
     name: 'Club Haie Lite - Premium',
@@ -34,6 +36,7 @@ const PLANS = {
     interval: 'year',
     services: 2,
     description: '2 tailles + fertilisation',
+    isAnnualContract: false,
   },
   platine: {
     name: 'Club Haie Lite - Platine',
@@ -41,6 +44,23 @@ const PLANS = {
     interval: 'year',
     services: 3,
     description: '3 tailles + fertilisation + traitement antiparasitaire',
+    isAnnualContract: false,
+  },
+  tranquillite: {
+    name: 'Plan Tranquillité',
+    price: 1400,
+    interval: 'year',
+    services: 6, // vitres x2, gouttières x2, haies x2
+    description: 'Vitres extérieures (2x) + Gouttières (2x) + Haies (2x) — photos avant/après incluses',
+    isAnnualContract: true,
+  },
+  immaculee: {
+    name: 'Plan Propriété Immaculée',
+    price: 2400,
+    interval: 'year',
+    services: 9, // vitres int+ext x3, gouttières x2, haies x3
+    description: 'Vitres int/ext (3x) + Gouttières (2x) + Haies (3x) + Inspection toit + Rapport photo détaillé',
+    isAnnualContract: true,
   },
 } as const;
 
@@ -175,7 +195,15 @@ export async function POST(request: NextRequest) {
 
     // Send welcome SMS
     try {
-      const smsBody = `Bienvenue au ${plan.name}!\n\nVotre abonnement est actif. ${plan.description}.\n\nProchaine facturation: ${subscription.next_billing_date}\n\nMerci de votre confiance! - Haie Lite`;
+      let smsBody: string;
+      const nextBilling = subscription.next_billing_date;
+      if (validated.plan === 'immaculee') {
+        smsBody = SMS.annualContractWelcomeImmaculee(firstName, 'dans les 3 prochaines semaines');
+      } else if (validated.plan === 'tranquillite') {
+        smsBody = SMS.annualContractWelcome(firstName, 'dans les 3 prochaines semaines');
+      } else {
+        smsBody = `Bienvenue au ${plan.name}! Votre abonnement est actif. ${plan.description}. Prochaine facturation: ${nextBilling}. Merci de votre confiance! - Haie Lite`;
+      }
       await sendSMS(formattedPhone, smsBody);
     } catch (smsError) {
       console.error('Failed to send welcome SMS:', smsError);
