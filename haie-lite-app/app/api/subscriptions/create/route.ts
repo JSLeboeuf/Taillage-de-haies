@@ -6,11 +6,9 @@ import { servicem8 } from '@/lib/servicem8';
 import { sendSMS, formatPhoneQC } from '@/lib/twilio';
 import { SMS } from '@/lib/sms-templates';
 import { z } from 'zod';
-import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2025-02-24.acacia',
-});
+import type Stripe from 'stripe';
+import { stripe } from '@/lib/stripe';
 
 const CreateSubscriptionSchema = z.object({
   customer_name: z.string().min(1),

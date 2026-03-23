@@ -2,13 +2,10 @@ export const runtime = 'edge';
 
 import { NextRequest, NextResponse } from 'next/server';
 import { z } from 'zod';
-import Stripe from 'stripe';
 import { supabaseAdmin } from '@/lib/supabase';
 import { sendSMS } from '@/lib/twilio';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2025-02-24.acacia',
-});
+import { stripe } from '@/lib/stripe';
 
 // Validation schema
 const SendPaymentSchema = z.object({
@@ -115,10 +112,11 @@ export async function POST(request: NextRequest) {
       );
     }
 
-    if (error instanceof Stripe.errors.StripeError) {
-      console.error('Stripe error:', error.message);
+    if (error && typeof error === 'object' && 'type' in error && 'statusCode' in error) {
+      const stripeErr = error as unknown as { message: string };
+      console.error('Stripe error:', stripeErr.message);
       return NextResponse.json(
-        { error: 'Payment link creation failed', details: error.message },
+        { error: 'Payment link creation failed', details: stripeErr.message },
         { status: 500 }
       );
     }

@@ -1,5 +1,6 @@
 'use client';
 
+import { Suspense } from 'react';
 import { useSearchParams, useRouter } from 'next/navigation';
 import { useState, ChangeEvent, FormEvent } from 'react';
 
@@ -27,7 +28,7 @@ const serviceOptions: ServiceOption[] = [
   { value: 'mulching', label: 'Paillis', commission: 15, icon: '🍂' },
 ];
 
-export default function UpsellPage() {
+function UpsellContent() {
   const searchParams = useSearchParams();
   const router = useRouter();
   const employeeId = searchParams.get('id');
@@ -329,5 +330,13 @@ export default function UpsellPage() {
         </button>
       </form>
     </div>
+  );
+}
+
+export default function UpsellPage() {
+  return (
+    <Suspense fallback={null}>
+      <UpsellContent />
+    </Suspense>
   );
 }

@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { redirect } from 'next/navigation';
 import KPICards from './components/KPICards';
 import PipelineView from './components/PipelineView';

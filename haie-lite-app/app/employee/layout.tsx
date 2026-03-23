@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
 import BottomNav from './components/BottomNav';
 
 export const metadata = {
@@ -23,7 +23,9 @@ export default function EmployeeLayout({ children }: EmployeeLayoutProps) {
         </main>
 
         {/* Bottom navigation */}
-        <BottomNav />
+        <Suspense fallback={null}>
+          <BottomNav />
+        </Suspense>
       </div>
     </div>
   );

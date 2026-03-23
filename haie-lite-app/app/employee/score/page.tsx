@@ -1,5 +1,6 @@
 'use client';
 
+import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 
@@ -18,7 +19,7 @@ interface ScoreData {
   }>;
 }
 
-export default function ScorePage() {
+function ScoreContent() {
   const searchParams = useSearchParams();
   const employeeId = searchParams.get('id');
 
@@ -228,5 +229,13 @@ export default function ScorePage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function ScorePage() {
+  return (
+    <Suspense fallback={null}>
+      <ScoreContent />
+    </Suspense>
   );
 }

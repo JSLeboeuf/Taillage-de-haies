@@ -4,11 +4,8 @@ import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin } from '@/lib/supabase';
 import { sendSMS } from '@/lib/twilio';
 import { z } from 'zod';
-import Stripe from 'stripe';
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY || '', {
-  apiVersion: '2025-02-24.acacia',
-});
+import { stripe } from '@/lib/stripe';
 
 const ManageSubscriptionSchema = z.object({
   subscription_id: z.string().uuid(),

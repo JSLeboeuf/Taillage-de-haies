@@ -1,5 +1,6 @@
 'use client';
 
+import { Suspense } from 'react';
 import { useSearchParams } from 'next/navigation';
 import { useEffect, useState } from 'react';
 import Link from 'next/link';
@@ -14,7 +15,7 @@ interface EmployeeData {
   quality_score?: number;
 }
 
-export default function EmployeePage() {
+function EmployeeContent() {
   const searchParams = useSearchParams();
   const employeeId = searchParams.get('id');
 
@@ -186,5 +187,13 @@ export default function EmployeePage() {
         </Link>
       </div>
     </div>
+  );
+}
+
+export default function EmployeePage() {
+  return (
+    <Suspense fallback={null}>
+      <EmployeeContent />
+    </Suspense>
   );
 }
