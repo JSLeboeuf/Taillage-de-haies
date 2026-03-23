@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin, getActiveEmployees, upsertDailyPayroll } from '@/lib/supabase';
 import { sendSMS } from '@/lib/twilio';

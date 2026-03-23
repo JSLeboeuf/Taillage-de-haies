@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { NextRequest, NextResponse } from 'next/server';
 import { classifySMSIntent } from '@/lib/openai';
 import { supabaseAdmin, getLeadByPhone, logMessageSent } from '@/lib/supabase';

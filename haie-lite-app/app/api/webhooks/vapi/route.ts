@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { NextRequest, NextResponse } from 'next/server';
 import { extractLeadInfo } from '@/lib/openai';
 import { createLead, logMessageSent, supabaseAdmin } from '@/lib/supabase';

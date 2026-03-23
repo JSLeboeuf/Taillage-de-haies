@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { NextRequest, NextResponse } from 'next/server';
 import { servicem8 } from '@/lib/servicem8';
 import { sendSMS } from '@/lib/twilio';

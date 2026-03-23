@@ -1,18 +1,20 @@
 # Déploiement — Haie Lite App
 
 **Dernière mise à jour :** 2026-03-23
-**Stack :** Next.js 14 → Vercel | Supabase (ca-central-1, déjà configuré)
+**Stack :** Next.js 14 → Cloudflare Pages | Supabase (ca-central-1, déjà configuré)
 
 ---
 
 ## ÉTAT ACTUEL
 
 - [x] Code TypeScript — compile sans erreurs
-- [x] Supabase `haie-lite` — 10 migrations, 23 tables, RLS activé
+- [x] `export const runtime = 'edge'` — ajouté sur les 33 routes
+- [x] `wrangler.toml` — configuré avec nodejs_compat + 12 cron triggers
+- [x] `@cloudflare/next-on-pages` + `wrangler` — ajoutés dans package.json
+- [x] Supabase `haie-lite` — 10 migrations, 23 tables, RLS activé, 0 warnings sécurité
 - [x] `.env.local` — Supabase URL + anon key + CRON_SECRET remplis
-- [x] Vercel détecté comme projet Next.js
-- [ ] Compte Vercel — **suspendu** (ajouter paiement)
 - [ ] `SUPABASE_SERVICE_ROLE_KEY` — à remplir (voir étape 1)
+- [ ] Compte Cloudflare — créer sur cloudflare.com (gratuit)
 - [ ] Clés API externes — ServiceM8, Twilio, etc. (voir étape 3)
 
 ---
@@ -27,82 +29,97 @@
 
 ---
 
-## ETAPE 2 — REACTIVER VERCEL
-
-Réactiver le compte : https://vercel.com/teams/jsleboeuf3gmailcoms-projects/settings/billing
-
-Une fois réactivé, déployer depuis ce dossier :
+## ETAPE 2 — INSTALLATION ET AUTH CLOUDFLARE
 
 ```bash
 cd /tmp/taillage-haies/haie-lite-app
-vercel --yes
+npm install
+
+# Authentifier wrangler (ouvre le navigateur)
+npx wrangler login
 ```
 
-Vercel va :
-- Créer le projet `haie-lite-app`
-- Détecter automatiquement Next.js
-- Déployer sur `haie-lite-app.vercel.app`
+Créer le projet Pages (première fois seulement) :
+
+```bash
+npx wrangler pages project create haie-lite-app
+```
 
 ---
 
-## ETAPE 3 — VARIABLES D'ENVIRONNEMENT VERCEL
+## ETAPE 3 — VARIABLES D'ENVIRONNEMENT CLOUDFLARE
 
-Une fois le projet créé sur Vercel, ajouter toutes les variables en une commande.
+Ajouter toutes les variables via wrangler CLI.
 **Remplacer chaque valeur manquante avant d'exécuter.**
 
 ```bash
 cd /tmp/taillage-haies/haie-lite-app
 
 # Supabase (déjà connus)
-vercel env add NEXT_PUBLIC_SUPABASE_URL production <<< "https://ydtmnqqqmfxvrcpjprwi.supabase.co"
-vercel env add NEXT_PUBLIC_SUPABASE_ANON_KEY production <<< "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlkdG1ucXFxbWZ4dnJjcGpwcndpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyODQ4MjMsImV4cCI6MjA4ODg2MDgyM30.6bfvGJ-MI8j9fS-pPfSsEy8QvCVIn14jvziT9a8cyuQ"
-vercel env add SUPABASE_SERVICE_ROLE_KEY production <<< "COLLER_ICI"
+npx wrangler pages secret put NEXT_PUBLIC_SUPABASE_URL --project-name haie-lite-app <<< "https://ydtmnqqqmfxvrcpjprwi.supabase.co"
+npx wrangler pages secret put NEXT_PUBLIC_SUPABASE_ANON_KEY --project-name haie-lite-app <<< "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InlkdG1ucXFxbWZ4dnJjcGpwcndpIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NzMyODQ4MjMsImV4cCI6MjA4ODg2MDgyM30.6bfvGJ-MI8j9fS-pPfSsEy8QvCVIn14jvziT9a8cyuQ"
+npx wrangler pages secret put SUPABASE_SERVICE_ROLE_KEY --project-name haie-lite-app <<< "COLLER_ICI"
 
-# Cron (déjà généré)
-vercel env add CRON_SECRET production <<< "AvQ92K04QyJmCI7YeZ0BZet8TgzOnVKOBkoo7TE8xWo="
+# Cron
+npx wrangler pages secret put CRON_SECRET --project-name haie-lite-app <<< "AvQ92K04QyJmCI7YeZ0BZet8TgzOnVKOBkoo7TE8xWo="
 
 # App config
-vercel env add HENRI_PHONE production <<< "+1XXXXXXXXXX"
-vercel env add JEAN_SAMUEL_PHONE production <<< "+1XXXXXXXXXX"
-vercel env add BASE_URL production <<< "https://haie-lite-app.vercel.app"
+npx wrangler pages secret put HENRI_PHONE --project-name haie-lite-app <<< "+1XXXXXXXXXX"
+npx wrangler pages secret put JEAN_SAMUEL_PHONE --project-name haie-lite-app <<< "+1XXXXXXXXXX"
+npx wrangler pages secret put BASE_URL --project-name haie-lite-app <<< "https://haie-lite-app.pages.dev"
 
 # ServiceM8
-vercel env add SERVICEM8_API_KEY production <<< "COLLER_ICI"
+npx wrangler pages secret put SERVICEM8_API_KEY --project-name haie-lite-app <<< "COLLER_ICI"
 
 # Twilio (SMS)
-vercel env add TWILIO_ACCOUNT_SID production <<< "COLLER_ICI"
-vercel env add TWILIO_AUTH_TOKEN production <<< "COLLER_ICI"
-vercel env add TWILIO_PHONE_NUMBER production <<< "+1XXXXXXXXXX"
+npx wrangler pages secret put TWILIO_ACCOUNT_SID --project-name haie-lite-app <<< "COLLER_ICI"
+npx wrangler pages secret put TWILIO_AUTH_TOKEN --project-name haie-lite-app <<< "COLLER_ICI"
+npx wrangler pages secret put TWILIO_PHONE_NUMBER --project-name haie-lite-app <<< "+1XXXXXXXXXX"
 
 # Resend (email)
-vercel env add RESEND_API_KEY production <<< "COLLER_ICI"
+npx wrangler pages secret put RESEND_API_KEY --project-name haie-lite-app <<< "COLLER_ICI"
 
 # OpenAI
-vercel env add OPENAI_API_KEY production <<< "COLLER_ICI"
+npx wrangler pages secret put OPENAI_API_KEY --project-name haie-lite-app <<< "COLLER_ICI"
 
 # Stripe
-vercel env add STRIPE_SECRET_KEY production <<< "COLLER_ICI"
-vercel env add STRIPE_WEBHOOK_SECRET production <<< "COLLER_ICI"
+npx wrangler pages secret put STRIPE_SECRET_KEY --project-name haie-lite-app <<< "COLLER_ICI"
+npx wrangler pages secret put STRIPE_WEBHOOK_SECRET --project-name haie-lite-app <<< "COLLER_ICI"
 
 # Vapi (voice AI)
-vercel env add VAPI_API_KEY production <<< "COLLER_ICI"
+npx wrangler pages secret put VAPI_API_KEY --project-name haie-lite-app <<< "COLLER_ICI"
 
 # Google Business Profile
-vercel env add GOOGLE_BUSINESS_PROFILE_API_KEY production <<< "COLLER_ICI"
-vercel env add GOOGLE_PLACE_ID production <<< "COLLER_ICI"
-```
-
-Après avoir tout ajouté, forcer un redéploiement :
-
-```bash
-vercel --prod
+npx wrangler pages secret put GOOGLE_BUSINESS_PROFILE_API_KEY --project-name haie-lite-app <<< "COLLER_ICI"
+npx wrangler pages secret put GOOGLE_PLACE_ID --project-name haie-lite-app <<< "COLLER_ICI"
 ```
 
 ---
 
-## ETAPE 4 — WEBHOOKS À CONFIGURER
+## ETAPE 4 — PREMIER DÉPLOIEMENT
 
-Une fois `BASE_URL` connue (`https://haie-lite-app.vercel.app`), configurer ces webhooks dans chaque service :
+```bash
+cd /tmp/taillage-haies/haie-lite-app
+npm run pages:deploy
+```
+
+Cette commande :
+1. Build Next.js avec `@cloudflare/next-on-pages`
+2. Déploie sur `haie-lite-app.pages.dev`
+
+---
+
+## ETAPE 5 — DOMAINE PERSONNALISÉ (optionnel)
+
+Dans Cloudflare Dashboard → Pages → haie-lite-app → Custom Domains :
+- Ajouter `app.taillagehaie.ca` (ou autre domaine)
+- Cloudflare gère automatiquement le SSL
+
+---
+
+## ETAPE 6 — WEBHOOKS À CONFIGURER
+
+Une fois `BASE_URL` connue (`https://haie-lite-app.pages.dev`), configurer :
 
 | Service | URL webhook | Où configurer |
 |---------|-------------|---------------|
@@ -114,29 +131,28 @@ Une fois `BASE_URL` connue (`https://haie-lite-app.vercel.app`), configurer ces 
 
 ---
 
-## ETAPE 5 — STRIPE WEBHOOK SECRET
+## ETAPE 7 — STRIPE WEBHOOK SECRET
 
-Après avoir configuré le webhook Stripe (étape 4), récupérer le `STRIPE_WEBHOOK_SECRET` :
+Après avoir configuré le webhook Stripe :
 
 1. Stripe Dashboard → Developers → Webhooks → [webhook créé]
 2. Copier le "Signing secret" (format : `whsec_...`)
-3. Mettre à jour dans Vercel :
+3. Mettre à jour :
    ```bash
-   vercel env rm STRIPE_WEBHOOK_SECRET production
-   vercel env add STRIPE_WEBHOOK_SECRET production <<< "whsec_COLLER_ICI"
-   vercel --prod
+   npx wrangler pages secret put STRIPE_WEBHOOK_SECRET --project-name haie-lite-app <<< "whsec_COLLER_ICI"
+   npm run pages:deploy
    ```
 
 ---
 
-## ETAPE 6 — VÉRIFICATION FINALE
+## ETAPE 8 — VÉRIFICATION FINALE
 
 ```bash
 # Health check
-curl https://haie-lite-app.vercel.app/api/health
+curl https://haie-lite-app.pages.dev/api/health
 
 # Test quote calculator
-curl -X POST https://haie-lite-app.vercel.app/api/quotes/calculate \
+curl -X POST https://haie-lite-app.pages.dev/api/quotes/calculate \
   -H "Content-Type: application/json" \
   -d '{"hedge_type":"cedar","length_meters":25,"height_meters":1.8,"sides":2,"includes_top":true,"includes_cleanup":true,"includes_rejuvenation":false,"access_difficulty":"easy"}'
 ```
@@ -160,4 +176,4 @@ curl -X POST https://haie-lite-app.vercel.app/api/quotes/calculate \
 
 ---
 
-*Créé le 2026-03-23 — mettre à jour BASE_URL une fois le domaine Vercel connu*
+*Créé le 2026-03-23 — Cloudflare Pages + nodejs_compat + 33 routes edge*

@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { NextRequest, NextResponse } from 'next/server';
 import { calculateQuote } from '@/lib/quotes';
 import { z } from 'zod';

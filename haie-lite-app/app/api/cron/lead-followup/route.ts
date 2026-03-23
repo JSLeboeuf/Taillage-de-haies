@@ -1,3 +1,5 @@
+export const runtime = 'edge';
+
 import { NextRequest, NextResponse } from 'next/server';
 import { supabaseAdmin, getLeadsForFollowup, logMessageSent } from '@/lib/supabase';
 import { sendSMS } from '@/lib/twilio';
