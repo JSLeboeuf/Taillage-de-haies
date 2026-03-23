@@ -1,0 +1,521 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculateur LTGP:CAC — Haie Lite</title>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #232635;
+      --border: #2d3147;
+      --green: #22c55e;
+      --green-dim: #16a34a;
+      --yellow: #eab308;
+      --red: #ef4444;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #6366f1;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      min-height: 100vh;
+      padding: 32px 16px;
+    }
+
+    .container { max-width: 900px; margin: 0 auto; }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    header p {
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 640px) { .grid { grid-template-columns: 1fr; } }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .card h2 {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .field { margin-bottom: 20px; }
+
+    .field label {
+      display: flex;
+      justify-content: space-between;
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 8px;
+    }
+
+    .field label span {
+      color: var(--accent);
+      font-weight: 700;
+      font-size: 15px;
+    }
+
+    .field input[type="range"] {
+      width: 100%;
+      height: 6px;
+      -webkit-appearance: none;
+      background: var(--border);
+      border-radius: 3px;
+      outline: none;
+      cursor: pointer;
+    }
+
+    .field input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--accent);
+      cursor: pointer;
+      box-shadow: 0 0 8px rgba(99, 102, 241, 0.5);
+    }
+
+    .field .hint {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    /* Results card */
+    .results-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+
+    .results-card h2 {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .metrics-row {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+
+    @media (max-width: 640px) { .metrics-row { grid-template-columns: repeat(2, 1fr); } }
+
+    .metric {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .metric .label {
+      font-size: 11px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .metric .value {
+      font-size: 24px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .metric .value.green { color: var(--green); }
+    .metric .value.yellow { color: var(--yellow); }
+    .metric .value.red { color: var(--red); }
+
+    /* Ratio bar */
+    .ratio-section { margin-bottom: 20px; }
+
+    .ratio-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 10px;
+    }
+
+    .ratio-label .ratio-title { font-size: 14px; font-weight: 600; }
+
+    .ratio-label .ratio-badge {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.5px;
+    }
+
+    .ratio-bar-bg {
+      height: 12px;
+      background: var(--border);
+      border-radius: 6px;
+      overflow: hidden;
+      position: relative;
+    }
+
+    .ratio-bar-fill {
+      height: 100%;
+      border-radius: 6px;
+      transition: width 0.3s ease, background 0.3s ease;
+      min-width: 4px;
+    }
+
+    .ratio-verdict {
+      margin-top: 10px;
+      font-size: 13px;
+      padding: 10px 14px;
+      border-radius: 8px;
+      font-weight: 500;
+    }
+
+    .ratio-verdict.excellent { background: rgba(34, 197, 94, 0.1); color: var(--green); border: 1px solid rgba(34, 197, 94, 0.2); }
+    .ratio-verdict.good { background: rgba(234, 179, 8, 0.1); color: var(--yellow); border: 1px solid rgba(234, 179, 8, 0.2); }
+    .ratio-verdict.poor { background: rgba(239, 68, 68, 0.1); color: var(--red); border: 1px solid rgba(239, 68, 68, 0.2); }
+
+    /* Breakdown table */
+    .breakdown {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .breakdown table { width: 100%; border-collapse: collapse; }
+
+    .breakdown td {
+      padding: 10px 16px;
+      font-size: 13px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .breakdown tr:last-child td { border-bottom: none; }
+
+    .breakdown td:first-child { color: var(--muted); }
+    .breakdown td:last-child { text-align: right; font-weight: 600; color: var(--text); }
+
+    .breakdown .total td { background: rgba(99, 102, 241, 0.08); }
+    .breakdown .total td:last-child { color: var(--accent); font-size: 15px; }
+
+    /* Scenario presets */
+    .presets {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .preset-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .preset-btn:hover, .preset-btn.active {
+      border-color: var(--accent);
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--accent);
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 32px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Calculateur LTGP:CAC</h1>
+      <p>Lifetime Gross Profit vs. Coût d'Acquisition Client — Haie Lite</p>
+    </header>
+
+    <!-- Presets -->
+    <div class="presets">
+      <button class="preset-btn" onclick="loadPreset('onetime')">Client one-time</button>
+      <button class="preset-btn active" onclick="loadPreset('tranquillite')">Plan Tranquillité</button>
+      <button class="preset-btn" onclick="loadPreset('immaculee')">Plan Propriété Immaculée</button>
+      <button class="preset-btn" onclick="loadPreset('referral')">Via referral</button>
+    </div>
+
+    <div class="grid">
+      <!-- Inputs: Revenue -->
+      <div class="card">
+        <h2>Revenus</h2>
+
+        <div class="field">
+          <label>Panier moyen ($/visite) <span id="val-panier">250$</span></label>
+          <input type="range" id="panier" min="100" max="500" step="10" value="250" oninput="update()">
+          <div class="hint">Prix moyen facturé par passage (one-time ou plan annuel / nb visites)</div>
+        </div>
+
+        <div class="field">
+          <label>Visites par an <span id="val-visites">2</span></label>
+          <input type="range" id="visites" min="1" max="6" step="1" value="2" oninput="update()">
+          <div class="hint">Nombre de passages annuels inclus dans le plan</div>
+        </div>
+
+        <div class="field">
+          <label>Années de rétention <span id="val-retention">2.4</span></label>
+          <input type="range" id="retention" min="0.5" max="8" step="0.1" value="2.4" oninput="update()">
+          <div class="hint">Durée de vie moyenne du client (1 = one-time, 3+ = annuel fidèle)</div>
+        </div>
+      </div>
+
+      <!-- Inputs: Costs -->
+      <div class="card">
+        <h2>Marges & Acquisition</h2>
+
+        <div class="field">
+          <label>Marge brute (%) <span id="val-marge">60%</span></label>
+          <input type="range" id="marge" min="20" max="85" step="1" value="60" oninput="update()">
+          <div class="hint">CA − main d'oeuvre − matériel − carburant</div>
+        </div>
+
+        <div class="field">
+          <label>CAC ($/client) <span id="val-cac">50$</span></label>
+          <input type="range" id="cac" min="0" max="500" step="5" value="50" oninput="update()">
+          <div class="hint">Coût total pour acquérir un nouveau client (publicité, temps PAP, commission agent/referral)</div>
+        </div>
+
+        <div class="field">
+          <label>Taux de référence (%) <span id="val-referral">20%</span></label>
+          <input type="range" id="referral" min="0" max="60" step="1" value="20" oninput="update()">
+          <div class="hint">% de clients qui réfèrent au moins 1 ami par an</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="results-card">
+      <h2>Résultats</h2>
+
+      <div class="metrics-row">
+        <div class="metric">
+          <div class="label">CA par an</div>
+          <div class="value" id="ca-annual">—</div>
+        </div>
+        <div class="metric">
+          <div class="label">Profit brut / an</div>
+          <div class="value" id="gp-annual">—</div>
+        </div>
+        <div class="metric">
+          <div class="label">LTGP total</div>
+          <div class="value green" id="ltgp">—</div>
+        </div>
+        <div class="metric">
+          <div class="label">CAC effectif</div>
+          <div class="value" id="cac-display">—</div>
+        </div>
+      </div>
+
+      <div class="ratio-section">
+        <div class="ratio-label">
+          <div class="ratio-title">Ratio LTGP : CAC</div>
+          <div class="ratio-badge" id="ratio-badge">—</div>
+        </div>
+        <div class="ratio-bar-bg">
+          <div class="ratio-bar-fill" id="ratio-bar" style="width:0%; background: var(--green)"></div>
+        </div>
+        <div class="ratio-verdict" id="ratio-verdict"></div>
+      </div>
+
+      <div class="breakdown">
+        <table>
+          <tr>
+            <td>Panier moyen × visites/an</td>
+            <td id="bd-revenue-year">—</td>
+          </tr>
+          <tr>
+            <td>Marge brute annuelle</td>
+            <td id="bd-gp-year">—</td>
+          </tr>
+          <tr>
+            <td>× années de rétention</td>
+            <td id="bd-retention">—</td>
+          </tr>
+          <tr>
+            <td>+ valeur des referrals générés</td>
+            <td id="bd-referral-value">—</td>
+          </tr>
+          <tr class="total">
+            <td><strong>LTGP total</strong></td>
+            <td id="bd-ltgp">—</td>
+          </tr>
+          <tr>
+            <td>CAC (coût acquisition)</td>
+            <td id="bd-cac">—</td>
+          </tr>
+          <tr class="total">
+            <td><strong>Ratio LTGP:CAC</strong></td>
+            <td id="bd-ratio">—</td>
+          </tr>
+        </table>
+      </div>
+    </div>
+
+    <footer>
+      Haie Lite — Outil interne. Basé sur le modèle Hormozi ($100M Offers). Ratio cible : ≥ 3:1 (viable), ≥ 5:1 (bon), ≥ 10:1 (excellent).
+    </footer>
+  </div>
+
+  <script>
+    const presets = {
+      onetime:      { panier: 250, visites: 1, retention: 1.0, marge: 60, cac: 75,  referral: 10 },
+      tranquillite: { panier: 233, visites: 6, retention: 2.4, marge: 62, cac: 50,  referral: 20 },
+      immaculee:    { panier: 267, visites: 9, retention: 3.2, marge: 65, cac: 60,  referral: 15 },
+      referral:     { panier: 233, visites: 6, retention: 2.4, marge: 62, cac: 10,  referral: 25 },
+    };
+
+    let activePreset = 'tranquillite';
+
+    function loadPreset(key) {
+      const p = presets[key];
+      document.getElementById('panier').value    = p.panier;
+      document.getElementById('visites').value   = p.visites;
+      document.getElementById('retention').value = p.retention;
+      document.getElementById('marge').value     = p.marge;
+      document.getElementById('cac').value       = p.cac;
+      document.getElementById('referral').value  = p.referral;
+
+      document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+      activePreset = key;
+      update();
+    }
+
+    function fmt(n, decimals = 0) {
+      if (n >= 1000) return Math.round(n).toLocaleString('fr-CA') + '$';
+      return n.toFixed(decimals) + '$';
+    }
+
+    function fmtRatio(r) {
+      if (r >= 100) return Math.round(r) + ':1';
+      return r.toFixed(1) + ':1';
+    }
+
+    function update() {
+      const panier    = +document.getElementById('panier').value;
+      const visites   = +document.getElementById('visites').value;
+      const retention = +document.getElementById('retention').value;
+      const marge     = +document.getElementById('marge').value / 100;
+      const cac       = +document.getElementById('cac').value;
+      const referralPct = +document.getElementById('referral').value / 100;
+
+      // Update slider labels
+      document.getElementById('val-panier').textContent    = panier + '$';
+      document.getElementById('val-visites').textContent   = visites;
+      document.getElementById('val-retention').textContent = retention;
+      document.getElementById('val-marge').textContent     = Math.round(marge * 100) + '%';
+      document.getElementById('val-cac').textContent       = cac + '$';
+      document.getElementById('val-referral').textContent  = Math.round(referralPct * 100) + '%';
+
+      // Calculations
+      const revenuePerYear = panier * visites;
+      const gpPerYear      = revenuePerYear * marge;
+      const ltgpBase       = gpPerYear * retention;
+
+      // Referral value: each referred client is worth ltgpBase * (marge), no new CAC
+      // Expected referrals per client = referralPct * retention (one referral per year at that rate)
+      const referralsGenerated = referralPct * retention;
+      const referralValue      = referralsGenerated * gpPerYear * retention * 0.3; // 30% discount on full LTGP for conservatism
+
+      const ltgp  = ltgpBase + referralValue;
+      const ratio = cac > 0 ? ltgp / cac : Infinity;
+
+      // Update metrics
+      document.getElementById('ca-annual').textContent  = fmt(revenuePerYear);
+      document.getElementById('gp-annual').textContent  = fmt(gpPerYear);
+      document.getElementById('ltgp').textContent       = fmt(ltgp);
+      document.getElementById('cac-display').textContent = fmt(cac);
+
+      // Ratio badge color
+      const badge = document.getElementById('ratio-badge');
+      badge.textContent = fmtRatio(ratio);
+      badge.style.color = ratio >= 10 ? 'var(--green)' : ratio >= 3 ? 'var(--yellow)' : 'var(--red)';
+
+      // Ratio bar
+      const barPct = Math.min((ratio / 30) * 100, 100);
+      const bar = document.getElementById('ratio-bar');
+      bar.style.width = barPct + '%';
+      bar.style.background = ratio >= 10 ? 'var(--green)' : ratio >= 3 ? 'var(--yellow)' : 'var(--red)';
+
+      // Verdict
+      const verdict = document.getElementById('ratio-verdict');
+      if (ratio >= 10) {
+        verdict.textContent = '✓ Excellent — chaque dollar de CAC génère ' + fmtRatio(ratio) + ' de profit. Scaling aggressif justifié.';
+        verdict.className = 'ratio-verdict excellent';
+      } else if (ratio >= 5) {
+        verdict.textContent = '✓ Bon — ratio sain. Augmenter le budget acquisition avec confiance.';
+        verdict.className = 'ratio-verdict good';
+      } else if (ratio >= 3) {
+        verdict.textContent = '⚠ Viable mais serré. Travailler sur la rétention ou réduire le CAC.';
+        verdict.className = 'ratio-verdict good';
+      } else {
+        verdict.textContent = '✗ Dangereux — vous perdez de l\'argent à long terme. Revoir la stratégie avant de scaler.';
+        verdict.className = 'ratio-verdict poor';
+      }
+
+      // Breakdown
+      document.getElementById('bd-revenue-year').textContent  = fmt(panier) + ' × ' + visites + ' = ' + fmt(revenuePerYear) + '/an';
+      document.getElementById('bd-gp-year').textContent       = fmt(revenuePerYear) + ' × ' + Math.round(marge * 100) + '% = ' + fmt(gpPerYear) + '/an';
+      document.getElementById('bd-retention').textContent     = fmt(gpPerYear) + ' × ' + retention + ' ans = ' + fmt(ltgpBase);
+      document.getElementById('bd-referral-value').textContent = '+' + fmt(referralValue) + ' (' + (referralPct * 100).toFixed(0) + '% × ' + retention + ' ans)';
+      document.getElementById('bd-ltgp').textContent          = fmt(ltgp);
+      document.getElementById('bd-cac').textContent           = '−' + fmt(cac);
+      document.getElementById('bd-ratio').textContent         = fmtRatio(ratio);
+    }
+
+    // Init
+    update();
+  </script>
+</body>
+</html>

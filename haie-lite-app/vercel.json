@@ -47,6 +47,10 @@
     {
       "path": "/api/cron/weather-alert",
       "schedule": "0 10 * * *"
+    },
+    {
+      "path": "/api/cron/annual-contract-renewal",
+      "schedule": "0 12 1 * *"
     }
   ]
 }
