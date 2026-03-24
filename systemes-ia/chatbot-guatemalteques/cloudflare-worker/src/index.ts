@@ -198,7 +198,7 @@ const HTML = `<!DOCTYPE html>
 </head>
 <body>
 <header>
-  <div class="logo">\U0001f331</div>
+  <div class="logo">🌱</div>
   <div class="header-text">
     <h1>Haie Lite \u2014 Assistant</h1>
     <p><span class="status-dot"></span>En ligne &nbsp;\xb7&nbsp; En l\xednea</p>
@@ -207,23 +207,23 @@ const HTML = `<!DOCTYPE html>
 </header>
 <div id="messages">
   <div class="welcome-card">
-    <h2>\U0001f1e8\U0001f1e6 Bienvenue / Bienvenido(a)</h2>
-    <p>\U0001f1eb\U0001f1f7 <strong>FR :</strong> Je suis ton assistant Haie Lite. Pose-moi toutes tes questions sur le travail, la paye, la s\xe9curit\xe9, les techniques ou la vie au Qu\xe9bec.</p>
-    <p>\U0001f1ec\U0001f1f9 <strong>ES :</strong> Soy tu asistente de Haie Lite. Hazme cualquier pregunta sobre el trabajo, el pago, la seguridad, las t\xe9cnicas de poda o la vida en Quebec.</p>
+    <h2>🇨🇦 Bienvenue / Bienvenido(a)</h2>
+    <p>🇫🇷 <strong>FR :</strong> Je suis ton assistant Haie Lite. Pose-moi toutes tes questions sur le travail, la paye, la s\xe9curit\xe9, les techniques ou la vie au Qu\xe9bec.</p>
+    <p>🇬🇹 <strong>ES :</strong> Soy tu asistente de Haie Lite. Hazme cualquier pregunta sobre el trabajo, el pago, la seguridad, las t\xe9cnicas de poda o la vida en Quebec.</p>
   </div>
   <div class="emergency-banner">
-    \U0001f6a8 <span><strong>Emergencia / Urgence :</strong> 911 &nbsp;|&nbsp; Accident travail CSST : 1-844-838-0808 &nbsp;|&nbsp; Jean-Samuel : 450-280-3222</span>
+    🚨 <span><strong>Emergencia / Urgence :</strong> 911 &nbsp;|&nbsp; Accident travail CSST : 1-844-838-0808 &nbsp;|&nbsp; Jean-Samuel : 450-280-3222</span>
   </div>
   <div class="section-label">Preguntas frecuentes / Questions fr\xe9quentes</div>
   <div class="quick-actions">
     <button class="quick-btn" onclick="quickSend('Cuales son mis horarios de trabajo?')">\u23f0 Horarios</button>
-    <button class="quick-btn" onclick="quickSend('Cuando y como me pagan?')">\U0001f4b5 Pago</button>
-    <button class="quick-btn" onclick="quickSend('Que hago en caso de accidente?')">\U0001f691 Urgencias</button>
-    <button class="quick-btn" onclick="quickSend('Que equipo de proteccion debo usar?')">\U0001f9ba Seguridad</button>
+    <button class="quick-btn" onclick="quickSend('Cuando y como me pagan?')">💵 Pago</button>
+    <button class="quick-btn" onclick="quickSend('Que hago en caso de accidente?')">🚑 Urgencias</button>
+    <button class="quick-btn" onclick="quickSend('Que equipo de proteccion debo usar?')">🦺 Seguridad</button>
     <button class="quick-btn" onclick="quickSend('Como hacer el corte conico del seto de cedro?')">\u2702\ufe0f T\xe9cnica poda</button>
-    <button class="quick-btn" onclick="quickSend('Quien es mi supervisor y como contactarlo?')">\U0001f477 Contactos</button>
-    <button class="quick-btn" onclick="quickSend('Comment fonctionne le logement fourni?')">\U0001f3e0 Logement</button>
-    <button class="quick-btn" onclick="quickSend('Cuales son las reglas en los sitios de trabajo?')">\U0001f4cb R\xe8gles</button>
+    <button class="quick-btn" onclick="quickSend('Quien es mi supervisor y como contactarlo?')">👷 Contactos</button>
+    <button class="quick-btn" onclick="quickSend('Comment fonctionne le logement fourni?')">🏠 Logement</button>
+    <button class="quick-btn" onclick="quickSend('Cuales son las reglas en los sitios de trabajo?')">📋 R\xe8gles</button>
   </div>
 </div>
 <div class="input-area">
@@ -251,7 +251,7 @@ function clearChat(){
 }
 function addMsg(role,content){
   const wrap=document.createElement('div');wrap.className='message '+role;
-  const av=document.createElement('div');av.className='avatar';av.textContent=role==='user'?'\U0001f464':'\U0001f331';
+  const av=document.createElement('div');av.className='avatar';av.textContent=role==='user'?'👤':'🌱';
   const bub=document.createElement('div');bub.className='bubble';
   if(role==='bot')bub.innerHTML=fmt(content);else bub.textContent=content;
   wrap.appendChild(av);wrap.appendChild(bub);
@@ -259,7 +259,7 @@ function addMsg(role,content){
 }
 function addTyping(){
   const wrap=document.createElement('div');wrap.className='message bot';wrap.id='typing';
-  const av=document.createElement('div');av.className='avatar';av.textContent='\U0001f331';
+  const av=document.createElement('div');av.className='avatar';av.textContent='🌱';
   const bub=document.createElement('div');bub.className='bubble typing';
   bub.innerHTML='<span></span><span></span><span></span>';
   wrap.appendChild(av);wrap.appendChild(bub);messagesEl.appendChild(wrap);scrollBottom();
@@ -371,25 +371,34 @@ export default {
 
           const reader = groqRes.body!.getReader();
           const dec = new TextDecoder();
+          let buf = "";
 
           while (true) {
             const { done, value } = await reader.read();
             if (done) break;
-            for (const line of dec.decode(value).split("\n")) {
-              if (!line.startsWith("data: ")) continue;
-              const d = line.slice(6);
-              if (d === "[DONE]") break;
-              try {
-                const chunk = JSON.parse(d);
-                const text = chunk.choices?.[0]?.delta?.content;
-                if (text) {
-                  await writer.write(
-                    encoder.encode(
-                      `data: ${JSON.stringify({ text })}\n\n`
-                    )
-                  );
-                }
-              } catch {}
+            buf += dec.decode(value, { stream: true });
+
+            // Split on double-newline to get complete SSE events
+            const events = buf.split("\n\n");
+            buf = events.pop() ?? "";
+
+            for (const event of events) {
+              for (const line of event.split("\n")) {
+                if (!line.startsWith("data: ")) continue;
+                const d = line.slice(6).trim();
+                if (d === "[DONE]") break;
+                try {
+                  const chunk = JSON.parse(d);
+                  const text = chunk.choices?.[0]?.delta?.content;
+                  if (text) {
+                    await writer.write(
+                      encoder.encode(
+                        `data: ${JSON.stringify({ text })}\n\n`
+                      )
+                    );
+                  }
+                } catch {}
+              }
             }
           }
 
