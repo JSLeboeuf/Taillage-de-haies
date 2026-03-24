@@ -267,12 +267,12 @@ function addTyping(){
 function removeTyping(){const el=document.getElementById('typing');if(el)el.remove();}
 function fmt(t){
   let s=t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  s=s.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
-  s=s.replace(/\*(.*?)\*/g,'<em>$1</em>');
+  s=s.replace(/\\*\\*(.*?)\\*\\*/g,'<strong>$1</strong>');
+  s=s.replace(/\\*(.*?)\\*/g,'<em>$1</em>');
   s=s.replace(/^[•\-] (.+)$/gm,'<li>$1</li>');
-  s=s.replace(/^\d+\. (.+)$/gm,'<li>$1</li>');
-  s=s.replace(/(<li>[\s\S]*?<\/li>\n?)+/g,m=>'<ul>'+m+'</ul>');
-  s=s.replace(/\n\n+/g,'</p><p>').replace(/\n/g,'<br>');
+  s=s.replace(/^\\d+\\. (.+)$/gm,'<li>$1</li>');
+  s=s.replace(/(<li>[\\s\\S]*?<\\/li>\\n?)+/g,m=>'<ul>'+m+'</ul>');
+  s=s.replace(/\\n\\n+/g,'</p><p>').replace(/\\n/g,'<br>');
   return '<p>'+s+'</p>';
 }
 async function sendMessage(){
@@ -292,7 +292,7 @@ async function sendMessage(){
     const reader=res.body.getReader();const dec=new TextDecoder();
     while(true){
       const{done,value}=await reader.read();if(done)break;
-      for(const line of dec.decode(value).split('\n')){
+      for(const line of dec.decode(value).split('\\n')){
         if(!line.startsWith('data: '))continue;
         const d=line.slice(6);if(d==='[DONE]')break;
         try{const p=JSON.parse(d);if(p.text){full+=p.text;bub.innerHTML=fmt(full);scrollBottom();}if(p.error){bub.innerHTML='\u26a0\ufe0f '+p.error;}}catch{}
@@ -301,7 +301,7 @@ async function sendMessage(){
     history.push({role:'assistant',content:full});
   }catch(err){
     removeTyping();
-    addMsg('bot','\u26a0\ufe0f Erreur / Error: '+err.message+'\n\nContacta a Henri o llama al 450-280-3222.');
+    addMsg('bot','\u26a0\ufe0f Erreur / Error: '+err.message+'\\n\\nContacta a Henri o llama al 450-280-3222.');
   }
   streaming=false;sendBtn.disabled=false;inputEl.focus();
 }
