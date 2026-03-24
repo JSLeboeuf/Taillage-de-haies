@@ -5,7 +5,6 @@ class ServiceM8Client {
 
   constructor(apiKey?: string) {
     this.apiKey = apiKey || process.env.SERVICEM8_API_KEY || '';
-    if (!this.apiKey) throw new Error('SERVICEM8_API_KEY is required');
   }
 
   private async request<T>(endpoint: string, options: RequestInit = {}): Promise<T> {

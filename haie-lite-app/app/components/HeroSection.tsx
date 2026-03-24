@@ -1,3 +1,5 @@
+'use client'
+
 export default function HeroSection() {
   const scrollToCalculator = () => {
     const calculator = document.getElementById('calculator')

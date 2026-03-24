@@ -1,25 +1,11 @@
-import twilio from 'twilio';
-
-const client = twilio(
-  process.env.TWILIO_ACCOUNT_SID,
-  process.env.TWILIO_AUTH_TOKEN
-);
-
-const FROM = process.env.TWILIO_PHONE_NUMBER || '';
-
-// Safety: SMS are disabled by default until SMS_ENABLED=true is set
 const SMS_ENABLED = process.env.SMS_ENABLED === 'true';
 
 // Format Quebec phone number to E.164
 export function formatPhoneQC(phone: string): string {
-  // Remove all non-digits
   const digits = phone.replace(/\D/g, '');
-
-  // Handle various formats
   if (digits.length === 10) return `+1${digits}`;
   if (digits.length === 11 && digits.startsWith('1')) return `+${digits}`;
-  if (digits.length === 7) return `+1514${digits}`; // Default to 514 area code
-
+  if (digits.length === 7) return `+1514${digits}`;
   return `+${digits}`;
 }
 
@@ -31,12 +17,29 @@ export async function sendSMS(to: string, body: string): Promise<string> {
     return 'dry-run-no-send';
   }
 
-  const message = await client.messages.create({
-    body,
-    from: FROM,
-    to: formatted,
+  const accountSid = process.env.TWILIO_ACCOUNT_SID!;
+  const authToken = process.env.TWILIO_AUTH_TOKEN!;
+  const from = process.env.TWILIO_PHONE_NUMBER!;
+
+  const credentials = btoa(`${accountSid}:${authToken}`);
+  const url = `https://api.twilio.com/2010-04-01/Accounts/${accountSid}/Messages.json`;
+
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      Authorization: `Basic ${credentials}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    },
+    body: new URLSearchParams({ To: formatted, From: from, Body: body }),
   });
-  return message.sid;
+
+  if (!res.ok) {
+    const err = await res.text();
+    throw new Error(`Twilio error ${res.status}: ${err}`);
+  }
+
+  const data = (await res.json()) as { sid: string };
+  return data.sid;
 }
 
 // Send SMS to multiple recipients
@@ -46,7 +49,6 @@ export async function sendBulkSMS(
   const results = await Promise.allSettled(
     recipients.map(({ phone, message }) => sendSMS(phone, message))
   );
-
   return results.map((r) =>
     r.status === 'fulfilled' ? r.value : `error: ${r.reason}`
   );
@@ -56,13 +58,8 @@ export async function sendBulkSMS(
 export function isValidQCPhone(phone: string): boolean {
   const digits = phone.replace(/\D/g, '');
   const qcAreaCodes = ['514', '438', '450', '579', '819', '873', '418', '581', '367'];
-
-  if (digits.length === 10) {
-    return qcAreaCodes.includes(digits.substring(0, 3));
-  }
-  if (digits.length === 11 && digits.startsWith('1')) {
-    return qcAreaCodes.includes(digits.substring(1, 4));
-  }
+  if (digits.length === 10) return qcAreaCodes.includes(digits.substring(0, 3));
+  if (digits.length === 11 && digits.startsWith('1')) return qcAreaCodes.includes(digits.substring(1, 4));
   return false;
 }
 
@@ -80,5 +77,3 @@ export function parseInboundSMS(formData: FormData): TwilioInboundSMS {
     messageSid: formData.get('MessageSid') as string,
   };
 }
-
-export { client as twilioClient };
