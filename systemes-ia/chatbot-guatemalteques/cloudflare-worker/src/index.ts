@@ -1,7 +1,8 @@
-import Anthropic from "@anthropic-ai/sdk";
+// Groq API — OpenAI-compatible, free tier
+// Model: llama-3.3-70b-versatile
 
 interface Env {
-  ANTHROPIC_API_KEY: string;
+  GROQ_API_KEY: string;
 }
 
 const SYSTEM_PROMPT = `Tu es l'assistant officiel de Taillage Haie Lite, une entreprise d'entretien résidentiel basée au Québec, Canada.
@@ -142,7 +143,7 @@ const HTML = `<!DOCTYPE html>
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0" />
-  <title>Haie Lite — Assistant / Asistente</title>
+  <title>Haie Lite \u2014 Assistant / Asistente</title>
   <style>
     * { box-sizing: border-box; margin: 0; padding: 0; }
     :root {
@@ -197,36 +198,36 @@ const HTML = `<!DOCTYPE html>
 </head>
 <body>
 <header>
-  <div class="logo">🌿</div>
+  <div class="logo">\U0001f331</div>
   <div class="header-text">
-    <h1>Haie Lite — Assistant</h1>
-    <p><span class="status-dot"></span>En ligne &nbsp;·&nbsp; En línea</p>
+    <h1>Haie Lite \u2014 Assistant</h1>
+    <p><span class="status-dot"></span>En ligne &nbsp;\xb7&nbsp; En l\xednea</p>
   </div>
-  <button class="icon-btn" onclick="clearChat()" title="Nouvelle conv. / Nueva conv.">↺</button>
+  <button class="icon-btn" onclick="clearChat()" title="Nouvelle conv. / Nueva conv.">\u21ba</button>
 </header>
 <div id="messages">
   <div class="welcome-card">
-    <h2>🇨🇦 Bienvenue / Bienvenido(a)</h2>
-    <p>🇫🇷 <strong>FR :</strong> Je suis ton assistant Haie Lite. Pose-moi toutes tes questions sur le travail, la paye, la sécurité, les techniques ou la vie au Québec.</p>
-    <p>🇬🇹 <strong>ES :</strong> Soy tu asistente de Haie Lite. Hazme cualquier pregunta sobre el trabajo, el pago, la seguridad, las técnicas de poda o la vida en Quebec.</p>
+    <h2>\U0001f1e8\U0001f1e6 Bienvenue / Bienvenido(a)</h2>
+    <p>\U0001f1eb\U0001f1f7 <strong>FR :</strong> Je suis ton assistant Haie Lite. Pose-moi toutes tes questions sur le travail, la paye, la s\xe9curit\xe9, les techniques ou la vie au Qu\xe9bec.</p>
+    <p>\U0001f1ec\U0001f1f9 <strong>ES :</strong> Soy tu asistente de Haie Lite. Hazme cualquier pregunta sobre el trabajo, el pago, la seguridad, las t\xe9cnicas de poda o la vida en Quebec.</p>
   </div>
   <div class="emergency-banner">
-    🚨 <span><strong>Emergencia / Urgence :</strong> 911 &nbsp;|&nbsp; Accident travail CSST : 1-844-838-0808 &nbsp;|&nbsp; Jean-Samuel : 450-280-3222</span>
+    \U0001f6a8 <span><strong>Emergencia / Urgence :</strong> 911 &nbsp;|&nbsp; Accident travail CSST : 1-844-838-0808 &nbsp;|&nbsp; Jean-Samuel : 450-280-3222</span>
   </div>
-  <div class="section-label">Preguntas frecuentes / Questions fréquentes</div>
+  <div class="section-label">Preguntas frecuentes / Questions fr\xe9quentes</div>
   <div class="quick-actions">
-    <button class="quick-btn" onclick="quickSend('Cuales son mis horarios de trabajo?')">⏰ Horarios</button>
-    <button class="quick-btn" onclick="quickSend('Cuando y como me pagan?')">💵 Pago</button>
-    <button class="quick-btn" onclick="quickSend('Que hago en caso de accidente?')">🚑 Urgencias</button>
-    <button class="quick-btn" onclick="quickSend('Que equipo de proteccion debo usar?')">🦺 Seguridad</button>
-    <button class="quick-btn" onclick="quickSend('Como hacer el corte conico del seto de cedro?')">✂️ Técnica poda</button>
-    <button class="quick-btn" onclick="quickSend('Quien es mi supervisor y como contactarlo?')">👷 Contactos</button>
-    <button class="quick-btn" onclick="quickSend('Comment fonctionne le logement fourni?')">🏠 Logement</button>
-    <button class="quick-btn" onclick="quickSend('Cuales son las reglas en los sitios de trabajo?')">📋 Règles</button>
+    <button class="quick-btn" onclick="quickSend('Cuales son mis horarios de trabajo?')">\u23f0 Horarios</button>
+    <button class="quick-btn" onclick="quickSend('Cuando y como me pagan?')">\U0001f4b5 Pago</button>
+    <button class="quick-btn" onclick="quickSend('Que hago en caso de accidente?')">\U0001f691 Urgencias</button>
+    <button class="quick-btn" onclick="quickSend('Que equipo de proteccion debo usar?')">\U0001f9ba Seguridad</button>
+    <button class="quick-btn" onclick="quickSend('Como hacer el corte conico del seto de cedro?')">\u2702\ufe0f T\xe9cnica poda</button>
+    <button class="quick-btn" onclick="quickSend('Quien es mi supervisor y como contactarlo?')">\U0001f477 Contactos</button>
+    <button class="quick-btn" onclick="quickSend('Comment fonctionne le logement fourni?')">\U0001f3e0 Logement</button>
+    <button class="quick-btn" onclick="quickSend('Cuales son las reglas en los sitios de trabajo?')">\U0001f4cb R\xe8gles</button>
   </div>
 </div>
 <div class="input-area">
-  <textarea id="input" placeholder="Escribe tu pregunta / Écris ta question..." rows="1"
+  <textarea id="input" placeholder="Escribe tu pregunta / \xc9cris ta question..." rows="1"
     onkeydown="handleKey(event)" oninput="autoResize(this)"></textarea>
   <button id="send-btn" onclick="sendMessage()">
     <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
@@ -250,7 +251,7 @@ function clearChat(){
 }
 function addMsg(role,content){
   const wrap=document.createElement('div');wrap.className='message '+role;
-  const av=document.createElement('div');av.className='avatar';av.textContent=role==='user'?'👤':'🌿';
+  const av=document.createElement('div');av.className='avatar';av.textContent=role==='user'?'\U0001f464':'\U0001f331';
   const bub=document.createElement('div');bub.className='bubble';
   if(role==='bot')bub.innerHTML=fmt(content);else bub.textContent=content;
   wrap.appendChild(av);wrap.appendChild(bub);
@@ -258,7 +259,7 @@ function addMsg(role,content){
 }
 function addTyping(){
   const wrap=document.createElement('div');wrap.className='message bot';wrap.id='typing';
-  const av=document.createElement('div');av.className='avatar';av.textContent='🌿';
+  const av=document.createElement('div');av.className='avatar';av.textContent='\U0001f331';
   const bub=document.createElement('div');bub.className='bubble typing';
   bub.innerHTML='<span></span><span></span><span></span>';
   wrap.appendChild(av);wrap.appendChild(bub);messagesEl.appendChild(wrap);scrollBottom();
@@ -266,12 +267,12 @@ function addTyping(){
 function removeTyping(){const el=document.getElementById('typing');if(el)el.remove();}
 function fmt(t){
   let s=t.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
-  s=s.replace(/\\*\\*(.*?)\\*\\*/g,'<strong>$1</strong>');
-  s=s.replace(/\\*(.*?)\\*/g,'<em>$1</em>');
-  s=s.replace(/^[•\\-] (.+)$/gm,'<li>$1</li>');
-  s=s.replace(/^\\d+\\. (.+)$/gm,'<li>$1</li>');
-  s=s.replace(/(<li>[\\s\\S]*?<\\/li>\\n?)+/g,m=>'<ul>'+m+'</ul>');
-  s=s.replace(/\\n\\n+/g,'</p><p>').replace(/\\n/g,'<br>');
+  s=s.replace(/\*\*(.*?)\*\*/g,'<strong>$1</strong>');
+  s=s.replace(/\*(.*?)\*/g,'<em>$1</em>');
+  s=s.replace(/^[•\-] (.+)$/gm,'<li>$1</li>');
+  s=s.replace(/^\d+\. (.+)$/gm,'<li>$1</li>');
+  s=s.replace(/(<li>[\s\S]*?<\/li>\n?)+/g,m=>'<ul>'+m+'</ul>');
+  s=s.replace(/\n\n+/g,'</p><p>').replace(/\n/g,'<br>');
   return '<p>'+s+'</p>';
 }
 async function sendMessage(){
@@ -285,28 +286,33 @@ async function sendMessage(){
   try{
     const res=await fetch('/chat',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({messages:history.slice(-20)})});
     removeTyping();
-    if(!res.ok)throw new Error('HTTP '+res.status);
+    if(!res.ok){const err=await res.text();throw new Error(err);}
     const bub=addMsg('bot','');
     let full='';
     const reader=res.body.getReader();const dec=new TextDecoder();
     while(true){
       const{done,value}=await reader.read();if(done)break;
-      for(const line of dec.decode(value).split('\\n')){
+      for(const line of dec.decode(value).split('\n')){
         if(!line.startsWith('data: '))continue;
         const d=line.slice(6);if(d==='[DONE]')break;
-        try{const p=JSON.parse(d);if(p.text){full+=p.text;bub.innerHTML=fmt(full);scrollBottom();}if(p.error){bub.innerHTML='⚠️ '+p.error;}}catch{}
+        try{const p=JSON.parse(d);if(p.text){full+=p.text;bub.innerHTML=fmt(full);scrollBottom();}if(p.error){bub.innerHTML='\u26a0\ufe0f '+p.error;}}catch{}
       }
     }
     history.push({role:'assistant',content:full});
   }catch(err){
     removeTyping();
-    addMsg('bot','⚠️ Erreur / Error: '+err.message+'\\n\\nContacta a Henri o llama al 450-280-3222.');
+    addMsg('bot','\u26a0\ufe0f Erreur / Error: '+err.message+'\n\nContacta a Henri o llama al 450-280-3222.');
   }
   streaming=false;sendBtn.disabled=false;inputEl.focus();
 }
 </script>
 </body>
 </html>`;
+
+interface ChatMessage {
+  role: string;
+  content: string;
+}
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
@@ -319,7 +325,7 @@ export default {
     }
 
     if (request.method === "POST" && url.pathname === "/chat") {
-      let body: { messages: Anthropic.MessageParam[] };
+      let body: { messages: ChatMessage[] };
       try {
         body = await request.json();
       } catch {
@@ -327,27 +333,63 @@ export default {
       }
 
       const messages = body.messages.slice(-20);
-      const client = new Anthropic({ apiKey: env.ANTHROPIC_API_KEY });
       const { readable, writable } = new TransformStream();
       const writer = writable.getWriter();
       const encoder = new TextEncoder();
 
       (async () => {
         try {
-          const stream = client.messages.stream({
-            model: "claude-haiku-4-5-20251001",
-            max_tokens: 1024,
-            system: SYSTEM_PROMPT,
-            messages,
-          });
+          const groqRes = await fetch(
+            "https://api.groq.com/openai/v1/chat/completions",
+            {
+              method: "POST",
+              headers: {
+                Authorization: `Bearer ${env.GROQ_API_KEY}`,
+                "Content-Type": "application/json",
+              },
+              body: JSON.stringify({
+                model: "llama-3.3-70b-versatile",
+                max_tokens: 1024,
+                stream: true,
+                messages: [
+                  { role: "system", content: SYSTEM_PROMPT },
+                  ...messages,
+                ],
+              }),
+            }
+          );
 
-          for await (const event of stream) {
-            if (
-              event.type === "content_block_delta" &&
-              event.delta.type === "text_delta"
-            ) {
-              const data = JSON.stringify({ text: event.delta.text });
-              await writer.write(encoder.encode(`data: ${data}\n\n`));
+          if (!groqRes.ok) {
+            const errText = await groqRes.text();
+            await writer.write(
+              encoder.encode(
+                `data: ${JSON.stringify({ error: errText })}\n\n`
+              )
+            );
+            return;
+          }
+
+          const reader = groqRes.body!.getReader();
+          const dec = new TextDecoder();
+
+          while (true) {
+            const { done, value } = await reader.read();
+            if (done) break;
+            for (const line of dec.decode(value).split("\n")) {
+              if (!line.startsWith("data: ")) continue;
+              const d = line.slice(6);
+              if (d === "[DONE]") break;
+              try {
+                const chunk = JSON.parse(d);
+                const text = chunk.choices?.[0]?.delta?.content;
+                if (text) {
+                  await writer.write(
+                    encoder.encode(
+                      `data: ${JSON.stringify({ text })}\n\n`
+                    )
+                  );
+                }
+              } catch {}
             }
           }
 
