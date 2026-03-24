@@ -2,7 +2,8 @@
 
 **Adresse de consommation :** 1498 ch du Village, Mont-Tremblant QC J8E 1G7
 **Titulaire :** Stephane Trottier
-**Source :** Hadaly Data Room — 13 factures extraites (+ 1 periode a identifier)
+**Source :** Hadaly Data Room — 29 pages HTML extraites (14 factures + historiques)
+**Compteur B :** G9SJ1368740 | **Compteur A :** G9SJ1397219
 
 Deux compteurs distincts au meme 1498 ch du Village (adresse commerciale).
 
@@ -29,47 +30,78 @@ Deux compteurs distincts au meme 1498 ch du Village (adresse commerciale).
 
 ---
 
-## Compte B — 299 106 475 286
+## Compte B — 299 106 475 286 (client 101 551 816, compteur G9SJ1368740)
 
-| Periode | Duree | kWh | kWh/j | Montant TTC |
-|---|---|---|---|---|
-| 2 nov 2023 — 3 jan 2024 | ~62j | 8 475 | ~137 | 907,59 $ |
-| 2 mars 2024 — 1 mai 2024 | ~60j | 1 407 | ~23 | 205,56 $ |
-| 2 mai 2024 — 2 juil 2024 | ~61j | 1 438 | ~24 | 142,78 $ |
-| 3 juil 2024 — 3 sept 2024 | ~62j | 1 081 | ~17 | 115,78 $ |
-| 4 sept 2024 — 31 oct 2024 | ~57j | 1 289 | ~23 | 129,23 $ |
-| 1 nov 2024 — 3 jan 2025 | ~63j | 5 024 | ~80 | 523,29 $ |
+| Periode | Duree | kWh | kWh/j | Temp moy | Montant TTC |
+|---|---|---|---|---|---|
+| 4 jan 2023 — 1 mars 2023 | 57j | 6 865 | 120.4 | -8 °C | 707,26 $ |
+| 2 mars 2023 — 2 mai 2023 | 62j | 3 949 | 63.7 | 3 °C | 380,04 $ |
+| 3 mai 2023 — 3 juil 2023 | 62j | 2 465 | 39.8 | 15 °C | 215,49 $ |
+| 4 juil 2023 — 1 sept 2023 | 60j | 1 312 | 21.9 | 18 °C | 128,20 $ |
+| 2 sept 2023 — 1 nov 2023 | 61j | 1 454 | 23.8 | 12 °C | 139,33 $ |
+| 2 nov 2023 — 3 jan 2024 | 63j | 8 475 | 134.5 | -3 °C | 907,59 $ |
+| 4 jan 2024 — 1 mars 2024 | 58j | 7 672 | 132.3 | -7 °C | 820,49 $ |
+| 2 mars 2024 — 1 mai 2024 | 61j | 2 197 | 36.0 | 3 °C | 205,56 $ |
+| 2 mai 2024 — 2 juil 2024 | 62j | 1 438 | 23.2 | 16 °C | 142,78 $ |
+| 3 juil 2024 — 3 sept 2024 | 63j | 1 081 | 17.2 | 18 °C | 115,78 $ |
+| 4 sept 2024 — 31 oct 2024 | 58j | 1 289 | 22.2 | 11 °C | 129,23 $ |
+| 1 nov 2024 — 3 jan 2025 | 64j | 5 024 | 78.5 | -1 °C | 523,29 $ |
 
-**Manquant :** Jan-Mars 2024 (non sauvegarde dans Hadaly)
+**Totaux annuels confirmes (source : historique imprime sur facture) :**
+- Jan 2023 a jan 2024 (365j) : **24 520 kWh — 2 477,91 $**
+- Jan 2024 a jan 2025 (366j) : **18 701 kWh — 1 937,13 $** (calcule : somme des 6 periodes)
 
 ---
 
 ## Analyse
 
-### Saisonnalite marquee
+### Saisonnalite Compte A (chauffage principal)
 
-| Saison | Compte A (kWh/jour) | Compte B (kWh/jour) |
-|---|---|---|
-| Hiver (nov-jan) | ~106-110 kWh/j | ~80-137 kWh/j |
-| Printemps (mars-mai) | ~76 kWh/j | ~23 kWh/j |
-| Ete (juil-sept) | ~36 kWh/j | ~17-24 kWh/j |
+| Saison | kWh/jour |
+|---|---|
+| Hiver (nov-jan) | 105-110 kWh/j |
+| Printemps (mars-mai) | 76 kWh/j |
+| Ete (juil-sept) | 36 kWh/j |
 
-La saisonnalite extreme du Compte A (hiver 3x printemps, 3x ete) indique chauffage electrique principal.
-Le Compte B a une anomalie hiver 2023 (8 475 kWh = ~137 kWh/j) vs hiver 2024 (5 024 kWh = ~80 kWh/j) — baisse de 40%, a investiguer.
+Ratio hiver/ete = 3x : chauffage electrique principal, consommation stable annee sur annee (+2.2% en kWh).
 
-### Couts annuels reels (Compte A confirme, Compte B estime)
+### Effondrement Compte B entre 2023 et 2024
 
-| Compte | Annee 2023-2024 | Annee 2024-2025 | Evolution |
+| Annee | kWh annuel | Cout annuel | Variation |
 |---|---|---|---|
-| Compte A (299 107 081 653) | 2 478,57 $ | 2 570,79 $ | +3.7% |
-| Compte B (299 106 475 286) | ~2 400 $ (estime) | ~2 200 $ (estime) | — |
-| **Total electricite** | **~4 900 $/an** | **~4 800 $/an** | stable |
+| Jan 2023 - Jan 2024 | 24 520 kWh | 2 477,91 $ | — |
+| Jan 2024 - Jan 2025 | 18 701 kWh | 1 937,13 $ | **-23.7% kWh / -21.8% $** |
+
+**Periodes en chute libre :**
+
+| Periode | 2023 kWh | 2024 kWh | Variation |
+|---|---|---|---|
+| Nov-Jan (hiver) | 8 475 kWh (134.5 kWh/j) | 5 024 kWh (78.5 kWh/j) | **-41%** |
+| Jan-Mars (hiver 2) | 6 865 kWh (120.4 kWh/j) | 7 672 kWh (132.3 kWh/j) | +12% |
+| Mars-Mai (printemps) | 3 949 kWh (63.7 kWh/j) | 2 197 kWh (36.0 kWh/j) | **-44%** |
+| Mai-Jul (ete) | 2 465 kWh (39.8 kWh/j) | 1 438 kWh (23.2 kWh/j) | **-42%** |
+
+**Hypotheses a investiguer :**
+- Retrait d'un equipement energie-intensif (compresseur, serre, chambre froide, ateliers de transformation)
+- Changement de mode de chauffage (remplacement electrique par propane/mazout) sur le compteur B
+- Espace B partiellement inutilise en 2024 (reorganisation operationnelle)
+- Le compteur B = compteur du "sous-sol du bureau" (voir notes inventaire) + equipements annexes
+
+### Couts annuels totaux
+
+| Compte | Jan 2023 - Jan 2024 | Jan 2024 - Jan 2025 | Evolution |
+|---|---|---|---|
+| Compte A (299 107 081 653) | ~2 478 $ | 2 570,79 $ | +3.7% |
+| Compte B (299 106 475 286) | 2 477,91 $ | 1 937,13 $ | **-21.8%** |
+| **Total electricite** | **~4 956 $/an** | **~4 508 $/an** | **-9.0%** |
 
 ### Contexte
 
-- 1498 ch du Village = adresse commerciale (meme que registraire)
-- Deux compteurs = probablement batiment principal + atelier/garage
+- 1498 ch du Village = adresse commerciale (meme que registraire) — Stephane Trottier y loue le sous-sol de son bureau pour 1 000$/mois tout inclus (voir notes-inventaire.md)
+- Deux compteurs : probablement batiment principal (A) + atelier/garage/sous-sol (B)
 - Factures au nom personnel de Stephane Trottier (pas au nom de la compagnie)
 - Paiements par prelevement automatique, aucun retard dans les releves disponibles
-- Tarif domestique D (residetiel) — non tarif commercial (G) : a verifier si conforme
-- Hausse tarifaire Hydro de 3% appliquee le 1er avril 2024 visible sur la facture mars-mai 2024
+- Tarif domestique D (residentiel) — non tarif commercial (G) : a verifier si conforme pour usage commercial
+- Hausse tarifaire Hydro de 3% appliquee le 1er avril 2024 visible sur factures mars-mai 2024
+- Avant hausse : 0,06509 $/kWh (tranche 1) + 0,10041 $/kWh (tranche 2) + 0,43505 $/j (acces)
+- Apres hausse : 0,06704 $/kWh (tranche 1) + 0,4481 $/j (acces)
