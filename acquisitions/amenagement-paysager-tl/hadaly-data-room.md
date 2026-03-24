@@ -51,6 +51,30 @@ Transaction de type acquisition sur **Amenagement Paysager TL Inc.** La data roo
 |---|---|
 | `Info Amenagement paysager (1).docx` | 12.60 KB |
 
+### Releves Bancaires / Autres documents financiers
+
+Section `fwvaluationethqsur1an` — 14 PDFs + 3 images (17 docs total)
+
+| Fichier | Categorie | Taille | Contenu identifie |
+|---|---|---|---|
+| `613603097581.pdf` | Releve Bancaire | 68.92 KB | Facture Hydro-QC — compte 299 106 475 286 |
+| `630702843942.pdf` | Releve Bancaire | 68.88 KB | Facture Hydro-QC — compte 299 107 081 653, janv 2024 |
+| `633402884471.pdf` | Autres docs financiers | 87.79 KB | Facture Hydro-QC — compte 299 107 081 653, mars-mai 2024 |
+| `639702842562.pdf` | Releve Bancaire | 68.96 KB | Facture Hydro-QC — compte 299 107 081 653, mars 2024 |
+| `642402994849.pdf` | Autres docs financiers | 68.91 KB | Facture Hydro-QC — compte 299 107 081 653, janv 2025 |
+| `643302934313.pdf` | Releve Bancaire | 67.84 KB | Facture Hydro-QC — compte 299 106 475 286, sept 2024 |
+| `648702917182.pdf` | Releve Bancaire | 67.94 KB | Facture Hydro-QC — compte 299 107 081 653, sept 2024 |
+| `653202869161.pdf` | Releve Bancaire | 68.92 KB | Facture Hydro-QC — compte 299 107 081 653, juil 2024 |
+| `655902939165.pdf` | Autres docs financiers | 67.96 KB | Facture Hydro-QC — compte 299 106 475 286, nov 2024 |
+| `662202846099.pdf` | Releve Bancaire | 67.83 KB | Facture Hydro-QC — compte 299 106 475 286, juil 2024 |
+| `671202879810.pdf` | Autres docs financiers | 68.91 KB | Facture Hydro-QC — compte 299 106 475 286, juil 2024 |
+| `685602684958.pdf` | Autres docs financiers | 86.07 KB | Facture Hydro-QC — compte 299 106 475 286, mai 2024 |
+| `689202595363.pdf` | Autres docs financiers | 68.79 KB | Facture Hydro-QC — compte 299 106 475 286, janv 2024 |
+| `694602369800.pdf` | Autres docs financiers | 68.91 KB | Facture Hydro-QC — a identifier |
+| `IMG_3692.jpeg` | **Bail Commercial** | **6.68 MB** | **Bail commercial — A TELECHARGER EN PRIORITE** |
+| `IMG_3694.jpeg` | Autres docs financiers | 7.50 MB | Document financier photo — a identifier |
+| `IMG_3695.jpeg` | Autres docs financiers | 4.21 MB | Document financier photo — a identifier |
+
 ---
 
 ## Observations preliminaires
@@ -59,13 +83,16 @@ Transaction de type acquisition sur **Amenagement Paysager TL Inc.** La data roo
 - **Doublons :** Plusieurs fichiers en double `(1)` — re-uploads dans Hadaly
 - **Manquant :** EF 30 novembre 2024 absent de la liste visible
 - **`FINANCIALS TL.pdf` (1.96 MB)** — probablement un consolide multi-annees ou document de presentation acheteur
+- **`IMG_3692.jpeg` = Bail Commercial** (6.68 MB) — document cle pour la due diligence (conditions, loyer, echeance, clauses de cession)
+- **14 factures Hydro-Quebec** documentees — voir `hydro-quebec-factures.md`
 
 ---
 
 ## Prochaines etapes
 
-- [ ] Telecharger les PDFs depuis Hadaly et les ajouter dans ce dossier
-- [ ] Analyser les EF : revenus, marges, BAIIA, dette
+- [ ] **PRIORITAIRE** : Telecharger `IMG_3692.jpeg` (Bail Commercial) depuis Hadaly
+- [ ] Telecharger `IMG_3694.jpeg` et `IMG_3695.jpeg` pour identifier le contenu
+- [ ] Telecharger et analyser les EF : revenus, marges, BAIIA, dette
 - [ ] Comparer avec les chiffres de Taillage de haies pour evaluer synergies
-- [ ] Verifier l'etat du registre des entreprises (actionnaires, dirigeants)
 - [ ] Analyser l'inventaire (`Info Amenagement paysager.docx`)
+- [ ] Identifier `694602369800.pdf` (derniere facture Hydro non vue)
