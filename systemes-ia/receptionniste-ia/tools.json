@@ -1,118 +1,211 @@
 [
   {
-    "name": "availableSlots",
-    "description": "Récupère 2-3 créneaux disponibles pour un RDV de taillage de haies. Créneau par défaut : demain ou jour suivant (weekday), entre 8h et 17h.",
-    "parameters": {
-      "type": "object",
-      "properties": {
-        "preferredDate": {
-          "type": "string",
-          "description": "Date préférée au format YYYY-MM-DD. Si non fournie, utilise demain ou le jour suivant disponible."
-        },
-        "preferredTime": {
-          "type": "string",
-          "description": "Heure préférée au format HH:MM. Si non fournie, suggère 10h, 13h ou 15h."
-        }
-      },
-      "required": []
-    }
-  },
-  {
-    "name": "bookAppointment",
-    "description": "Confirme un RDV et crée une estimation dans ServiceM8. Appelle cette fonction une fois que le client a confirmé un créneaux.",
-    "parameters": {
-      "type": "object",
-      "properties": {
-        "clientName": {
-          "type": "string",
-          "description": "Nom complet du client"
-        },
-        "phone": {
-          "type": "string",
-          "description": "Numéro de téléphone du client (format: 514-123-4567 ou +1-514-123-4567)"
-        },
-        "address": {
-          "type": "string",
-          "description": "Adresse de la propriété (numéro et rue)"
-        },
-        "city": {
-          "type": "string",
-          "description": "Ville/municipalité"
-        },
-        "hedgeType": {
-          "type": "string",
-          "enum": ["cèdre", "feuillue", "mixte", "cèdre-persistant", "autre"],
-          "description": "Type de haie"
-        },
-        "hedgeSides": {
-          "type": "integer",
-          "description": "Nombre de côtés de haie (1, 2, 3 ou 4)",
-          "minimum": 1,
-          "maximum": 4
-        },
-        "hedgeHeight": {
-          "type": "string",
-          "enum": ["basse", "moyenne", "haute", "très-haute"],
-          "description": "Hauteur approximative de la haie"
-        },
-        "selectedSlot": {
-          "type": "object",
-          "description": "Créneau sélectionné",
-          "properties": {
-            "date": {
-              "type": "string",
-              "description": "Date au format YYYY-MM-DD"
-            },
-            "time": {
-              "type": "string",
-              "description": "Heure au format HH:MM"
-            }
+    "id": "60333396-28b1-4abc-9d08-e5bf9b2582a4",
+    "createdAt": "2026-03-31T21:54:09.331Z",
+    "updatedAt": "2026-03-31T21:54:09.331Z",
+    "type": "function",
+    "function": {
+      "name": "availableSlots",
+      "description": "Obtenir les créneaux disponibles pour un rendez-vous de taillage de haies. Appeler quand le client veut prendre rendez-vous.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "preferredDate": {
+            "description": "Date préférée au format YYYY-MM-DD",
+            "type": "string"
           },
-          "required": ["date", "time"]
-        },
-        "notes": {
-          "type": "string",
-          "description": "Notes additionnelles (accès difficile, terrain pente, etc.)"
+          "preferredTime": {
+            "description": "Heure préférée au format HH:MM (ex: 10:00, 13:00)",
+            "type": "string"
+          }
         }
+      }
+    },
+    "messages": [
+      {
+        "type": "request-start",
+        "content": "Un instant, je vérifie les disponibilités."
       },
-      "required": ["clientName", "phone", "address", "city", "hedgeType", "hedgeSides", "hedgeHeight", "selectedSlot"]
-    }
+      {
+        "type": "request-failed",
+        "content": "Excusez-moi, petit problème technique."
+      }
+    ],
+    "orgId": "30f961c8-b6b0-4343-b496-25af045c65f8",
+    "server": {
+      "url": "https://haie-lite-receptionniste.haielite.workers.dev/webhook"
+    },
+    "async": false
   },
   {
-    "name": "sendSMS",
-    "description": "Envoie une confirmation ou rappel par SMS au client",
-    "parameters": {
-      "type": "object",
-      "properties": {
-        "to": {
-          "type": "string",
-          "description": "Numéro de téléphone du destinataire (format: 514-123-4567 ou +1-514-123-4567)"
+    "id": "4f99e3d1-e56d-4bd0-a766-ca686b2a7b03",
+    "createdAt": "2026-03-31T21:54:09.470Z",
+    "updatedAt": "2026-03-31T21:54:09.470Z",
+    "type": "function",
+    "function": {
+      "name": "bookAppointment",
+      "description": "Réserver un rendez-vous de taillage de haies. Appeler SEULEMENT quand on a: nom complet, téléphone, adresse, ville, type de haie, nombre de côtés, et créneau choisi.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "city": {
+            "description": "Ville",
+            "type": "string"
+          },
+          "notes": {
+            "description": "Notes additionnelles (dessus, gouttières, vitres, etc.)",
+            "type": "string"
+          },
+          "phone": {
+            "description": "Numéro de téléphone à 10 chiffres",
+            "type": "string"
+          },
+          "address": {
+            "description": "Adresse de la propriété",
+            "type": "string"
+          },
+          "hedgeType": {
+            "description": "Type de haie: cèdre, feuillue, mixte, autre",
+            "type": "string"
+          },
+          "clientName": {
+            "description": "Nom complet du client",
+            "type": "string"
+          },
+          "hedgeSides": {
+            "description": "Nombre de côtés à tailler (1-4)",
+            "type": "number"
+          },
+          "hedgeHeight": {
+            "description": "Hauteur: basse, moyenne, haute, très-haute",
+            "type": "string"
+          },
+          "selectedSlot": {
+            "description": "Créneau sélectionné",
+            "type": "object",
+            "required": [
+              "date",
+              "time"
+            ],
+            "properties": {
+              "date": {
+                "description": "Date YYYY-MM-DD",
+                "type": "string"
+              },
+              "time": {
+                "description": "Heure HH:MM",
+                "type": "string"
+              }
+            }
+          }
         },
-        "message": {
-          "type": "string",
-          "description": "Contenu du SMS (max 160 caractères idéalement)"
-        }
+        "required": [
+          "clientName",
+          "phone",
+          "address",
+          "city",
+          "hedgeType",
+          "hedgeSides",
+          "selectedSlot"
+        ]
+      }
+    },
+    "messages": [
+      {
+        "type": "request-start",
+        "content": "Je réserve votre rendez-vous."
       },
-      "required": ["to", "message"]
-    }
+      {
+        "type": "request-failed",
+        "content": "Excusez-moi, petit problème technique. On vous rappelle demain."
+      }
+    ],
+    "orgId": "30f961c8-b6b0-4343-b496-25af045c65f8",
+    "server": {
+      "url": "https://haie-lite-receptionniste.haielite.workers.dev/webhook"
+    },
+    "async": false
   },
   {
-    "name": "transferCall",
-    "description": "Transfère l'appel à Henri (manager) en cas de client en colère, demande complexe ou escalade commerciale.",
-    "parameters": {
-      "type": "object",
-      "properties": {
-        "reason": {
-          "type": "string",
-          "enum": ["angry_client", "complex_quote", "emergency", "commercial", "escalation"],
-          "description": "Raison de la transfert"
+    "id": "8fc0a76c-b718-4e70-a3f6-84884ceaee33",
+    "createdAt": "2026-03-31T21:54:09.599Z",
+    "updatedAt": "2026-03-31T21:54:09.599Z",
+    "type": "function",
+    "function": {
+      "name": "sendSMS",
+      "description": "Envoyer un SMS de confirmation au client après la réservation. Envoyer automatiquement après bookAppointment.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "to": {
+            "description": "Numéro de téléphone du destinataire à 10 chiffres",
+            "type": "string"
+          },
+          "message": {
+            "description": "Message SMS de confirmation à envoyer",
+            "type": "string"
+          }
         },
-        "destination": {
-          "type": "string",
-          "description": "Numéro de destination (par défaut: +1-514-813-8957 pour Henri)"
-        }
-      },
-      "required": ["reason"]
-    }
+        "required": [
+          "to",
+          "message"
+        ]
+      }
+    },
+    "messages": [
+      {
+        "type": "request-start",
+        "content": "Je vous envoie la confirmation par texto."
+      }
+    ],
+    "orgId": "30f961c8-b6b0-4343-b496-25af045c65f8",
+    "server": {
+      "url": "https://haie-lite-receptionniste.haielite.workers.dev/webhook"
+    },
+    "async": true
+  },
+  {
+    "id": "3a61fe0c-de80-48a6-a21a-182493e557d8",
+    "createdAt": "2026-03-31T21:54:10.064Z",
+    "updatedAt": "2026-03-31T21:54:10.064Z",
+    "type": "function",
+    "function": {
+      "name": "transferCall",
+      "description": "Transférer l'appel à un humain. Utiliser quand: client fâché, demande complexe, urgence, demande commerciale, ou le client veut parler à quelqu'un.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "reason": {
+            "description": "Raison du transfert",
+            "type": "string",
+            "enum": [
+              "angry_client",
+              "complex_quote",
+              "emergency",
+              "commercial",
+              "escalation"
+            ]
+          },
+          "destination": {
+            "description": "Numéro de destination (optionnel, défaut: Henri)",
+            "type": "string"
+          }
+        },
+        "required": [
+          "reason"
+        ]
+      }
+    },
+    "messages": [
+      {
+        "type": "request-start",
+        "content": "Je vous transfère tout de suite."
+      }
+    ],
+    "orgId": "30f961c8-b6b0-4343-b496-25af045c65f8",
+    "server": {
+      "url": "https://haie-lite-receptionniste.haielite.workers.dev/webhook"
+    },
+    "async": false
   }
 ]
