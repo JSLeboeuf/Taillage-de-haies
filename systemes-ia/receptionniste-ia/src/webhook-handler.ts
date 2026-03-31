@@ -53,13 +53,31 @@ interface TransferCallResponse {
   message: string;
 }
 
+// VAPI webhook types — matches official docs + Milette prod handler
+interface VAPIToolCall {
+  id: string;
+  name?: string;
+  function?: { name: string; arguments: string };
+  parameters?: Record<string, unknown>;
+}
+
+interface VAPIToolWithToolCall {
+  name?: string;
+  toolCall: VAPIToolCall;
+}
+
 interface VAPIRequest {
   message: {
     type: string;
-    functionCall: {
+    // Legacy format (function-call)
+    functionCall?: {
       name: string;
       parameters: Record<string, unknown>;
     };
+    // Modern format (tool-calls) — official VAPI docs
+    toolCallList?: VAPIToolCall[];
+    toolWithToolCallList?: VAPIToolWithToolCall[];
+    toolCalls?: VAPIToolCall[];
   };
 }
 
@@ -320,7 +338,65 @@ async function handleTransferCall(
   };
 }
 
-// Main webhook handler
+// Execute a single tool call by name
+async function executeTool(
+  name: string,
+  params: Record<string, unknown>,
+  env: CloudflareEnv
+): Promise<unknown> {
+  switch (name) {
+    case 'availableSlots':
+      return handleAvailableSlots(params);
+    case 'bookAppointment':
+      return handleBookAppointment(params);
+    case 'sendSMS':
+      return handleSendSMS(params, env);
+    case 'transferCall':
+      return handleTransferCall(params);
+    default:
+      throw new Error(`Unknown function: ${name}`);
+  }
+}
+
+// Extract tool calls from VAPI payload (supports both legacy + modern formats)
+function extractToolCalls(message: VAPIRequest['message']): Array<{ id: string; name: string; params: Record<string, unknown> }> {
+  const calls: Array<{ id: string; name: string; params: Record<string, unknown> }> = [];
+
+  // Modern format: tool-calls with toolCallList (official VAPI docs)
+  const rawList = message.toolCallList || message.toolCalls || [];
+  if (rawList.length > 0) {
+    for (const tc of rawList) {
+      const name = tc.name || tc.function?.name || '';
+      const params = tc.parameters || (tc.function?.arguments ? JSON.parse(tc.function.arguments) : {});
+      calls.push({ id: tc.id, name, params });
+    }
+    return calls;
+  }
+
+  // Modern format: toolWithToolCallList
+  if (message.toolWithToolCallList && message.toolWithToolCallList.length > 0) {
+    for (const item of message.toolWithToolCallList) {
+      const tc = item.toolCall;
+      const name = item.name || tc.name || tc.function?.name || '';
+      const params = tc.parameters || (tc.function?.arguments ? JSON.parse(tc.function.arguments) : {});
+      calls.push({ id: tc.id, name, params });
+    }
+    return calls;
+  }
+
+  // Legacy format: function-call with functionCall
+  if (message.functionCall) {
+    calls.push({
+      id: `legacy-${Date.now()}`,
+      name: message.functionCall.name,
+      params: message.functionCall.parameters,
+    });
+  }
+
+  return calls;
+}
+
+// Main webhook handler — supports both legacy (function-call) and modern (tool-calls) VAPI formats
 export async function handleVAPIWebhook(
   request: Request,
   env: CloudflareEnv
@@ -331,42 +407,49 @@ export async function handleVAPIWebhook(
 
   try {
     const payload = (await request.json()) as VAPIRequest;
+    const msgType = payload.message.type;
 
-    if (payload.message.type !== 'function-call') {
+    // Only handle function-call and tool-calls events
+    if (msgType !== 'function-call' && msgType !== 'tool-calls') {
       return new Response(JSON.stringify({ ok: true }), {
         status: 200,
         headers: { 'Content-Type': 'application/json' },
       });
     }
 
-    const functionCall = payload.message.functionCall;
-    let result: unknown;
+    const toolCalls = extractToolCalls(payload.message);
 
-    switch (functionCall.name) {
-      case 'availableSlots':
-        result = await handleAvailableSlots(functionCall.parameters);
-        break;
-
-      case 'bookAppointment':
-        result = await handleBookAppointment(functionCall.parameters);
-        break;
-
-      case 'sendSMS':
-        result = await handleSendSMS(functionCall.parameters, env);
-        break;
-
-      case 'transferCall':
-        result = await handleTransferCall(functionCall.parameters);
-        break;
-
-      default:
-        return new Response(JSON.stringify({ error: `Unknown function: ${functionCall.name}` }), {
-          status: 400,
-          headers: { 'Content-Type': 'application/json' },
-        });
+    if (toolCalls.length === 0) {
+      return new Response(JSON.stringify({ ok: true }), {
+        status: 200,
+        headers: { 'Content-Type': 'application/json' },
+      });
     }
 
-    return new Response(JSON.stringify({ result }), {
+    // Process all tool calls and build results array (VAPI official format)
+    const results: Array<{ toolCallId: string; name?: string; result: string }> = [];
+
+    for (const tc of toolCalls) {
+      try {
+        const toolResult = await executeTool(tc.name, tc.params, env);
+        results.push({
+          toolCallId: tc.id,
+          name: tc.name,
+          result: JSON.stringify(toolResult),
+        });
+      } catch (error) {
+        const errMsg = error instanceof Error ? error.message : 'Unknown error';
+        console.error(`[webhook] Tool ${tc.name} error:`, errMsg);
+        results.push({
+          toolCallId: tc.id,
+          name: tc.name,
+          result: JSON.stringify({ error: errMsg }),
+        });
+      }
+    }
+
+    // Return in VAPI official format: { results: [{ toolCallId, result }] }
+    return new Response(JSON.stringify({ results }), {
       status: 200,
       headers: { 'Content-Type': 'application/json' },
     });
