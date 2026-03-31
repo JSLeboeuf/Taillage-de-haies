@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Suivi Henri & JS — Haie Lite 2026</title>
+    <style>
+        :root {
+            --bg: #0a0f0d;
+            --card: #131a16;
+            --card-alt: #1a2320;
+            --border: #243028;
+            --text: #e4e8e5;
+            --muted: #7a8f80;
+            --green: #22c55e;
+            --green-dim: rgba(34,197,94,0.12);
+            --amber: #f59e0b;
+            --amber-dim: rgba(245,158,11,0.12);
+            --red: #ef4444;
+            --red-dim: rgba(239,68,68,0.12);
+            --blue: #3b82f6;
+            --blue-dim: rgba(59,130,246,0.12);
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',system-ui,sans-serif; background:var(--bg); color:var(--text); line-height:1.6; padding:20px; max-width:900px; margin:0 auto; }
+
+        .header { background:linear-gradient(135deg,#0f2e1a,#1a3d25); border:2px solid var(--green); border-radius:16px; padding:32px; margin-bottom:24px; text-align:center; }
+        .header h1 { font-size:24px; font-weight:800; margin-bottom:4px; }
+        .header .date { color:var(--muted); font-size:14px; }
+        .header .stats { display:flex; justify-content:center; gap:40px; margin-top:20px; }
+        .header .stat { text-align:center; }
+        .header .stat .val { font-size:32px; font-weight:900; color:var(--green); }
+        .header .stat .lbl { font-size:11px; color:var(--muted); text-transform:uppercase; letter-spacing:0.1em; }
+
+        .progress-bar { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:16px 20px; margin-bottom:24px; }
+        .progress-bar .bar-bg { background:rgba(255,255,255,0.06); border-radius:6px; height:12px; overflow:hidden; margin-top:8px; }
+        .progress-bar .bar-fill { height:100%; border-radius:6px; background:linear-gradient(90deg,var(--green),#4ade80); transition:width 0.5s; }
+        .progress-bar .bar-label { display:flex; justify-content:space-between; font-size:12px; color:var(--muted); }
+
+        .section { background:var(--card); border:1px solid var(--border); border-radius:12px; padding:24px; margin-bottom:16px; }
+        .section h2 { font-size:17px; font-weight:700; margin-bottom:16px; display:flex; align-items:center; gap:8px; }
+        .section h2 .tag { font-size:11px; padding:2px 8px; border-radius:100px; font-weight:700; }
+        .tag-done { background:var(--green-dim); color:var(--green); }
+        .tag-progress { background:var(--amber-dim); color:var(--amber); }
+        .tag-todo { background:var(--red-dim); color:var(--red); }
+        .tag-henri { background:rgba(59,130,246,0.15); color:var(--blue); }
+        .tag-js { background:rgba(168,85,247,0.15); color:#a855f7; }
+        .tag-both { background:rgba(34,197,94,0.15); color:var(--green); }
+
+        .task-list { list-style:none; padding:0; }
+        .task-list li { display:flex; align-items:flex-start; gap:10px; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.03); font-size:14px; }
+        .task-list li:last-child { border-bottom:none; }
+        .task-list li.sub { padding-left:28px; font-size:13px; color:rgba(228,232,229,0.7); }
+
+        input[type="checkbox"] {
+            -webkit-appearance:none; appearance:none;
+            width:18px; height:18px; min-width:18px;
+            border:2px solid var(--border); border-radius:4px;
+            background:transparent; cursor:pointer; margin-top:2px;
+            position:relative;
+        }
+        input[type="checkbox"]:checked {
+            background:var(--green); border-color:var(--green);
+        }
+        input[type="checkbox"]:checked::after {
+            content:'✓'; color:white; font-size:12px; font-weight:700;
+            position:absolute; top:-1px; left:2px;
+        }
+        input[type="checkbox"]:checked + span { text-decoration:line-through; color:var(--muted); }
+
+        .owner { font-size:10px; padding:1px 6px; border-radius:100px; margin-left:6px; vertical-align:middle; }
+        .o-henri { background:rgba(59,130,246,0.15); color:var(--blue); }
+        .o-js { background:rgba(168,85,247,0.15); color:#a855f7; }
+        .o-both { background:var(--green-dim); color:var(--green); }
+
+        .note { background:var(--card-alt); border-radius:8px; padding:12px 16px; margin-top:12px; font-size:13px; color:var(--muted); }
+
+        .add-task { display:flex; gap:8px; margin-top:12px; }
+        .add-task input { flex:1; background:var(--card-alt); border:1px solid var(--border); border-radius:8px; padding:8px 12px; color:var(--text); font-size:13px; }
+        .add-task input::placeholder { color:var(--muted); }
+        .add-task button { background:var(--green); color:white; border:none; border-radius:8px; padding:8px 16px; font-size:13px; font-weight:600; cursor:pointer; }
+        .add-task button:hover { background:#16a34a; }
+
+        @media print { body{background:#fff;color:#111;} .section{background:#f8f8f8;border:1px solid #ddd;} .add-task{display:none;} }
+    </style>
+</head>
+<body>
+
+<div class="header">
+    <h1>SUIVI HENRI & JEAN-SAMUEL</h1>
+    <div class="date">Haie Lite — Saison 2026 | Mis à jour : <span id="today"></span></div>
+    <div class="stats">
+        <div class="stat"><div class="val" id="done-count">0</div><div class="lbl">Complétés</div></div>
+        <div class="stat"><div class="val" id="progress-count">0</div><div class="lbl">En cours</div></div>
+        <div class="stat"><div class="val" id="todo-count">0</div><div class="lbl">À faire</div></div>
+        <div class="stat"><div class="val" id="pct">0%</div><div class="lbl">Progression</div></div>
+    </div>
+</div>
+
+<div class="progress-bar">
+    <div class="bar-label"><span>Progression globale</span><span id="pct2">0%</span></div>
+    <div class="bar-bg"><div class="bar-fill" id="bar-fill" style="width:0%"></div></div>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- ACCOMPLISSEMENTS (DONE) -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section">
+    <h2>Accomplissements — Fév-Mars 2026 <span class="tag tag-done">FAIT</span></h2>
+    <ul class="task-list">
+        <li><input type="checkbox" checked><span>GAMEPLAN Q2-2026 complet — 12 slides, timeline 13 semaines</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox" checked><span>Recall clients lancé — 10k$ bookés sur 2/12 pages</span><span class="owner o-henri">Henri</span></li>
+        <li><input type="checkbox" checked><span>2 TET guatémaltèques confirmés pour 1er mai</span><span class="owner o-henri">Henri</span></li>
+        <li><input type="checkbox" checked><span>2 employés locaux additionnels disponibles fin avril</span><span class="owner o-henri">Henri</span></li>
+        <li><input type="checkbox" checked><span>Sophie — Réceptionniste IA vocale déployée (VAPI + Claude)</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox" checked><span>Chatbot traducteur TET déployé (Cloudflare Workers + Groq)</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox" checked><span>App Haie Lite — Dashboard, KPI, pipeline, scoring employés</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox" checked><span>16 automations cron (leads, payroll, reviews, upsell, météo)</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox" checked><span>Pipeline M&A — 120+ entreprises identifiées, 4 deals actifs</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox" checked><span>Séquences emails acquisition — 9 séquences, 14 templates</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox" checked><span>M&A Pipeline Dashboard interactif</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox" checked><span>SEO — 9 pages optimisées live (titles, meta, alt text, Yoast)</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox" checked><span>SEO — 23 brouillons WordPress (10 articles, 8 villes, 3 services)</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox" checked><span>SEO — Schemas JSON-LD préparés (7 schemas)</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox" checked><span>12 livrables Hormozi créés et pushés (SOPs, contrats, scripts)</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox" checked><span>Plans annuels : Tranquillité (1 400$) et Immaculée (2 400$)</span><span class="owner o-both">Tous</span></li>
+        <li><input type="checkbox" checked><span>SOP flowchart 25 étapes + checklist terrain interactive</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox" checked><span>Calculateurs : prix haies, lavage vitres, contrat annuel, LTGP:CAC</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox" checked><span>Dossier subventions complet — 18 programmes, 462k$ potentiel</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox" checked><span>3 scripts automatisation subventions (RS&DE, tracker, expenses)</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox" checked><span>136 commits depuis février 2026</span><span class="owner o-js">JS</span></li>
+    </ul>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- S4 — CETTE SEMAINE (GO/NO-GO) -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section">
+    <h2>Semaine 4 — 31 mars au 6 avril <span class="tag tag-progress">GO/NO-GO</span></h2>
+    <ul class="task-list">
+        <li><input type="checkbox"><span><strong>DÉCISION GO/NO-GO</strong> — 50k$+ pré-bookés?</span><span class="owner o-both">Tous</span></li>
+        <li><input type="checkbox"><span>Recall clients : terminer 12/12 pages — objectif 80k$+</span><span class="owner o-henri">Henri</span></li>
+        <li><input type="checkbox"><span>Assurances RC 2M$ + véhicules souscrites</span><span class="owner o-henri">Henri</span></li>
+        <li><input type="checkbox"><span>Annonces étudiants publiées</span><span class="owner o-henri">Henri</span></li>
+        <li><input type="checkbox"><span>Ads Facebook/Google planifiées avec Jean-Michel</span><span class="owner o-both">Tous</span></li>
+        <li><input type="checkbox"><span>Budget ads augmenté : 2 500$/mois avril</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox"><span>Lancer Google Ads (LSA + Search)</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox"><span>Employé ~40 ans : test autonomie — prêt Crew 2?</span><span class="owner o-henri">Henri</span></li>
+        <li><input type="checkbox"><span>Confirmer 2+ étudiants pour début mai</span><span class="owner o-henri">Henri</span></li>
+        <li><input type="checkbox"><span>Si Martin avance : offre formelle 650k$</span><span class="owner o-both">Tous</span></li>
+        <li><input type="checkbox"><span>Véhicule #2 : confirmer location si crew 2 prêt</span><span class="owner o-henri">Henri</span></li>
+        <li><input type="checkbox"><span>Budget mars vérifié : dépenses vs plan</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox"><span>Demande PAMT soumise</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox"><span><strong style="color:var(--red);">DEADLINE 3 AVRIL</strong> — Premiers Adoptants 75k$ (ou viser juillet)</span><span class="owner o-js">JS</span></li>
+    </ul>
+
+    <h2 style="margin-top:20px;">Subventions — Cette semaine <span class="tag tag-todo">URGENT</span></h2>
+    <ul class="task-list">
+        <li><input type="checkbox"><span>Envoyer email HortiCompétences (PAMT + sub sectorielle)</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox"><span>Envoyer email Investissement Québec (ESSOR 1C)</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox"><span>Envoyer email MEI Primo-adoptants (fenêtre juillet)</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox"><span>Appeler CLE Montérégie — sub salariale + PRIIME + MFOR</span><span class="owner o-both">Tous</span></li>
+        <li><input type="checkbox"><span>Appeler HortiCompétences — PAMT 4 apprentis</span><span class="owner o-both">Tous</span></li>
+        <li><input type="checkbox"><span>Appeler Investissement Québec — ESSOR + C3i</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox"><span>Contacter DEV Vaudreuil-Soulanges — FLI 150k$</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox"><span>Trouver comptable spécialisé RS&DE</span><span class="owner o-js">JS</span></li>
+    </ul>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- S5-S8 — LANCEMENT + RAMP-UP -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section">
+    <h2>Semaines 5-8 — Avril (Lancement + Ramp-up) <span class="tag tag-todo">À VENIR</span></h2>
+    <ul class="task-list">
+        <li><input type="checkbox"><span><strong>7 AVRIL — DÉBUT SAISON</strong> — Crew 1 sur le terrain</span><span class="owner o-henri">Henri</span></li>
+        <li><input type="checkbox"><span>Objectif : 5-7 clients/jour dès semaine 1</span><span class="owner o-henri">Henri</span></li>
+        <li><input type="checkbox"><span>ServiceM8 100% configuré et testé</span><span class="owner o-both">Tous</span></li>
+        <li><input type="checkbox"><span>Ads actives, premiers leads entrants</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox"><span>Porte-à-porte : Rive-Sud, Longueuil</span><span class="owner o-henri">Henri</span></li>
+        <li><input type="checkbox"><span>Si acquisition Martin : transition clients S1-S2</span><span class="owner o-both">Tous</span></li>
+        <li><input type="checkbox"><span>Setup KPI dashboard : masse salariale/jour, CA/jour</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox"><span>2 employés locaux commencent fin avril — Crew 2</span><span class="owner o-henri">Henri</span></li>
+        <li><input type="checkbox"><span>Étudiants : première semaine terrain supervisée</span><span class="owner o-henri">Henri</span></li>
+        <li><input type="checkbox"><span>1er mai : accueil 2 TET — logement + orientation + équipement</span><span class="owner o-henri">Henri</span></li>
+        <li><input type="checkbox"><span>Breakeven cash atteint? (objectif : avril net +32k$)</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox"><span>Analyser ROI ads avril : CPL, CTR, close rate</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox"><span>Google Business Profile créé et optimisé</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox"><span>Google Analytics 4 + Search Console installés</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox"><span>Publier brouillons WordPress (23 pages/articles)</span><span class="owner o-js">JS</span></li>
+    </ul>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- S9-S13 — PLEINE CAPACITÉ -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section">
+    <h2>Semaines 9-13 — Mai-Juin (Pleine capacité) <span class="tag tag-todo">À VENIR</span></h2>
+    <ul class="task-list">
+        <li><input type="checkbox"><span>3 crews actifs : 27-30 clients/jour</span><span class="owner o-henri">Henri</span></li>
+        <li><input type="checkbox"><span>TET intégrés : 1 par crew existant</span><span class="owner o-henri">Henri</span></li>
+        <li><input type="checkbox"><span>Mai : objectif 135k$ CA</span><span class="owner o-both">Tous</span></li>
+        <li><input type="checkbox"><span>Review avis Google : objectif 4.7+ étoiles</span><span class="owner o-both">Tous</span></li>
+        <li><input type="checkbox"><span>Bonus performance implémenté (500$ fin saison)</span><span class="owner o-both">Tous</span></li>
+        <li><input type="checkbox"><span>RIVE-NORD : zones cibles identifiées</span><span class="owner o-both">Tous</span></li>
+        <li><input type="checkbox"><span>RIVE-NORD : campagne ads géo-ciblée lancée</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox"><span>RIVE-NORD : lancement fin mai — premiers jobs</span><span class="owner o-henri">Henri</span></li>
+        <li><input type="checkbox"><span>Juin : production stable 250k$/mois</span><span class="owner o-both">Tous</span></li>
+        <li><input type="checkbox"><span>EBITDA check : 15%+ marge?</span><span class="owner o-js">JS</span></li>
+        <li><input type="checkbox"><span>Planifier Q3 : expansion ou consolidation?</span><span class="owner o-both">Tous</span></li>
+    </ul>
+</div>
+
+<!-- ═══════════════════════════════════════ -->
+<!-- AJOUTER UNE TÂCHE -->
+<!-- ═══════════════════════════════════════ -->
+<div class="section">
+    <h2>Ajouter une tâche</h2>
+    <div class="add-task">
+        <input type="text" id="new-task" placeholder="Nouvelle tâche...">
+        <select id="new-owner" style="background:var(--card-alt); border:1px solid var(--border); border-radius:8px; padding:8px; color:var(--text); font-size:13px;">
+            <option value="both">Tous</option>
+            <option value="henri">Henri</option>
+            <option value="js">JS</option>
+        </select>
+        <select id="new-section" style="background:var(--card-alt); border:1px solid var(--border); border-radius:8px; padding:8px; color:var(--text); font-size:13px;">
+            <option value="1">S4 — Cette semaine</option>
+            <option value="2">Subventions</option>
+            <option value="3">S5-S8 Avril</option>
+            <option value="4">S9-S13 Mai-Juin</option>
+        </select>
+        <button onclick="addTask()">Ajouter</button>
+    </div>
+</div>
+
+<div style="text-align:center; padding:20px; color:var(--muted); font-size:11px;">
+    Les cases cochées sont sauvegardées dans ton navigateur (localStorage).<br>
+    Ouvre ce fichier sur n'importe quel ordi pour le partager avec Henri.
+</div>
+
+<script>
+// Save/load checkbox state from localStorage
+const STORAGE_KEY = 'haielite-suivi-2026';
+
+function saveState() {
+    const checks = document.querySelectorAll('input[type="checkbox"]');
+    const state = Array.from(checks).map(c => c.checked);
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+    updateStats();
+}
+
+function loadState() {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+        const state = JSON.parse(saved);
+        const checks = document.querySelectorAll('input[type="checkbox"]');
+        checks.forEach((c, i) => { if (state[i] !== undefined) c.checked = state[i]; });
+    }
+    updateStats();
+}
+
+function updateStats() {
+    const all = document.querySelectorAll('input[type="checkbox"]');
+    const done = document.querySelectorAll('input[type="checkbox"]:checked');
+    const total = all.length;
+    const doneCount = done.length;
+    const todoCount = total - doneCount;
+    const pct = Math.round((doneCount / total) * 100);
+
+    document.getElementById('done-count').textContent = doneCount;
+    document.getElementById('todo-count').textContent = todoCount;
+    document.getElementById('progress-count').textContent = '—';
+    document.getElementById('pct').textContent = pct + '%';
+    document.getElementById('pct2').textContent = pct + '%';
+    document.getElementById('bar-fill').style.width = pct + '%';
+}
+
+function addTask() {
+    const text = document.getElementById('new-task').value.trim();
+    if (!text) return;
+
+    const owner = document.getElementById('new-owner').value;
+    const sectionIdx = parseInt(document.getElementById('new-section').value);
+
+    const ownerClass = owner === 'henri' ? 'o-henri' : owner === 'js' ? 'o-js' : 'o-both';
+    const ownerLabel = owner === 'henri' ? 'Henri' : owner === 'js' ? 'JS' : 'Tous';
+
+    const li = document.createElement('li');
+    li.innerHTML = '<input type="checkbox" onchange="saveState()"><span>' + text + '</span><span class="owner ' + ownerClass + '">' + ownerLabel + '</span>';
+
+    const sections = document.querySelectorAll('.section');
+    const targetSection = sections[sectionIdx];
+    const list = targetSection.querySelector('.task-list');
+    list.appendChild(li);
+
+    document.getElementById('new-task').value = '';
+    saveState();
+}
+
+// Attach save to all checkboxes
+document.querySelectorAll('input[type="checkbox"]').forEach(c => {
+    c.addEventListener('change', saveState);
+});
+
+// Set today's date
+document.getElementById('today').textContent = new Date().toLocaleDateString('fr-CA');
+
+// Load saved state
+loadState();
+</script>
+
+</body>
+</html>
