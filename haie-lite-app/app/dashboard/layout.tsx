@@ -12,6 +12,7 @@ export default function DashboardLayout({
 }) {
   const navLinks = [
     { href: '/dashboard', label: 'Vue d\'ensemble', icon: '📊' },
+    { href: '/dashboard/acquisitions', label: 'M&A Pipeline', icon: '🎯' },
     { href: '/dashboard#pipeline', label: 'Pipeline', icon: '🔄' },
     { href: '/dashboard#employees', label: 'Employés', icon: '👥' },
     { href: '/dashboard#payroll', label: 'Payroll', icon: '💰' },
