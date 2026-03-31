@@ -1,0 +1,19 @@
+program	status	amount	deadline	contact	notes
+Sub salariale	TODO	30000	continu	CLE 1-877-767-8773	6 employés
+PAMT	TODO	60000	continu	HortiComp 450-774-3456	4 apprentis
+HortiCompétences	TODO	25000	continu	info@horticompetences.ca	Sub sectorielle
+PRIIME	TODO	52000	continu	CLE 1-877-767-8773	Vérifier TET
+MFOR	TODO	15000	continu	CLE 1-877-767-8773	Plan 13k$ prêt
+ESSOR 1C	TODO	50000	2027-03-31	IQ 1-844-474-6367	App Haie Lite
+FLI	TODO	150000	2028-12-31	DEV VS 450-455-3809	Prêt avantageux
+Primo-adoptants	TODO	75000	2026-07-17	startups-innovation@economie.gouv.qc.ca	Fenêtre juillet
+RS&DE	TODO	35000	2027-12-31	Comptable RS&DE	Documenter maintenant
+CRIC	TODO	21000	2027-12-31	Revenu Québec	Même dossier RS&DE
+Crédit formation	TODO	13000	2027-12-31	Revenu Québec	Tracker dépenses
+C3i	TODO	8000	2029-12-31	Revenu Québec	Factures équipement
+Roulez vert	TODO	4000	2026-12-31	Concessionnaire	DERNIÈRE ANNÉE
+iZEV/EVAP	TODO	10000	2026-12-31	Concessionnaire	Cumulable Roulez vert
+Bornes recharge	TODO	15000	continu	Écorecharge	Si véhicules EV
+DEC	TODO	50000	continu	dec.canada.ca	Dossier complet
+CDAEIA	TODO	25000	2027-12-31	IQ + RQ	Vérifier admissibilité
+Productivité-Compétences	TODO	20000	continu	cpmt.gouv.qc.ca	Appels projets
