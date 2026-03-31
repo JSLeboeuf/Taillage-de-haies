@@ -169,7 +169,7 @@ export async function POST(request: NextRequest) {
       .from("acquisition_prospects")
       .select("id")
       .eq("company_name", validated.company_name)
-      .eq("status", "!=", "archived")
+      .neq("status", "archived")
       .limit(1);
 
     if (checkError) {

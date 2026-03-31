@@ -8,6 +8,7 @@ import {
 } from "@/lib/acquisition-emails";
 
 interface AcquisitionProspectRow extends AcquisitionProspect {
+  status: string;
   next_email_at: string | null;
   last_email_sent_at: string | null;
   created_at: string;

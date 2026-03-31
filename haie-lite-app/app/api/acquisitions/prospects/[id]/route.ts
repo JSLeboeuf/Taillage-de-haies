@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import { z } from "zod";
@@ -58,7 +56,7 @@ function validateDashboardKey(request: NextRequest): boolean {
 
 export async function GET(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     // Check authorization
@@ -67,7 +65,7 @@ export async function GET(
     }
 
     const db = getSupabaseAdmin();
-    const { id } = params;
+    const { id } = await params;
 
     // Validate UUID format
     if (
@@ -129,7 +127,7 @@ export async function GET(
 
 export async function PATCH(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     // Check authorization
@@ -138,7 +136,7 @@ export async function PATCH(
     }
 
     const db = getSupabaseAdmin();
-    const { id } = params;
+    const { id } = await params;
 
     // Validate UUID format
     if (
@@ -245,7 +243,7 @@ export async function PATCH(
 
 export async function DELETE(
   request: NextRequest,
-  { params }: { params: { id: string } },
+  { params }: { params: Promise<{ id: string }> },
 ) {
   try {
     // Check authorization
@@ -254,7 +252,7 @@ export async function DELETE(
     }
 
     const db = getSupabaseAdmin();
-    const { id } = params;
+    const { id } = await params;
 
     // Validate UUID format
     if (
