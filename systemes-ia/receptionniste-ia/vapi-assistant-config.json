@@ -41,14 +41,9 @@
             "key": "haielite",
             "type": "exact",
             "value": "<<ɛ>> <<l|i|t>>"
-          },
-          {
-            "type": "regex",
-            "regex": "\\$",
-            "value": " dollars"
           }
         ],
-        "numberToDigitsCutoff": 100000
+        "numberToDigitsCutoff": 0
       }
     },
     "experimentalControls": {
@@ -61,7 +56,7 @@
     "fillerInjectionEnabled": false
   },
   "createdAt": "2026-03-31T21:08:55.971Z",
-  "updatedAt": "2026-03-31T23:15:04.631Z",
+  "updatedAt": "2026-03-31T23:21:22.430Z",
   "model": {
     "model": "claude-haiku-4-5-20251001",
     "toolIds": [
@@ -302,8 +297,8 @@
   "backgroundDenoisingEnabled": true,
   "startSpeakingPlan": {
     "transcriptionEndpointingPlan": {
-      "onPunctuationSeconds": 0.6,
-      "onNoPunctuationSeconds": 0.8,
+      "onPunctuationSeconds": 0.5,
+      "onNoPunctuationSeconds": 1.5,
       "onNumberSeconds": 2.5
     },
     "smartEndpointingPlan": {
