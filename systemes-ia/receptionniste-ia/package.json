@@ -1,0 +1,26 @@
+{
+  "name": "haie-lite-receptionniste",
+  "version": "1.0.0",
+  "description": "Sophie AI Receptionist for Haie Lite - VAPI webhook handler",
+  "type": "module",
+  "main": "src/index.ts",
+  "scripts": {
+    "dev": "wrangler dev",
+    "deploy": "wrangler deploy",
+    "type-check": "tsc --noEmit",
+    "build": "wrangler build",
+    "test": "node --loader ts-node/esm src/webhook-handler.test.ts"
+  },
+  "dependencies": {
+    "twilio": "^4.10.0"
+  },
+  "devDependencies": {
+    "@cloudflare/workers-types": "^4.20250127.0",
+    "@types/node": "^20.10.0",
+    "typescript": "^5.3.3",
+    "wrangler": "^3.28.0"
+  },
+  "engines": {
+    "node": ">=18.0.0"
+  }
+}

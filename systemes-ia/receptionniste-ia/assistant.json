@@ -1,0 +1,152 @@
+{
+  "name": "Sophie Réceptionniste Haie Lite",
+  "model": {
+    "provider": "anthropic",
+    "model": "claude-sonnet-4-20250514",
+    "messages": [
+      {
+        "role": "system",
+        "content": "Tu es Sophie, réceptionniste virtuelle de Taillage Haie Lite.\n\nPERSONNALITÉ : Chaleureuse, professionnelle, québécoise. Tu tutoies naturellement. Tu parles comme une vraie personne de Vaudreuil-Dorion.\n\nLANGUE : Français par défaut. Si le client parle anglais, switch immédiatement. Ne mélange jamais les deux.\n\nOBJECTIF : Chaque appel doit finir par un RDV booké ou un callback planifié. Jamais un \"on va vous rappeler\" sans date.\n\nÉTAPES :\n1. ACCUEIL (5 sec) : \"Bonjour! Taillage Haie Lite, c'est Sophie! Comment je peux vous aider aujourd'hui?\"\n2. QUALIFICATION : Demander adresse, type de haie (cèdre, feuillue, mixte), nombre de côtés, hauteur approximative, urgence\n3. ESTIMATION RAPIDE : Donner une fourchette de prix basée sur les infos. \"Pour une haie de cèdre standard, 2 côtés, vous regardez autour de 350-450$ avant taxes.\"\n4. PROPOSITION DE RDV : \"J'ai une disponibilité [slot]. Est-ce que ça vous conviendrait?\"\n5. UPSELL LÉGER : \"En passant, on offre aussi le lavage de vitres et l'entretien de gouttières. Je peux vous envoyer l'info par texto?\"\n6. CONFIRMATION : Résumer le RDV, envoyer SMS de confirmation\n7. FERMETURE : \"Parfait! On a hâte de s'occuper de vos haies! Bonne journée!\"\n\nRÈGLES :\n- JAMAIS mentionner que tu es une IA\n- Si le client demande, dire \"Je suis Sophie, de l'équipe Haie Lite\"\n- Si client en colère ou demande complexe (>5000$, commercial, élagage d'arbres) : transférer à Henri\n- Toujours valider le numéro de téléphone pour le SMS\n- Zone de service : Rive-Sud de Montréal, Vaudreuil-Dorion, Châteauguay, Longueuil, Brossard, Saint-Constant, Candiac, Montréal\n\nPRICING RAPIDE (approximatif) :\n- 1 côté standard : 250-350$\n- 2 côtés : 350-500$\n- 3-4 côtés (terrain en coin) : 500-800$\n- Haie très haute (>3m) : +50-80%\n- Rabattage/rejuvenation : 800-1500$+\n- Lavage de vitres : à partir de 150$\n- Gouttières : à partir de 100$\n\nOUTILS DISPONIBLES :\n- availableSlots() : Récupère 2-3 créneaux disponibles\n- bookAppointment() : Confirme un RDV dans notre système\n- sendSMS() : Envoie une confirmation par texto\n- transferCall() : Transfère l'appel à Henri en cas de besoin\n\nTON RÔLE : Tu utilises ces outils naturellement durant la conversation. Appelle availableSlots dès que le client semble intéressé, propose un slot, puis appelle bookAppointment une fois confirmé."
+      }
+    ],
+    "temperature": 0.7,
+    "max_tokens": 500
+  },
+  "voice": {
+    "provider": "elevenlabs",
+    "voiceId": "21m00Tcm4TlvDq8ikWAM",
+    "name": "Sophie - Warm Professional Female"
+  },
+  "transcriber": {
+    "provider": "deepgram",
+    "language": "fr",
+    "model": "nova-3",
+    "smartFormatting": true,
+    "options": {
+      "model": "nova-3",
+      "language": "fr",
+      "smart_formatting": true,
+      "filler_words": false
+    }
+  },
+  "functions": [
+    {
+      "name": "availableSlots",
+      "description": "Récupère 2-3 créneaux disponibles pour un RDV de taillage de haies. Créneau par défaut : demain ou jour suivant (weekday), entre 8h et 17h.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "preferredDate": {
+            "type": "string",
+            "description": "Date préférée au format YYYY-MM-DD. Si non fournie, utilise demain ou le jour suivant disponible."
+          },
+          "preferredTime": {
+            "type": "string",
+            "description": "Heure préférée au format HH:MM. Si non fournie, suggère 10h, 13h ou 15h."
+          }
+        },
+        "required": []
+      }
+    },
+    {
+      "name": "bookAppointment",
+      "description": "Confirme un RDV et crée une estimation dans ServiceM8. Appelle cette fonction une fois que le client a confirmé un créneaux.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "clientName": {
+            "type": "string",
+            "description": "Nom complet du client"
+          },
+          "phone": {
+            "type": "string",
+            "description": "Numéro de téléphone du client (format: 514-123-4567 ou +1-514-123-4567)"
+          },
+          "address": {
+            "type": "string",
+            "description": "Adresse de la propriété (numéro et rue)"
+          },
+          "city": {
+            "type": "string",
+            "description": "Ville/municipalité"
+          },
+          "hedgeType": {
+            "type": "string",
+            "enum": ["cèdre", "feuillue", "mixte", "cèdre-persistant", "autre"],
+            "description": "Type de haie"
+          },
+          "hedgeSides": {
+            "type": "integer",
+            "description": "Nombre de côtés de haie (1, 2, 3 ou 4)",
+            "minimum": 1,
+            "maximum": 4
+          },
+          "hedgeHeight": {
+            "type": "string",
+            "enum": ["basse", "moyenne", "haute", "très-haute"],
+            "description": "Hauteur approximative de la haie"
+          },
+          "selectedSlot": {
+            "type": "object",
+            "description": "Créneau sélectionné",
+            "properties": {
+              "date": {
+                "type": "string",
+                "description": "Date au format YYYY-MM-DD"
+              },
+              "time": {
+                "type": "string",
+                "description": "Heure au format HH:MM"
+              }
+            },
+            "required": ["date", "time"]
+          },
+          "notes": {
+            "type": "string",
+            "description": "Notes additionnelles (accès difficile, terrain pente, etc.)"
+          }
+        },
+        "required": ["clientName", "phone", "address", "city", "hedgeType", "hedgeSides", "hedgeHeight", "selectedSlot"]
+      }
+    },
+    {
+      "name": "sendSMS",
+      "description": "Envoie une confirmation ou rappel par SMS au client",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "to": {
+            "type": "string",
+            "description": "Numéro de téléphone du destinataire (format: 514-123-4567 ou +1-514-123-4567)"
+          },
+          "message": {
+            "type": "string",
+            "description": "Contenu du SMS (max 160 caractères idéalement)"
+          }
+        },
+        "required": ["to", "message"]
+      }
+    },
+    {
+      "name": "transferCall",
+      "description": "Transfère l'appel à Henri (manager) en cas de client en colère, demande complexe ou escalade commerciale.",
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "reason": {
+            "type": "string",
+            "enum": ["angry_client", "complex_quote", "emergency", "commercial", "escalation"],
+            "description": "Raison de la transfert"
+          },
+          "destination": {
+            "type": "string",
+            "description": "Numéro de destination (par défaut: +1-514-813-8957 pour Henri)"
+          }
+        },
+        "required": ["reason"]
+      }
+    }
+  ],
+  "endCallPhrases": ["merci", "au revoir", "bonne journée", "à bientôt"],
+  "firstMessageMode": "speak"
+}
