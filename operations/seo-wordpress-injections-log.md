@@ -67,3 +67,35 @@ Toutes les images de la mediatheque ont recu un alt text SEO descriptif.
 - Compression: GZIP actif
 - Temps reponse: 0.03-0.65s
 - Aucun lien casse dans la navigation
+
+## Session 2 — Optimisations avancees (31 mars 2026)
+
+### Categories blog (4)
+Guides pratiques (10), Prix et tarifs (11), Entretien saisonnier (12), Problemes et solutions (13)
+
+### Tags SEO (14)
+taillage haie cedre, elagage, fertilisation, montreal, laval, rive-nord, prix, credit impot, entretien, rabattage, cedre blanc, haie, quebec, saison
+
+### Cornerstone Yoast (5 pages)
+IDs: 15, 291, 292, 293, 732
+
+### Excerpts (18 pages/articles)
+
+### Articles supplementaires (4): IDs 1609, 1611, 1613, 1615
+### Pages index (2): blog (1605), zones (1607)
+### Image titles/captions: 30 corriges
+
+## Session 2 — Optimisations avancees (31 mars 2026)
+
+### Categories blog (4)
+Guides pratiques (10), Prix et tarifs (11), Entretien saisonnier (12), Problemes et solutions (13)
+
+### Tags SEO (14)
+taillage haie cedre, elagage, fertilisation, montreal, laval, rive-nord, prix, credit impot, entretien, rabattage, cedre blanc, haie, quebec, saison
+
+### Cornerstone Yoast (5 pages): IDs 15, 291, 292, 293, 732
+### Excerpts (18 pages/articles)
+### Articles supplementaires (4): IDs 1609, 1611, 1613, 1615
+### Pages index (2): blog (1605), zones (1607)
+### Image titles/captions: 30 corriges
+
