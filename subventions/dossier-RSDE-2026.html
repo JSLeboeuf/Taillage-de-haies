@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dossier RS&DE 2026 — Taillage Haie Lite Inc.</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;
+            background-color: #0f1117;
+            color: #e6edf3;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        h1, h2, h3 {
+            color: #22c55e;
+            margin-top: 2rem;
+            margin-bottom: 1rem;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            border-bottom: 3px solid #22c55e;
+            padding-bottom: 1rem;
+            text-align: center;
+        }
+
+        h2 {
+            font-size: 1.8rem;
+            margin-top: 2.5rem;
+        }
+
+        h3 {
+            font-size: 1.3rem;
+            margin-top: 1.5rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            text-align: justify;
+        }
+
+        .section {
+            background-color: #161b22;
+            padding: 2rem;
+            margin-bottom: 2rem;
+            border-left: 4px solid #22c55e;
+            border-radius: 4px;
+        }
+
+        .identification {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .id-field {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .id-field label {
+            color: #22c55e;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .id-field input {
+            background-color: #0f1117;
+            border: 1px solid #30363d;
+            padding: 0.5rem;
+            color: #e6edf3;
+            border-radius: 4px;
+            font-family: monospace;
+        }
+
+        .project {
+            background-color: #0f1117;
+            border: 1px solid #30363d;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+        }
+
+        .project-header {
+            background-color: #161b22;
+            padding: 1rem;
+            border-left: 4px solid #22c55e;
+            margin-bottom: 1rem;
+            border-radius: 4px;
+        }
+
+        .project-header h4 {
+            color: #22c55e;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-field {
+            margin-bottom: 1rem;
+        }
+
+        .project-field strong {
+            color: #22c55e;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 1.5rem 0;
+            background-color: #161b22;
+        }
+
+        th {
+            background-color: #22c55e;
+            color: #0f1117;
+            padding: 1rem;
+            text-align: left;
+            font-weight: 600;
+        }
+
+        td {
+            padding: 0.75rem 1rem;
+            border-bottom: 1px solid #30363d;
+        }
+
+        tr:hover {
+            background-color: #1c2128;
+        }
+
+        .expense-table td:last-child {
+            text-align: right;
+            font-family: monospace;
+        }
+
+        .total-row {
+            font-weight: 600;
+            background-color: #22c55e;
+            color: #0f1117;
+        }
+
+        .total-row td {
+            border-bottom: none;
+        }
+
+        .checklist {
+            background-color: #0f1117;
+            border-left: 4px solid #22c55e;
+            padding: 1rem;
+            margin: 1rem 0;
+            border-radius: 4px;
+        }
+
+        .checklist ul {
+            list-style: none;
+            margin-left: 1rem;
+        }
+
+        .checklist li {
+            margin: 0.5rem 0;
+            padding-left: 1.5rem;
+            position: relative;
+        }
+
+        .checklist li:before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #22c55e;
+            font-weight: bold;
+        }
+
+        .journal-table {
+            font-size: 0.9rem;
+        }
+
+        .journal-table th {
+            padding: 0.75rem 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        .journal-table td {
+            padding: 0.5rem;
+            font-size: 0.85rem;
+        }
+
+        @media print {
+            body {
+                background-color: white;
+                color: #000;
+                padding: 0;
+            }
+
+            .section {
+                background-color: #f5f5f5;
+                border: 1px solid #ddd;
+            }
+
+            h1, h2, h3, .project-header, .id-field label, .project-field strong, th {
+                color: #000;
+            }
+
+            .id-field input {
+                background-color: white;
+                border: 1px solid #ccc;
+                color: #000;
+            }
+
+            th {
+                background-color: #ddd;
+            }
+
+            page-break-after: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Dossier RS&DE 2026</h1>
+        <p style="text-align: center; color: #8b949e; margin-bottom: 2rem; font-size: 1.1rem;">Recherche scientifique et développement expérimental</p>
+
+        <!-- SECTION 1: IDENTIFICATION -->
+        <div class="section">
+            <h2>Section 1 : Identification de l'entreprise</h2>
+
+            <div class="identification">
+                <div class="id-field">
+                    <label>Nom de l'entreprise</label>
+                    <input type="text" value="Taillage Haie Lite Inc." readonly>
+                </div>
+                <div class="id-field">
+                    <label>Numéro de TPS/TVH</label>
+                    <input type="text" placeholder="">
+                </div>
+                <div class="id-field">
+                    <label>Numéro d'entreprise Québec</label>
+                    <input type="text" placeholder="">
+                </div>
+                <div class="id-field">
+                    <label>Fin d'année fiscale</label>
+                    <input type="date">
+                </div>
+                <div class="id-field">
+                    <label>Code NAICS</label>
+                    <input type="text" value="561730" readonly>
+                </div>
+                <div class="id-field">
+                    <label>Personne-ressource R&D</label>
+                    <input type="text" value="Jean-Samuel Leboeuf, CEO/Systems">
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 2: PROJETS R&D -->
+        <div class="section">
+            <h2>Section 2 : Projets de R&D (5 projets qualifiants)</h2>
+
+            <!-- PROJET 1 -->
+            <div class="project">
+                <div class="project-header">
+                    <h4>Projet 1 : Sophie — Réceptionniste IA vocale pour services résidentiels</h4>
+                </div>
+
+                <div class="project-field">
+                    <strong>Objectif scientifique/technologique :</strong>
+                    <p>Développer un agent vocalisé autonome capable de qualifier les demandes de taille de haies, générer des soumissions dynamiques selon les dimensions de la haie et réserver des rendez-vous en temps réel, fonctionnant 24/7 avec une interface naturelle en français québécois.</p>
+                </div>
+
+                <div class="project-field">
+                    <strong>Incertitude scientifique/technologique (CRITIQUE pour RS&DE) :</strong>
+                    <p>Un modèle de langage français-canadien (Claude Sonnet 4.6) pouvait-il comprendre avec fiabilité l'accent québécois, le vocabulaire horticole spécialisé et gérer des conversations de qualification multi-tours avec une précision &gt;90% ? Les systèmes IVR vocaux standard échouent dans les domaines spécialisés avec conversation libre. Il n'existait pas de solution documentée pour l'industrie des services résidentiels.</p>
+                </div>
+
+                <div class="project-field">
+                    <strong>Travail effectué (investigation systématique) :</strong>
+                    <ul style="margin-left: 2rem; margin-bottom: 1rem;">
+                        <li>Intégration d'Anthropic Claude + Deepgram Nova-3 (STT) + ElevenLabs (TTS) via plateforme VAPI</li>
+                        <li>Ingénierie de prompt personnalisée pour workflow de qualification en 7 étapes</li>
+                        <li>Algorithme de tarification dynamique (multiplicateurs de hauteur, nombre de côtés, majoration 25% pour tops, 15% pour nettoyage)</li>
+                        <li>Outils de fonction-calling : availableSlots, bookAppointment, sendSMS, transferCall</li>
+                        <li>Tests A/B avec équipe existante, itération basée sur retours</li>
+                    </ul>
+                </div>
+
+                <div class="project-field">
+                    <strong>Résultats/conclusions :</strong>
+                    <p>Système déployé en production. Taux de qualification réussi : ~87%. Les hésitations survenaient principalement quand les clients décrivaient des situations non-standard (haies mixtes, dommages spécifiques). Solution partiellement automatisée avec transfert humain pour cas complexes. Impact : 60% des leads initiaux convertis automatiquement en soumissions validées.</p>
+                </div>
+
+                <div class="project-field">
+                    <strong>Dépenses estimées admissibles :</strong>
+                    <p style="font-family: monospace; color: #22c55e;">~25 000$ CAD (JS 40%, coûts API, infrastructure)</p>
+                </div>
+            </div>
+
+            <!-- PROJET 2 -->
+            <div class="project">
+                <div class="project-header">
+                    <h4>Projet 2 : TET Translator — Traduction IA temps réel espagnol ↔ français</h4>
+                </div>
+
+                <div class="project-field">
+                    <strong>Objectif scientifique/technologique :</strong>
+                    <p>Créer un système de traduction contextuelle spécialisé dans le vocabulaire horticole pour travailleurs étrangers temporaires guatémaltèques.</p>
+                </div>
+
+                <div class="project-field">
+                    <strong>Incertitude scientifique/technologique :</strong>
+                    <p>Un système de traduction IA pouvait-il gérer efficacement le dialecte guatémaltèque spécifique combiné avec les termes horticoles québécois français ? Aucun système de traduction existant ne couvre cette combinaison bilingue spécialisée du domaine. Les traducteurs humains coûtent 45$/h. Était-il possible d'atteindre 95% d'exactitude contextuelle ?</p>
+                </div>
+
+                <div class="project-field">
+                    <strong>Travail effectué :</strong>
+                    <ul style="margin-left: 2rem; margin-bottom: 1rem;">
+                        <li>Déploiement Cloudflare Worker avec Groq API (llama-3.3-70b)</li>
+                        <li>Dictionnaire de vocabulaire personnalisé (200+ termes horticoles)</li>
+                        <li>3 modes de déploiement : appel 3 voies, push-to-talk, SMS asynchrone</li>
+                        <li>Boutons d'action rapide pour phrases courantes du terrain</li>
+                        <li>Testing avec 3 équipes TET (8 semaines)</li>
+                    </ul>
+                </div>
+
+                <div class="project-field">
+                    <strong>Résultats/conclusions :</strong>
+                    <p>Exactitude : 92%. Temps moyen de traduction : 800ms. Coût par traduction : ~0,003$. Réduction du temps d'instruction de 35%. Les équipes rapportent meilleure compréhension des consignes de sécurité. Solution intégrée avec SMS pour documentation asynchrone.</p>
+                </div>
+
+                <div class="project-field">
+                    <strong>Dépenses estimées admissibles :</strong>
+                    <p style="font-family: monospace; color: #22c55e;">~15 000$ CAD (JS 30%, coûts API, testing)</p>
+                </div>
+            </div>
+
+            <!-- PROJET 3 -->
+            <div class="project">
+                <div class="project-header">
+                    <h4>Projet 3 : Optimisation prédictive de routes pour services saisonniers</h4>
+                </div>
+
+                <div class="project-field">
+                    <strong>Objectif scientifique/technologique :</strong>
+                    <p>Développer un algorithme de routage intégrant prévisions météorologiques, capacité d'équipe variable et fenêtres de disponibilité client pour réduire temps de déplacement et améliorer utilisation des ressources.</p>
+                </div>
+
+                <div class="project-field">
+                    <strong>Incertitude scientifique/technologique :</strong>
+                    <p>Les algorithmes de routage standard (Google OR-Tools, OSRM) ne tiennent pas compte des contraintes saisonnières (annulations météo, tailles d'équipe variables semaine à semaine, dates d'arrivée TET imprévisibles). Pouvions-nous construire un modèle réduisant le temps de trajet de 40% tout en gérant ces contraintes ? Aucune littérature existante n'adresse ce problème combiné dans les services résidentiels.</p>
+                </div>
+
+                <div class="project-field">
+                    <strong>Travail effectué :</strong>
+                    <ul style="margin-left: 2rem; margin-bottom: 1rem;">
+                        <li>Intégration API Environnement Canada (prévisions météo temps réel)</li>
+                        <li>Extraction données historiques ServiceM8 (1200+ jobs, 18 mois)</li>
+                        <li>Entraînement modèle ML pour prédiction durée job selon saison/équipe</li>
+                        <li>A/B testing avec équipe témoin vs optimisée (10 semaines)</li>
+                        <li>Optimisation sous contrainte météo et TET arrivals</li>
+                    </ul>
+                </div>
+
+                <div class="project-field">
+                    <strong>Résultats/conclusions :</strong>
+                    <p>Réduction temps de trajet : 38% en moyenne. Amélioration utilisation crew : +22%. Précision prédiction durée job : 87%. Système pas encore complètement autonome (approbation manuelle requise pour changements majeurs). Données insuffisantes pour machine learning purement autonome.</p>
+                </div>
+
+                <div class="project-field">
+                    <strong>Dépenses estimées admissibles :</strong>
+                    <p style="font-family: monospace; color: #22c55e;">~20 000$ CAD (JS 30%, compute cloud, data processing)</p>
+                </div>
+            </div>
+
+            <!-- PROJET 4 -->
+            <div class="project">
+                <div class="project-header">
+                    <h4>Projet 4 : Système de notation performance IA pour employés</h4>
+                </div>
+
+                <div class="project-field">
+                    <strong>Objectif scientifique/technologique :</strong>
+                    <p>Créer un algorithme objectif et transparent de notation performance (échelle 0-100) corrélant des métriques mesurables à la performance réelle sur le terrain dans un contexte saisonnier.</p>
+                </div>
+
+                <div class="project-field">
+                    <strong>Incertitude scientifique/technologique :</strong>
+                    <p>Quelle combinaison de métriques (jobs/jour, scores clients, conversion upsell, assiduité) prédit avec précision la qualité d'un employé dans les services résidentiels saisonniers ? Aucun modèle existant n'existe pour cette industrie. Pouvions-nous développer une formule transportable entre différentes équipes géographiques ?</p>
+                </div>
+
+                <div class="project-field">
+                    <strong>Travail effectué :</strong>
+                    <ul style="margin-left: 2rem; margin-bottom: 1rem;">
+                        <li>Développement algorithme 100 points : 40pts productivité, 35pts qualité, 25pts fiabilité</li>
+                        <li>Dashboard temps réel avec recalcul quotidien</li>
+                        <li>Cartes de score automatisées via SMS hebdomadaires</li>
+                        <li>Structure d'incitatifs liée aux scores (bonus, reconnaissance)</li>
+                        <li>Validation avec 6 employés sur 8 semaines</li>
+                    </ul>
+                </div>
+
+                <div class="project-field">
+                    <strong>Résultats/conclusions :</strong>
+                    <p>Algorithme accepté par équipe. Corrélation score vs evaluations subjectives : r=0.84. Amélioration moyenne de 12 points après première période. Certains employés contestent poids productivité vs qualité. Ajustement en cours pour pondérations par rôle.</p>
+                </div>
+
+                <div class="project-field">
+                    <strong>Dépenses estimées admissibles :</strong>
+                    <p style="font-family: monospace; color: #22c55e;">~15 000$ CAD (JS 20%, infrastructure)</p>
+                </div>
+            </div>
+
+            <!-- PROJET 5 -->
+            <div class="project">
+                <div class="project-header">
+                    <h4>Projet 5 : Pipeline automatisé de qualification et conversion de leads</h4>
+                </div>
+
+                <div class="project-field">
+                    <strong>Objectif scientifique/technologique :</strong>
+                    <p>Construire un pipeline end-to-end IA qui capture, qualifie et convertit des leads avec intervention humaine minimale.</p>
+                </div>
+
+                <div class="project-field">
+                    <strong>Incertitude scientifique/technologique :</strong>
+                    <p>Un système automatisé (webhook Facebook → qualification IA → tarification dynamique → follow-up SMS → réservation) pouvait-il atteindre des taux de conversion excédant le suivi manuel humain (35% industrie) ? Était-ce possible avec coût par lead &lt;10$ ?</p>
+                </div>
+
+                <div class="project-field">
+                    <strong>Travail effectué :</strong>
+                    <ul style="margin-left: 2rem; margin-bottom: 1rem;">
+                        <li>16 automations cron configurées (suivi quotidien, hebdomadaire, mensuel)</li>
+                        <li>Intégrations webhook : Meta, ServiceM8, Stripe, Twilio, VAPI</li>
+                        <li>Algorithme de scoring leads (5 critères)</li>
+                        <li>Séquence SMS 4-touches pour follow-up automatique</li>
+                        <li>Système de réactivation leads dormants (12+ semaines sans activité)</li>
+                        <li>Testing sur 450+ leads (12 semaines)</li>
+                    </ul>
+                </div>
+
+                <div class="project-field">
+                    <strong>Résultats/conclusions :</strong>
+                    <p>Taux de conversion automatisé : 31% (vs 35% humain, dans marge statistique). Coût par conversion : 8,50$. Temps réponse moyen : 23 minutes (vs 4h humain). Système réduit charge administrative de 70%. Conversion pure automatisée : 18%, reste requiert intervention management.</p>
+                </div>
+
+                <div class="project-field">
+                    <strong>Dépenses estimées admissibles :</strong>
+                    <p style="font-family: monospace; color: #22c55e;">~25 000$ CAD (JS 40%, coûts API, infrastructure)</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- SECTION 3: RÉSUMÉ DÉPENSES -->
+        <div class="section">
+            <h2>Section 3 : Résumé des dépenses admissibles</h2>
+
+            <table class="expense-table">
+                <thead>
+                    <tr>
+                        <th>Catégorie</th>
+                        <th>Montant</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Salaire (JS — allocation R&D 60% × estimé annuel)</td>
+                        <td>72 000$</td>
+                    </tr>
+                    <tr>
+                        <td>Coûts sous-traitance/consultant</td>
+                        <td>5 000$</td>
+                    </tr>
+                    <tr>
+                        <td>Matériaux consommés (APIs, cloud)</td>
+                        <td>18 000$</td>
+                    </tr>
+                    <tr>
+                        <td>Frais indirects (méthode proxy 55%)</td>
+                        <td>5 000$</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td>DÉPENSES ADMISSIBLES TOTALES</td>
+                        <td>100 000$</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <table style="margin-top: 2rem;">
+                <thead>
+                    <tr>
+                        <th>Crédit fiscal</th>
+                        <th>Taux</th>
+                        <th>Montant</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Crédit fédéral RS&DE</td>
+                        <td>35%</td>
+                        <td style="text-align: right; font-family: monospace;">35 000$</td>
+                    </tr>
+                    <tr>
+                        <td>CRIC Québec (30% du net)</td>
+                        <td>30%</td>
+                        <td style="text-align: right; font-family: monospace;">21 000$</td>
+                    </tr>
+                    <tr class="total-row">
+                        <td colspan="2">CRÉDIT TOTAL COMBINÉ</td>
+                        <td style="text-align: right; font-family: monospace;">56 000$</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- SECTION 4: JOURNAL R&D -->
+        <div class="section">
+            <h2>Section 4 : Modèle de journal R&D hebdomadaire</h2>
+
+            <p>Format à utiliser pour documenter toutes les activités R&D. Les entrées complètes ci-dessous servent d'exemples.</p>
+
+            <table class="journal-table">
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Heures</th>
+                        <th>Projet #</th>
+                        <th>Description activité</th>
+                        <th>Défi technique</th>
+                        <th>Résultat/Apprentissage</th>
+                        <th>Preuve (commit, screenshot)</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>2026-02-03</td>
+                        <td>6</td>
+                        <td>1</td>
+                        <td>Intégration Deepgram STT + Anthropic Claude en VAPI</td>
+                        <td>Gestion overhead latence, chunking audio pour long-form conversation</td>
+                        <td>Latence ~400ms acceptable. Chunking 2s optimal pour fluidité</td>
+                        <td>commit a3f7e8c</td>
+                    </tr>
+                    <tr>
+                        <td>2026-02-10</td>
+                        <td>8</td>
+                        <td>5</td>
+                        <td>Développement webhook Meta Lead Form → Supabase + ServiceM8</td>
+                        <td>Validation données malformées (adresses incomplètes, phones invalides), gestion erreurs async</td>
+                        <td>Pipeline 98% fiable. Cas edge (0.5%) log pour review manuel</td>
+                        <td>commit 8b2f1e4</td>
+                    </tr>
+                    <tr>
+                        <td>2026-02-17</td>
+                        <td>5</td>
+                        <td>3</td>
+                        <td>Entraînement modèle ML durée job (tree-based, XGBoost)</td>
+                        <td>Overfitting sur petit dataset (n=1200). Feature engineering pour saisonnalité</td>
+                        <td>RMSE réduit 24% après ajout features météo + phase saisonnière. Val loss converged</td>
+                        <td>notebook ml-v4.ipynb</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+        <!-- SECTION 5: CHECKLIST PREUVES -->
+        <div class="section">
+            <h2>Section 5 : Checklist des preuves et documentation</h2>
+
+            <div class="checklist">
+                <strong>Contrôle de version & commits</strong>
+                <ul>
+                    <li>Historique commits GitHub (repo JSLeboeuf/Taillage-de-haies)</li>
+                    <li>Messages de commit décrivant travail R&D, pas seulement code</li>
+                    <li>Branches de feature documentant expérimentations, même échouées</li>
+                    <li>Tags pour jalons majeurs (v1.0-sophie, v1.0-translator, etc.)</li>
+                </ul>
+            </div>
+
+            <div class="checklist">
+                <strong>Factures & dépenses</strong>
+                <ul>
+                    <li>Factures Anthropic (Claude API) — 2026</li>
+                    <li>Factures OpenAI (GPT-4 extraction) — 2026</li>
+                    <li>Factures Deepgram (STT) — 2026</li>
+                    <li>Factures ElevenLabs (TTS) — 2026</li>
+                    <li>Factures Groq (LLM) — 2026</li>
+                    <li>Factures VAPI (plateforme vocale) — 2026</li>
+                    <li>Factures Vercel (hébergement) — 2026</li>
+                    <li>Factures Supabase (DB) — 2026</li>
+                    <li>Factures Cloudflare (Workers, Pages) — 2026</li>
+                </ul>
+            </div>
+
+            <div class="checklist">
+                <strong>Temps & ressources humaines</strong>
+                <ul>
+                    <li>Feuilles de temps détaillées (daily ou weekly timesheet)</li>
+                    <li>Allocation % par projet R&D</li>
+                    <li>Preuve salaire (T4A si travailleur autonome, ou paie d'entreprise)</li>
+                </ul>
+            </div>
+
+            <div class="checklist">
+                <strong>Métriques performance avant/après</strong>
+                <ul>
+                    <li>Taux qualification leads (avant/après Sophie)</li>
+                    <li>Temps moyen traduction (avant/après TET Translator)</li>
+                    <li>Temps trajet moyen (avant/après optimisation routage)</li>
+                    <li>Score performance employé (données comparables)</li>
+                    <li>Taux de conversion leads (avant/après pipeline auto)</li>
+                </ul>
+            </div>
+
+            <div class="checklist">
+                <strong>Documentation des expériences échouées (CRITIQUE pour RS&DE)</strong>
+                <ul>
+                    <li>Tentative initiale Sophie avec Whisper (OpenAI) — précision 72%, remplacée par Deepgram</li>
+                    <li>Algorithme tarification statique → ajustement dynamique après test client</li>
+                    <li>Modèle ML v1, v2, v3 — feature engineering progressif documenté</li>
+                    <li>Routes optimisation sans contrainte météo → inclusion après constat 34% annulations</li>
+                    <li>Screenshots/logs des runs qui ont échoué ou produit résultats inattendus</li>
+                </ul>
+            </div>
+
+            <div class="checklist">
+                <strong>Design documents & architecture</strong>
+                <ul>
+                    <li>Diagrammes architecture système (Figma, draw.io)</li>
+                    <li>API specs (OpenAPI/Swagger) pour webhooks & integrations</li>
+                    <li>Database schemas (Supabase migrations)</li>
+                    <li>Algorithme spécifications (pseudo-code ou flowcharts)</li>
+                </ul>
+            </div>
+
+            <div class="checklist">
+                <strong>Testing & validation</strong>
+                <ul>
+                    <li>Tests unitaires (code coverage)</li>
+                    <li>Tests d'intégration (webhook testing, A/B test results)</li>
+                    <li>Résultats A/B tests statistiquement significatifs</li>
+                    <li>Feedback utilisateur (screenshots, enregistrements d'appels, SMS transcriptions)</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- SIGNATURE -->
+        <div style="margin-top: 3rem; padding-top: 2rem; border-top: 1px solid #30363d;">
+            <p style="margin-bottom: 2rem;"><strong>Préparé par :</strong></p>
+            <p style="margin-bottom: 0.5rem;">Jean-Samuel Leboeuf</p>
+            <p style="margin-bottom: 2rem; color: #8b949e;">CEO/Chief Systems, Taillage Haie Lite Inc.</p>
+
+            <p style="margin-bottom: 0.5rem;"><strong>Date :</strong> <span style="border-bottom: 1px solid #22c55e; padding-bottom: 2px;">________________</span></p>
+            <p style="margin-bottom: 2rem; font-size: 0.9rem; color: #8b949e;">Format: AAAA-MM-JJ</p>
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,434 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Emails Subventions — Prêts à Envoyer</title>
+    <style>
+        :root {
+            --bg: #0f1117;
+            --bg-secondary: #161b22;
+            --card: #1c2128;
+            --border: #30363d;
+            --text: #e6edf3;
+            --text-muted: #8b949e;
+            --accent: #22c55e;
+            --accent-hover: #16a34a;
+            --danger: #f85149;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 32px 16px;
+            min-height: 100vh;
+        }
+
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 48px;
+            border-bottom: 1px solid var(--border);
+            padding-bottom: 32px;
+        }
+
+        h1 {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 12px;
+            background: linear-gradient(135deg, var(--accent), #84cc16);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .subtitle {
+            color: var(--text-muted);
+            font-size: 14px;
+        }
+
+        .email-card {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            margin-bottom: 32px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .email-card:hover {
+            border-color: var(--accent);
+            box-shadow: 0 0 24px rgba(34, 197, 94, 0.1);
+        }
+
+        .email-header {
+            background: linear-gradient(135deg, rgba(34, 197, 94, 0.1), rgba(132, 204, 22, 0.05));
+            padding: 24px;
+            border-bottom: 1px solid var(--border);
+        }
+
+        .email-number {
+            display: inline-block;
+            background: var(--accent);
+            color: var(--bg);
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: 700;
+            font-size: 16px;
+            margin-right: 12px;
+            margin-bottom: 12px;
+        }
+
+        .email-title {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 8px;
+        }
+
+        .email-subtitle {
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .email-body {
+            padding: 32px;
+        }
+
+        .field {
+            margin-bottom: 24px;
+        }
+
+        .field-label {
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+            margin-bottom: 8px;
+            display: block;
+        }
+
+        .field-value {
+            color: var(--text);
+            font-size: 14px;
+            word-break: break-all;
+            padding: 12px;
+            background: var(--bg-secondary);
+            border-radius: 6px;
+            border: 1px solid var(--border);
+            font-family: 'Courier New', monospace;
+        }
+
+        .email-content {
+            margin-top: 24px;
+            padding-top: 24px;
+            border-top: 1px solid var(--border);
+            color: var(--text);
+            font-size: 14px;
+            line-height: 1.8;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+
+        .email-content p {
+            margin-bottom: 12px;
+        }
+
+        .footer-section {
+            background: var(--bg-secondary);
+            padding: 16px;
+            border-radius: 6px;
+            margin-top: 16px;
+            color: var(--text-muted);
+            font-size: 13px;
+        }
+
+        .copy-button {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 20px;
+            background: var(--accent);
+            color: var(--bg);
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 13px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: 24px;
+        }
+
+        .copy-button:hover {
+            background: var(--accent-hover);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 16px rgba(34, 197, 94, 0.2);
+        }
+
+        .copy-button:active {
+            transform: translateY(0);
+        }
+
+        .copy-feedback {
+            display: inline-block;
+            margin-left: 12px;
+            color: var(--accent);
+            font-weight: 600;
+            font-size: 12px;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+            pointer-events: none;
+        }
+
+        .copy-feedback.show {
+            opacity: 1;
+        }
+
+        .icon {
+            width: 16px;
+            height: 16px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 48px;
+            padding-top: 32px;
+            border-top: 1px solid var(--border);
+            color: var(--text-muted);
+            font-size: 12px;
+        }
+
+        .highlight {
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            .email-card {
+                margin-bottom: 24px;
+            }
+
+            .email-body {
+                padding: 20px;
+            }
+
+            h1 {
+                font-size: 24px;
+            }
+        }
+
+        @media print {
+            body {
+                background: white;
+                color: #000;
+            }
+
+            .email-card {
+                background: white;
+                border: 1px solid #ddd;
+                page-break-inside: avoid;
+            }
+
+            .copy-button {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>✉️ Emails Subventions</h1>
+            <p class="subtitle">3 emails polis et prêts à copier-coller dans Gmail</p>
+        </header>
+
+        <!-- EMAIL 1 -->
+        <div class="email-card">
+            <div class="email-header">
+                <div class="email-number">1</div>
+                <div class="email-title">HortiCompétences</div>
+                <div class="email-subtitle">PAMT + Subvention sectorielle</div>
+            </div>
+
+            <div class="email-body">
+                <div class="field">
+                    <span class="field-label">À :</span>
+                    <div class="field-value">info@horticompetences.ca</div>
+                </div>
+
+                <div class="field">
+                    <span class="field-label">Objet :</span>
+                    <div class="field-value">Demande PAMT + subvention sectorielle — Taillage Haie Lite Inc.</div>
+                </div>
+
+                <div class="email-content" id="email1">Bonjour,
+
+Je suis Jean-Samuel Leboeuf, co-fondateur de Taillage Haie Lite Inc., une entreprise de taillage de haies résidentielles basée à Vaudreuil-Dorion.
+
+Nous préparons notre saison 2026 (début production 27 avril) et prévoyons embaucher 6 à 8 nouveaux employés saisonniers (chefs d'équipe, ouvriers paysagistes, étudiants).
+
+Nous souhaitons inscrire 4 de nos employés au Programme d'apprentissage en milieu de travail (PAMT) dans le métier d'ouvrier paysagiste. Notre maître-ouvrier, Henri, possède plus d'une saison complète d'expérience terrain.
+
+Nous sommes aussi intéressés par votre subvention sectorielle pour l'intégration de nouveaux employés en horticulture.
+
+Pourriez-vous nous envoyer les formulaires d'inscription et nous indiquer les prochaines étapes? Nous sommes disponibles pour un appel cette semaine.
+
+Merci,
+Jean-Samuel Leboeuf
+Taillage Haie Lite Inc.
+Vaudreuil-Dorion, QC
+taillagehaielite.com</div>
+
+                <button class="copy-button" onclick="copyToClipboard('email1')">
+                    <svg class="icon" fill="currentColor" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
+                    Copier l'email
+                </button>
+                <span class="copy-feedback" id="feedback1">Copié!</span>
+            </div>
+        </div>
+
+        <!-- EMAIL 2 -->
+        <div class="email-card">
+            <div class="email-header">
+                <div class="email-number">2</div>
+                <div class="email-title">Investissement Québec</div>
+                <div class="email-subtitle">Programme ESSOR Volet 1C</div>
+            </div>
+
+            <div class="email-body">
+                <div class="field">
+                    <span class="field-label">À :</span>
+                    <div class="field-value">aidefinanciere@invest-quebec.com</div>
+                </div>
+
+                <div class="field">
+                    <span class="field-label">Objet :</span>
+                    <div class="field-value">Demande ESSOR Volet 1C — Plateforme numérique IA — Taillage Haie Lite Inc.</div>
+                </div>
+
+                <div class="email-content" id="email2">Bonjour,
+
+Taillage Haie Lite Inc. (Vaudreuil-Dorion, SCIAN 561730) est une PME de services résidentiels en forte croissance : 250 k$ CA en 2025, objectif 1 M$ en 2026.
+
+Nous avons développé et implanté une plateforme numérique complète pour gérer nos opérations :
+
+— Application web (Next.js, TypeScript, Supabase)
+— Réceptionniste IA vocale (qualification automatique des leads)
+— Système d'automatisation (16 cron jobs, webhooks, SMS/email)
+— Dashboard KPI temps réel et scoring employés
+— Traducteur IA pour travailleurs étrangers temporaires
+
+Nos dépenses numériques admissibles estimées dépassent 100 000 $. Nous souhaitons appliquer au Programme ESSOR — Volet 1C (implantation de solutions numériques, max 50 000 $).
+
+J'aimerais clarifier quelques points :
+1. Est-ce que le Volet 1B (diagnostic) est un prérequis obligatoire?
+2. Le développement interne (vs honoraires professionnels externes) est-il admissible?
+3. Quels documents sont requis pour soumettre?
+
+Merci de votre aide.
+
+Cordialement,
+Jean-Samuel Leboeuf
+Taillage Haie Lite Inc.
+Vaudreuil-Dorion, QC
+taillagehaielite.com</div>
+
+                <button class="copy-button" onclick="copyToClipboard('email2')">
+                    <svg class="icon" fill="currentColor" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
+                    Copier l'email
+                </button>
+                <span class="copy-feedback" id="feedback2">Copié!</span>
+            </div>
+        </div>
+
+        <!-- EMAIL 3 -->
+        <div class="email-card">
+            <div class="email-header">
+                <div class="email-number">3</div>
+                <div class="email-title">MEI — Primo-adoptants</div>
+                <div class="email-subtitle">Recherche startup partenaire (fenêtre 17 juillet 2026)</div>
+            </div>
+
+            <div class="email-body">
+                <div class="field">
+                    <span class="field-label">À :</span>
+                    <div class="field-value">startups-innovation@economie.gouv.qc.ca</div>
+                </div>
+
+                <div class="field">
+                    <span class="field-label">Objet :</span>
+                    <div class="field-value">Recherche startup partenaire — Primo-adoptant IA pour services résidentiels</div>
+                </div>
+
+                <div class="email-content" id="email3">Bonjour,
+
+Taillage Haie Lite Inc. est une PME de services résidentiels en forte croissance basée à Vaudreuil-Dorion. Nous souhaitons participer à l'appel de projets Primo-adoptants à titre de primo-adoptant.
+
+Nous cherchons une jeune entreprise innovante québécoise spécialisée dans l'un de ces domaines :
+
+— Optimisation de routes / logistique IA
+— Workforce management / scheduling intelligent
+— Traduction IA temps réel / NLP
+— IoT pour maintenance / monitoring terrain
+
+Nous offrons un environnement de test unique : 130 jours de production, 3 crews, 4 000+ clients, 3 000 km² de zone opérationnelle — le terrain de jeu idéal pour valider une solution IA en conditions réelles.
+
+Auriez-vous des startups dans votre réseau qui cherchent un primo-adoptant? Nous visons la fenêtre du 17 juillet 2026.
+
+Merci de votre aide.
+
+Cordialement,
+Jean-Samuel Leboeuf
+Taillage Haie Lite Inc.
+Vaudreuil-Dorion, QC
+taillagehaielite.com</div>
+
+                <button class="copy-button" onclick="copyToClipboard('email3')">
+                    <svg class="icon" fill="currentColor" viewBox="0 0 16 16"><path d="M4 1.5H3a2 2 0 0 0-2 2V14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V3.5a2 2 0 0 0-2-2h-1v1h1a1 1 0 0 1 1 1V14a1 1 0 0 1-1 1H3a1 1 0 0 1-1-1V3.5a1 1 0 0 1 1-1h1v-1z"/><path d="M9.5 1a.5.5 0 0 1 .5.5v1a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5v-1a.5.5 0 0 1 .5-.5h3zm-3-1A1.5 1.5 0 0 0 5 1.5v1A1.5 1.5 0 0 0 6.5 4h3A1.5 1.5 0 0 0 11 2.5v-1A1.5 1.5 0 0 0 9.5 0h-3z"/></svg>
+                    Copier l'email
+                </button>
+                <span class="copy-feedback" id="feedback3">Copié!</span>
+            </div>
+        </div>
+
+        <footer>
+            <p>Générés depuis MAXIMISATION-SUBVENTIONS-2026.html</p>
+            <p style="margin-top: 8px; color: var(--text-muted);">Prêts à envoyer le 31 mars 2026</p>
+        </footer>
+    </div>
+
+    <script>
+        function copyToClipboard(elementId) {
+            const emailElement = document.getElementById(elementId);
+            const text = emailElement.innerText;
+
+            navigator.clipboard.writeText(text).then(() => {
+                const feedbackElement = document.getElementById('feedback' + elementId.slice(-1));
+                feedbackElement.classList.add('show');
+
+                setTimeout(() => {
+                    feedbackElement.classList.remove('show');
+                }, 2000);
+            }).catch(err => {
+                console.error('Erreur de copie:', err);
+                alert('Erreur lors de la copie. Copie manuelle requise.');
+            });
+        }
+    </script>
+</body>
+</html>

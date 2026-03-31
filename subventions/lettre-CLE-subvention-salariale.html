@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Demande de rendez-vous — Subvention salariale CLE Montérégie</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', 'Helvetica Neue', -apple-system, BlinkMacSystemFont, Arial, sans-serif;
+            background-color: #0f1117;
+            color: #e6edf3;
+            line-height: 1.6;
+            padding: 2rem;
+        }
+
+        .container {
+            max-width: 850px;
+            margin: 0 auto;
+            background-color: #161b22;
+            padding: 3rem;
+            border-left: 4px solid #22c55e;
+            border-radius: 4px;
+        }
+
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 3rem;
+            padding-bottom: 2rem;
+            border-bottom: 2px solid #22c55e;
+        }
+
+        .company-info h2 {
+            color: #22c55e;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .company-info p {
+            color: #8b949e;
+            margin: 0.3rem 0;
+            font-size: 0.95rem;
+        }
+
+        .date-info {
+            text-align: right;
+            color: #8b949e;
+        }
+
+        .date-info p {
+            margin: 0.3rem 0;
+        }
+
+        .recipient {
+            margin-bottom: 2rem;
+        }
+
+        .recipient h3 {
+            color: #22c55e;
+            font-size: 1rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .recipient p {
+            color: #e6edf3;
+            margin: 0.3rem 0;
+        }
+
+        .salutation {
+            margin-bottom: 1.5rem;
+            font-style: italic;
+            color: #8b949e;
+        }
+
+        .body-text {
+            margin-bottom: 1.5rem;
+            text-align: justify;
+        }
+
+        .body-text p {
+            margin-bottom: 1rem;
+        }
+
+        h4 {
+            color: #22c55e;
+            font-size: 1.1rem;
+            margin-top: 1.5rem;
+            margin-bottom: 0.75rem;
+            text-decoration: underline;
+        }
+
+        ul {
+            margin-left: 2rem;
+            margin-bottom: 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.75rem;
+            color: #e6edf3;
+        }
+
+        .position {
+            background-color: #0f1117;
+            padding: 1rem;
+            margin-bottom: 1rem;
+            border-left: 3px solid #22c55e;
+            border-radius: 2px;
+        }
+
+        .position-title {
+            color: #22c55e;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .position-details {
+            color: #8b949e;
+            font-size: 0.95rem;
+            margin: 0.3rem 0;
+        }
+
+        .highlight {
+            color: #22c55e;
+            font-weight: 600;
+        }
+
+        .closing {
+            margin-top: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .signature-block {
+            margin-top: 3rem;
+            padding-top: 2rem;
+            border-top: 1px solid #30363d;
+        }
+
+        .signatory {
+            margin-bottom: 2.5rem;
+        }
+
+        .signature-line {
+            display: flex;
+            flex-direction: column;
+            margin-top: 2rem;
+        }
+
+        .blank-line {
+            border-bottom: 1px solid #22c55e;
+            width: 250px;
+            margin-bottom: 0.3rem;
+        }
+
+        .name-title {
+            font-weight: 600;
+            color: #22c55e;
+            margin-bottom: 0.5rem;
+            margin-top: 1rem;
+        }
+
+        .contact-info {
+            color: #8b949e;
+            font-size: 0.9rem;
+        }
+
+        @media print {
+            body {
+                background-color: white;
+                color: #000;
+                padding: 0;
+            }
+
+            .container {
+                background-color: white;
+                border-left: none;
+                padding: 2rem;
+                box-shadow: none;
+            }
+
+            h2, h3, h4, .company-info h2, .position-title, .name-title, .highlight {
+                color: #000;
+            }
+
+            .header {
+                border-bottom: 2px solid #000;
+            }
+
+            .company-info p, .date-info, .recipient p, .salutation, .position-details, .contact-info {
+                color: #000;
+            }
+
+            .position {
+                background-color: #f5f5f5;
+                border-left: 3px solid #000;
+            }
+
+            .blank-line {
+                border-bottom-color: #000;
+            }
+
+            page-break-after: auto;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- EN-TÊTE -->
+        <div class="header">
+            <div class="company-info">
+                <h2>Taillage Haie Lite Inc.</h2>
+                <p>Services de taille de haies résidentielles</p>
+                <p>Vaudreuil-Dorion, Québec</p>
+                <p style="margin-top: 0.75rem; color: #22c55e;">📍 Région Montérégie</p>
+            </div>
+            <div class="date-info">
+                <p><strong>Date :</strong></p>
+                <p>1<sup>er</sup> avril 2026</p>
+            </div>
+        </div>
+
+        <!-- DESTINATAIRE -->
+        <div class="recipient">
+            <h3>À l'attention de :</h3>
+            <p><strong>Centre local d'emploi — Montérégie</strong></p>
+            <p>Services Québec</p>
+            <p>Direction des Programmes de Subvention Salariale</p>
+        </div>
+
+        <div class="salutation">
+            Madame, Monsieur,
+        </div>
+
+        <!-- CORPS DE LA LETTRE -->
+        <div class="body-text">
+            <p>C'est avec intérêt que nous vous adressons cette demande de rendez-vous pour discuter des opportunités de financement et de subventions salariales offertes par votre centre d'emploi.</p>
+
+            <p><span class="highlight">Taillage Haie Lite Inc.</span> est une entreprise spécialisée dans les services de taille de haies résidentielles de haute qualité, desservant la région de Vaudreuil-Dorion. Fondée en 2023, nous avons généré un chiffre d'affaires de <span class="highlight">250 000$ en 2025</span> avec une prévision de croissance vers <span class="highlight">1 000 000$ en 2026</span>. Cette expansion rapide nous impose un besoin urgent de recrutement et de formation d'équipes qualifiées.</p>
+
+            <h4>Positions à pourvoir pour la saison 2026</h4>
+
+            <p>Nous recherchons activement <span class="highlight">6 professionnels</span> pour notre équipe. Chaque position inclut un plan d'intégration rigoureux :</p>
+
+            <div class="position">
+                <div class="position-title">1. Chef d'équipe senior</div>
+                <div class="position-details">Gestion d'équipe de 3-4 personnes, taille de haies, relation client, supervision chantiers</div>
+                <div class="position-details">Période : avril – octobre 2026</div>
+                <div class="position-details">Salaire estimé : 130 000$ / saison</div>
+            </div>
+
+            <div class="position">
+                <div class="position-title">2. Chef d'équipe junior</div>
+                <div class="position-details">Support opérationnel, apprentissage gestion d'équipe, co-supervision de chantiers</div>
+                <div class="position-details">Période : avril – octobre 2026</div>
+                <div class="position-details">Salaire estimé : 100 000$ / saison</div>
+            </div>
+
+            <div class="position">
+                <div class="position-title">3-4. Ouvriers paysagistes (×2 postes)</div>
+                <div class="position-details">Taille de haies, entretien, transport équipement, respect normes de sécurité</div>
+                <div class="position-details">Période : mai – octobre 2026</div>
+                <div class="position-details">Salaire : selon expérience (20-28$ / heure)</div>
+            </div>
+
+            <div class="position">
+                <div class="position-title">5-6. Aides paysagistes étudiants (×2 postes)</div>
+                <div class="position-details">Support terrain, nettoyage, transport équipement, apprentissage pratique</div>
+                <div class="position-details">Période : mai – août 2026</div>
+                <div class="position-details">Salaire : 21$ / heure (pour étudiants admissibles)</div>
+            </div>
+
+            <h4>Plan d'intégration et de formation</h4>
+
+            <p>Chaque candidat embauché suivra un programme d'intégration structuré de 2 semaines incluant :</p>
+
+            <ul>
+                <li>Onboarding supervisé avec mentor dédié</li>
+                <li>Certification sécurité (équipement, utilisation scies électriques, travail en hauteur)</li>
+                <li>Formation aux outils numériques (plateforme ServiceM8 pour suivi chantiers)</li>
+                <li>Protocoles de service à la clientèle et respect des propriétés</li>
+                <li>Evaluation et progression (horaires flexibles pour étudiants)</li>
+            </ul>
+
+            <p>Le coût total estimé de ce programme de formation est de <span class="highlight">13 000$</span>, et nous serions intéressés par une subvention MFOR (Mesure de formation en milieu de travail) pour financer une partie de cet investissement.</p>
+
+            <h4>Programmes d'aide sollicités</h4>
+
+            <p>Nous aimerions explorer les possibilités suivantes lors de notre rencontre :</p>
+
+            <ul>
+                <li><span class="highlight">Subvention salariale</span> — Pour l'embauche de nos 6 postes (réduction de cotisations ou allocation directe)</li>
+                <li><span class="highlight">PRIIME</span> — Programme de retour à l'emploi; pertinent si nous embauchons des travailleurs immigrés ou en réinsertion</li>
+                <li><span class="highlight">MFOR</span> — Mesure de formation en milieu de travail (13 000$ pour plan d'intégration complet)</li>
+                <li>Autres programmes de soutien à la croissance PME en région Montérégie</li>
+            </ul>
+
+            <h4>Disponibilité et démarrage</h4>
+
+            <p>La saison 2026 débute le <span class="highlight">27 avril 2026</span>. Nous avons besoin de compléter nos effectifs avant cette date pour assurer une opération optimale. Nous sommes donc disponibles pour un rendez-vous <span class="highlight">cette semaine ou la suivante</span> afin d'accélérer le processus d'approbation.</p>
+
+            <p>Nous possédons une documentation complète incluant :</p>
+            <ul>
+                <li>Plan de formation détaillé (MFOR)</li>
+                <li>Devis de formation par position</li>
+                <li>Calendrier d'embauche et calendrier des débuts d'emploi</li>
+                <li>Organigramme et responsabilités par poste</li>
+                <li>Critères de sélection et d'évaluation</li>
+            </ul>
+        </div>
+
+        <!-- FERMETURE -->
+        <div class="closing">
+            <p>Nous serions honorés de discuter de ces opportunités avec vous et de connaître comment le Centre local d'emploi de Montérégie peut nous accompagner dans cette phase critique de croissance.</p>
+
+            <p>Merci de nous contacter pour confirmer un rendez-vous selon votre disponibilité.</p>
+        </div>
+
+        <!-- SIGNATURES -->
+        <div class="signature-block">
+            <p style="margin-bottom: 2rem;">Respectueusement,</p>
+
+            <div style="display: flex; gap: 4rem;">
+                <div class="signatory">
+                    <div class="signature-line">
+                        <div class="blank-line"></div>
+                        <div class="name-title">Henri [Nom]</div>
+                        <div class="contact-info">Copropriétaire, Taillage Haie Lite Inc.</div>
+                        <div class="contact-info">Téléphone : ________________</div>
+                        <div class="contact-info">Email : ________________</div>
+                    </div>
+                </div>
+
+                <div class="signatory">
+                    <div class="signature-line">
+                        <div class="blank-line"></div>
+                        <div class="name-title">Jean-Samuel Leboeuf</div>
+                        <div class="contact-info">CEO/Systèmes, Taillage Haie Lite Inc.</div>
+                        <div class="contact-info">Téléphone : ________________</div>
+                        <div class="contact-info">Email : ________________</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- PIED DE PAGE -->
+        <div style="margin-top: 3rem; padding-top: 1.5rem; border-top: 1px solid #30363d; font-size: 0.85rem; color: #8b949e;">
+            <p><strong>Documents joints :</strong> Plan de formation MFOR (détail des 6 positions), Calendrier d'exécution saison 2026, Organigramme opérationnel</p>
+        </div>
+    </div>
+</body>
+</html>
