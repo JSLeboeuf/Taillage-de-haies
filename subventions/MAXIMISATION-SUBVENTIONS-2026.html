@@ -1,0 +1,1024 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Maximisation Subventions 2026 — Haie Lite</title>
+    <style>
+        :root {
+            --bg: #0a0f0d;
+            --card: #131a16;
+            --card-alt: #1a2320;
+            --border: #243028;
+            --text: #e4e8e5;
+            --muted: #7a8f80;
+            --green: #22c55e;
+            --green-dim: rgba(34,197,94,0.15);
+            --accent: #4ade80;
+            --amber: #f59e0b;
+            --amber-dim: rgba(245,158,11,0.15);
+            --red: #ef4444;
+            --red-dim: rgba(239,68,68,0.15);
+            --blue: #3b82f6;
+            --blue-dim: rgba(59,130,246,0.15);
+            --purple: #a855f7;
+            --purple-dim: rgba(168,85,247,0.15);
+        }
+        * { margin:0; padding:0; box-sizing:border-box; }
+        body { font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; background:var(--bg); color:var(--text); line-height:1.6; padding:24px; max-width:1100px; margin:0 auto; }
+        @media print { body { background:#fff; color:#111; } .card,.section { background:#f8f8f8; border:1px solid #ddd; } }
+
+        .hero {
+            background: linear-gradient(135deg, #0f2e1a 0%, #1a3d25 50%, #0f2e1a 100%);
+            border: 2px solid var(--accent);
+            border-radius: 20px;
+            padding: 48px;
+            text-align: center;
+            margin-bottom: 28px;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before { content:''; position:absolute; top:0; left:0; right:0; bottom:0; background:radial-gradient(ellipse at 50% 30%, rgba(74,222,128,0.15), transparent 70%); pointer-events:none; }
+        .hero h1 { font-size: 20px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.15em; margin-bottom: 8px; font-weight: 600; }
+        .hero .big { font-size: 72px; font-weight: 900; color: var(--accent); line-height: 1; margin-bottom: 8px; }
+        .hero .sub { font-size: 16px; color: var(--muted); }
+        .hero .range { font-size: 28px; color: var(--text); font-weight: 300; margin-top: 4px; }
+
+        .stat-bar { display: grid; grid-template-columns: repeat(4,1fr); gap: 12px; margin-bottom: 28px; }
+        .stat-box { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; text-align: center; }
+        .stat-box .val { font-size: 28px; font-weight: 800; }
+        .stat-box .lbl { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-top: 4px; }
+
+        .section { background: var(--card); border: 1px solid var(--border); border-radius: 14px; padding: 28px; margin-bottom: 20px; }
+        .section h2 { font-size: 20px; font-weight: 700; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .section h2 .ico { font-size: 24px; }
+        .section h3 { font-size: 15px; font-weight: 700; color: var(--accent); margin: 20px 0 10px; text-transform: uppercase; letter-spacing: 0.04em; }
+
+        table { width:100%; border-collapse:collapse; font-size:13px; margin:12px 0; }
+        th,td { padding:10px 12px; text-align:left; border-bottom:1px solid var(--border); }
+        th { background:var(--card-alt); color:var(--muted); font-size:11px; text-transform:uppercase; letter-spacing:0.06em; font-weight:700; }
+        .amount { text-align:right; font-variant-numeric:tabular-nums; font-weight:600; }
+        .total-row { font-weight:800; background:rgba(74,222,128,0.08) !important; }
+        .total-row td { border-top:2px solid var(--accent); font-size:15px; }
+
+        .badge { display:inline-block; padding:2px 10px; border-radius:100px; font-size:11px; font-weight:700; }
+        .b-green { background:var(--green-dim); color:var(--green); }
+        .b-amber { background:var(--amber-dim); color:var(--amber); }
+        .b-red { background:var(--red-dim); color:var(--red); }
+        .b-blue { background:var(--blue-dim); color:var(--blue); }
+        .b-purple { background:var(--purple-dim); color:var(--purple); }
+
+        .program-card {
+            background: var(--card-alt);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 24px;
+            margin-bottom: 16px;
+            transition: border-color 0.2s;
+        }
+        .program-card:hover { border-color: var(--accent); }
+        .program-card .pc-header { display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 12px; }
+        .program-card .pc-title { font-size: 17px; font-weight: 700; }
+        .program-card .pc-amount { font-size: 22px; font-weight: 900; color: var(--accent); }
+        .program-card .pc-meta { display: flex; gap: 8px; margin-bottom: 12px; flex-wrap: wrap; }
+        .program-card .pc-body { font-size: 13px; color: rgba(228,232,229,0.8); }
+        .program-card .pc-body ul { padding-left: 18px; margin: 6px 0; }
+        .program-card .pc-body li { margin-bottom: 4px; }
+        .pc-action {
+            background: rgba(74,222,128,0.08);
+            border: 1px solid rgba(74,222,128,0.2);
+            border-radius: 8px;
+            padding: 12px 16px;
+            margin-top: 12px;
+            font-size: 13px;
+        }
+        .pc-action strong { color: var(--accent); }
+
+        .timeline { position: relative; padding-left: 30px; }
+        .timeline::before { content:''; position:absolute; left:12px; top:0; bottom:0; width:2px; background:var(--border); }
+        .tl-item { position: relative; margin-bottom: 20px; }
+        .tl-item::before { content:''; position:absolute; left:-22px; top:6px; width:12px; height:12px; border-radius:50%; border:2px solid var(--accent); background:var(--bg); }
+        .tl-item.done::before { background:var(--accent); }
+        .tl-date { font-size:12px; color:var(--muted); font-weight:600; text-transform:uppercase; letter-spacing:0.05em; }
+        .tl-content { font-size:14px; margin-top:4px; }
+
+        .call-box {
+            display: grid;
+            grid-template-columns: auto 1fr auto;
+            gap: 16px;
+            align-items: center;
+            background: var(--card-alt);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 16px 20px;
+            margin-bottom: 10px;
+            font-size: 14px;
+        }
+        .call-box .phone { font-size: 20px; }
+        .call-box .org { font-weight: 700; }
+        .call-box .num { color: var(--accent); font-weight: 600; font-family: monospace; font-size: 15px; }
+
+        .checklist { list-style:none; padding:0; }
+        .checklist li { display:flex; align-items:flex-start; gap:10px; padding:8px 0; border-bottom:1px solid rgba(255,255,255,0.04); font-size:14px; }
+        .check { flex-shrink:0; width:18px; height:18px; border:2px solid var(--border); border-radius:4px; cursor:pointer; display:flex; align-items:center; justify-content:center; margin-top:2px; }
+        .check.done { background:var(--green); border-color:var(--green); }
+        .check.done::after { content:'✓'; color:white; font-size:11px; font-weight:700; }
+
+        .grid-2 { display:grid; grid-template-columns:1fr 1fr; gap:16px; }
+        .grid-3 { display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; }
+
+        @media (max-width:768px) { .stat-bar,.grid-2,.grid-3 { grid-template-columns:1fr; } .hero .big { font-size:48px; } }
+    </style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- HERO -->
+<!-- ════════════════════════════════════════════ -->
+<div class="hero">
+    <h1>Haie Lite Inc. — Potentiel Total Subventions + Credits 2026</h1>
+    <div class="big">462 000 $</div>
+    <div class="range">Fourchette : 327 000 $ — 612 000 $</div>
+    <div class="sub" style="margin-top:12px;">18 programmes cumulables identifiés — Provincial + Fédéral + Municipal</div>
+</div>
+
+<!-- STAT BAR -->
+<div class="stat-bar">
+    <div class="stat-box">
+        <div class="val" style="color:var(--green);">243 000 $</div>
+        <div class="lbl">Subventions non-remboursables</div>
+    </div>
+    <div class="stat-box">
+        <div class="val" style="color:var(--blue);">69 000 $</div>
+        <div class="lbl">Credits d'impôt</div>
+    </div>
+    <div class="stat-box">
+        <div class="val" style="color:var(--purple);">150 000 $</div>
+        <div class="lbl">Prêts avantageux</div>
+    </div>
+    <div class="stat-box">
+        <div class="val" style="color:var(--amber);">8</div>
+        <div class="lbl">Demandes cette semaine</div>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- TABLEAU SOMMAIRE -->
+<!-- ════════════════════════════════════════════ -->
+<div class="section">
+    <h2><span class="ico">💰</span> Sommaire — 18 programmes par priorité d'exécution</h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th style="width:30px;">#</th>
+                <th>Programme</th>
+                <th>Type</th>
+                <th class="amount">Montant Haie Lite</th>
+                <th>Difficulté</th>
+                <th>Délai</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <!-- TIER 1: IMMÉDIAT -->
+            <tr><td colspan="7" style="font-weight:800; color:var(--green); background:rgba(34,197,94,0.06); font-size:13px; letter-spacing:0.1em;">TIER 1 — CETTE SEMAINE (0 deadline, acceptation continue)</td></tr>
+            <tr>
+                <td>1</td>
+                <td><strong>Subvention salariale</strong> — Services Québec</td>
+                <td><span class="badge b-green">Sub</span></td>
+                <td class="amount">30 000 $</td>
+                <td><span class="badge b-green">Facile</span></td>
+                <td>2-4 sem</td>
+                <td>Appeler CLE lundi</td>
+            </tr>
+            <tr>
+                <td>2</td>
+                <td><strong>PAMT</strong> — HortiCompétences (×4 apprentis)</td>
+                <td><span class="badge b-green">Sub</span></td>
+                <td class="amount">60 000 $</td>
+                <td><span class="badge b-green">Facile</span></td>
+                <td>3-4 sem</td>
+                <td>Appeler HortiComp</td>
+            </tr>
+            <tr>
+                <td>3</td>
+                <td><strong>HortiCompétences</strong> — Sub sectorielle</td>
+                <td><span class="badge b-green">Sub</span></td>
+                <td class="amount">25 000 $</td>
+                <td><span class="badge b-green">Facile</span></td>
+                <td>2-3 sem</td>
+                <td>Même appel que PAMT</td>
+            </tr>
+            <tr>
+                <td>4</td>
+                <td><strong>PRIIME</strong> — TET/immigrants (×2 personnes)</td>
+                <td><span class="badge b-green">Sub</span></td>
+                <td class="amount">52 000 $</td>
+                <td><span class="badge b-amber">Moyen</span></td>
+                <td>2-3 sem</td>
+                <td>Vérifier admissibilité TET</td>
+            </tr>
+            <tr>
+                <td>5</td>
+                <td><strong>MFOR</strong> — Formation main-d'oeuvre</td>
+                <td><span class="badge b-green">Sub</span></td>
+                <td class="amount">15 000 $</td>
+                <td><span class="badge b-green">Facile</span></td>
+                <td>3-4 sem</td>
+                <td>Plan de formation</td>
+            </tr>
+
+            <!-- TIER 2: CE MOIS -->
+            <tr><td colspan="7" style="font-weight:800; color:var(--amber); background:rgba(245,158,11,0.06); font-size:13px; letter-spacing:0.1em;">TIER 2 — CE MOIS-CI (avril 2026)</td></tr>
+            <tr>
+                <td>6</td>
+                <td><strong>ESSOR 1C</strong> — Implantation numérique</td>
+                <td><span class="badge b-green">Sub</span></td>
+                <td class="amount">50 000 $</td>
+                <td><span class="badge b-amber">Moyen</span></td>
+                <td>4-6 sem</td>
+                <td>Investissement Québec</td>
+            </tr>
+            <tr>
+                <td>7</td>
+                <td><strong>FLI</strong> — Fonds local Vaudreuil-Soulanges</td>
+                <td><span class="badge b-purple">Prêt</span></td>
+                <td class="amount">150 000 $</td>
+                <td><span class="badge b-amber">Moyen</span></td>
+                <td>2-3 sem</td>
+                <td>DEV Vaudreuil-Soulanges</td>
+            </tr>
+            <tr>
+                <td>8</td>
+                <td><strong>Productivité-Compétences</strong> — CPMT (volet IA)</td>
+                <td><span class="badge b-green">Sub</span></td>
+                <td class="amount">20 000 $</td>
+                <td><span class="badge b-amber">Moyen</span></td>
+                <td>Variable</td>
+                <td>Vérifier appels ouverts</td>
+            </tr>
+            <tr>
+                <td>9</td>
+                <td><strong>Primo-adoptants</strong> — MEI (si startup trouvée)</td>
+                <td><span class="badge b-green">Sub</span></td>
+                <td class="amount">75 000 $</td>
+                <td><span class="badge b-red">Complexe</span></td>
+                <td>3 avril ou 17 juil</td>
+                <td>Trouver startup partenaire</td>
+            </tr>
+
+            <!-- TIER 3: Q2-Q3 -->
+            <tr><td colspan="7" style="font-weight:800; color:var(--blue); background:rgba(59,130,246,0.06); font-size:13px; letter-spacing:0.1em;">TIER 3 — Q2-Q3 2026 (crédits impôt + équipement)</td></tr>
+            <tr>
+                <td>10</td>
+                <td><strong>RS&DE</strong> — Fédéral (dev logiciel IA)</td>
+                <td><span class="badge b-blue">Crédit</span></td>
+                <td class="amount">35 000 $</td>
+                <td><span class="badge b-amber">Moyen</span></td>
+                <td>Décl. fiscale</td>
+                <td>Documenter R&D maintenant</td>
+            </tr>
+            <tr>
+                <td>11</td>
+                <td><strong>CRIC</strong> — Québec (ex-RS&DE provincial)</td>
+                <td><span class="badge b-blue">Crédit</span></td>
+                <td class="amount">21 000 $</td>
+                <td><span class="badge b-amber">Moyen</span></td>
+                <td>Décl. fiscale</td>
+                <td>Même dossier que RS&DE</td>
+            </tr>
+            <tr>
+                <td>12</td>
+                <td><strong>Crédit formation</strong> — Loi compétences (×8 emp)</td>
+                <td><span class="badge b-blue">Crédit</span></td>
+                <td class="amount">13 000 $</td>
+                <td><span class="badge b-green">Facile</span></td>
+                <td>Décl. fiscale</td>
+                <td>Tracker les dépenses formation</td>
+            </tr>
+            <tr>
+                <td>13</td>
+                <td><strong>C3i</strong> — Équipement + logiciels</td>
+                <td><span class="badge b-blue">Crédit</span></td>
+                <td class="amount">8 000 $</td>
+                <td><span class="badge b-green">Facile</span></td>
+                <td>Décl. fiscale</td>
+                <td>Garder toutes les factures</td>
+            </tr>
+            <tr>
+                <td>14</td>
+                <td><strong>Roulez vert</strong> — Véhicules électriques (×2)</td>
+                <td><span class="badge b-green">Sub</span></td>
+                <td class="amount">4 000 $</td>
+                <td><span class="badge b-green">Facile</span></td>
+                <td>1-2 sem</td>
+                <td>Au concessionnaire</td>
+            </tr>
+            <tr>
+                <td>15</td>
+                <td><strong>iZEV/PAVE</strong> — Fédéral véhicules (×2)</td>
+                <td><span class="badge b-green">Sub</span></td>
+                <td class="amount">10 000 $</td>
+                <td><span class="badge b-green">Facile</span></td>
+                <td>Au point de vente</td>
+                <td>Cumulable avec Roulez vert</td>
+            </tr>
+            <tr>
+                <td>16</td>
+                <td><strong>Bornes recharge</strong> — Écorecharge (×3)</td>
+                <td><span class="badge b-green">Sub</span></td>
+                <td class="amount">15 000 $</td>
+                <td><span class="badge b-green">Facile</span></td>
+                <td>2-4 sem</td>
+                <td>Si véhicules électriques</td>
+            </tr>
+
+            <!-- TIER 4: STRETCH -->
+            <tr><td colspan="7" style="font-weight:800; color:var(--purple); background:rgba(168,85,247,0.06); font-size:13px; letter-spacing:0.1em;">TIER 4 — STRETCH (si capacité dossier)</td></tr>
+            <tr>
+                <td>17</td>
+                <td><strong>DEC</strong> — Expansion et productivité</td>
+                <td><span class="badge b-green">Sub</span></td>
+                <td class="amount">50 000 $</td>
+                <td><span class="badge b-red">Complexe</span></td>
+                <td>4-6 sem</td>
+                <td>Dossier complet requis</td>
+            </tr>
+            <tr>
+                <td>18</td>
+                <td><strong>CDAEIA</strong> — Crédit IA (JS salaire)</td>
+                <td><span class="badge b-blue">Crédit</span></td>
+                <td class="amount">25 000 $</td>
+                <td><span class="badge b-red">Complexe</span></td>
+                <td>Décl. fiscale</td>
+                <td>Vérifier admissibilité</td>
+            </tr>
+
+            <tr class="total-row">
+                <td colspan="3">TOTAL POTENTIEL MAXIMAL</td>
+                <td class="amount" style="font-size:20px;">462 000 $</td>
+                <td colspan="3" style="color:var(--muted); font-size:12px;">Sub: 243k$ + Crédits: 69k$ + Prêt: 150k$</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- DÉTAILS PAR PROGRAMME — TIER 1 -->
+<!-- ════════════════════════════════════════════ -->
+<div class="section">
+    <h2><span class="ico">🟢</span> TIER 1 — 5 demandes cette semaine (182 000 $)</h2>
+    <p style="color:var(--muted); font-size:14px; margin-bottom:20px;">Tous en continu, pas de deadline. Appeler lundi matin et tout lancer en parallèle.</p>
+
+    <!-- PROGRAMME 1 -->
+    <div class="program-card" style="border-left: 3px solid var(--green);">
+        <div class="pc-header">
+            <div>
+                <div class="pc-title">1. Subvention salariale — Services Québec</div>
+            </div>
+            <div class="pc-amount">30 000 $</div>
+        </div>
+        <div class="pc-meta">
+            <span class="badge b-green">Non-remboursable</span>
+            <span class="badge b-green">En continu</span>
+            <span class="badge b-green">2-4 semaines</span>
+        </div>
+        <div class="pc-body">
+            <strong>Ce que c'est :</strong> Jusqu'à 50-60% du salaire brut des nouveaux employés pendant la période d'intégration/formation.<br><br>
+            <strong>Calcul pour Haie Lite :</strong>
+            <ul>
+                <li>2 chefs d'équipe × 50% × 15 000$ (10 semaines intégration) = <strong>15 000$</strong></li>
+                <li>4 étudiants × 50% × salaire min × 10 semaines = <strong>~15 000$</strong></li>
+            </ul>
+            <strong>Documents requis :</strong>
+            <ul>
+                <li>Formulaire de demande employeur (téléchargeable Services Québec)</li>
+                <li>Description des postes et plan d'intégration</li>
+                <li>Offres d'emploi signées</li>
+                <li>NEQ et infos de l'entreprise</li>
+            </ul>
+        </div>
+        <div class="pc-action">
+            <strong>ACTION :</strong> Appeler <strong>1-877-767-8773</strong> (CLE Montérégie) lundi matin. Dire : « Je suis employeur en horticulture, je veux la subvention salariale pour 6 nouveaux employés saisonniers. » Demander un rendez-vous avec un agent entreprise.
+        </div>
+    </div>
+
+    <!-- PROGRAMME 2 -->
+    <div class="program-card" style="border-left: 3px solid var(--green);">
+        <div class="pc-header">
+            <div>
+                <div class="pc-title">2. PAMT — Programme d'apprentissage en milieu de travail (×4)</div>
+            </div>
+            <div class="pc-amount">60 000 $</div>
+        </div>
+        <div class="pc-meta">
+            <span class="badge b-green">Non-remboursable</span>
+            <span class="badge b-green">En continu</span>
+            <span class="badge b-green">3-4 semaines</span>
+        </div>
+        <div class="pc-body">
+            <strong>Ce que c'est :</strong> Jusqu'à 15 000$ par apprenti inscrit comme « ouvrier paysagiste » ou « manoeuvre en horticulture ». Couvre salaire apprenti + compagnon + matériel. Mène à un certificat de qualification professionnel.<br><br>
+            <strong>Calcul pour Haie Lite :</strong>
+            <ul>
+                <li>2 chefs d'équipe en formation comme « compagnon » → valorise leur rôle</li>
+                <li>4 apprentis (étudiants ou employés juniors) × 15 000$ = <strong>60 000$</strong></li>
+                <li>Durée : 2-3 saisons, minimum 21h/semaine</li>
+            </ul>
+            <strong>Documents requis :</strong>
+            <ul>
+                <li>Contrat d'apprentissage (formulaire HortiCompétences)</li>
+                <li>Identification du maître-ouvrier (Henri ou chef d'équipe)</li>
+                <li>Profil de l'apprenti</li>
+                <li>Plan de formation selon le carnet d'apprentissage PAMT</li>
+            </ul>
+        </div>
+        <div class="pc-action">
+            <strong>ACTION :</strong> Appeler <strong>450-774-3456</strong> (HortiCompétences). Dire : « On a 4 nouveaux employés en taillage de haies qu'on veut inscrire au PAMT comme ouvrier paysagiste. Notre maître-ouvrier est Henri. » Demander les formulaires d'enregistrement.
+        </div>
+    </div>
+
+    <!-- PROGRAMME 3 -->
+    <div class="program-card" style="border-left: 3px solid var(--green);">
+        <div class="pc-header">
+            <div>
+                <div class="pc-title">3. HortiCompétences — Subvention sectorielle</div>
+            </div>
+            <div class="pc-amount">25 000 $</div>
+        </div>
+        <div class="pc-meta">
+            <span class="badge b-green">Non-remboursable</span>
+            <span class="badge b-green">En continu</span>
+            <span class="badge b-green">Cumulable PAMT</span>
+        </div>
+        <div class="pc-body">
+            <strong>Ce que c'est :</strong> Subvention supplémentaire spécifique au secteur horticulture. Jusqu'à 50% du salaire des nouveaux employés pour l'intégration. Se cumule avec le PAMT.<br><br>
+            <strong>Calcul :</strong> 50% × salaire intégration de 4-5 employés = <strong>~25 000$</strong><br><br>
+            <strong>Avantage :</strong> HortiCompétences fait tout le suivi d'intégration pour toi — c'est un accompagnement gratuit en plus de l'argent.
+        </div>
+        <div class="pc-action">
+            <strong>ACTION :</strong> Même appel que le PAMT. Email à <strong>info@horticompetences.ca</strong> : « On est une entreprise de taillage de haies à Vaudreuil-Dorion, on embauche 6-8 personnes cette saison. On veut maximiser les programmes PAMT + sub sectorielle. »
+        </div>
+    </div>
+
+    <!-- PROGRAMME 4 -->
+    <div class="program-card" style="border-left: 3px solid var(--amber);">
+        <div class="pc-header">
+            <div>
+                <div class="pc-title">4. PRIIME — Immigrants et minorités visibles (×2 TET)</div>
+            </div>
+            <div class="pc-amount">52 000 $</div>
+        </div>
+        <div class="pc-meta">
+            <span class="badge b-green">Non-remboursable</span>
+            <span class="badge b-amber">Vérifier admissibilité TET</span>
+            <span class="badge b-green">En continu</span>
+        </div>
+        <div class="pc-body">
+            <strong>Ce que c'est :</strong> 60% du salaire brut × 40 semaines (~26 000$/personne) + adaptation RH (5 000$) + accompagnement (2 000$).<br><br>
+            <strong>Calcul pour Haie Lite :</strong>
+            <ul>
+                <li>2 TET guatémaltèques × 26 000$ = <strong>52 000$</strong></li>
+                <li><strong>ATTENTION :</strong> Le PRIIME est normalement pour résidents permanents/immigrants, PAS les travailleurs temporaires. Vérifier avec le CLE si les TET avec permis de travail fermé sont admissibles.</li>
+                <li>Si TET non admissibles → 0$. Si tu embauches un résident permanent/immigrant local → 26 000$ par personne.</li>
+            </ul>
+        </div>
+        <div class="pc-action">
+            <strong>ACTION :</strong> Lors de l'appel au CLE (1-877-767-8773), demander spécifiquement : « Est-ce que les TET avec permis de travail fermé sont admissibles au PRIIME? Et si j'embauche des résidents permanents? » Si non → reporter 0$, chercher employés immigrants locaux.
+        </div>
+    </div>
+
+    <!-- PROGRAMME 5 -->
+    <div class="program-card" style="border-left: 3px solid var(--green);">
+        <div class="pc-header">
+            <div>
+                <div class="pc-title">5. MFOR — Formation main-d'oeuvre</div>
+            </div>
+            <div class="pc-amount">15 000 $</div>
+        </div>
+        <div class="pc-meta">
+            <span class="badge b-green">Non-remboursable</span>
+            <span class="badge b-green">En continu</span>
+            <span class="badge b-green">100% dépenses</span>
+        </div>
+        <div class="pc-body">
+            <strong>Ce que c'est :</strong> Rembourse 100% des dépenses de formation admissibles. Formateurs externes, matériel, location de salle, libération employés.<br><br>
+            <strong>Calcul pour Haie Lite :</strong>
+            <ul>
+                <li>Formation sécurité taille en hauteur (obligatoire) : ~3 000$</li>
+                <li>Formation ServiceM8 / outils numériques : ~2 000$</li>
+                <li>Formation gestion d'équipe (chefs) : ~5 000$</li>
+                <li>Formation premiers soins / CNESST : ~2 000$</li>
+                <li>Libération employés pendant formation : ~3 000$</li>
+            </ul>
+            <strong>Note :</strong> TET NON admissibles depuis février 2025.
+        </div>
+        <div class="pc-action">
+            <strong>ACTION :</strong> Même appel CLE. Dire : « On a aussi besoin de la mesure MFOR pour former nos 6-8 employés. » Préparer un plan de formation avec dates et sujets.
+        </div>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- TIER 2 -->
+<!-- ════════════════════════════════════════════ -->
+<div class="section">
+    <h2><span class="ico">🟡</span> TIER 2 — Avril 2026 (295 000 $ additionnel)</h2>
+
+    <!-- ESSOR -->
+    <div class="program-card" style="border-left: 3px solid var(--amber);">
+        <div class="pc-header">
+            <div><div class="pc-title">6. ESSOR 1C — Implantation numérique (app Haie Lite)</div></div>
+            <div class="pc-amount">50 000 $</div>
+        </div>
+        <div class="pc-meta">
+            <span class="badge b-green">Non-remboursable</span>
+            <span class="badge b-amber">Deadline mars 2027</span>
+            <span class="badge b-amber">4-6 sem approbation</span>
+        </div>
+        <div class="pc-body">
+            <strong>Ce que c'est :</strong> 50% des dépenses d'implantation de solutions numériques, max 50 000$. Pour l'app Haie Lite (Next.js + Supabase + automations).<br><br>
+            <strong>Calcul :</strong>
+            <ul>
+                <li>Développement app (JS temps) : 40 000$</li>
+                <li>Infrastructure cloud (Vercel, Supabase, APIs) : 20 000$/an</li>
+                <li>Intégration ServiceM8 + Twilio + VAPI : 15 000$</li>
+                <li>Honoraires consultants numériques : 25 000$</li>
+                <li>Total dépenses admissibles : ~100 000$ → 50% = <strong>50 000$</strong></li>
+            </ul>
+            <strong>Prérequis :</strong> Avoir fait le Volet 1B (diagnostic numérique, 20 000$) ou équivalent. Vérifier si requis.<br>
+            <strong>Exigence :</strong> Site web en français obligatoire (taillagehaielite.com ✓)
+        </div>
+        <div class="pc-action">
+            <strong>ACTION :</strong> Appeler Investissement Québec : <strong>1-844-474-6367</strong>. Dire : « On a développé une plateforme numérique CRM/IA pour nos opérations terrain. On veut appliquer à ESSOR 1C. Est-ce qu'on doit faire le 1B d'abord? » Email : <strong>aidefinanciere@invest-quebec.com</strong>
+        </div>
+    </div>
+
+    <!-- FLI -->
+    <div class="program-card" style="border-left: 3px solid var(--purple);">
+        <div class="pc-header">
+            <div><div class="pc-title">7. FLI — Fonds local d'investissement Vaudreuil-Soulanges</div></div>
+            <div class="pc-amount">150 000 $</div>
+        </div>
+        <div class="pc-meta">
+            <span class="badge b-purple">Prêt avantageux</span>
+            <span class="badge b-green">Deadline déc 2028</span>
+            <span class="badge b-amber">2-3 sem</span>
+        </div>
+        <div class="pc-body">
+            <strong>Ce que c'est :</strong> Prêt à conditions avantageuses (taux préférentiels, congé de capital) pour expansion locale. Pas une subvention pure, mais du financement à conditions impossibles à trouver en banque.<br><br>
+            <strong>Calcul :</strong> Jusqu'à 150 000$ pour expansion (équipement, véhicules, fonds de roulement). 50% des dépenses admissibles.<br><br>
+            <strong>Documents :</strong> Plan d'affaires, états financiers, devis équipement, CV propriétaires
+        </div>
+        <div class="pc-action">
+            <strong>ACTION :</strong> Contacter <strong>Développement Vaudreuil-Soulanges</strong> via developpementvs.com. Prendre RDV avec un conseiller. Apporter : le GAMEPLAN Q2-2026, les projections financières, la liste d'équipement nécessaire.
+        </div>
+    </div>
+
+    <!-- Productivité-Compétences -->
+    <div class="program-card" style="border-left: 3px solid var(--amber);">
+        <div class="pc-header">
+            <div><div class="pc-title">8. Productivité-Compétences — CPMT (volet IA/numérique)</div></div>
+            <div class="pc-amount">20 000 $</div>
+        </div>
+        <div class="pc-meta">
+            <span class="badge b-green">Non-remboursable</span>
+            <span class="badge b-amber">Appels de projets</span>
+        </div>
+        <div class="pc-body">
+            <strong>Ce que c'est :</strong> Nouveau programme 55M$ sur 2 ans. 20M$ dédié à l'IA et numérisation des PME. Parfait pour financer la formation des employés sur les outils IA (Sophie, dashboard, ServiceM8).<br><br>
+            <strong>Calcul :</strong> Formation IA/numérique pour 8 employés : ~20 000$
+        </div>
+        <div class="pc-action">
+            <strong>ACTION :</strong> Vérifier sur <strong>cpmt.gouv.qc.ca</strong> si un appel de projets est ouvert. Sinon, inscrire pour être notifié. En attendant, les dépenses peuvent être réclamées via MFOR.
+        </div>
+    </div>
+
+    <!-- Primo-adoptants -->
+    <div class="program-card" style="border-left: 3px solid var(--red);">
+        <div class="pc-header">
+            <div><div class="pc-title">9. Primo-adoptants — MEI (partenariat startup)</div></div>
+            <div class="pc-amount">75 000 $</div>
+        </div>
+        <div class="pc-meta">
+            <span class="badge b-red">Deadline 3 avr ou 17 juil</span>
+            <span class="badge b-red">Startup requise</span>
+        </div>
+        <div class="pc-body">
+            Dossier complet déjà préparé → voir <strong>primo-adoptants-dossier-complet.html</strong><br>
+            Si la deadline du 3 avril est trop serrée, viser le <strong>17 juillet 2026</strong> avec un dossier béton.
+        </div>
+        <div class="pc-action">
+            <strong>ACTION :</strong> Email aujourd'hui à <strong>startups-innovation@economie.gouv.qc.ca</strong> pour trouver un partenaire startup. Viser la fenêtre du 17 juillet.
+        </div>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- TIER 3 -->
+<!-- ════════════════════════════════════════════ -->
+<div class="section">
+    <h2><span class="ico">🔵</span> TIER 3 — Crédits d'impôt + Véhicules (106 000 $)</h2>
+
+    <div class="grid-2">
+        <!-- RS&DE -->
+        <div class="program-card" style="border-left:3px solid var(--blue);">
+            <div class="pc-title">10. RS&DE — Fédéral (dev logiciel IA)</div>
+            <div class="pc-amount" style="margin:8px 0;">35 000 $</div>
+            <div class="pc-body">
+                35% remboursable sur dépenses R&D. L'app Haie Lite, Sophie IA, chatbot TET, optimisation routes = tous admissibles.<br><br>
+                <strong>Dépenses admissibles estimées :</strong><br>
+                Salaire JS (portion R&D, ~60%) : 80 000$<br>
+                APIs IA (Claude, GPT-4, Deepgram) : 8 000$<br>
+                Infrastructure R&D : 12 000$<br>
+                <strong>Total : ~100k$ × 35% = 35 000$</strong>
+            </div>
+            <div class="pc-action"><strong>CRITIQUE :</strong> Commencer à documenter MAINTENANT. Chaque commit git, chaque heure de dev IA, chaque test = preuve RS&DE. Deadline : 18 mois après fin d'exercice.</div>
+        </div>
+
+        <!-- CRIC -->
+        <div class="program-card" style="border-left:3px solid var(--blue);">
+            <div class="pc-title">11. CRIC — Québec (ex-RS&DE QC)</div>
+            <div class="pc-amount" style="margin:8px 0;">21 000 $</div>
+            <div class="pc-body">
+                30% du premier 1M$ de dépenses R&D. <strong>Se cumule avec RS&DE fédéral</strong> — même dossier, deux crédits.<br><br>
+                ~70 000$ dépenses (net du fédéral) × 30% = <strong>21 000$</strong>
+            </div>
+            <div class="pc-action"><strong>ACTION :</strong> Même documentation que RS&DE. Contacter un comptable spécialisé RS&DE/CRIC pour maximiser les deux crédits simultanément.</div>
+        </div>
+
+        <!-- Crédit formation -->
+        <div class="program-card" style="border-left:3px solid var(--blue);">
+            <div class="pc-title">12. Crédit formation — Loi compétences</div>
+            <div class="pc-amount" style="margin:8px 0;">13 000 $</div>
+            <div class="pc-body">
+                30% des dépenses de formation, max 5 460$/employé. Toute formation reconnue (sécurité, CNESST, technique, numérique).<br><br>
+                8 employés × ~5 400$ dépenses × 30% = <strong>~13 000$</strong>
+            </div>
+            <div class="pc-action"><strong>ACTION :</strong> Tracker TOUTES les heures de formation dans un registre. Garder attestations. Réclamer à la déclaration fiscale.</div>
+        </div>
+
+        <!-- C3i -->
+        <div class="program-card" style="border-left:3px solid var(--blue);">
+            <div class="pc-title">13. C3i — Équipement et logiciels</div>
+            <div class="pc-amount" style="margin:8px 0;">8 000 $</div>
+            <div class="pc-body">
+                15-25% du coût d'acquisition d'équipement. Taille-haies électriques, échelles, souffleuses, tablettes, logiciels.<br><br>
+                ~40 000$ équipement × 20% = <strong>8 000$</strong>
+            </div>
+            <div class="pc-action"><strong>ACTION :</strong> Formulaire CO-1029.8.36.II à la déclaration d'impôt. Garder TOUTES les factures d'équipement et logiciels.</div>
+        </div>
+
+        <!-- Roulez vert -->
+        <div class="program-card" style="border-left:3px solid var(--green);">
+            <div class="pc-title">14. Roulez vert + 15. iZEV Fédéral — Véhicules</div>
+            <div class="pc-amount" style="margin:8px 0;">14 000 $</div>
+            <div class="pc-body">
+                <strong>Provincial :</strong> 2 000$/véhicule électrique neuf × 2 = 4 000$<br>
+                <strong>Fédéral iZEV :</strong> 5 000$/véhicule × 2 = 10 000$<br>
+                <strong>Les deux sont cumulables</strong> = 7 000$/véhicule<br><br>
+                <span style="color:var(--red); font-weight:700;">⚠️ Roulez vert = DERNIÈRE ANNÉE (fin 31 déc 2026)</span>
+            </div>
+            <div class="pc-action"><strong>ACTION :</strong> Si tu prévois des pick-ups électriques, c'est <strong>maintenant</strong>. Les rabais sont appliqués directement au concessionnaire.</div>
+        </div>
+
+        <!-- Bornes -->
+        <div class="program-card" style="border-left:3px solid var(--green);">
+            <div class="pc-title">16. Bornes de recharge — Écorecharge (×3)</div>
+            <div class="pc-amount" style="margin:8px 0;">15 000 $</div>
+            <div class="pc-body">
+                5 000$ par borne niveau 2 (50% des coûts). Si tu achètes des véhicules électriques, les bornes sont subventionnées.<br><br>
+                3 bornes × 5 000$ = <strong>15 000$</strong>
+            </div>
+            <div class="pc-action"><strong>ACTION :</strong> Combiner avec achat véhicules. Demander au concessionnaire ou installer chez Henri/au dépôt.</div>
+        </div>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- APPELS À FAIRE -->
+<!-- ════════════════════════════════════════════ -->
+<div class="section">
+    <h2><span class="ico">📞</span> Les 6 appels à faire LUNDI (1 matinée = 182k$ lancés)</h2>
+    <p style="color:var(--muted); font-size:14px; margin-bottom:16px;">Un seul matin d'appels lance les 5 demandes du Tier 1 + ESSOR. Scripts inclus.</p>
+
+    <div class="call-box">
+        <div class="phone">📞</div>
+        <div>
+            <div class="org">1. CLE Montérégie — Services Québec</div>
+            <div style="color:var(--muted); font-size:12px;">Sub salariale + PRIIME + MFOR (3 programmes en 1 appel)</div>
+        </div>
+        <div class="num">1-877-767-8773</div>
+    </div>
+    <div style="background:var(--card-alt); border-radius:8px; padding:16px; margin-bottom:16px; font-size:13px;">
+        <strong>Script :</strong> « Bonjour, je suis [Henri/Jean-Samuel] de Taillage Haie Lite Inc. à Vaudreuil-Dorion. On est une entreprise de taillage de haies résidentielles, on fait 250k$ de CA et on prévoit 1M$ cette année. On embauche 6-8 nouveaux employés saisonniers cette saison, incluant possiblement des travailleurs immigrants. Je veux maximiser les programmes d'aide à l'emploi : <strong>la subvention salariale, le PRIIME si nos TET sont admissibles, et la mesure MFOR pour la formation</strong>. Est-ce que je peux avoir un rendez-vous avec un agent aux entreprises cette semaine? »
+    </div>
+
+    <div class="call-box">
+        <div class="phone">📞</div>
+        <div>
+            <div class="org">2. HortiCompétences</div>
+            <div style="color:var(--muted); font-size:12px;">PAMT + Subvention sectorielle (2 programmes en 1 appel)</div>
+        </div>
+        <div class="num">450-774-3456</div>
+    </div>
+    <div style="background:var(--card-alt); border-radius:8px; padding:16px; margin-bottom:16px; font-size:13px;">
+        <strong>Script :</strong> « Bonjour, je suis [Henri/Jean-Samuel], Taillage Haie Lite Inc. On est en taillage de haies résidentielles à Vaudreuil-Dorion. On embauche 4-6 personnes cette saison qu'on veut former comme ouvriers paysagistes. On veut inscrire nos apprentis au <strong>PAMT</strong> et aussi profiter de votre <strong>subvention sectorielle pour l'intégration</strong>. Notre maître-ouvrier c'est Henri, 1+ saison d'expérience. Pouvez-vous nous envoyer les formulaires? »
+    </div>
+
+    <div class="call-box">
+        <div class="phone">📞</div>
+        <div>
+            <div class="org">3. Investissement Québec</div>
+            <div style="color:var(--muted); font-size:12px;">ESSOR 1C + C3i (2 programmes)</div>
+        </div>
+        <div class="num">1-844-474-6367</div>
+    </div>
+    <div style="background:var(--card-alt); border-radius:8px; padding:16px; margin-bottom:16px; font-size:13px;">
+        <strong>Script :</strong> « Bonjour, Taillage Haie Lite Inc. On a développé une plateforme numérique (CRM, IA, automatisations) pour gérer nos opérations terrain. On veut appliquer au programme <strong>ESSOR volet 1C pour l'implantation numérique</strong>. On a aussi de l'équipement à acquérir, est-ce que le <strong>C3i</strong> s'applique à du matériel de paysagement? »
+    </div>
+
+    <div class="call-box">
+        <div class="phone">📞</div>
+        <div>
+            <div class="org">4. Développement Vaudreuil-Soulanges</div>
+            <div style="color:var(--muted); font-size:12px;">FLI + accompagnement local</div>
+        </div>
+        <div class="num">450-455-3809</div>
+    </div>
+
+    <div class="call-box">
+        <div class="phone">📧</div>
+        <div>
+            <div class="org">5. MEI — Primo-adoptants</div>
+            <div style="color:var(--muted); font-size:12px;">Trouver startup partenaire (fenêtre 17 juillet)</div>
+        </div>
+        <div class="num">startups-innovation@economie.gouv.qc.ca</div>
+    </div>
+
+    <div class="call-box">
+        <div class="phone">📞</div>
+        <div>
+            <div class="org">6. Comptable spécialisé RS&DE</div>
+            <div style="color:var(--muted); font-size:12px;">RS&DE + CRIC + tous crédits d'impôt</div>
+        </div>
+        <div class="num">Trouver via réseau local ou Réseau Accès PME (1-866-463-6642)</div>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- TIMELINE EXÉCUTION -->
+<!-- ════════════════════════════════════════════ -->
+<div class="section">
+    <h2><span class="ico">📅</span> Calendrier d'exécution — 90 jours</h2>
+
+    <div class="timeline">
+        <div class="tl-item">
+            <div class="tl-date" style="color:var(--red);">Semaine 1 — 31 mars - 6 avril</div>
+            <div class="tl-content">
+                <strong>6 appels lundi matin</strong> (CLE, HortiComp, IQ, DEV VS, MEI, comptable)<br>
+                Lancer Sub salariale + PAMT + HortiComp + MFOR + PRIIME<br>
+                Email Primo-adoptants pour fenêtre juillet<br>
+                <span class="badge b-red">Potentiel lancé : 182 000 $</span>
+            </div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-date" style="color:var(--amber);">Semaine 2-3 — 7-20 avril</div>
+            <div class="tl-content">
+                RDV CLE + HortiCompétences (formulaires signés)<br>
+                RDV Investissement Québec (ESSOR 1C)<br>
+                RDV DEV Vaudreuil-Soulanges (FLI)<br>
+                Première rencontre comptable RS&DE<br>
+                <span class="badge b-amber">Potentiel additionnel : 295 000 $</span>
+            </div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-date" style="color:var(--green);">Semaine 4-6 — 21 avril - 11 mai</div>
+            <div class="tl-content">
+                Premiers chèques Sub salariale + HortiComp reçus<br>
+                PAMT apprentis enregistrés<br>
+                ESSOR 1C dossier soumis<br>
+                FLI prêt approuvé<br>
+                Début documentation RS&DE (journal de dev)<br>
+                <span class="badge b-green">Premiers fonds reçus : ~55 000 $</span>
+            </div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-date" style="color:var(--blue);">Mois 3-4 — Juin-Juillet</div>
+            <div class="tl-content">
+                ESSOR 1C approuvé (~50 000$)<br>
+                Primo-adoptants : soumission fenêtre 17 juillet<br>
+                Si véhicules électriques : achat + Roulez vert + iZEV<br>
+                Continuer documentation RS&DE<br>
+                <span class="badge b-blue">Cumulatif reçu/approuvé : ~250 000 $</span>
+            </div>
+        </div>
+        <div class="tl-item">
+            <div class="tl-date" style="color:var(--purple);">Fin d'année fiscale — Décembre 2026</div>
+            <div class="tl-content">
+                Dépôt RS&DE + CRIC avec déclaration fiscale<br>
+                Dépôt C3i + Crédit formation<br>
+                Bilan : tous les crédits d'impôt réclamés<br>
+                <span class="badge b-purple">Total récupéré : 350 000 - 462 000 $</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- MATRICE CUMUL -->
+<!-- ════════════════════════════════════════════ -->
+<div class="section">
+    <h2><span class="ico">🔗</span> Matrice de cumul — Quels programmes sont cumulables?</h2>
+
+    <table style="font-size:12px;">
+        <thead>
+            <tr>
+                <th></th>
+                <th style="writing-mode:vertical-lr; text-align:center;">Sub salariale</th>
+                <th style="writing-mode:vertical-lr; text-align:center;">PAMT</th>
+                <th style="writing-mode:vertical-lr; text-align:center;">HortiComp</th>
+                <th style="writing-mode:vertical-lr; text-align:center;">PRIIME</th>
+                <th style="writing-mode:vertical-lr; text-align:center;">MFOR</th>
+                <th style="writing-mode:vertical-lr; text-align:center;">ESSOR</th>
+                <th style="writing-mode:vertical-lr; text-align:center;">RS&DE</th>
+                <th style="writing-mode:vertical-lr; text-align:center;">CRIC</th>
+                <th style="writing-mode:vertical-lr; text-align:center;">C3i</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr><td><strong>Sub salariale</strong></td><td>—</td><td style="color:var(--green);">✓</td><td style="color:var(--green);">✓</td><td style="color:var(--red);">✗</td><td style="color:var(--green);">✓</td><td style="color:var(--green);">✓</td><td style="color:var(--green);">✓</td><td style="color:var(--green);">✓</td><td style="color:var(--green);">✓</td></tr>
+            <tr><td><strong>PAMT</strong></td><td style="color:var(--green);">✓</td><td>—</td><td style="color:var(--green);">✓</td><td style="color:var(--amber);">?</td><td style="color:var(--green);">✓</td><td style="color:var(--green);">✓</td><td style="color:var(--green);">✓</td><td style="color:var(--green);">✓</td><td style="color:var(--green);">✓</td></tr>
+            <tr><td><strong>PRIIME</strong></td><td style="color:var(--red);">✗</td><td style="color:var(--amber);">?</td><td style="color:var(--amber);">?</td><td>—</td><td style="color:var(--green);">✓</td><td style="color:var(--green);">✓</td><td style="color:var(--green);">✓</td><td style="color:var(--green);">✓</td><td style="color:var(--green);">✓</td></tr>
+            <tr><td><strong>RS&DE</strong></td><td style="color:var(--green);">✓</td><td style="color:var(--green);">✓</td><td style="color:var(--green);">✓</td><td style="color:var(--green);">✓</td><td style="color:var(--green);">✓</td><td style="color:var(--amber);">?</td><td>—</td><td style="color:var(--green);">✓</td><td style="color:var(--green);">✓</td></tr>
+            <tr><td><strong>CRIC</strong></td><td style="color:var(--green);">✓</td><td style="color:var(--green);">✓</td><td style="color:var(--green);">✓</td><td style="color:var(--green);">✓</td><td style="color:var(--green);">✓</td><td style="color:var(--amber);">?</td><td style="color:var(--green);">✓</td><td>—</td><td style="color:var(--green);">✓</td></tr>
+        </tbody>
+    </table>
+    <div style="font-size:12px; color:var(--muted); margin-top:8px;">
+        <span style="color:var(--green);">✓</span> = Cumulable confirmé &nbsp; <span style="color:var(--red);">✗</span> = Non cumulable (même employé) &nbsp; <span style="color:var(--amber);">?</span> = Vérifier avec CLE
+    </div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- SCÉNARIOS -->
+<!-- ════════════════════════════════════════════ -->
+<div class="section">
+    <h2><span class="ico">📊</span> 3 Scénarios réalistes</h2>
+
+    <div class="grid-3">
+        <div style="background:var(--card-alt); border:1px solid var(--border); border-radius:12px; padding:24px; border-top:3px solid var(--muted);">
+            <div style="font-size:12px; color:var(--muted); text-transform:uppercase; letter-spacing:0.1em;">Conservateur</div>
+            <div style="font-size:36px; font-weight:900; color:var(--text); margin:8px 0;">187 000 $</div>
+            <div style="font-size:13px; color:var(--muted);">
+                Sub salariale : 20k$<br>
+                PAMT ×3 : 45k$<br>
+                HortiComp : 15k$<br>
+                MFOR : 10k$<br>
+                ESSOR 1C : 40k$<br>
+                RS&DE+CRIC : 40k$<br>
+                Crédit formation : 10k$<br>
+                C3i : 7k$
+            </div>
+            <div style="margin-top:12px; font-size:12px; color:var(--muted);">Aucune incertitude. Zéro risque.</div>
+        </div>
+        <div style="background:var(--card-alt); border:1px solid var(--accent); border-radius:12px; padding:24px; border-top:3px solid var(--accent);">
+            <div style="font-size:12px; color:var(--accent); text-transform:uppercase; letter-spacing:0.1em;">Probable</div>
+            <div style="font-size:36px; font-weight:900; color:var(--accent); margin:8px 0;">327 000 $</div>
+            <div style="font-size:13px; color:var(--muted);">
+                Conservateur : 187k$<br>
+                + FLI prêt : 100k$<br>
+                + Roulez vert+iZEV : 14k$<br>
+                + Bornes : 10k$<br>
+                + PRIIME ×1 : 16k$
+            </div>
+            <div style="margin-top:12px; font-size:12px; color:var(--accent);">Réaliste si tu fais les appels lundi.</div>
+        </div>
+        <div style="background:var(--card-alt); border:1px solid var(--amber); border-radius:12px; padding:24px; border-top:3px solid var(--amber);">
+            <div style="font-size:12px; color:var(--amber); text-transform:uppercase; letter-spacing:0.1em;">Maximum</div>
+            <div style="font-size:36px; font-weight:900; color:var(--amber); margin:8px 0;">462 000 $</div>
+            <div style="font-size:13px; color:var(--muted);">
+                Probable : 327k$<br>
+                + Primo-adoptants : 75k$<br>
+                + DEC expansion : 50k$<br>
+                + FLI additionnel : 50k$<br>
+                + CDAEIA : 25k$<br>
+                - Ajustements cumul : -65k$
+            </div>
+            <div style="margin-top:12px; font-size:12px; color:var(--amber);">Si tout est exécuté parfaitement.</div>
+        </div>
+    </div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- EMAILS PRÊTS -->
+<!-- ════════════════════════════════════════════ -->
+<div class="section">
+    <h2><span class="ico">✉️</span> Emails prêts à envoyer</h2>
+
+    <h3>Email 1 — HortiCompétences (PAMT + Sub sectorielle)</h3>
+    <div style="background:var(--card-alt); border:1px solid var(--border); border-radius:8px; padding:20px; margin-bottom:16px; font-size:13px; line-height:1.8;">
+        <strong>À :</strong> info@horticompetences.ca<br>
+        <strong>Objet :</strong> Demande PAMT + subvention sectorielle — Taillage Haie Lite Inc.<br><br>
+        Bonjour,<br><br>
+        Je suis [Henri/Jean-Samuel Leboeuf], co-fondateur de Taillage Haie Lite Inc., une entreprise de taillage de haies résidentielles basée à Vaudreuil-Dorion.<br><br>
+        Nous préparons notre saison 2026 (début production 27 avril) et prévoyons embaucher <strong>6 à 8 nouveaux employés saisonniers</strong> (chefs d'équipe, ouvriers paysagistes, étudiants).<br><br>
+        Nous souhaitons inscrire 4 de nos employés au <strong>Programme d'apprentissage en milieu de travail (PAMT)</strong> dans le métier d'ouvrier paysagiste. Notre maître-ouvrier, Henri, possède plus d'une saison complète d'expérience terrain.<br><br>
+        Nous sommes aussi intéressés par votre <strong>subvention sectorielle pour l'intégration</strong> de nouveaux employés en horticulture.<br><br>
+        Pourriez-vous nous envoyer les formulaires d'inscription et nous indiquer les prochaines étapes? Nous sommes disponibles pour un appel cette semaine.<br><br>
+        Merci,<br>
+        [Nom]<br>
+        Taillage Haie Lite Inc.<br>
+        [Tél] | taillagehaielite.com
+    </div>
+
+    <h3>Email 2 — Investissement Québec (ESSOR 1C)</h3>
+    <div style="background:var(--card-alt); border:1px solid var(--border); border-radius:8px; padding:20px; margin-bottom:16px; font-size:13px; line-height:1.8;">
+        <strong>À :</strong> aidefinanciere@invest-quebec.com<br>
+        <strong>Objet :</strong> Demande ESSOR Volet 1C — Implantation plateforme numérique IA — Taillage Haie Lite Inc.<br><br>
+        Bonjour,<br><br>
+        Taillage Haie Lite Inc. (Vaudreuil-Dorion, SCIAN 561730) est une PME de services résidentiels en forte croissance (250k$ CA 2025, objectif 1M$ en 2026).<br><br>
+        Nous avons développé et implanté une <strong>plateforme numérique complète</strong> pour gérer nos opérations :<br>
+        — Application web (Next.js, TypeScript, Supabase)<br>
+        — Réceptionniste IA vocale (qualification automatique des leads)<br>
+        — Système d'automatisation (16 cron jobs, webhooks, SMS/email)<br>
+        — Dashboard KPI temps réel et scoring employés<br>
+        — Traducteur IA pour travailleurs étrangers temporaires<br><br>
+        Nos dépenses numériques admissibles estimées dépassent 100 000$. Nous souhaitons appliquer au <strong>Programme ESSOR — Volet 1C</strong> (implantation de solutions numériques, max 50 000$).<br><br>
+        Questions :<br>
+        1. Est-ce que le Volet 1B (diagnostic) est un prérequis obligatoire?<br>
+        2. Le développement interne (vs honoraires professionnels externes) est-il admissible?<br>
+        3. Quels documents sont requis pour soumettre?<br><br>
+        Merci,<br>
+        Jean-Samuel Leboeuf<br>
+        Taillage Haie Lite Inc.<br>
+        [Tél] | taillagehaielite.com
+    </div>
+
+    <h3>Email 3 — MEI Primo-adoptants (fenêtre 17 juillet)</h3>
+    <div style="background:var(--card-alt); border:1px solid var(--border); border-radius:8px; padding:20px; font-size:13px; line-height:1.8;">
+        <strong>À :</strong> startups-innovation@economie.gouv.qc.ca<br>
+        <strong>Objet :</strong> Recherche startup partenaire — Primo-adoptant en IA pour services résidentiels<br><br>
+        Bonjour,<br><br>
+        Taillage Haie Lite Inc. est une PME de services résidentiels en forte croissance basée à Vaudreuil-Dorion. Nous souhaitons participer à l'appel de projets Primo-adoptants à titre de <strong>primo-adoptant</strong>.<br><br>
+        Nous cherchons une <strong>jeune entreprise innovante québécoise</strong> spécialisée dans l'un de ces domaines :<br>
+        — Optimisation de routes / logistique IA<br>
+        — Workforce management / scheduling intelligent<br>
+        — Traduction IA temps réel / NLP<br>
+        — IoT pour maintenance / monitoring terrain<br><br>
+        Nous offrons un <strong>environnement de test unique</strong> : 130 jours de production, 3 crews, 4 000+ clients, 3 000 km² de zone opérationnelle — le terrain de jeu idéal pour valider une solution IA en conditions réelles.<br><br>
+        Auriez-vous des startups dans votre réseau qui cherchent un primo-adoptant? Nous visons la fenêtre du <strong>17 juillet 2026</strong>.<br><br>
+        Merci,<br>
+        Jean-Samuel Leboeuf<br>
+        Taillage Haie Lite Inc.<br>
+        [Tél] | taillagehaielite.com
+    </div>
+</div>
+
+<!-- ════════════════════════════════════════════ -->
+<!-- DOCUMENTATION RS&DE -->
+<!-- ════════════════════════════════════════════ -->
+<div class="section">
+    <h2><span class="ico">🧪</span> RS&DE — Quoi documenter dès maintenant</h2>
+    <p style="color:var(--muted); font-size:14px; margin-bottom:16px;">Les crédits RS&DE + CRIC combinés valent <strong>56 000$</strong>. Mais tu dois documenter le travail R&D AU FUR ET À MESURE. Voici quoi tracker :</p>
+
+    <div class="grid-2">
+        <div>
+            <h3>Projets R&D admissibles</h3>
+            <ul class="checklist">
+                <li><div class="check" onclick="this.classList.toggle('done')"></div><strong>Sophie IA</strong> — Agent vocal conversationnel (incertitude technique : compréhension accent québécois + vocabulaire horticole)</li>
+                <li><div class="check" onclick="this.classList.toggle('done')"></div><strong>Chatbot TET</strong> — Traduction IA espagnol↔français contextualisée (incertitude : vocabulaire sectoriel, dialectes guatémaltèques)</li>
+                <li><div class="check" onclick="this.classList.toggle('done')"></div><strong>Optimisation routes</strong> — Algorithme combinatoire avec contraintes saisonnières (incertitude : intégration météo temps réel + crews variables)</li>
+                <li><div class="check" onclick="this.classList.toggle('done')"></div><strong>Scoring employés</strong> — Modèle ML de performance prédictive (incertitude : corrélation entre métriques et performance réelle)</li>
+                <li><div class="check" onclick="this.classList.toggle('done')"></div><strong>Pricing dynamique</strong> — LLM pour estimation automatique (incertitude : précision vs estimation humaine experte)</li>
+            </ul>
+        </div>
+        <div>
+            <h3>Documentation à maintenir</h3>
+            <ul class="checklist">
+                <li><div class="check" onclick="this.classList.toggle('done')"></div><strong>Journal de dev</strong> — Chaque session de développement IA (date, heures, description, résultats, obstacles)</li>
+                <li><div class="check" onclick="this.classList.toggle('done')"></div><strong>Commits git</strong> — Messages descriptifs sur la R&D (pas juste "fix bug")</li>
+                <li><div class="check" onclick="this.classList.toggle('done')"></div><strong>Heures JS</strong> — Feuille de temps séparant R&D vs opérations (60/40 estimé)</li>
+                <li><div class="check" onclick="this.classList.toggle('done')"></div><strong>Factures APIs</strong> — Anthropic, OpenAI, Deepgram, ElevenLabs, VAPI</li>
+                <li><div class="check" onclick="this.classList.toggle('done')"></div><strong>Résultats de tests</strong> — Screenshots, métriques avant/après, taux de succès</li>
+                <li><div class="check" onclick="this.classList.toggle('done')"></div><strong>Obstacles techniques</strong> — Ce qui n'a PAS fonctionné (essentiel pour RS&DE)</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<div style="text-align:center; padding:40px 0 20px; color:var(--muted); font-size:12px;">
+    <div style="font-size:48px; font-weight:900; color:var(--accent); margin-bottom:8px;">462 000 $</div>
+    <p>Potentiel maximum — 18 programmes cumulables</p>
+    <p>Préparé le 31 mars 2026 — Taillage Haie Lite Inc.</p>
+    <p style="margin-top:12px; color:rgba(255,255,255,0.25);">6 appels lundi matin. 182k$ lancés en 3 heures.</p>
+</div>
+
+<script>
+document.querySelectorAll('.check').forEach(el => {
+    el.addEventListener('click', function() { this.classList.toggle('done'); });
+});
+</script>
+
+</body>
+</html>

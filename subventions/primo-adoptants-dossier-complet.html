@@ -1,0 +1,1207 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dossier Primo-adoptants — Haie Lite × [Startup IA]</title>
+    <style>
+        :root {
+            --bg: #0f1117;
+            --card: #1a1d27;
+            --card-alt: #21242f;
+            --border: #2a2d3a;
+            --text: #e4e4e7;
+            --muted: #8b8d98;
+            --accent: #3b82f6;
+            --green: #22c55e;
+            --amber: #f59e0b;
+            --red: #ef4444;
+            --orange: #f97316;
+            --purple: #a855f7;
+        }
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            padding: 24px;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        /* Print styles */
+        @media print {
+            body { background: white; color: #111; padding: 20px; }
+            .card, .section { background: #f8f8f8; border: 1px solid #ddd; }
+            .header { background: #1e3a5f !important; }
+            .no-print { display: none; }
+            .action-item { break-inside: avoid; }
+        }
+
+        .header {
+            background: linear-gradient(135deg, #1e3a5f 0%, #0f4c2e 100%);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            padding: 36px;
+            margin-bottom: 24px;
+            position: relative;
+        }
+        .header h1 { font-size: 28px; font-weight: 800; margin-bottom: 4px; }
+        .header .subtitle { color: var(--muted); font-size: 15px; margin-bottom: 20px; }
+        .header-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .header-item { display: flex; align-items: center; gap: 8px; font-size: 14px; }
+        .header-item .label { color: var(--muted); min-width: 140px; }
+
+        .badge { display: inline-block; padding: 3px 12px; border-radius: 100px; font-size: 12px; font-weight: 700; }
+        .badge-red { background: rgba(239,68,68,0.15); color: var(--red); }
+        .badge-green { background: rgba(34,197,94,0.15); color: var(--green); }
+        .badge-amber { background: rgba(245,158,11,0.15); color: var(--amber); }
+        .badge-purple { background: rgba(168,85,247,0.15); color: var(--purple); }
+        .badge-blue { background: rgba(59,130,246,0.15); color: var(--accent); }
+
+        .deadline-banner {
+            background: linear-gradient(90deg, rgba(239,68,68,0.2), rgba(239,68,68,0.05));
+            border: 2px solid var(--red);
+            border-radius: 12px;
+            padding: 16px 24px;
+            margin-bottom: 24px;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-weight: 600;
+        }
+        .deadline-banner .icon { font-size: 28px; }
+
+        .toc {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px 28px;
+            margin-bottom: 24px;
+        }
+        .toc h3 { font-size: 14px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 12px; }
+        .toc ol { padding-left: 20px; }
+        .toc li { margin-bottom: 6px; }
+        .toc a { color: var(--accent); text-decoration: none; font-size: 14px; }
+        .toc a:hover { text-decoration: underline; }
+
+        .section {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 28px;
+            margin-bottom: 20px;
+        }
+        .section h2 {
+            font-size: 20px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .section h2 .num {
+            background: var(--accent);
+            color: white;
+            width: 28px; height: 28px;
+            border-radius: 50%;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 14px; font-weight: 700;
+            flex-shrink: 0;
+        }
+        .section h3 { font-size: 16px; font-weight: 600; color: var(--accent); margin: 20px 0 10px; }
+
+        .field { margin-bottom: 16px; }
+        .field-label {
+            font-size: 12px;
+            color: var(--muted);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            margin-bottom: 4px;
+        }
+        .field-value {
+            background: var(--card-alt);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 14px;
+            line-height: 1.7;
+        }
+        .field-value p { margin-bottom: 8px; }
+        .field-value p:last-child { margin-bottom: 0; }
+        .field-value ul { padding-left: 20px; margin: 8px 0; }
+        .field-value li { margin-bottom: 4px; }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            font-size: 14px;
+            margin: 12px 0;
+        }
+        th, td {
+            padding: 10px 14px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+        }
+        th {
+            background: var(--card-alt);
+            color: var(--muted);
+            font-size: 12px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            font-weight: 600;
+        }
+        tr:hover { background: rgba(59,130,246,0.05); }
+        .amount { text-align: right; font-variant-numeric: tabular-nums; }
+
+        .total-row { font-weight: 700; background: rgba(59,130,246,0.08) !important; }
+        .total-row td { border-top: 2px solid var(--accent); }
+
+        .gantt {
+            display: grid;
+            grid-template-columns: 160px repeat(18, 1fr);
+            gap: 2px;
+            font-size: 11px;
+            margin: 16px 0;
+        }
+        .gantt-header { background: var(--card-alt); padding: 6px 8px; font-weight: 600; color: var(--muted); text-align: center; }
+        .gantt-task { padding: 6px 8px; font-size: 12px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .gantt-bar { border-radius: 4px; padding: 6px 4px; text-align: center; color: white; font-weight: 600; font-size: 10px; }
+        .bar-blue { background: var(--accent); }
+        .bar-green { background: var(--green); }
+        .bar-amber { background: var(--amber); }
+        .bar-purple { background: var(--purple); }
+        .bar-red { background: var(--red); }
+        .gantt-empty { background: rgba(255,255,255,0.02); }
+
+        .checklist { list-style: none; padding: 0; }
+        .checklist li {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 14px;
+        }
+        .checklist li:last-child { border-bottom: none; }
+        .check { flex-shrink: 0; width: 20px; height: 20px; border: 2px solid var(--border); border-radius: 4px; cursor: pointer; display: flex; align-items: center; justify-content: center; }
+        .check.done { background: var(--green); border-color: var(--green); }
+        .check.done::after { content: '✓'; color: white; font-size: 12px; font-weight: 700; }
+
+        .action-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr 1fr;
+            gap: 16px;
+        }
+        .day-card {
+            background: var(--card-alt);
+            border: 1px solid var(--border);
+            border-radius: 12px;
+            padding: 20px;
+        }
+        .day-card h4 { font-size: 14px; margin-bottom: 12px; }
+        .day-card .day-num { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px; }
+        .day-card ul { padding-left: 16px; font-size: 13px; }
+        .day-card li { margin-bottom: 6px; }
+
+        .alert-box {
+            background: rgba(239,68,68,0.1);
+            border: 1px solid rgba(239,68,68,0.3);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            font-size: 14px;
+        }
+        .info-box {
+            background: rgba(59,130,246,0.1);
+            border: 1px solid rgba(59,130,246,0.3);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            font-size: 14px;
+        }
+        .success-box {
+            background: rgba(34,197,94,0.1);
+            border: 1px solid rgba(34,197,94,0.3);
+            border-radius: 8px;
+            padding: 16px;
+            margin: 16px 0;
+            font-size: 14px;
+        }
+
+        .startup-card {
+            background: var(--card-alt);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 12px;
+        }
+        .startup-card h4 { color: var(--accent); margin-bottom: 6px; }
+        .startup-card .match { font-size: 12px; color: var(--green); font-weight: 600; margin-bottom: 8px; }
+        .startup-card p { font-size: 13px; color: var(--muted); }
+
+        .sig-block {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            margin-top: 30px;
+        }
+        .sig-line {
+            border-top: 1px solid var(--border);
+            padding-top: 8px;
+            margin-top: 60px;
+            font-size: 13px;
+            color: var(--muted);
+        }
+
+        @media (max-width: 768px) {
+            .header-grid, .action-grid, .sig-block { grid-template-columns: 1fr; }
+        }
+    </style>
+</head>
+<body>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- HEADER -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="header">
+    <div style="display:flex; justify-content:space-between; align-items:flex-start;">
+        <div>
+            <h1>DOSSIER PRIMO-ADOPTANTS</h1>
+            <div class="subtitle">Programme d'aide à l'entrepreneuriat (PAEN) — Volet 1</div>
+        </div>
+        <div style="text-align:right;">
+            <div class="badge badge-red" style="font-size:14px; padding:6px 16px;">DEADLINE: 3 AVRIL 17h00</div>
+        </div>
+    </div>
+    <div class="header-grid" style="margin-top:20px;">
+        <div class="header-item"><span class="label">Programme</span> Appel de projets Primo-adoptants</div>
+        <div class="header-item"><span class="label">Ministère</span> MEI — Économie et Innovation</div>
+        <div class="header-item"><span class="label">Primo-adoptant</span> <strong>Taillage Haie Lite Inc.</strong></div>
+        <div class="header-item"><span class="label">Subvention max</span> <strong>75 000 $</strong></div>
+        <div class="header-item"><span class="label">Startup partenaire</span> <strong style="color:var(--amber);">À CONFIRMER (voir section 3)</strong></div>
+        <div class="header-item"><span class="label">Durée projet</span> 12 mois</div>
+        <div class="header-item"><span class="label">Soumission</span> startups-innovation@economie.gouv.qc.ca</div>
+        <div class="header-item"><span class="label">Portail</span> clicSÉQUR Entreprises</div>
+    </div>
+</div>
+
+<!-- DEADLINE BANNER -->
+<div class="deadline-banner">
+    <span class="icon">⚠️</span>
+    <div>
+        <div>SOUMISSION AU PLUS TARD LE <strong>3 AVRIL 2026 À 17H00</strong></div>
+        <div style="font-size:13px; font-weight:400; color:var(--muted);">Si non prêt : la prochaine fenêtre est le <strong>17 juillet 2026</strong>. Voir Section 10 pour alternatives immédiates.</div>
+    </div>
+</div>
+
+<!-- TABLE DES MATIÈRES -->
+<div class="toc">
+    <h3>Table des matières</h3>
+    <ol>
+        <li><a href="#s1">Identification du primo-adoptant (Haie Lite)</a></li>
+        <li><a href="#s2">Description du projet d'innovation</a></li>
+        <li><a href="#s3">Startups partenaires potentielles</a></li>
+        <li><a href="#s4">Budget détaillé (125 000 $)</a></li>
+        <li><a href="#s5">Échéancier Gantt — 12 mois</a></li>
+        <li><a href="#s6">Retombées scientifiques, technologiques et économiques</a></li>
+        <li><a href="#s7">Équipe projet — CV résumés</a></li>
+        <li><a href="#s8">Documents requis — Checklist</a></li>
+        <li><a href="#s9">Plan d'action 72 heures</a></li>
+        <li><a href="#s10">Plan B — Alternatives si Primo-adoptants impossible</a></li>
+    </ol>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SECTION 1: IDENTIFICATION -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section" id="s1">
+    <h2><span class="num">1</span> Identification du primo-adoptant</h2>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+        <div class="field">
+            <div class="field-label">Raison sociale</div>
+            <div class="field-value">Taillage Haie Lite Inc.</div>
+        </div>
+        <div class="field">
+            <div class="field-label">NEQ (Registraire des entreprises)</div>
+            <div class="field-value" style="color:var(--amber);">__________ <em>(à remplir)</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">Site web</div>
+            <div class="field-value">https://taillagehaielite.com</div>
+        </div>
+        <div class="field">
+            <div class="field-label">Secteur SCIAN</div>
+            <div class="field-value">561730 — Services d'aménagement paysager</div>
+        </div>
+        <div class="field">
+            <div class="field-label">Date de constitution</div>
+            <div class="field-value" style="color:var(--amber);">__________ <em>(date incorporation)</em></div>
+        </div>
+        <div class="field">
+            <div class="field-label">Nombre d'employés</div>
+            <div class="field-value">3-8 saisonniers (2025) → 15 projetés (2026)</div>
+        </div>
+        <div class="field">
+            <div class="field-label">Chiffre d'affaires 2025</div>
+            <div class="field-value">250 000 $</div>
+        </div>
+        <div class="field">
+            <div class="field-label">Chiffre d'affaires projeté 2026</div>
+            <div class="field-value">1 000 000 $ — 2 000 000 $</div>
+        </div>
+    </div>
+
+    <h3>Dirigeants</h3>
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+        <div class="field">
+            <div class="field-label">Directeur des opérations (COO)</div>
+            <div class="field-value">
+                <strong>Henri [Nom de famille]</strong><br>
+                Responsable terrain, ventes, gestion des équipes<br>
+                <span style="color:var(--muted);">Tél: __________ | Courriel: __________</span>
+            </div>
+        </div>
+        <div class="field">
+            <div class="field-label">PDG / Systèmes (CEO)</div>
+            <div class="field-value">
+                <strong>Jean-Samuel Leboeuf</strong><br>
+                Stratégie, systèmes IA, finance, M&A<br>
+                <span style="color:var(--muted);">Tél: __________ | Courriel: __________</span>
+            </div>
+        </div>
+    </div>
+
+    <h3>Adresse du siège social</h3>
+    <div class="field">
+        <div class="field-value" style="color:var(--amber);">
+            ________________________________________<br>
+            Vaudreuil-Dorion (Québec) ________<br>
+            <em>(à remplir)</em>
+        </div>
+    </div>
+
+    <div class="success-box">
+        <strong>✓ Admissibilité primo-adoptant confirmée :</strong> Haie Lite est une entreprise établie, en exploitation régulière depuis 2025, avec ventes actives, enregistrée au Québec, sans lien de capital avec une startup. Répond à tous les critères du programme.
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SECTION 2: PROJET -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section" id="s2">
+    <h2><span class="num">2</span> Description du projet d'innovation</h2>
+
+    <div class="field">
+        <div class="field-label">Titre du projet</div>
+        <div class="field-value" style="font-size:18px; font-weight:700; color:var(--accent);">
+            Optimisation intelligente des opérations terrain par IA générative et analytique prédictive pour les services résidentiels saisonniers
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="field-label">Résumé du projet (250 mots)</div>
+        <div class="field-value">
+            <p>Haie Lite Inc., entreprise spécialisée en taillage de haies résidentielles desservant plus de 3 000 km² dans la grande région de Montréal, s'associe à <strong>[Startup IA — à confirmer]</strong> pour co-développer et déployer en conditions réelles une plateforme d'intelligence artificielle intégrée à ses opérations terrain.</p>
+            <p>Le projet vise à résoudre trois problèmes critiques du secteur des services résidentiels saisonniers au Québec :</p>
+            <ul>
+                <li><strong>Inefficacité du routage terrain :</strong> Les équipes de taille de haies perdent 25-35% de leur temps productif en déplacements non optimisés entre les sites clients. Un algorithme d'optimisation de routes adapté aux contraintes saisonnières (météo, disponibilité clients, capacité d'équipe variable) réduirait ce gaspillage de 40-60%.</li>
+                <li><strong>Prédiction de la demande :</strong> L'absence d'outils prédictifs force une allocation de main-d'œuvre réactive plutôt que proactive, causant des pertes estimées à 15-20% du chiffre d'affaires potentiel (temps mort ou surcharge).</li>
+                <li><strong>Barrière linguistique :</strong> L'intégration de travailleurs étrangers temporaires (TET) hispanophones crée des frictions opérationnelles coûteuses (~52 000$/saison en productivité perdue). Un module de traduction IA en temps réel, spécialisé au vocabulaire horticole, élimine cet obstacle.</li>
+            </ul>
+            <p>La solution combine IA générative (LLM), analytique prédictive et IoT terrain pour créer un système d'exploitation intelligent adapté aux PME de services saisonniers — un segment sous-desservi par les solutions technologiques existantes.</p>
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="field-label">Problème à résoudre</div>
+        <div class="field-value">
+            <p><strong>Contexte sectoriel :</strong> L'industrie du paysagement résidentiel au Québec (3,2 G$ en 2024) est fragmentée en milliers de PME opérant sans outils technologiques avancés. La saisonnalité (mai-octobre), la main-d'œuvre fluctuante et la dispersion géographique des clients créent des inefficacités systémiques que les solutions CRM génériques ne résolvent pas.</p>
+            <p><strong>Problèmes spécifiques :</strong></p>
+            <ul>
+                <li>Perte de 25-35% du temps productif en logistique non optimisée</li>
+                <li>Coût d'acquisition client (CAC) trop élevé par manque de prédiction de demande</li>
+                <li>Taux de conversion soumission→vente de 35% (industrie) vs 60%+ avec qualification IA</li>
+                <li>Barrière linguistique avec TET = -52 000$/saison en productivité</li>
+                <li>Aucune solution SaaS du marché ne cible spécifiquement les services résidentiels saisonniers québécois</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="field-label">Solution innovante proposée</div>
+        <div class="field-value">
+            <p>Plateforme IA intégrée en 4 modules :</p>
+            <p><strong>Module 1 — Réceptionniste IA vocale (Sophie)</strong><br>
+            Agent conversationnel téléphonique propulsé par Claude Sonnet 4.6 (Anthropic) + Deepgram Nova-3 (STT) + ElevenLabs (TTS). Qualifie automatiquement 100% des leads entrants, génère des soumissions dynamiques basées sur les dimensions de haie, et prend des rendez-vous en temps réel dans ServiceM8. Élimine le besoin d'un réceptionniste humain.</p>
+            <p><strong>Module 2 — Optimisation de routes prédictive</strong><br>
+            Algorithme d'optimisation combinatoire adapté aux contraintes saisonnières : météo (API Environnement Canada), disponibilité variable des crews (TET, étudiants, permanents), fenêtres clients, et capacité journalière. Machine learning sur données historiques ServiceM8 pour prédire la durée par type de haie et ajuster dynamiquement les routes.</p>
+            <p><strong>Module 3 — Traducteur IA temps réel (TET)</strong><br>
+            Système de traduction contextuelle espagnol↔français pour travailleurs étrangers temporaires. Vocabulaire spécialisé en horticulture/paysagement. Modes : appel 3-way, push-to-talk mobile, SMS asynchrone. ROI estimé : 850x l'investissement.</p>
+            <p><strong>Module 4 — Analytique prédictive & tableau de bord opérationnel</strong><br>
+            Dashboard temps réel : KPI quotidiens, scoring employés (100 points), prédiction de demande par zone géographique, détection automatique d'opportunités d'upsell (lavage vitres, déneigement, contrats annuels). 16+ automations cron déclenchées par webhooks ServiceM8.</p>
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="field-label">Caractère innovant et avancement technologique</div>
+        <div class="field-value">
+            <ul>
+                <li><strong>Innovation de rupture :</strong> Première plateforme IA intégrée spécifiquement conçue pour les PME de services résidentiels saisonniers au Québec</li>
+                <li><strong>IA générative appliquée :</strong> Utilisation de LLM (Claude Sonnet 4.6, GPT-4) pour qualification vocale automatisée — non existant dans le secteur</li>
+                <li><strong>Traduction contextuelle sectorielle :</strong> Aucun outil de traduction IA n'est adapté au vocabulaire horticole québécois</li>
+                <li><strong>Optimisation combinatoire saisonnière :</strong> Les algorithmes de routage existants (Google OR-Tools, etc.) ne prennent pas en compte les contraintes spécifiques saisonnières (météo, crews variables, fenêtres agricoles)</li>
+                <li><strong>Tests en conditions réelles :</strong> Validation sur 130 jours de production, 3 crews, 4 000+ clients, conditions météo réelles québécoises</li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="field">
+        <div class="field-label">Tests et validation en conditions réelles (in situ)</div>
+        <div class="field-value">
+            <p>Le déploiement se fait directement dans l'environnement opérationnel de Haie Lite :</p>
+            <ul>
+                <li><strong>Saison 2026 :</strong> 130 jours de production (mai-octobre), 3 crews actifs, ~4 444 clients</li>
+                <li><strong>Zone test :</strong> 3 018 km² — Rive-Sud Montréal, Vaudreuil-Soulanges, Longueuil</li>
+                <li><strong>Volume données :</strong> ~20 000 interactions clients, ~2 600 jobs complétés, ~15 000 points GPS</li>
+                <li><strong>Groupes contrôle :</strong> Comparaison Crew avec IA vs Crew sans IA (premières semaines)</li>
+                <li><strong>Métriques de validation :</strong>
+                    <ul>
+                        <li>Réduction temps de déplacement (objectif : -40%)</li>
+                        <li>Augmentation taux de conversion leads (objectif : 35% → 60%)</li>
+                        <li>Réduction coût d'acquisition client (objectif : -30%)</li>
+                        <li>Productivité TET avec traducteur vs sans (objectif : +25%)</li>
+                    </ul>
+                </li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SECTION 3: STARTUPS PARTENAIRES -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section" id="s3">
+    <h2><span class="num">3</span> Startups partenaires potentielles</h2>
+
+    <div class="alert-box">
+        <strong>⚠️ ACTION REQUISE :</strong> Le programme exige un partenariat avec une <strong>jeune entreprise innovante</strong> (&lt;5 ans, pré-commercialisation, accompagnée par un incubateur). Tu dois contacter et confirmer un partenaire startup <strong>avant le 3 avril</strong>. Voici 5 pistes priorisées :
+    </div>
+
+    <div class="startup-card">
+        <h4>1. Routific / BrainBox AI / Equivalent québécois en optimisation de routes</h4>
+        <div class="match">MATCH ÉLEVÉ — Module 2 (optimisation routes)</div>
+        <p>Chercher une startup québécoise en optimisation logistique/routage IA, idéalement accompagnée par un accélérateur comme Centech, FounderFuel, District 3, ou Espace CDPQ. Vérifier sur <a href="https://indexqc.com" style="color:var(--accent);">IndexQC.com</a> ou <a href="https://bonjour-startup.ca" style="color:var(--accent);">Bonjour Startup Québec</a>.</p>
+    </div>
+
+    <div class="startup-card">
+        <h4>2. Startup en traduction IA / NLP contextuel</h4>
+        <div class="match">MATCH ÉLEVÉ — Module 3 (traducteur TET)</div>
+        <p>Startup développant de la traduction temps réel spécialisée (vocabulaire sectoriel). Chercher dans les cohortes de MILA (Institut québécois d'IA), IVADO Labs, ou OBVIA. Le marché des TET au Québec (60 000+ travailleurs/an) est un segment inexploité.</p>
+    </div>
+
+    <div class="startup-card">
+        <h4>3. Startup en IA conversationnelle / Voice AI</h4>
+        <div class="match">MATCH MOYEN — Module 1 (Sophie réceptionniste)</div>
+        <p>Agent vocal IA pour PME de services. Cohortes à vérifier : Centech (ÉTS), Notman House, Creative Destruction Lab Montréal. L'angle : adapter un agent vocal générique au contexte saisonnier québécois.</p>
+    </div>
+
+    <div class="startup-card">
+        <h4>4. Startup IoT / capteurs terrain</h4>
+        <div class="match">MATCH MOYEN — Module 4 extension (capteurs terrain)</div>
+        <p>Capteurs de croissance végétale, humidité du sol, ou monitoring d'équipement pour maintenance prédictive. Programmes IoT de Prompt (pôle d'excellence numérique du Québec).</p>
+    </div>
+
+    <div class="startup-card">
+        <h4>5. Startup en workforce management / scheduling IA</h4>
+        <div class="match">MATCH ÉLEVÉ — Module 2+4 (planification + dashboard)</div>
+        <p>Gestion intelligente d'horaires et capacité de main-d'œuvre variable. Pertinent pour le problème saisonnier (TET arrivent en mai, étudiants en juin, départs en septembre). Vérifier les accélérateurs : Fondation Montréal inc., Startup Montréal.</p>
+    </div>
+
+    <div class="info-box">
+        <strong>Ressources pour trouver rapidement :</strong><br>
+        • <strong>Bonjour Startup Québec :</strong> bonjour-startup.ca — Répertoire de toutes les startups QC<br>
+        • <strong>IndexQC :</strong> indexqc.com — 8 000+ startups québécoises indexées<br>
+        • <strong>MILA :</strong> mila.quebec/directory — Startups issues du plus grand labo IA au monde<br>
+        • <strong>Centech (ÉTS) :</strong> centech.co — Incubateur deep-tech Montréal<br>
+        • <strong>District 3 (Concordia) :</strong> d3center.ca — Accélérateur innovation<br>
+        • <strong>Appeler directement le MEI :</strong> startups-innovation@economie.gouv.qc.ca — Ils peuvent référer des startups cherchant un primo-adoptant
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SECTION 4: BUDGET -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section" id="s4">
+    <h2><span class="num">4</span> Budget détaillé du projet</h2>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr 1fr; gap:16px; margin-bottom:20px;">
+        <div class="field">
+            <div class="field-label">Coût total du projet</div>
+            <div class="field-value" style="font-size:22px; font-weight:800; color:var(--accent);">125 000 $</div>
+        </div>
+        <div class="field">
+            <div class="field-label">Subvention demandée (60%)</div>
+            <div class="field-value" style="font-size:22px; font-weight:800; color:var(--green);">75 000 $</div>
+        </div>
+        <div class="field">
+            <div class="field-label">Contribution Haie Lite (40%)</div>
+            <div class="field-value" style="font-size:22px; font-weight:800; color:var(--amber);">50 000 $</div>
+        </div>
+    </div>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Poste de dépenses</th>
+                <th>Description</th>
+                <th class="amount">Startup</th>
+                <th class="amount">Haie Lite</th>
+                <th class="amount">Total</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td colspan="5" style="font-weight:700; color:var(--accent); background:rgba(59,130,246,0.05);">A. Salaires et avantages sociaux</td>
+            </tr>
+            <tr>
+                <td>Développeur IA senior (startup)</td>
+                <td>12 mois × 0.5 ETP — Développement modules IA</td>
+                <td class="amount">36 000 $</td>
+                <td class="amount">—</td>
+                <td class="amount">36 000 $</td>
+            </tr>
+            <tr>
+                <td>Chef de projet technique (Haie Lite)</td>
+                <td>12 mois × 0.3 ETP — Intégration, tests terrain, data</td>
+                <td class="amount">—</td>
+                <td class="amount">21 600 $</td>
+                <td class="amount">21 600 $</td>
+            </tr>
+            <tr>
+                <td>Data analyst / testeur</td>
+                <td>6 mois × 0.5 ETP — Collecte données, validation</td>
+                <td class="amount">12 000 $</td>
+                <td class="amount">—</td>
+                <td class="amount">12 000 $</td>
+            </tr>
+
+            <tr>
+                <td colspan="5" style="font-weight:700; color:var(--accent); background:rgba(59,130,246,0.05);">B. Services spécialisés et honoraires</td>
+            </tr>
+            <tr>
+                <td>Infrastructure cloud (Vercel, Supabase, AWS)</td>
+                <td>12 mois — Hébergement, compute, base de données</td>
+                <td class="amount">3 600 $</td>
+                <td class="amount">2 400 $</td>
+                <td class="amount">6 000 $</td>
+            </tr>
+            <tr>
+                <td>APIs IA (Anthropic, OpenAI, Deepgram, ElevenLabs)</td>
+                <td>12 mois — Tokens LLM, STT, TTS, traduction</td>
+                <td class="amount">4 800 $</td>
+                <td class="amount">3 200 $</td>
+                <td class="amount">8 000 $</td>
+            </tr>
+            <tr>
+                <td>Intégration ServiceM8 + Twilio</td>
+                <td>APIs CRM, SMS, webhooks, téléphonie</td>
+                <td class="amount">—</td>
+                <td class="amount">3 600 $</td>
+                <td class="amount">3 600 $</td>
+            </tr>
+
+            <tr>
+                <td colspan="5" style="font-weight:700; color:var(--accent); background:rgba(59,130,246,0.05);">C. Matériel et équipement</td>
+            </tr>
+            <tr>
+                <td>Appareils mobiles terrain (tablettes/phones)</td>
+                <td>6 appareils pour crews — collecte données GPS, photos</td>
+                <td class="amount">—</td>
+                <td class="amount">4 800 $</td>
+                <td class="amount">4 800 $</td>
+            </tr>
+            <tr>
+                <td>Capteurs IoT (optionnel)</td>
+                <td>10 capteurs test — géolocalisation, météo locale</td>
+                <td class="amount">3 000 $</td>
+                <td class="amount">—</td>
+                <td class="amount">3 000 $</td>
+            </tr>
+
+            <tr>
+                <td colspan="5" style="font-weight:700; color:var(--accent); background:rgba(59,130,246,0.05);">D. Déplacements et formation</td>
+            </tr>
+            <tr>
+                <td>Déplacements terrain (tests in situ)</td>
+                <td>Visites startup chez Haie Lite — 3 018 km² zone test</td>
+                <td class="amount">2 400 $</td>
+                <td class="amount">1 600 $</td>
+                <td class="amount">4 000 $</td>
+            </tr>
+            <tr>
+                <td>Formation équipes terrain</td>
+                <td>Adoption outils IA par crews (TET + locaux)</td>
+                <td class="amount">—</td>
+                <td class="amount">3 200 $</td>
+                <td class="amount">3 200 $</td>
+            </tr>
+
+            <tr>
+                <td colspan="5" style="font-weight:700; color:var(--accent); background:rgba(59,130,246,0.05);">E. Protection PI et certification</td>
+            </tr>
+            <tr>
+                <td>Protection propriété intellectuelle</td>
+                <td>Brevets, marques, accords PI startup-adoptant</td>
+                <td class="amount">4 000 $</td>
+                <td class="amount">2 000 $</td>
+                <td class="amount">6 000 $</td>
+            </tr>
+            <tr>
+                <td>Tests, certification, conformité</td>
+                <td>Loi 25 (vie privée), OQLF, normes sectorielles</td>
+                <td class="amount">2 400 $</td>
+                <td class="amount">1 600 $</td>
+                <td class="amount">4 000 $</td>
+            </tr>
+
+            <tr>
+                <td colspan="5" style="font-weight:700; color:var(--accent); background:rgba(59,130,246,0.05);">F. Gestion de projet (max 5%)</td>
+            </tr>
+            <tr>
+                <td>Frais d'accompagnement et gestion</td>
+                <td>Coordination, rapports d'étape, administration</td>
+                <td class="amount">5 800 $</td>
+                <td class="amount">7 000 $</td>
+                <td class="amount">12 800 $</td>
+            </tr>
+
+            <tr class="total-row">
+                <td colspan="2"><strong>TOTAL</strong></td>
+                <td class="amount"><strong>74 000 $</strong></td>
+                <td class="amount"><strong>51 000 $</strong></td>
+                <td class="amount"><strong>125 000 $</strong></td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px; margin-top:16px;">
+        <div class="info-box">
+            <strong>Contribution Haie Lite en espèces :</strong> 51 000 $ (40.8%)<br>
+            <span style="color:var(--muted); font-size:13px;">Minimum requis : 20% = 25 000 $ ✓ Largement respecté</span>
+        </div>
+        <div class="info-box">
+            <strong>Subvention MEI demandée :</strong> 75 000 $ (60.0%)<br>
+            <span style="color:var(--muted); font-size:13px;">Maximum admissible : 60% ✓ Exactement au plafond</span>
+        </div>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SECTION 5: GANTT -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section" id="s5">
+    <h2><span class="num">5</span> Échéancier du projet — 12 mois</h2>
+
+    <table style="font-size:13px;">
+        <thead>
+            <tr>
+                <th style="width:220px;">Jalon</th>
+                <th style="width:100px;">Période</th>
+                <th>Livrables</th>
+                <th style="width:100px;">Responsable</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td><span class="badge badge-blue">PHASE 1</span> Analyse et architecture</td>
+                <td>Mois 1-2</td>
+                <td>
+                    • Audit des processus actuels Haie Lite<br>
+                    • Architecture technique de la plateforme IA<br>
+                    • Spécifications modules 1-4<br>
+                    • Convention PI signée
+                </td>
+                <td>Startup + HL</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-purple">PHASE 2</span> Développement MVP</td>
+                <td>Mois 3-5</td>
+                <td>
+                    • Module 1 (Sophie IA) — MVP fonctionnel<br>
+                    • Module 3 (Traducteur TET) — MVP fonctionnel<br>
+                    • Intégration ServiceM8 API v1<br>
+                    • Collecte données baseline (pré-IA)
+                </td>
+                <td>Startup</td>
+            </tr>
+            <tr style="background:rgba(34,197,94,0.05);">
+                <td><span class="badge badge-green">PHASE 3</span> Tests terrain saison 2026</td>
+                <td>Mois 5-10</td>
+                <td>
+                    • Déploiement Module 1 + 3 sur crews actifs<br>
+                    • Module 2 (optimisation routes) — développement + test A/B<br>
+                    • Module 4 (dashboard KPI) — itérations temps réel<br>
+                    • <strong>~4 000 interactions clients réelles</strong><br>
+                    • <strong>~2 600 jobs avec données IA</strong><br>
+                    • Rapports d'étape mensuels
+                </td>
+                <td>HL terrain + Startup dev</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-amber">PHASE 4</span> Optimisation et documentation</td>
+                <td>Mois 10-11</td>
+                <td>
+                    • Analyse des résultats saison complète<br>
+                    • Optimisation algorithmes (ML sur données réelles)<br>
+                    • Documentation technique et scientifique<br>
+                    • Rapport d'impact quantifié
+                </td>
+                <td>Startup</td>
+            </tr>
+            <tr>
+                <td><span class="badge badge-red">PHASE 5</span> Rapport final et commercialisation</td>
+                <td>Mois 12</td>
+                <td>
+                    • Rapport final au MEI<br>
+                    • Plan de commercialisation SaaS (startup)<br>
+                    • Licence d'utilisation Haie Lite<br>
+                    • Publication résultats (si applicable)
+                </td>
+                <td>Conjoint</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div style="margin-top:20px; padding:16px; background:var(--card-alt); border-radius:8px; font-size:13px;">
+        <strong>Jalons critiques :</strong><br>
+        <span style="color:var(--red);">●</span> Mois 2 — Architecture validée et convention PI signée<br>
+        <span style="color:var(--purple);">●</span> Mois 5 — MVP modules 1+3 fonctionnels (début saison terrain)<br>
+        <span style="color:var(--green);">●</span> Mois 7 — Rapport mi-projet au MEI + résultats préliminaires<br>
+        <span style="color:var(--amber);">●</span> Mois 10 — Fin saison terrain — données complètes collectées<br>
+        <span style="color:var(--red);">●</span> Mois 12 — Rapport final + plan commercialisation déposés
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SECTION 6: RETOMBÉES -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section" id="s6">
+    <h2><span class="num">6</span> Retombées scientifiques, technologiques et économiques</h2>
+
+    <h3>Retombées scientifiques et technologiques</h3>
+    <div class="field-value">
+        <ul>
+            <li><strong>Jeu de données unique :</strong> Premier dataset public de routage et demande saisonnière pour services résidentiels au Québec (~20 000 points)</li>
+            <li><strong>Modèle ML saisonnier :</strong> Algorithme de prédiction de demande intégrant météo, historique client et capacité variable — transférable à tout service saisonnier</li>
+            <li><strong>Agent vocal sectoriel :</strong> Fine-tuning d'un LLM pour le vocabulaire horticole québécois (français canadien + espagnol guatémaltèque)</li>
+            <li><strong>Benchmark :</strong> Comparaison quantifiée IA vs manuel sur 130 jours, 3 crews, conditions réelles</li>
+        </ul>
+    </div>
+
+    <h3>Retombées économiques</h3>
+    <table>
+        <thead>
+            <tr>
+                <th>Indicateur</th>
+                <th>Sans IA (2025)</th>
+                <th>Avec IA (2026 projeté)</th>
+                <th>Impact</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>Chiffre d'affaires</td>
+                <td>250 000 $</td>
+                <td>1 000 000 $ — 2 000 000 $</td>
+                <td style="color:var(--green); font-weight:700;">+300-700%</td>
+            </tr>
+            <tr>
+                <td>Emplois créés</td>
+                <td>3 saisonniers</td>
+                <td>15 (+ 2 tech startup)</td>
+                <td style="color:var(--green); font-weight:700;">+14 emplois</td>
+            </tr>
+            <tr>
+                <td>Taux de conversion leads</td>
+                <td>35%</td>
+                <td>60%+</td>
+                <td style="color:var(--green); font-weight:700;">+71%</td>
+            </tr>
+            <tr>
+                <td>Temps productif terrain</td>
+                <td>65-75%</td>
+                <td>90%+</td>
+                <td style="color:var(--green); font-weight:700;">+25%</td>
+            </tr>
+            <tr>
+                <td>Coût acquisition client</td>
+                <td>60 $</td>
+                <td>40 $ (-33%)</td>
+                <td style="color:var(--green); font-weight:700;">-20 $/client</td>
+            </tr>
+            <tr>
+                <td>Productivité TET</td>
+                <td>Baseline</td>
+                <td>+25% avec traducteur IA</td>
+                <td style="color:var(--green); font-weight:700;">+52 000 $/saison</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <h3>Retombées sociales</h3>
+    <div class="field-value">
+        <ul>
+            <li><strong>Intégration TET :</strong> Réduction de la barrière linguistique pour 60 000+ travailleurs étrangers temporaires au Québec chaque année</li>
+            <li><strong>Création d'emplois en région :</strong> Expansion Rive-Nord prévue fin mai 2026, créant 5-8 emplois supplémentaires dans des zones sous-desservies</li>
+            <li><strong>Transfert technologique :</strong> La solution SaaS développée pourra être commercialisée auprès des 3 000+ PME de paysagement du Québec</li>
+            <li><strong>Formation numérique :</strong> Upskilling de travailleurs manuels vers des outils IA (tablettes, apps, dashboards)</li>
+        </ul>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SECTION 7: ÉQUIPE -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section" id="s7">
+    <h2><span class="num">7</span> Équipe projet — CV résumés</h2>
+
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:16px;">
+        <div class="field">
+            <div class="field-label">Jean-Samuel Leboeuf — Chef de projet (Haie Lite)</div>
+            <div class="field-value">
+                <strong>Rôle :</strong> Direction stratégique, architecture systèmes, intégration IA<br><br>
+                <strong>Compétences clés :</strong>
+                <ul>
+                    <li>Développement full-stack (Next.js, TypeScript, Supabase)</li>
+                    <li>Architecture systèmes IA (Claude, GPT-4, VAPI, Deepgram)</li>
+                    <li>Automatisation opérations (16+ crons, webhooks, APIs)</li>
+                    <li>Modélisation financière et stratégie M&A</li>
+                </ul>
+                <strong>Réalisations pertinentes :</strong>
+                <ul>
+                    <li>Conception et déploiement de Sophie (réceptionniste IA vocale)</li>
+                    <li>Développement du chatbot traducteur TET (Cloudflare Workers)</li>
+                    <li>Architecture app Haie Lite (dashboard, KPI, pipeline)</li>
+                </ul>
+                <span style="color:var(--amber); font-size:12px;"><em>CV complet à joindre au dossier</em></span>
+            </div>
+        </div>
+        <div class="field">
+            <div class="field-label">Henri [Nom] — Opérations terrain (Haie Lite)</div>
+            <div class="field-value">
+                <strong>Rôle :</strong> Validation terrain, tests in situ, feedback opérationnel<br><br>
+                <strong>Compétences clés :</strong>
+                <ul>
+                    <li>Gestion d'équipes terrain (3 crews, 8-15 personnes)</li>
+                    <li>Vente porte-à-porte et relation client</li>
+                    <li>Opérations taillage de haies (expert technique)</li>
+                    <li>Supervision TET et formation</li>
+                </ul>
+                <strong>Réalisations pertinentes :</strong>
+                <ul>
+                    <li>Construction du CA de 0 à 250k$ en 1 saison</li>
+                    <li>Gestion de 150+ clients actifs</li>
+                    <li>Recrutement et intégration TET guatémaltèques</li>
+                </ul>
+                <span style="color:var(--amber); font-size:12px;"><em>CV complet à joindre au dossier</em></span>
+            </div>
+        </div>
+        <div class="field" style="grid-column: 1 / -1;">
+            <div class="field-label">Équipe startup partenaire</div>
+            <div class="field-value" style="color:var(--amber);">
+                <strong>À compléter une fois le partenaire confirmé.</strong><br>
+                Inclure : CTO/fondateur startup, développeur(s) IA, data scientist.<br>
+                Exigences : au moins un fondateur à 35h+/semaine, accompagné par un incubateur/accélérateur admissible.
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SECTION 8: CHECKLIST DOCUMENTS -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section" id="s8">
+    <h2><span class="num">8</span> Documents requis — Checklist</h2>
+
+    <ul class="checklist">
+        <li>
+            <div class="check" onclick="this.classList.toggle('done')"></div>
+            <div>
+                <strong>Formulaire d'aide financière (PDF)</strong><br>
+                <span style="color:var(--muted); font-size:13px;">Télécharger depuis quebec.ca, remplir avec Adobe Reader v10+. NE PAS remplir dans un navigateur.</span>
+            </div>
+        </li>
+        <li>
+            <div class="check" onclick="this.classList.toggle('done')"></div>
+            <div>
+                <strong>Copie numérisée et signée du formulaire</strong><br>
+                <span style="color:var(--muted); font-size:13px;">Scanner le formulaire signé. Les deux versions (électronique + signée) sont requises.</span>
+            </div>
+        </li>
+        <li>
+            <div class="check" onclick="this.classList.toggle('done')"></div>
+            <div>
+                <strong>Lettre d'engagement de l'incubateur/accélérateur</strong><br>
+                <span style="color:var(--muted); font-size:13px;">La STARTUP doit fournir une lettre de son incubateur (Centech, District 3, MILA, etc.) — template fourni par le MEI.</span>
+            </div>
+        </li>
+        <li>
+            <div class="check" onclick="this.classList.toggle('done')"></div>
+            <div>
+                <strong>Lettre d'engagement du primo-adoptant (Haie Lite)</strong><br>
+                <span style="color:var(--muted); font-size:13px;">Confirme l'intention d'acquérir/adopter la technologie développée. Template disponible sur la page du programme.</span>
+            </div>
+        </li>
+        <li>
+            <div class="check" onclick="this.classList.toggle('done')"></div>
+            <div>
+                <strong>CV des membres de l'équipe projet</strong><br>
+                <span style="color:var(--muted); font-size:13px;">Jean-Samuel Leboeuf + Henri [Nom] + équipe startup (CTO, développeurs).</span>
+            </div>
+        </li>
+        <li>
+            <div class="check" onclick="this.classList.toggle('done')"></div>
+            <div>
+                <strong>États financiers — 2 derniers exercices</strong><br>
+                <span style="color:var(--muted); font-size:13px;">Haie Lite 2024 + 2025. Si première année, fournir bilan d'ouverture + déclaration fiscale.</span>
+            </div>
+        </li>
+        <li>
+            <div class="check" onclick="this.classList.toggle('done')"></div>
+            <div>
+                <strong>Prévisions financières — 2 ans</strong><br>
+                <span style="color:var(--muted); font-size:13px;">Projections 2026-2027. Utiliser les données du MODELE-FINANCIER-2026.md.</span>
+            </div>
+        </li>
+        <li>
+            <div class="check" onclick="this.classList.toggle('done')"></div>
+            <div>
+                <strong>Budget de trésorerie — 2 ans</strong><br>
+                <span style="color:var(--muted); font-size:13px;">Cash flow mensuel projeté 2026-2027.</span>
+            </div>
+        </li>
+        <li>
+            <div class="check" onclick="this.classList.toggle('done')"></div>
+            <div>
+                <strong>Diagramme de Gantt du projet</strong><br>
+                <span style="color:var(--muted); font-size:13px;">✓ Inclus dans ce document (Section 5). Convertir en PDF ou exporter séparément.</span>
+            </div>
+        </li>
+        <li>
+            <div class="check" onclick="this.classList.toggle('done')"></div>
+            <div>
+                <strong>Description détaillée du projet</strong><br>
+                <span style="color:var(--muted); font-size:13px;">✓ Inclus dans ce document (Section 2). Extraire et formater selon le formulaire.</span>
+            </div>
+        </li>
+    </ul>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SECTION 9: PLAN 72H -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section" id="s9">
+    <h2><span class="num">9</span> Plan d'action — 72 heures</h2>
+
+    <div class="action-grid">
+        <div class="day-card" style="border-color:var(--red);">
+            <div class="day-num">JOUR 1 — Mardi 1er avril</div>
+            <h4 style="color:var(--red);">Trouver le partenaire startup</h4>
+            <ul>
+                <li><strong>8h-9h :</strong> Email MEI (startups-innovation@economie.gouv.qc.ca) — demander s'ils ont des startups cherchant un primo-adoptant dans le secteur logistique/IA/services terrain</li>
+                <li><strong>9h-11h :</strong> Recherche IndexQC + Bonjour Startup Québec — lister 10 startups IA/logistique/workforce</li>
+                <li><strong>11h-12h :</strong> Contacter MILA, Centech, District 3 — demander références</li>
+                <li><strong>13h-17h :</strong> Appels/emails aux startups identifiées — pitcher le projet et le financement 75k$</li>
+                <li><strong>17h :</strong> Startup partenaire confirmée? <span class="badge badge-red">GO / NO-GO</span></li>
+            </ul>
+        </div>
+
+        <div class="day-card" style="border-color:var(--amber);">
+            <div class="day-num">JOUR 2 — Mercredi 2 avril</div>
+            <h4 style="color:var(--amber);">Monter le dossier</h4>
+            <ul>
+                <li><strong>8h-10h :</strong> Télécharger formulaire PDF + remplir avec Adobe Reader</li>
+                <li><strong>10h-12h :</strong> Obtenir lettre incubateur de la startup</li>
+                <li><strong>12h-13h :</strong> Rédiger lettre d'engagement Haie Lite (primo-adoptant)</li>
+                <li><strong>13h-15h :</strong> Préparer états financiers + prévisions 2 ans + budget trésorerie</li>
+                <li><strong>15h-17h :</strong> CVs équipe + finaliser budget détaillé + Gantt</li>
+                <li><strong>17h-19h :</strong> Relecture complète du dossier</li>
+            </ul>
+        </div>
+
+        <div class="day-card" style="border-color:var(--green);">
+            <div class="day-num">JOUR 3 — Jeudi 3 avril</div>
+            <h4 style="color:var(--green);">Soumettre</h4>
+            <ul>
+                <li><strong>8h-10h :</strong> Corrections finales + signatures</li>
+                <li><strong>10h-11h :</strong> Scanner tous les documents signés</li>
+                <li><strong>11h-12h :</strong> Assembler le dossier complet (PDF unique)</li>
+                <li><strong>13h-14h :</strong> Soumission par email à startups-innovation@economie.gouv.qc.ca</li>
+                <li><strong>14h-15h :</strong> OU soumission via clicSÉQUR (si compte déjà actif)</li>
+                <li><strong>15h :</strong> Confirmation de réception demandée</li>
+                <li style="color:var(--green); font-weight:700;">⏰ DEADLINE : 17h00 — ne pas dépasser</li>
+            </ul>
+        </div>
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- SECTION 10: PLAN B -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section" id="s10">
+    <h2><span class="num">10</span> Plan B — Si Primo-adoptants n'est pas réaliste en 72h</h2>
+
+    <div class="alert-box">
+        <strong>Évaluation honnête :</strong> Le programme Primo-adoptants exige un <strong>partenariat avec une startup spécifique</strong>, accompagnée par un incubateur, avec une <strong>lettre d'engagement de l'incubateur</strong>. Si tu n'as pas de startup identifiée aujourd'hui, c'est <strong>très serré en 3 jours</strong>. La prochaine fenêtre est le <strong>17 juillet 2026</strong> — utilise les 3.5 mois pour préparer un dossier béton.
+    </div>
+
+    <h3>Subventions alternatives à déposer MAINTENANT (pas de deadline, en continu)</h3>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Programme</th>
+                <th>Montant</th>
+                <th>Facilité</th>
+                <th>Délai</th>
+                <th>Action</th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr style="background:rgba(34,197,94,0.05);">
+                <td><strong>PAMT</strong> (apprentissage en milieu de travail)</td>
+                <td class="amount"><strong>15 000 $/apprenti</strong></td>
+                <td><span class="badge badge-green">Facile</span></td>
+                <td>2-4 sem.</td>
+                <td>Inscrire chaque nouvel employé comme apprenti. Contact : HortiCompétences</td>
+            </tr>
+            <tr style="background:rgba(34,197,94,0.05);">
+                <td><strong>Subvention salariale</strong> (Services Québec)</td>
+                <td class="amount"><strong>50% salaire</strong></td>
+                <td><span class="badge badge-green">Facile</span></td>
+                <td>2-4 sem.</td>
+                <td>Pour chaque nouveau salarié. Contact : CLE Montérégie 1-877-767-8773</td>
+            </tr>
+            <tr>
+                <td><strong>PRIIME</strong> (immigrants/minorités)</td>
+                <td class="amount"><strong>26 000 $/personne</strong></td>
+                <td><span class="badge badge-green">Facile</span></td>
+                <td>2-4 sem.</td>
+                <td>Si TET admissibles ou employés immigrants. Même contact CLE.</td>
+            </tr>
+            <tr>
+                <td><strong>ESSOR 1C</strong> (implantation numérique)</td>
+                <td class="amount"><strong>50 000 $</strong></td>
+                <td><span class="badge badge-amber">Moyen</span></td>
+                <td>4-8 sem.</td>
+                <td>Pour l'app Haie Lite + CRM + automatisations. Deadline : mars 2027</td>
+            </tr>
+            <tr>
+                <td><strong>C3i</strong> (équipement/innovation)</td>
+                <td class="amount"><strong>15-25%</strong></td>
+                <td><span class="badge badge-amber">Moyen</span></td>
+                <td>Fiscal</td>
+                <td>Crédit d'impôt sur équipement. Prolongé jusqu'en 2029.</td>
+            </tr>
+            <tr>
+                <td><strong>MFOR</strong> (formation)</td>
+                <td class="amount"><strong>100% formation</strong></td>
+                <td><span class="badge badge-green">Facile</span></td>
+                <td>2-4 sem.</td>
+                <td>Toute formation admissible. Contact : Services Québec MFOR</td>
+            </tr>
+            <tr class="total-row">
+                <td><strong>TOTAL POTENTIEL IMMÉDIAT</strong></td>
+                <td class="amount" colspan="4"><strong>80 000 $ — 150 000 $</strong> (cumulable, sans deadline)</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <div class="success-box">
+        <strong>Recommandation :</strong> Même si tu déposes le Primo-adoptants le 3 avril, lance <strong>en parallèle</strong> les demandes PAMT + Subvention salariale + MFOR dès cette semaine. Ces programmes sont cumulables et n'ont pas de deadline. Potentiel combiné : <strong>80-150k$ immédiat</strong>.
+    </div>
+</div>
+
+<!-- ══════════════════════════════════════════════════════════ -->
+<!-- LETTRE D'ENGAGEMENT PRIMO-ADOPTANT (DRAFT) -->
+<!-- ══════════════════════════════════════════════════════════ -->
+<div class="section" id="lettre" style="border: 2px solid var(--accent);">
+    <h2 style="margin-bottom:8px;">ANNEXE A — Brouillon de lettre d'engagement du primo-adoptant</h2>
+    <p style="color:var(--muted); font-size:13px; margin-bottom:20px;">À adapter selon le template officiel du MEI et à imprimer sur papier en-tête Haie Lite.</p>
+
+    <div class="field-value" style="font-family: 'Georgia', serif; font-size:14px; line-height:1.8;">
+        <p style="text-align:right;">Vaudreuil-Dorion, le ___ avril 2026</p>
+        <br>
+        <p>
+            Ministère de l'Économie, de l'Innovation et de l'Énergie<br>
+            Direction de l'entrepreneuriat et de l'innovation<br>
+            Appel de projets Primo-adoptants
+        </p>
+        <br>
+        <p><strong>Objet :</strong> Lettre d'engagement — Taillage Haie Lite Inc. à titre de primo-adoptant</p>
+        <br>
+        <p>Madame, Monsieur,</p>
+        <br>
+        <p>Par la présente, Taillage Haie Lite Inc. (NEQ : __________) confirme son engagement à titre de <strong>primo-adoptant</strong> dans le cadre du projet intitulé <em>« Optimisation intelligente des opérations terrain par IA générative et analytique prédictive pour les services résidentiels saisonniers »</em>, en partenariat avec <strong>[Nom de la startup]</strong>.</p>
+        <br>
+        <p>Notre entreprise s'engage à :</p>
+        <ul>
+            <li>Fournir un environnement de test en conditions réelles (130 jours de production, 3 crews, 3 018 km² de zone opérationnelle, ~4 000 clients);</li>
+            <li>Contribuer financièrement au projet à hauteur de <strong>51 000 $</strong> en espèces, soit 40,8 % des dépenses totales admissibles;</li>
+            <li>Dédier les ressources humaines nécessaires (chef de projet technique à 30% ETP, équipe terrain pour tests);</li>
+            <li>Acquérir et intégrer la solution technologique développée dans ses opérations à l'issue du projet;</li>
+            <li>Participer activement à la validation, au feedback et à l'amélioration continue de la plateforme.</li>
+        </ul>
+        <br>
+        <p>Nous confirmons que Taillage Haie Lite Inc. :</p>
+        <ul>
+            <li>Ne détient aucune participation au capital de [Nom de la startup];</li>
+            <li>N'a aucun lien d'affaires ou familial avec les fondateurs de la startup;</li>
+            <li>Exerce régulièrement ses activités commerciales (250 000 $ CA en 2025);</li>
+            <li>Est dûment enregistrée au Registraire des entreprises du Québec.</li>
+        </ul>
+        <br>
+        <p>Nous sommes convaincus que ce partenariat permettra de développer une solution technologique innovante qui bénéficiera à l'ensemble du secteur des services résidentiels saisonniers au Québec.</p>
+        <br>
+        <p>Veuillez agréer, Madame, Monsieur, l'expression de nos salutations distinguées.</p>
+        <br>
+        <div class="sig-block">
+            <div>
+                <div class="sig-line">
+                    <strong>Jean-Samuel Leboeuf</strong><br>
+                    Président-directeur général<br>
+                    Taillage Haie Lite Inc.
+                </div>
+            </div>
+            <div>
+                <div class="sig-line">
+                    <strong>Henri [Nom de famille]</strong><br>
+                    Directeur des opérations<br>
+                    Taillage Haie Lite Inc.
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FOOTER -->
+<div style="text-align:center; padding:40px 0; color:var(--muted); font-size:12px;">
+    <p>Dossier préparé le 31 mars 2026 — Taillage Haie Lite Inc.</p>
+    <p>Programme d'aide à l'entrepreneuriat (PAEN) — Volet 1 — Appel de projets Primo-adoptants</p>
+    <p style="margin-top:8px;">Contact MEI : <a href="mailto:startups-innovation@economie.gouv.qc.ca" style="color:var(--accent);">startups-innovation@economie.gouv.qc.ca</a></p>
+</div>
+
+<script>
+// Interactive checkboxes
+document.querySelectorAll('.check').forEach(el => {
+    el.addEventListener('click', function() {
+        this.classList.toggle('done');
+    });
+});
+</script>
+
+</body>
+</html>
