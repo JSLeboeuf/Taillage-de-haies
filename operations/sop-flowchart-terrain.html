@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Parcours Client — Haie Lite</title>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #232635;
+      --border: #2d3147;
+      --green: #22c55e;
+      --green-dim: #16a34a;
+      --yellow: #eab308;
+      --red: #ef4444;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #6366f1;
+      --blue: #0ea5e9;
+      --orange: #f97316;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      min-height: 100vh;
+      padding: 32px 16px;
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    header h1 {
+      font-size: 32px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 12px;
+    }
+
+    header p {
+      color: var(--muted);
+      font-size: 15px;
+      margin-bottom: 24px;
+    }
+
+    .summary-box {
+      background: linear-gradient(135deg, #1a3a3a 0%, #1a1f33 100%);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 20px;
+    }
+
+    .summary-stat {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .summary-stat .label {
+      font-size: 12px;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .summary-stat .value {
+      font-size: 24px;
+      font-weight: 700;
+      color: var(--green);
+    }
+
+    .summary-stat.secondary .value {
+      color: var(--accent);
+    }
+
+    .summary-stat.tertiary .value {
+      color: var(--orange);
+    }
+
+    .phases-container {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 40px;
+      margin-bottom: 40px;
+    }
+
+    .phase {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px;
+      position: relative;
+    }
+
+    .phase::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 4px;
+      background: linear-gradient(180deg, var(--accent) 0%, var(--green) 50%, var(--orange) 100%);
+      border-radius: 12px 0 0 12px;
+    }
+
+    .phase-header {
+      margin-bottom: 32px;
+      padding-left: 16px;
+    }
+
+    .phase-number {
+      display: inline-block;
+      background: var(--accent);
+      color: white;
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 16px;
+      margin-right: 12px;
+      margin-bottom: 12px;
+    }
+
+    .phase-title {
+      font-size: 22px;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .phase-description {
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    .steps {
+      display: grid;
+      gap: 16px;
+      padding-left: 16px;
+    }
+
+    .step {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 40px 1fr auto auto;
+      gap: 16px;
+      align-items: center;
+      transition: all 0.3s ease;
+    }
+
+    .step:hover {
+      border-color: var(--accent);
+      background: rgba(99, 102, 241, 0.05);
+    }
+
+    .step-number {
+      background: var(--surface);
+      border: 2px solid var(--green);
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 13px;
+      color: var(--green);
+      flex-shrink: 0;
+    }
+
+    .step-content {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .step-title {
+      font-size: 15px;
+      font-weight: 600;
+      color: var(--text);
+    }
+
+    .step-description {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    .step-actor {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 13px;
+      color: var(--accent);
+      white-space: nowrap;
+      background: rgba(99, 102, 241, 0.1);
+      padding: 4px 8px;
+      border-radius: 4px;
+      font-weight: 500;
+    }
+
+    .step-revenue {
+      text-align: right;
+      font-weight: 700;
+      color: var(--green);
+      font-size: 14px;
+      white-space: nowrap;
+    }
+
+    .step-revenue.optional {
+      color: var(--orange);
+    }
+
+    .arrow-down {
+      width: 2px;
+      height: 32px;
+      background: linear-gradient(180deg, var(--green) 0%, transparent 100%);
+      margin: 8px auto;
+      position: relative;
+      margin-left: 20px;
+    }
+
+    .arrow-down::after {
+      content: '▼';
+      position: absolute;
+      bottom: -8px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: var(--green);
+      font-size: 10px;
+    }
+
+    .phase:not(:last-child) .arrow-down {
+      margin-bottom: 16px;
+    }
+
+    .phase:last-child .arrow-down {
+      display: none;
+    }
+
+    @media (max-width: 768px) {
+      header h1 {
+        font-size: 24px;
+      }
+
+      .summary-box {
+        grid-template-columns: 1fr;
+      }
+
+      .step {
+        grid-template-columns: 32px 1fr;
+        gap: 12px;
+      }
+
+      .step-actor,
+      .step-revenue {
+        grid-column: 2;
+        font-size: 12px;
+      }
+
+      .phase {
+        padding: 24px;
+      }
+
+      .phase-header {
+        margin-bottom: 24px;
+      }
+
+      .steps {
+        gap: 12px;
+        padding-left: 12px;
+      }
+    }
+
+    .legend {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-top: 40px;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 16px;
+    }
+
+    .legend-item {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+    }
+
+    .legend-icon {
+      font-size: 18px;
+      flex-shrink: 0;
+    }
+
+    .legend-label {
+      color: var(--muted);
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Parcours Client Haie Lite</h1>
+      <p>De l'acquisition à la fidélisation — 25 étapes, 5 phases</p>
+    </header>
+
+    <div class="summary-box">
+      <div class="summary-stat">
+        <div class="label">Phases</div>
+        <div class="value">5</div>
+      </div>
+      <div class="summary-stat">
+        <div class="label">Étapes totales</div>
+        <div class="value">25</div>
+      </div>
+      <div class="summary-stat secondary">
+        <div class="label">Potentiel upsell</div>
+        <div class="value">+200-400$</div>
+      </div>
+      <div class="summary-stat tertiary">
+        <div class="label">LTV client</div>
+        <div class="value">3-5x</div>
+      </div>
+    </div>
+
+    <!-- PHASE 1: ACQUISITION -->
+    <div class="phases-container">
+      <div class="phase">
+        <div class="phase-header">
+          <div class="phase-number">1</div>
+          <div class="phase-title">ACQUISITION</div>
+          <div class="phase-description">Lead entrant → Réservation confirmée</div>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">1</div>
+            <div class="step-content">
+              <div class="step-title">Lead entrant</div>
+              <div class="step-description">Ads Facebook/Google, referral, porte-à-porte</div>
+            </div>
+            <div class="step-actor">📊 Source</div>
+          </div>
+
+          <div class="arrow-down"></div>
+
+          <div class="step">
+            <div class="step-number">2</div>
+            <div class="step-content">
+              <div class="step-title">Qualification IA Sophie</div>
+              <div class="step-description">Adresse, type haie, urgence, budget estimé</div>
+            </div>
+            <div class="step-actor">🤖 IA Chatbot</div>
+          </div>
+
+          <div class="arrow-down"></div>
+
+          <div class="step">
+            <div class="step-number">3</div>
+            <div class="step-content">
+              <div class="step-title">Soumission automatique</div>
+              <div class="step-description">Envoyée par SMS avec lien paiement</div>
+            </div>
+            <div class="step-actor">📱 SMS Auto</div>
+            <div class="step-revenue">+250-800$</div>
+          </div>
+
+          <div class="arrow-down"></div>
+
+          <div class="step">
+            <div class="step-number">4</div>
+            <div class="step-content">
+              <div class="step-title">Follow-up automation</div>
+              <div class="step-description">J1, J3, J7, J14 si pas de réponse</div>
+            </div>
+            <div class="step-actor">📱 SMS Auto</div>
+          </div>
+
+          <div class="arrow-down"></div>
+
+          <div class="step">
+            <div class="step-number">5</div>
+            <div class="step-content">
+              <div class="step-title">Confirmation client → Job booké</div>
+              <div class="step-description">Client confirme, job créé dans ServiceM8</div>
+            </div>
+            <div class="step-actor">👨‍💼 Admin</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE 2: PRÉ-SERVICE -->
+      <div class="phase">
+        <div class="phase-header">
+          <div class="phase-number">2</div>
+          <div class="phase-title">PRÉ-SERVICE</div>
+          <div class="phase-description">Préparation et présentation équipe</div>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">6</div>
+            <div class="step-content">
+              <div class="step-title">Confirmation SMS J-1</div>
+              <div class="step-description">"Notre équipe passe demain entre 8h et 10h"</div>
+            </div>
+            <div class="step-actor">📱 SMS Auto</div>
+          </div>
+
+          <div class="arrow-down"></div>
+
+          <div class="step">
+            <div class="step-number">7</div>
+            <div class="step-content">
+              <div class="step-title">SMS jour-même</div>
+              <div class="step-description">"Notre équipe est en route! ⏰ ~15 min"</div>
+            </div>
+            <div class="step-actor">📱 SMS Auto</div>
+          </div>
+
+          <div class="arrow-down"></div>
+
+          <div class="step">
+            <div class="step-number">8</div>
+            <div class="step-content">
+              <div class="step-title">Arrivée sur site</div>
+              <div class="step-description">Photo AVANT obligatoire, checklist terrain</div>
+            </div>
+            <div class="step-actor">👷 Employé</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE 3: SERVICE -->
+      <div class="phase">
+        <div class="phase-header">
+          <div class="phase-number">3</div>
+          <div class="phase-title">SERVICE</div>
+          <div class="phase-description">Exécution taille selon standards</div>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">9</div>
+            <div class="step-content">
+              <div class="step-title">Tour avec le client</div>
+              <div class="step-description">"Qu'est-ce que vous attendez? Résultat final?"</div>
+            </div>
+            <div class="step-actor">👷 Employé</div>
+          </div>
+
+          <div class="arrow-down"></div>
+
+          <div class="step">
+            <div class="step-number">10</div>
+            <div class="step-content">
+              <div class="step-title">Exécution taille</div>
+              <div class="step-description">Taille conique, uniformité ±2cm, no damage</div>
+            </div>
+            <div class="step-actor">👷 Employé</div>
+          </div>
+
+          <div class="arrow-down"></div>
+
+          <div class="step">
+            <div class="step-number">11</div>
+            <div class="step-content">
+              <div class="step-title">Ramassage résidus</div>
+              <div class="step-description">Complet, au fur et à mesure, sans débris</div>
+            </div>
+            <div class="step-actor">👷 Employé</div>
+          </div>
+
+          <div class="arrow-down"></div>
+
+          <div class="step">
+            <div class="step-number">12</div>
+            <div class="step-content">
+              <div class="step-title">Photo APRÈS obligatoire</div>
+              <div class="step-description">Qualité identique à la photo AVANT</div>
+            </div>
+            <div class="step-actor">👷 Employé</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE 4: POST-SERVICE -->
+      <div class="phase">
+        <div class="phase-header">
+          <div class="phase-number">4</div>
+          <div class="phase-title">POST-SERVICE</div>
+          <div class="phase-description">Upsells + fidélisation première jour</div>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">13</div>
+            <div class="step-content">
+              <div class="step-title">Tour final avec client</div>
+              <div class="step-description">"Êtes-vous satisfait? Exactement ce que vous attendiez?"</div>
+            </div>
+            <div class="step-actor">👷 Employé</div>
+          </div>
+
+          <div class="arrow-down"></div>
+
+          <div class="step">
+            <div class="step-number">14</div>
+            <div class="step-content">
+              <div class="step-title">UPSELL #1 — Lavage vitres</div>
+              <div class="step-description">"Pendant qu'on est là, on pourrait laver les vitres?"</div>
+            </div>
+            <div class="step-actor">👷 Employé</div>
+            <div class="step-revenue optional">+150$</div>
+          </div>
+
+          <div class="arrow-down"></div>
+
+          <div class="step">
+            <div class="step-number">15</div>
+            <div class="step-content">
+              <div class="step-title">UPSELL #2 — Gouttières</div>
+              <div class="step-description">"Vos gouttières, c'est du nettoyage? Déneigement?"</div>
+            </div>
+            <div class="step-actor">👷 Employé</div>
+            <div class="step-revenue optional">+100$</div>
+          </div>
+
+          <div class="arrow-down"></div>
+
+          <div class="step">
+            <div class="step-number">16</div>
+            <div class="step-content">
+              <div class="step-title">UPSELL #3 — Engrais cèdres</div>
+              <div class="step-description">"Pour que vos cèdres restent verts toute l'année"</div>
+            </div>
+            <div class="step-actor">👷 Employé</div>
+            <div class="step-revenue optional">+75-150$</div>
+          </div>
+
+          <div class="arrow-down"></div>
+
+          <div class="step">
+            <div class="step-number">17</div>
+            <div class="step-content">
+              <div class="step-title">Demander avis Google</div>
+              <div class="step-description">"Vous pourriez laisser un avis 5 étoiles?"</div>
+            </div>
+            <div class="step-actor">👷 Employé</div>
+          </div>
+
+          <div class="arrow-down"></div>
+
+          <div class="step">
+            <div class="step-number">18</div>
+            <div class="step-content">
+              <div class="step-title">Carte d'affaires + Programme référence</div>
+              <div class="step-description">"Vous référez quelqu'un, vous gagnez 50$ crédit"</div>
+            </div>
+            <div class="step-actor">👷 Employé</div>
+          </div>
+
+          <div class="arrow-down"></div>
+
+          <div class="step">
+            <div class="step-number">19</div>
+            <div class="step-content">
+              <div class="step-title">Carte de satisfaction signée</div>
+              <div class="step-description">Preuve de qualité + satisfaction client</div>
+            </div>
+            <div class="step-actor">👷 Employé</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- PHASE 5: FIDÉLISATION -->
+      <div class="phase">
+        <div class="phase-header">
+          <div class="phase-number">5</div>
+          <div class="phase-title">FIDÉLISATION</div>
+          <div class="phase-description">Automatisation suivi client 30j-1an</div>
+        </div>
+        <div class="steps">
+          <div class="step">
+            <div class="step-number">20</div>
+            <div class="step-content">
+              <div class="step-title">SMS remerciement +2h</div>
+              <div class="step-description">"Merci! Merci d'avoir choisi Haie Lite 🙏"</div>
+            </div>
+            <div class="step-actor">📱 SMS Auto</div>
+          </div>
+
+          <div class="arrow-down"></div>
+
+          <div class="step">
+            <div class="step-number">21</div>
+            <div class="step-content">
+              <div class="step-title">Demande review Google +24h</div>
+              <div class="step-description">Lien direct Google Reviews si pas encore fait</div>
+            </div>
+            <div class="step-actor">📱 SMS Auto</div>
+          </div>
+
+          <div class="arrow-down"></div>
+
+          <div class="step">
+            <div class="step-number">22</div>
+            <div class="step-content">
+              <div class="step-title">Demande referral +7j</div>
+              <div class="step-description">"Connaissez quelqu'un qui veut des haies taillées?"</div>
+            </div>
+            <div class="step-actor">📱 SMS Auto</div>
+          </div>
+
+          <div class="arrow-down"></div>
+
+          <div class="step">
+            <div class="step-number">23</div>
+            <div class="step-content">
+              <div class="step-title">Relance upsell annuel +14j</div>
+              <div class="step-description">"Intéressé par les services optionnels?"</div>
+            </div>
+            <div class="step-actor">📱 SMS Auto</div>
+            <div class="step-revenue optional">+200-400$</div>
+          </div>
+
+          <div class="arrow-down"></div>
+
+          <div class="step">
+            <div class="step-number">24</div>
+            <div class="step-content">
+              <div class="step-title">Proposition contrat annuel</div>
+              <div class="step-description">Plan Tranquillité: 1 400$/an, 4x/an taille</div>
+            </div>
+            <div class="step-actor">📱 SMS Auto</div>
+            <div class="step-revenue">+1400$/an</div>
+          </div>
+
+          <div class="arrow-down"></div>
+
+          <div class="step">
+            <div class="step-number">25</div>
+            <div class="step-content">
+              <div class="step-title">Relance saison suivante</div>
+              <div class="step-description">Appel + SMS "Votre haie est prête pour la taille!"</div>
+            </div>
+            <div class="step-actor">👨‍💼 Admin</div>
+            <div class="step-revenue">+250-800$</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="legend">
+      <div class="legend-item">
+        <div class="legend-icon">🤖</div>
+        <div class="legend-label">IA Chatbot</div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-icon">📱</div>
+        <div class="legend-label">SMS Auto</div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-icon">👷</div>
+        <div class="legend-label">Employé terrain</div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-icon">👨‍💼</div>
+        <div class="legend-label">Admin/Henri</div>
+      </div>
+      <div class="legend-item">
+        <div class="legend-icon">📊</div>
+        <div class="legend-label">Source métrique</div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>
