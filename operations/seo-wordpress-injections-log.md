@@ -99,3 +99,47 @@ taillage haie cedre, elagage, fertilisation, montreal, laval, rive-nord, prix, c
 ### Pages index (2): blog (1605), zones (1607)
 ### Image titles/captions: 30 corriges
 
+
+## Session 3 — Optimisations finales (31 mars 2026)
+
+### OG images specifiques (6 pages live + 25 brouillons)
+Chaque page a une image Open Graph dediee pour un meilleur partage social.
+
+### Articles saisonniers (2 nouveaux)
+| ID | Slug | Mot-cle |
+|----|------|---------|
+| 1637 | preparer-haie-cedre-hiver-quebec | preparer haie cedre hiver |
+| 1639 | taillage-haie-cedre-diy-vs-professionnel | taillage haie cedre diy professionnel |
+
+### Cornerstone zones (2)
+Montreal (1583) et Laval (1585) marques comme cornerstone.
+
+### Problemes identifies (requiert admin)
+- /author/ archive indexee (devrait etre noindex)
+- /services/ archive generique sans meta description
+- Copyright footer 2024 (devrait etre 2026)
+
+## INVENTAIRE FINAL
+
+### LIVE sur le site (invisible)
+- 9 pages: title + meta desc + focus kw + OG image + Twitter + excerpt
+- 30 images: alt text + title + caption
+- 5 pages: cornerstone Yoast
+- test-page: brouillon (404)
+
+### Brouillons WordPress: 26 total
+- 12 articles blog
+- 8 pages zones
+- 3 pages services
+- 2 pages index (blog, zones)
+- 1 test-page (inactive)
+
+### Taxonomie
+- 4 categories blog
+- 14 tags SEO
+- 10 articles avec categories primaires assignees
+
+### Fichiers repo
+- 8 fichiers SEO dans operations/ (~9000+ lignes)
+- 1 mu-plugin tracking PHP (outils/)
+- 1 guide tracking complet (operations/)
