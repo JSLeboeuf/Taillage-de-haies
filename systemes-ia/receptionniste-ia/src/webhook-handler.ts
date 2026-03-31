@@ -367,7 +367,8 @@ function extractToolCalls(message: VAPIRequest['message']): Array<{ id: string; 
   if (rawList.length > 0) {
     for (const tc of rawList) {
       const name = tc.name || tc.function?.name || '';
-      const params = tc.parameters || (tc.function?.arguments ? JSON.parse(tc.function.arguments) : {});
+      const rawArgs = tc.function?.arguments;
+      const params = tc.parameters || (rawArgs ? (typeof rawArgs === 'string' ? JSON.parse(rawArgs) : rawArgs) : {});
       calls.push({ id: tc.id, name, params });
     }
     return calls;
@@ -378,7 +379,8 @@ function extractToolCalls(message: VAPIRequest['message']): Array<{ id: string; 
     for (const item of message.toolWithToolCallList) {
       const tc = item.toolCall;
       const name = item.name || tc.name || tc.function?.name || '';
-      const params = tc.parameters || (tc.function?.arguments ? JSON.parse(tc.function.arguments) : {});
+      const rawArgs = tc.function?.arguments;
+      const params = tc.parameters || (rawArgs ? (typeof rawArgs === 'string' ? JSON.parse(rawArgs) : rawArgs) : {});
       calls.push({ id: tc.id, name, params });
     }
     return calls;
@@ -427,14 +429,13 @@ export async function handleVAPIWebhook(
     }
 
     // Process all tool calls and build results array (VAPI official format)
-    const results: Array<{ toolCallId: string; name?: string; result: string }> = [];
+    const results: Array<{ toolCallId: string; result: string }> = [];
 
     for (const tc of toolCalls) {
       try {
         const toolResult = await executeTool(tc.name, tc.params, env);
         results.push({
           toolCallId: tc.id,
-          name: tc.name,
           result: JSON.stringify(toolResult),
         });
       } catch (error) {
@@ -442,7 +443,6 @@ export async function handleVAPIWebhook(
         console.error(`[webhook] Tool ${tc.name} error:`, errMsg);
         results.push({
           toolCallId: tc.id,
-          name: tc.name,
           result: JSON.stringify({ error: errMsg }),
         });
       }

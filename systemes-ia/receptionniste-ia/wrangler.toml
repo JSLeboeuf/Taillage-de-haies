@@ -1,27 +1,4 @@
 name = "haie-lite-receptionniste"
-type = "service"
 main = "src/index.ts"
-compatibility_date = "2025-01-22"
-compatibility_flags = ["nodejs_compat", "nodejs_als"]
-
-# Build configuration
-[build]
-command = "npm install && npm run type-check"
-cwd = "."
-
-# Environment variables (set via `wrangler secret put`)
-[env.production]
-name = "haie-lite-receptionniste-prod"
-route = "https://haie-lite-receptionniste.haielite.workers.dev/*"
-
-[env.development]
-name = "haie-lite-receptionniste-dev"
-
-# Routes
-[[routes]]
-pattern = "haie-lite-receptionniste.haielite.workers.dev/*"
-zone_id = ""
-
-# Triggers (optional, for scheduled tasks)
-[triggers]
-crons = []
+compatibility_date = "2025-03-01"
+compatibility_flags = ["nodejs_compat"]
