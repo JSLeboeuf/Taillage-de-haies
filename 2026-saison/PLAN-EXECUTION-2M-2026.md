@@ -378,10 +378,10 @@ Un café pour en discuter?"
 - B) Henri 60/40 JS, Henri injecte 200k$ cash
 - C) Sweat equity pure (pas de cash, parts progressives)
 
-### 2. Nombre de TET à demander (EIMT)
-**Recommandation:** 6 TET (pour 3 crews saison complète)
-- Processus EIMT: 3-6 mois, lancer MAINTENANT
-- Fallback: demander 4 TET minimum, recruter localement pour combler
+### 2. Nombre de TET (EIMT)
+**Réalité 2026:** 2 TET guatémaltèques confirmés, arrivée mi-mai
+- Combler avec étudiants + recrutement local pour crews 4-5
+- Pour 2027: viser 4-6 TET, lancer EIMT dès septembre 2026
 
 ### 3. Qui fait le premier appel M&A?
 **Recommandation:** JS contacte Aleksandar (Rive-Sud) et Haie-Xpert (Rive-Nord) cette semaine. Henri contacte Antoine & Matt (Québec).

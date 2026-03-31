@@ -1,0 +1,377 @@
+<!DOCTYPE html>
+<!-- saved from url=(0167)file:///Users/thecreator/Library/Mobile%20Documents/com~apple~CloudDocs/Archives-Stockage/GitHub-Archive/Taillage%20de%20haies/marketing/post-recrutement-facebook.html -->
+<html lang="fr"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Recrutement — Taillage Haie Élite</title>
+    <style>
+      :root {
+        --green: #4a7c43;
+        --green-light: #6b9b37;
+        --green-dark: #2d5a27;
+        --bg: #0a0a0a;
+        --text: #ffffff;
+        --muted: #a1a1a1;
+      }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+      body {
+        font-family:
+          -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
+        background: var(--bg);
+        color: var(--text);
+        min-height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+      }
+      .post {
+        width: 100%;
+        max-width: 520px;
+      }
+
+      /* === IMAGE CARD === */
+      .image-card {
+        background: linear-gradient(
+          160deg,
+          #0d1a0b 0%,
+          #1a2e17 40%,
+          #0d1a0b 100%
+        );
+        border-radius: 16px;
+        overflow: hidden;
+        position: relative;
+        aspect-ratio: 1 / 1;
+        display: flex;
+        align-items: center;
+      }
+      .image-card::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background:
+          radial-gradient(
+            ellipse at 25% 15%,
+            rgba(74, 124, 67, 0.25) 0%,
+            transparent 55%
+          ),
+          radial-gradient(
+            ellipse at 75% 85%,
+            rgba(107, 155, 55, 0.12) 0%,
+            transparent 50%
+          );
+        pointer-events: none;
+      }
+
+      .card-content {
+        position: relative;
+        padding: 36px 28px;
+        text-align: center;
+        width: 100%;
+      }
+
+      /* Badge top */
+      .badge-top {
+        display: inline-block;
+        background: rgba(107, 155, 55, 0.15);
+        border: 1px solid rgba(107, 155, 55, 0.3);
+        border-radius: 100px;
+        padding: 6px 16px;
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        color: var(--green-light);
+        margin-bottom: 20px;
+      }
+
+      /* Number callout */
+      .number-callout {
+        font-size: 72px;
+        font-weight: 900;
+        line-height: 1;
+        letter-spacing: -3px;
+        color: var(--green-light);
+        margin-bottom: 2px;
+      }
+      .number-callout .dollar {
+        font-size: 42px;
+        vertical-align: top;
+        letter-spacing: 0;
+      }
+      .number-callout .per-day {
+        display: block;
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+
+      .hook {
+        font-size: 26px;
+        font-weight: 800;
+        line-height: 1.2;
+        margin: 20px 0 6px;
+      }
+      .sub-hook {
+        font-size: 15px;
+        color: var(--muted);
+        margin-bottom: 24px;
+      }
+
+      .divider {
+        width: 50px;
+        height: 3px;
+        background: var(--green);
+        border-radius: 2px;
+        margin: 0 auto 22px;
+      }
+
+      /* Perks */
+      .perks {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+        margin-bottom: 24px;
+      }
+      .perk {
+        background: rgba(74, 124, 67, 0.08);
+        border: 1px solid rgba(74, 124, 67, 0.18);
+        border-radius: 10px;
+        padding: 14px 12px;
+        text-align: center;
+      }
+      .perk-icon {
+        font-size: 26px;
+        margin-bottom: 6px;
+      }
+      .perk-label {
+        font-size: 12px;
+        font-weight: 700;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: var(--green-light);
+        line-height: 1.3;
+      }
+      .perk-detail {
+        font-size: 11px;
+        color: var(--muted);
+        margin-top: 2px;
+      }
+
+      /* CTA */
+      .cta-box {
+        background: var(--green);
+        border-radius: 12px;
+        padding: 16px 20px;
+        margin-bottom: 16px;
+      }
+      .cta-box .cta-text {
+        font-size: 17px;
+        font-weight: 800;
+      }
+      .cta-box .cta-sub {
+        font-size: 13px;
+        opacity: 0.9;
+        margin-top: 2px;
+      }
+
+      .footer-card {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 14px;
+        font-size: 12px;
+        color: var(--muted);
+      }
+      .footer-card a {
+        color: var(--green-light);
+        text-decoration: none;
+        font-weight: 600;
+      }
+      .dot {
+        opacity: 0.3;
+      }
+
+      /* === TEXTE DU POST === */
+      .post-text {
+        padding: 28px 4px;
+        font-size: 15px;
+        line-height: 1.75;
+        color: #d4d4d4;
+      }
+      .post-text p {
+        margin-bottom: 14px;
+      }
+      .post-text .bold {
+        font-weight: 700;
+        color: #fff;
+      }
+      .post-text .green {
+        color: var(--green-light);
+        font-weight: 700;
+      }
+      .post-text .hashtags {
+        color: var(--green);
+        font-size: 13px;
+        margin-top: 10px;
+      }
+      .post-text .separator {
+        text-align: center;
+        color: var(--green);
+        font-size: 18px;
+        letter-spacing: 6px;
+        margin: 6px 0;
+      }
+
+      @media (max-width: 440px) {
+        .card-content {
+          padding: 24px 16px;
+        }
+        .number-callout {
+          font-size: 56px;
+        }
+        .hook {
+          font-size: 22px;
+        }
+        .perks {
+          gap: 8px;
+        }
+        .perk {
+          padding: 10px 8px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="post">
+      <!-- ========== IMAGE CARD (screenshot pour le post) ========== -->
+      <div class="image-card">
+        <div class="card-content">
+          <div class="badge-top">On cherche 2 machines</div>
+
+          <div class="number-callout">
+            250<span class="dollar">$</span>
+            <span class="per-day">par jour</span>
+          </div>
+
+          <h1 class="hook">Travaille dehors au soleil<br>avec ton chum</h1>
+          <p class="sub-hook">Taillage de haies — Saison 2026</p>
+
+          <div class="divider"></div>
+
+          <div class="perks">
+            <div class="perk">
+              <div class="perk-icon">☀️</div>
+              <div class="perk-label">Au soleil</div>
+              <div class="perk-detail">Pas dans un bureau</div>
+            </div>
+            <div class="perk">
+              <div class="perk-icon">🚕</div>
+              <div class="perk-label">Pick-up fourni</div>
+              <div class="perk-detail">Truck + tout l'equip</div>
+            </div>
+            <div class="perk">
+              <div class="perk-icon">🤝</div>
+              <div class="perk-label">Viens en duo</div>
+              <div class="perk-detail">Amene ton ami</div>
+            </div>
+            <div class="perk">
+              <div class="perk-icon">💪</div>
+              <div class="perk-label">On te forme</div>
+              <div class="perk-detail">0 experience requise</div>
+            </div>
+          </div>
+
+          <div class="cta-box">
+            <div class="cta-text">Envoie ton CV maintenant</div>
+            <div class="cta-sub">DM ou info@taillagehaielite.com</div>
+          </div>
+
+          <div class="footer-card">
+            <span>Taillage Haie Élite</span>
+            <span class="dot">|</span>
+            <span>Rive-Sud</span>
+            <span class="dot">|</span>
+            <a href="https://www.instagram.com/taillage_haielite/">@taillage_haielite</a>
+          </div>
+        </div>
+      </div>
+
+      <!-- ========== TEXTE DU POST (copier-coller) ========== -->
+      <div class="post-text">
+        <p class="bold" style="font-size: 17px">
+          On cherche 2 machines pour compléter notre équipe cette
+          saison.
+        </p>
+
+        <p>
+          T'es jeune. T'es travaillant. T'es tanné d'être
+          enfermé dans un bureau ou un entrepôt?
+        </p>
+
+        <p>
+          On fait du <span class="green">taillage de haies</span> sur la
+          Rive-Sud.<br>
+          Dehors, au soleil, tout l'été.
+        </p>
+
+        <p class="separator">———</p>
+
+        <p>
+          Ce qu'on t'offre :<br><br>
+          💰 <span class="bold">250$/jour</span> — payé
+          chaque semaine<br>
+          🚕
+          <span class="bold">Pick-up + équipement fourni</span> —
+          t'apportes juste toi<br>
+          ☀️
+          <span class="bold">Travail extérieur</span> — zéro
+          bureau, zéro entrepôt<br>
+          🤝 <span class="bold">Viens avec ton ami</span> — on
+          embauche en duo<br>
+          💪 <span class="bold">On te forme</span> — aucune
+          expérience requise
+        </p>
+
+        <p class="separator">———</p>
+
+        <p>
+          Ce qu'on demande :<br><br>
+          ✔️ Être <span class="bold">fiable</span> —
+          te présenter à l'heure<br>
+          ✔️ Être
+          <span class="bold">travaillant</span> — on cherche des vrais,
+          pas des touristes<br>
+          ✔️ Avoir de l'<span class="bold">énergie</span>
+          — c'est physique pis c'est dehors
+        </p>
+
+        <p class="separator">———</p>
+
+        <p>
+          La saison commence bientôt. On est basés sur la
+          <span class="bold">Rive-Sud</span>.<br>
+          <span class="bold">2 places seulement.</span>
+        </p>
+
+        <p class="bold" style="font-size: 16px">
+          📩 Envoie ton CV en DM ou à info@taillagehaielite.com
+        </p>
+
+        <p class="hashtags">
+          #emploi #recrutement #taillagedehaies #rivesud #monteregie #jobdete
+          #travaillerdehors #paysagement #hiring #taillagehaielite #hardworkers
+          #outdoorjob
+        </p>
+      </div>
+    </div>
+  
+
+</body></html>

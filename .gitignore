@@ -15,3 +15,7 @@ credentials/
 # Temp
 *.tmp
 *.bak
+
+# Claude Code
+.claude/
+--db-path

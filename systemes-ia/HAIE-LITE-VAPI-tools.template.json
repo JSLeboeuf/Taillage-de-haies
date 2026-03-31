@@ -1,0 +1,170 @@
+[
+  {
+    "type": "function",
+    "name": "availableSlots",
+    "description": "Return 2 to 3 real appointment slots for a free estimate visit. Use this before confirming any date or time.",
+    "function": {
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "serviceType": {
+            "type": "string",
+            "enum": [
+              "hedge-trimming",
+              "window-washing",
+              "gutter-cleaning",
+              "combo"
+            ]
+          },
+          "postalCode": {
+            "type": "string",
+            "description": "Postal code or city used to validate zone and routing."
+          },
+          "preferredDays": {
+            "type": "string",
+            "description": "Client preference such as weekday or weekend."
+          },
+          "preferredTimeOfDay": {
+            "type": "string",
+            "enum": [
+              "morning",
+              "afternoon",
+              "either"
+            ]
+          },
+          "timezone": {
+            "type": "string",
+            "description": "Caller timezone. Default should be America/Toronto."
+          }
+        },
+        "required": [
+          "serviceType"
+        ]
+      },
+      "server": {
+        "url": "https://REPLACE_WITH_PUBLIC_APP_URL/api/webhooks/vapi",
+        "headers": {
+          "x-vapi-secret": "REPLACE_WITH_SHARED_SECRET"
+        }
+      }
+    }
+  },
+  {
+    "type": "function",
+    "name": "bookAppointment",
+    "description": "Book the free on-site estimate only after the client agrees to one of the proposed slots.",
+    "function": {
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "firstName": {
+            "type": "string"
+          },
+          "lastName": {
+            "type": "string"
+          },
+          "phone": {
+            "type": "string"
+          },
+          "address": {
+            "type": "string"
+          },
+          "propertyType": {
+            "type": "string",
+            "enum": [
+              "residential",
+              "commercial"
+            ]
+          },
+          "serviceType": {
+            "type": "string",
+            "enum": [
+              "hedge-trimming",
+              "window-washing",
+              "gutter-cleaning",
+              "combo"
+            ]
+          },
+          "jobDetails": {
+            "type": "string",
+            "description": "Freeform job notes collected during qualification."
+          },
+          "selectedSlotIso": {
+            "type": "string",
+            "description": "Confirmed slot in ISO 8601 format."
+          },
+          "timezone": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "firstName",
+          "lastName",
+          "phone",
+          "address",
+          "serviceType",
+          "selectedSlotIso"
+        ]
+      },
+      "server": {
+        "url": "https://REPLACE_WITH_PUBLIC_APP_URL/api/webhooks/vapi",
+        "headers": {
+          "x-vapi-secret": "REPLACE_WITH_SHARED_SECRET"
+        }
+      }
+    }
+  },
+  {
+    "type": "transferCall",
+    "name": "transferCall",
+    "description": "Transfer the caller to Henri immediately when a human is requested, the caller is upset, the job is high value, or the case is urgent.",
+    "transferCall": {
+      "destinations": [
+        {
+          "type": "number",
+          "number": "REPLACE_WITH_HENRI_PHONE_E164",
+          "description": "Henri - owner"
+        }
+      ]
+    }
+  },
+  {
+    "type": "function",
+    "name": "sendSMS",
+    "description": "Send a confirmation SMS after booking or after a callback request is captured.",
+    "function": {
+      "parameters": {
+        "type": "object",
+        "properties": {
+          "phone": {
+            "type": "string"
+          },
+          "template": {
+            "type": "string",
+            "enum": [
+              "booking-confirmation",
+              "callback-confirmation"
+            ]
+          },
+          "firstName": {
+            "type": "string"
+          },
+          "appointmentDateTime": {
+            "type": "string",
+            "description": "Booked visit time in ISO 8601 format when relevant."
+          }
+        },
+        "required": [
+          "phone",
+          "template"
+        ]
+      },
+      "server": {
+        "url": "https://REPLACE_WITH_PUBLIC_APP_URL/api/webhooks/vapi",
+        "headers": {
+          "x-vapi-secret": "REPLACE_WITH_SHARED_SECRET"
+        }
+      }
+    }
+  }
+]

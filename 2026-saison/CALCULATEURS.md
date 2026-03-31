@@ -20,6 +20,7 @@ Outils pratiques pour ajustements en temps réel du modèle financier.
 - 1 crew TET = 130 jours = 1,200 clients
 - 1 crew étudiant = 75 jours = 692 clients
 - Buffer recommandé: +15% capacité vs objectif
+- **Réalité 2026**: 2 TET confirmés (mi-mai) + étudiants/locaux pour le reste
 
 ---
 

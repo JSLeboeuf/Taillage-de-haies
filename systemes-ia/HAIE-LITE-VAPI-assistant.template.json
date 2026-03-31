@@ -1,0 +1,35 @@
+{
+  "name": "Sophie - Haie Lite",
+  "firstMessage": "Bonjour! Vous avez rejoint Haie Lite, ici Sophie. Comment puis-je vous aider?",
+  "instructionsPath": "systemes-ia/HAIE-LITE-VAPI-SOPHIE.prompt.txt",
+  "llm": {
+    "provider": "anthropic",
+    "model": "claude-sonnet-4-6"
+  },
+  "transcriber": {
+    "provider": "deepgram",
+    "model": "nova-3"
+  },
+  "voice": {
+    "provider": "11labs",
+    "model": "eleven_flash_v2_5",
+    "voiceId": "REPLACE_WITH_CHARLOTTE_OR_MATILDA_VOICE_ID"
+  },
+  "toolIds": [
+    "REPLACE_WITH_AVAILABLE_SLOTS_TOOL_ID",
+    "REPLACE_WITH_BOOK_APPOINTMENT_TOOL_ID",
+    "REPLACE_WITH_TRANSFER_CALL_TOOL_ID",
+    "REPLACE_WITH_SEND_SMS_TOOL_ID"
+  ],
+  "notes": {
+    "language": "fr-CA",
+    "englishFallback": true,
+    "backgroundSound": "office",
+    "silenceTimeoutSeconds": 10,
+    "endCallPhrases": [
+      "bonne journee",
+      "au revoir",
+      "merci bonne journee"
+    ]
+  }
+}
