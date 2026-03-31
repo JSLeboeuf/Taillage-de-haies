@@ -1,5 +1,3 @@
-export const runtime = "edge";
-
 import { NextRequest, NextResponse } from "next/server";
 import { getSupabaseAdmin } from "@/lib/supabase";
 import { sendEmail } from "@/lib/resend";
@@ -9,8 +7,6 @@ import {
   AcquisitionProspect,
 } from "@/lib/acquisition-emails";
 
-const FROM_EMAIL = "Jean-Samuel Leboeuf <js@haielite.ca>";
-
 interface AcquisitionProspectRow extends AcquisitionProspect {
   next_email_at: string | null;
   last_email_sent_at: string | null;
@@ -19,18 +15,18 @@ interface AcquisitionProspectRow extends AcquisitionProspect {
 
 interface EmailLog {
   prospect_id: string;
-  prospect_email: string;
-  owner_email: string;
   sequence_type: string;
   sequence_step: number;
   subject: string;
-  email_id: string;
+  body_text: string;
+  body_html: string | null;
+  resend_id: string;
   sent_at: string;
 }
 
 interface ActivityLog {
   prospect_id: string;
-  type: "email_sent" | "sequence_complete" | "error";
+  activity_type: "email_sent" | "sequence_complete" | "error";
   description: string;
   metadata?: Record<string, unknown>;
 }
@@ -108,7 +104,7 @@ export async function GET(
           // Log activity
           const activityLog: ActivityLog = {
             prospect_id: prospect.id,
-            type: "sequence_complete",
+            activity_type: "sequence_complete",
             description: `Sequence "${prospect.sequence_type}" completed at step ${prospect.sequence_step}`,
           };
 
@@ -119,20 +115,21 @@ export async function GET(
 
         // Send email via Resend
         const emailResponse = await sendEmail({
-          to: prospect.contact_email,
+          to: prospect.owner_email!,
           subject: emailTemplate.subject,
           html: emailTemplate.html,
+          text: emailTemplate.text,
         });
 
         // Log email sent
         const emailLog: EmailLog = {
           prospect_id: prospect.id,
-          prospect_email: prospect.contact_email,
-          owner_email: prospect.owner_email,
           sequence_type: prospect.sequence_type,
           sequence_step: nextStep,
           subject: emailTemplate.subject,
-          email_id: emailResponse.id,
+          body_text: emailTemplate.text,
+          body_html: emailTemplate.html,
+          resend_id: emailResponse?.id ?? "",
           sent_at: new Date().toISOString(),
         };
 
@@ -141,10 +138,10 @@ export async function GET(
         // Log activity
         const activityLog: ActivityLog = {
           prospect_id: prospect.id,
-          type: "email_sent",
+          activity_type: "email_sent",
           description: `Email sent: ${emailTemplate.subject} (step ${nextStep})`,
           metadata: {
-            email_id: emailResponse.id,
+            resend_id: emailResponse?.id,
             sequence_type: prospect.sequence_type,
             step: nextStep,
           },
@@ -205,7 +202,7 @@ export async function GET(
         try {
           const activityLog: ActivityLog = {
             prospect_id: prospect.id,
-            type: "error",
+            activity_type: "error",
             description: `Email send failed: ${errorMsg}`,
           };
 
