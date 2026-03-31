@@ -1,0 +1,885 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Contrat Annuel — Haie Lite 2026</title>
+  <style>
+    :root {
+      --primary: #2d6a4f;
+      --primary-light: #40916c;
+      --accent: #52b788;
+      --text-dark: #1b4332;
+      --text-light: #f1faee;
+      --bg: #f1faee;
+      --surface: #ffffff;
+      --border: #d1e7dd;
+      --muted: #666666;
+      --badge: #d4af37;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text-dark);
+      font-family: 'Inter', system-ui, sans-serif;
+      min-height: 100vh;
+      padding: 24px 16px;
+    }
+
+    .container { max-width: 1200px; margin: 0 auto; }
+
+    /* Header with logo */
+    header {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 32px 24px;
+      margin-bottom: 32px;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    header h1 {
+      font-size: 32px;
+      font-weight: 800;
+      color: var(--primary);
+      letter-spacing: -0.5px;
+    }
+
+    header p {
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 16px;
+    }
+
+    header .logo-placeholder {
+      margin-top: 16px;
+      padding: 12px;
+      background: var(--bg);
+      border-radius: 8px;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* Client info form */
+    .client-info {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 32px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .client-info h2 {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 640px) { .form-grid { grid-template-columns: 1fr; } }
+
+    .form-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group label {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 6px;
+      color: var(--text-dark);
+    }
+
+    .form-group input {
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      background: var(--bg);
+      color: var(--text-dark);
+      transition: border-color 0.2s;
+    }
+
+    .form-group input:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: white;
+    }
+
+    /* Plans section */
+    .plans-header {
+      text-align: center;
+      margin-bottom: 32px;
+    }
+
+    .plans-header h2 {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .plans-header p {
+      color: var(--muted);
+      font-size: 15px;
+    }
+
+    .plans-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+      margin-bottom: 40px;
+    }
+
+    @media (max-width: 900px) { .plans-grid { grid-template-columns: 1fr; } }
+
+    .plan-card {
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      position: relative;
+      transition: all 0.3s;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .plan-card:hover {
+      border-color: var(--accent);
+      box-shadow: 0 4px 16px rgba(45, 106, 79, 0.1);
+    }
+
+    .plan-card.featured {
+      border-color: var(--accent);
+      background: rgba(82, 183, 136, 0.02);
+      transform: scale(1.02);
+    }
+
+    .plan-badge {
+      position: absolute;
+      top: -12px;
+      right: 24px;
+      background: var(--badge);
+      color: var(--primary);
+      padding: 4px 12px;
+      border-radius: 20px;
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+
+    .plan-name {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--primary);
+      margin-bottom: 8px;
+    }
+
+    .plan-price {
+      font-size: 28px;
+      font-weight: 800;
+      color: var(--accent);
+      margin-bottom: 4px;
+    }
+
+    .plan-price .period {
+      font-size: 14px;
+      color: var(--muted);
+      font-weight: 500;
+    }
+
+    .plan-subtitle {
+      font-size: 13px;
+      color: var(--muted);
+      margin-bottom: 20px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .plan-features {
+      margin-bottom: 20px;
+    }
+
+    .feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      margin-bottom: 12px;
+      font-size: 14px;
+    }
+
+    .feature-check {
+      color: var(--accent);
+      font-weight: 800;
+      margin-top: 2px;
+      flex-shrink: 0;
+    }
+
+    .feature-text {
+      color: var(--text-dark);
+    }
+
+    .feature-badge {
+      display: inline-block;
+      background: rgba(82, 183, 136, 0.15);
+      color: var(--accent);
+      padding: 2px 8px;
+      border-radius: 4px;
+      font-size: 11px;
+      font-weight: 600;
+      margin-left: 4px;
+    }
+
+    .plan-cta {
+      width: 100%;
+      background: var(--accent);
+      color: white;
+      border: none;
+      padding: 12px 16px;
+      border-radius: 8px;
+      font-size: 14px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .plan-cta:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+    }
+
+    /* Comparison & Savings */
+    .comparison-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 32px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .comparison-section h2 {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .savings-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+    }
+
+    @media (max-width: 640px) { .savings-grid { grid-template-columns: 1fr; } }
+
+    .savings-box {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .savings-box .label {
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 6px;
+    }
+
+    .savings-box .value {
+      font-size: 22px;
+      font-weight: 800;
+      color: var(--text-dark);
+    }
+
+    .savings-box .savings {
+      color: var(--accent);
+    }
+
+    /* Contract Terms */
+    .contract-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 32px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .contract-section h2 {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .contract-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 24px;
+    }
+
+    @media (max-width: 640px) { .contract-grid { grid-template-columns: 1fr; } }
+
+    .contract-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .contract-group label {
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-dark);
+    }
+
+    .contract-group input,
+    .contract-group select {
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      background: var(--bg);
+      color: var(--text-dark);
+    }
+
+    .contract-group input:focus,
+    .contract-group select:focus {
+      outline: none;
+      border-color: var(--accent);
+      background: white;
+    }
+
+    /* Signature */
+    .signature-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 32px;
+      box-shadow: 0 2px 8px rgba(0, 0, 0, 0.04);
+    }
+
+    .signature-section h2 {
+      font-size: 14px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-bottom: 16px;
+    }
+
+    .signature-row {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+    }
+
+    @media (max-width: 640px) { .signature-row { grid-template-columns: 1fr; } }
+
+    .signature-group label {
+      display: block;
+      font-size: 13px;
+      font-weight: 600;
+      margin-bottom: 8px;
+      color: var(--text-dark);
+    }
+
+    .signature-canvas {
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      background: white;
+      cursor: crosshair;
+      display: block;
+      width: 100%;
+      height: 120px;
+    }
+
+    .signature-clear {
+      margin-top: 8px;
+      padding: 6px 12px;
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      font-size: 12px;
+      cursor: pointer;
+      color: var(--muted);
+    }
+
+    .signature-clear:hover {
+      background: var(--border);
+    }
+
+    .date-input {
+      padding: 10px 12px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      font-size: 14px;
+      background: var(--bg);
+      color: var(--text-dark);
+    }
+
+    .date-input:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    /* Terms & Conditions */
+    .terms-section {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+      margin-bottom: 32px;
+      font-size: 11px;
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    .terms-section h3 {
+      font-size: 12px;
+      font-weight: 700;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+
+    /* QR Code placeholder */
+    .qr-section {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+      margin-bottom: 32px;
+      text-align: center;
+    }
+
+    .qr-placeholder {
+      width: 120px;
+      height: 120px;
+      background: var(--bg);
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      margin: 0 auto 12px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .qr-section p {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    /* CTA Section */
+    .cta-section {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 32px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 640px) { .cta-section { flex-direction: column; } }
+
+    .cta-btn {
+      flex: 1;
+      padding: 14px 24px;
+      border: none;
+      border-radius: 8px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.2s;
+      text-decoration: none;
+      display: inline-block;
+      text-align: center;
+    }
+
+    .cta-btn.primary {
+      background: var(--accent);
+      color: white;
+    }
+
+    .cta-btn.primary:hover {
+      background: var(--primary-light);
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(82, 183, 136, 0.3);
+    }
+
+    .cta-btn.secondary {
+      background: var(--border);
+      color: var(--text-dark);
+    }
+
+    .cta-btn.secondary:hover {
+      background: var(--accent);
+      color: white;
+    }
+
+    /* Print styles */
+    @media print {
+      body { padding: 0; background: white; }
+      .cta-section { display: none; }
+      .form-group input { border: 1px solid #000; }
+      .plan-card { page-break-inside: avoid; }
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 32px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- Header -->
+    <header>
+      <h1>Plan Annuel Haie Lite 2026</h1>
+      <p>Contrat & Devis — Taillage de haies & Services connexes</p>
+      <div class="logo-placeholder">🌿 [Logo Haie Lite]</div>
+    </header>
+
+    <!-- Client Info Form -->
+    <div class="client-info">
+      <h2>Informations Client</h2>
+      <div class="form-grid">
+        <div class="form-group">
+          <label>Nom du client</label>
+          <input type="text" placeholder="Jean Dupont">
+        </div>
+        <div class="form-group">
+          <label>Téléphone</label>
+          <input type="tel" placeholder="(514) 555-1234">
+        </div>
+        <div class="form-group">
+          <label>Adresse</label>
+          <input type="text" placeholder="123 Rue principale, Montréal, QC">
+        </div>
+        <div class="form-group">
+          <label>Courriel</label>
+          <input type="email" placeholder="jean@example.com">
+        </div>
+      </div>
+    </div>
+
+    <!-- Plans -->
+    <div class="plans-header">
+      <h2>Choisissez votre plan</h2>
+      <p>Économisez jusqu'à 25% comparé aux tarifs réguliers</p>
+    </div>
+
+    <div class="plans-grid">
+      <!-- Plan Essentiel -->
+      <div class="plan-card">
+        <div class="plan-name">Plan Essentiel</div>
+        <div class="plan-price">495<span class="period">$/an</span></div>
+        <div class="plan-subtitle">Parfait pour débuter</div>
+
+        <div class="plan-features">
+          <div class="feature">
+            <div class="feature-check">✓</div>
+            <div class="feature-text">1 taille de haies (juin ou juillet)</div>
+          </div>
+          <div class="feature">
+            <div class="feature-check">✓</div>
+            <div class="feature-text">Ramassage résidus inclus</div>
+          </div>
+          <div class="feature">
+            <div class="feature-check">✓</div>
+            <div class="feature-text">Photos avant/après</div>
+          </div>
+          <div class="feature">
+            <div class="feature-check">✓</div>
+            <div class="feature-text">Rabais <span class="feature-badge">10%</span></div>
+          </div>
+        </div>
+
+        <button class="plan-cta" onclick="selectPlan('essentiel')">Choisir ce plan</button>
+      </div>
+
+      <!-- Plan Tranquillité (Featured) -->
+      <div class="plan-card featured">
+        <div class="plan-badge">⭐ RECOMMANDÉ</div>
+        <div class="plan-name">Plan Tranquillité</div>
+        <div class="plan-price">1,295<span class="period">$/an</span></div>
+        <div class="plan-subtitle">Notre meilleur vendeur</div>
+
+        <div class="plan-features">
+          <div class="feature">
+            <div class="feature-check">✓</div>
+            <div class="feature-text">2 tailles de haies (juin + septembre)</div>
+          </div>
+          <div class="feature">
+            <div class="feature-check">✓</div>
+            <div class="feature-text">1 lavage vitres extérieur</div>
+          </div>
+          <div class="feature">
+            <div class="feature-check">✓</div>
+            <div class="feature-text">1 nettoyage gouttières automne</div>
+          </div>
+          <div class="feature">
+            <div class="feature-check">✓</div>
+            <div class="feature-text">Priorité booking <span class="feature-badge">Jamais en attente</span></div>
+          </div>
+          <div class="feature">
+            <div class="feature-check">✓</div>
+            <div class="feature-text">Prix gelé 2 ans</div>
+          </div>
+          <div class="feature">
+            <div class="feature-check">✓</div>
+            <div class="feature-text">Rabais <span class="feature-badge">20%</span></div>
+          </div>
+        </div>
+
+        <button class="plan-cta" onclick="selectPlan('tranquillite')">Choisir ce plan</button>
+      </div>
+
+      <!-- Plan Propriété Immaculée -->
+      <div class="plan-card">
+        <div class="plan-name">Plan Propriété Immaculée</div>
+        <div class="plan-price">2,195<span class="period">$/an</span></div>
+        <div class="plan-subtitle">Entretien complet premium</div>
+
+        <div class="plan-features">
+          <div class="feature">
+            <div class="feature-check">✓</div>
+            <div class="feature-text">3 tailles de haies (mai + juillet + sept)</div>
+          </div>
+          <div class="feature">
+            <div class="feature-check">✓</div>
+            <div class="feature-text">2 lavages vitres (printemps + automne)</div>
+          </div>
+          <div class="feature">
+            <div class="feature-check">✓</div>
+            <div class="feature-text">2 nettoyages gouttières</div>
+          </div>
+          <div class="feature">
+            <div class="feature-check">✓</div>
+            <div class="feature-text">Traitement engrais cèdres <span class="feature-badge">Nouveau</span></div>
+          </div>
+          <div class="feature">
+            <div class="feature-check">✓</div>
+            <div class="feature-text">Priorité absolue + ligne directe superviseur</div>
+          </div>
+          <div class="feature">
+            <div class="feature-check">✓</div>
+            <div class="feature-text">Prix gelé 3 ans</div>
+          </div>
+          <div class="feature">
+            <div class="feature-check">✓</div>
+            <div class="feature-text">Rabais <span class="feature-badge">25%</span></div>
+          </div>
+        </div>
+
+        <button class="plan-cta" onclick="selectPlan('immaculee')">Choisir ce plan</button>
+      </div>
+    </div>
+
+    <!-- Savings Calculator -->
+    <div class="comparison-section">
+      <h2>Vos économies</h2>
+      <div class="savings-grid">
+        <div class="savings-box">
+          <div class="label">Prix régulier annuel</div>
+          <div class="value" id="savings-regular">2,500$</div>
+        </div>
+        <div class="savings-box">
+          <div class="label">Prix avec plan</div>
+          <div class="value" id="savings-plan">1,295$</div>
+        </div>
+        <div class="savings-box">
+          <div class="label">Économies annuelles</div>
+          <div class="value savings" id="savings-amount">1,205$<br><span style="font-size: 14px;">(48%)</span></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Contract Details -->
+    <div class="contract-section">
+      <h2>Détails du contrat</h2>
+      <div class="contract-grid">
+        <div class="contract-group">
+          <label>Date de signature</label>
+          <input type="date" class="date-input" id="contract-date">
+        </div>
+        <div class="contract-group">
+          <label>Date de début du plan</label>
+          <input type="date" class="date-input" id="start-date">
+        </div>
+        <div class="contract-group">
+          <label>Mode de paiement</label>
+          <select>
+            <option>Visa / MasterCard (Stripe)</option>
+            <option>Chèque</option>
+            <option>Virement bancaire</option>
+            <option>Paiement mensuel (auto-renew)</option>
+          </select>
+        </div>
+        <div class="contract-group">
+          <label>Plan sélectionné</label>
+          <input type="text" id="selected-plan" value="Plan Tranquillité" readonly style="background: var(--border); cursor: default;">
+        </div>
+      </div>
+    </div>
+
+    <!-- Signature -->
+    <div class="signature-section">
+      <h2>Signature client</h2>
+      <div class="signature-row">
+        <div>
+          <label>Signature numérique</label>
+          <canvas id="signatureCanvas" class="signature-canvas"></canvas>
+          <button class="signature-clear" onclick="clearSignature()">Effacer signature</button>
+        </div>
+        <div>
+          <label>Nom du client (imprimé)</label>
+          <input type="text" placeholder="Votre nom complet" style="padding: 10px 12px; border: 1px solid var(--border); border-radius: 8px; font-size: 14px;">
+          <label style="display: block; margin-top: 16px;">Date</label>
+          <input type="date" class="date-input" id="signature-date">
+        </div>
+      </div>
+    </div>
+
+    <!-- QR Code -->
+    <div class="qr-section">
+      <div class="qr-placeholder">📱 QR Code</div>
+      <p>Scannez pour laisser un avis Google</p>
+    </div>
+
+    <!-- Terms & Conditions -->
+    <div class="terms-section">
+      <h3>Conditions du contrat</h3>
+      <p>
+        • Le plan annuel doit être payé avant la première visite. • Les services sont fournis dans la région de Montréal et couronne nord.
+        • Annulation possible jusqu'à 30 jours avant la première visite, remboursement complet. • Les visites doivent être confirmées par courriel/SMS 48h avant.
+        • Cas de force majeure (tempête, conditions dangereuses) : visites reportées sans frais. • Contrat non-transférable d'un propriétaire à l'autre.
+        • Prix gelés pour la durée indiquée; augmentation automatique après. Vérifiez nos tarifs réguliers sur <strong>haie-lite.com</strong>.
+      </p>
+    </div>
+
+    <!-- CTA Section -->
+    <div class="cta-section">
+      <button class="cta-btn primary" onclick="sendByEmail()">📧 Envoyer par courriel</button>
+      <button class="cta-btn secondary" onclick="window.print()">🖨️ Imprimer</button>
+    </div>
+
+    <footer>
+      Haie Lite — Contrat annuel 2026. Pour modifications ou questions, contactez-nous : info@haie-lite.com | (514) 555-1234
+    </footer>
+  </div>
+
+  <script>
+    const canvas = document.getElementById('signatureCanvas');
+    const ctx = canvas.getContext('2d');
+    let isDrawing = false;
+
+    // Set canvas resolution
+    canvas.width = canvas.offsetWidth;
+    canvas.height = canvas.offsetHeight;
+
+    // Initialize dates
+    const today = new Date().toISOString().split('T')[0];
+    document.getElementById('contract-date').value = today;
+    document.getElementById('signature-date').value = today;
+    document.getElementById('start-date').value = today;
+
+    // Signature drawing
+    canvas.addEventListener('mousedown', () => { isDrawing = true; });
+    canvas.addEventListener('mouseup', () => { isDrawing = false; });
+    canvas.addEventListener('mousemove', (e) => {
+      if (!isDrawing) return;
+      const rect = canvas.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      ctx.fillStyle = '#2d6a4f';
+      ctx.beginPath();
+      ctx.arc(x, y, 2, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    // Touch support for mobile
+    canvas.addEventListener('touchstart', () => { isDrawing = true; });
+    canvas.addEventListener('touchend', () => { isDrawing = false; });
+    canvas.addEventListener('touchmove', (e) => {
+      if (!isDrawing) return;
+      const rect = canvas.getBoundingClientRect();
+      const touch = e.touches[0];
+      const x = touch.clientX - rect.left;
+      const y = touch.clientY - rect.top;
+      ctx.fillStyle = '#2d6a4f';
+      ctx.beginPath();
+      ctx.arc(x, y, 2, 0, Math.PI * 2);
+      ctx.fill();
+    });
+
+    function clearSignature() {
+      ctx.clearRect(0, 0, canvas.width, canvas.height);
+    }
+
+    function selectPlan(planKey) {
+      const planNames = {
+        essentiel: 'Plan Essentiel',
+        tranquillite: 'Plan Tranquillité',
+        immaculee: 'Plan Propriété Immaculée'
+      };
+
+      document.getElementById('selected-plan').value = planNames[planKey];
+
+      // Scroll to contract section
+      document.querySelector('.contract-section').scrollIntoView({ behavior: 'smooth' });
+    }
+
+    function sendByEmail() {
+      const clientName = document.querySelector('.form-group input[placeholder*="client"]').value || 'Client';
+      const planSelected = document.getElementById('selected-plan').value;
+
+      const subject = `Devis Haie Lite 2026 — ${planSelected}`;
+      const body = `Bonjour,\n\nVous trouverez ci-joint votre contrat annuel pour ${planSelected} (${new Date().getFullYear()}).\n\nMerci de nous choisir!\n\nÀ bientôt,\nÉquipe Haie Lite`;
+
+      window.location.href = `mailto:?subject=${encodeURIComponent(subject)}&body=${encodeURIComponent(body)}`;
+    }
+
+    // Savings calculator (default to Tranquillité)
+    function updateSavings(planKey) {
+      const savingsData = {
+        essentiel: { regular: 650, plan: 495 },
+        tranquillite: { regular: 2500, plan: 1295 },
+        immaculee: { regular: 3200, plan: 2195 }
+      };
+
+      const data = savingsData[planKey] || savingsData.tranquillite;
+      const savings = data.regular - data.plan;
+      const percent = Math.round((savings / data.regular) * 100);
+
+      document.getElementById('savings-regular').textContent = data.regular + '$';
+      document.getElementById('savings-plan').textContent = data.plan + '$';
+      document.getElementById('savings-amount').innerHTML = savings + '$<br><span style="font-size: 14px;">(' + percent + '%)</span>';
+    }
+
+    // Initialize with Tranquillité
+    updateSavings('tranquillite');
+  </script>
+</body>
+</html>

@@ -1,0 +1,665 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Calculateur Lavage Vitres — Haie Lite</title>
+  <style>
+    :root {
+      --bg: #0f1117;
+      --surface: #1a1d27;
+      --surface2: #232635;
+      --border: #2d3147;
+      --green: #22c55e;
+      --green-dim: #16a34a;
+      --yellow: #eab308;
+      --red: #ef4444;
+      --text: #e2e8f0;
+      --muted: #94a3b8;
+      --accent: #6366f1;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'Inter', system-ui, sans-serif;
+      min-height: 100vh;
+      padding: 32px 16px;
+    }
+
+    .container { max-width: 1100px; margin: 0 auto; }
+
+    header {
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    header h1 {
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+    }
+
+    header p {
+      color: var(--muted);
+      margin-top: 8px;
+      font-size: 14px;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 20px;
+      margin-bottom: 24px;
+    }
+
+    @media (max-width: 900px) { .grid-3 { grid-template-columns: 1fr 1fr; } }
+    @media (max-width: 640px) { .grid-3 { grid-template-columns: 1fr; } }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+
+    .card h2 {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-bottom: 20px;
+    }
+
+    .window-group {
+      margin-bottom: 24px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .window-group:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .window-label {
+      font-size: 14px;
+      font-weight: 500;
+      margin-bottom: 12px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .window-price {
+      font-size: 12px;
+      color: var(--muted);
+    }
+
+    .counter {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--surface2);
+      padding: 8px 12px;
+      border-radius: 8px;
+      width: fit-content;
+    }
+
+    .counter button {
+      background: var(--border);
+      border: none;
+      color: var(--text);
+      width: 28px;
+      height: 28px;
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 16px;
+      font-weight: 600;
+      transition: all 0.15s;
+    }
+
+    .counter button:hover {
+      background: var(--accent);
+      color: white;
+    }
+
+    .counter span {
+      min-width: 24px;
+      text-align: center;
+      font-weight: 600;
+    }
+
+    .toggles {
+      margin-top: 24px;
+      padding-top: 24px;
+      border-top: 1px solid var(--border);
+    }
+
+    .toggle-group {
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .toggle-switch {
+      width: 44px;
+      height: 24px;
+      background: var(--border);
+      border: none;
+      border-radius: 12px;
+      cursor: pointer;
+      position: relative;
+      transition: background 0.2s;
+    }
+
+    .toggle-switch.active {
+      background: var(--green);
+    }
+
+    .toggle-switch::after {
+      content: '';
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      background: white;
+      border-radius: 10px;
+      top: 2px;
+      left: 2px;
+      transition: left 0.2s;
+    }
+
+    .toggle-switch.active::after {
+      left: 22px;
+    }
+
+    .toggle-label {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    /* Results card */
+    .results-card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 28px;
+      margin-bottom: 24px;
+    }
+
+    .results-card h2 {
+      font-size: 13px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      color: var(--muted);
+      margin-bottom: 24px;
+    }
+
+    .price-breakdown {
+      background: var(--surface2);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      margin-bottom: 24px;
+    }
+
+    .price-row {
+      display: flex;
+      justify-content: space-between;
+      padding: 10px 0;
+      font-size: 14px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .price-row:last-child {
+      border-bottom: none;
+    }
+
+    .price-row.total {
+      font-weight: 700;
+      color: var(--green);
+      padding-top: 12px;
+      border-top: 2px solid var(--border);
+      font-size: 18px;
+    }
+
+    .price-row .label {
+      color: var(--muted);
+    }
+
+    .price-row .value {
+      text-align: right;
+    }
+
+    .comparison-box {
+      background: rgba(34, 197, 94, 0.08);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      border-radius: 10px;
+      padding: 16px;
+      margin-bottom: 24px;
+    }
+
+    .comparison-box .label {
+      font-size: 12px;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+      margin-bottom: 8px;
+    }
+
+    .comparison-text {
+      font-size: 14px;
+      font-weight: 500;
+    }
+
+    .comparison-text strong {
+      color: var(--green);
+      font-size: 15px;
+    }
+
+    /* Presets */
+    .presets {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 24px;
+    }
+
+    .preset-btn {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      color: var(--text);
+      padding: 8px 16px;
+      border-radius: 8px;
+      font-size: 13px;
+      font-weight: 500;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .preset-btn:hover, .preset-btn.active {
+      border-color: var(--accent);
+      background: rgba(99, 102, 241, 0.1);
+      color: var(--accent);
+    }
+
+    footer {
+      text-align: center;
+      color: var(--muted);
+      font-size: 12px;
+      margin-top: 32px;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Calculateur Lavage Vitres</h1>
+      <p>Devis rapide — Service de nettoyage fenêtres Haie Lite</p>
+    </header>
+
+    <!-- Presets -->
+    <div class="presets">
+      <button class="preset-btn" onclick="loadPreset('bungalow')">Bungalow standard</button>
+      <button class="preset-btn active" onclick="loadPreset('cottage')">Cottage 2 étages</button>
+      <button class="preset-btn" onclick="loadPreset('splitLevel')">Split-level</button>
+      <button class="preset-btn" onclick="loadPreset('commercial')">Commercial petit</button>
+      <button class="preset-btn" onclick="loadPreset('clear')">Réinitialiser</button>
+    </div>
+
+    <div class="grid-3">
+      <!-- Windows: Exterior -->
+      <div class="card">
+        <h2>Fenêtres</h2>
+
+        <div class="window-group">
+          <div class="window-label">
+            <span>Petites (rez-de-chaussée)</span>
+            <span class="window-price">8$ ch.</span>
+          </div>
+          <div class="counter">
+            <button onclick="adjustWindow('small', -1)">−</button>
+            <span id="small">0</span>
+            <button onclick="adjustWindow('small', 1)">+</button>
+          </div>
+        </div>
+
+        <div class="window-group">
+          <div class="window-label">
+            <span>Moyennes (2e étage)</span>
+            <span class="window-price">12$ ch.</span>
+          </div>
+          <div class="counter">
+            <button onclick="adjustWindow('medium', -1)">−</button>
+            <span id="medium">0</span>
+            <button onclick="adjustWindow('medium', 1)">+</button>
+          </div>
+        </div>
+
+        <div class="window-group">
+          <div class="window-label">
+            <span>Grandes / baie vitrée</span>
+            <span class="window-price">18$ ch.</span>
+          </div>
+          <div class="counter">
+            <button onclick="adjustWindow('large', -1)">−</button>
+            <span id="large">0</span>
+            <button onclick="adjustWindow('large', 1)">+</button>
+          </div>
+        </div>
+
+        <div class="window-group">
+          <div class="window-label">
+            <span>Difficile d'accès (3e+)</span>
+            <span class="window-price">22$ ch.</span>
+          </div>
+          <div class="counter">
+            <button onclick="adjustWindow('difficult', -1)">−</button>
+            <span id="difficult">0</span>
+            <button onclick="adjustWindow('difficult', 1)">+</button>
+          </div>
+        </div>
+
+        <div class="window-group">
+          <div class="window-label">
+            <span>Porte-patio</span>
+            <span class="window-price">15$ ch.</span>
+          </div>
+          <div class="counter">
+            <button onclick="adjustWindow('patio', -1)">−</button>
+            <span id="patio">0</span>
+            <button onclick="adjustWindow('patio', 1)">+</button>
+          </div>
+        </div>
+
+        <div class="window-group">
+          <div class="window-label">
+            <span>Lucarne / puits de lumière</span>
+            <span class="window-price">25$ ch.</span>
+          </div>
+          <div class="counter">
+            <button onclick="adjustWindow('skylights', -1)">−</button>
+            <span id="skylights">0</span>
+            <button onclick="adjustWindow('skylights', 1)">+</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Options -->
+      <div class="card">
+        <h2>Options & Modifications</h2>
+
+        <div class="toggles">
+          <div class="toggle-group">
+            <button class="toggle-switch" id="toggle-interior" onclick="toggleOption('interior')"></button>
+            <div>
+              <div class="toggle-label">Intérieur + Extérieur</div>
+              <div style="font-size: 12px; color: var(--muted); margin-top: 4px;">×1.8 au lieu de extérieur seulement</div>
+            </div>
+          </div>
+
+          <div class="toggle-group">
+            <button class="toggle-switch" id="toggle-dirty" onclick="toggleOption('dirty')"></button>
+            <div>
+              <div class="toggle-label">Très sale (1ère fois)</div>
+              <div style="font-size: 12px; color: var(--muted); margin-top: 4px;">×1.3 pour construction/néglexe</div>
+            </div>
+          </div>
+
+          <div class="toggle-group">
+            <button class="toggle-switch" id="toggle-screens" onclick="toggleOption('screens')"></button>
+            <div>
+              <div class="toggle-label">Moustiquaires incluses</div>
+              <div style="font-size: 12px; color: var(--muted); margin-top: 4px;">+3$ par fenêtre</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Summary -->
+      <div class="card">
+        <h2>Résumé Rapide</h2>
+        <div style="display: grid; gap: 12px;">
+          <div style="font-size: 13px;">
+            <div style="color: var(--muted); text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; margin-bottom: 4px;">Total fenêtres</div>
+            <div style="font-size: 20px; font-weight: 700;" id="summary-count">0</div>
+          </div>
+          <div style="font-size: 13px;">
+            <div style="color: var(--muted); text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; margin-bottom: 4px;">Base (avant options)</div>
+            <div style="font-size: 18px; font-weight: 700;" id="summary-base">0$</div>
+          </div>
+          <div style="font-size: 13px;">
+            <div style="color: var(--muted); text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; margin-bottom: 4px;">Subtotal avec options</div>
+            <div style="font-size: 18px; font-weight: 700; color: var(--accent);" id="summary-subtotal">0$</div>
+          </div>
+          <div style="font-size: 13px;">
+            <div style="color: var(--muted); text-transform: uppercase; font-size: 11px; letter-spacing: 0.5px; margin-bottom: 4px;">Minimum (150$)</div>
+            <div style="font-size: 12px; color: var(--green);" id="summary-min">Appliqué si nécessaire</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Results -->
+    <div class="results-card">
+      <h2>Devis Final</h2>
+
+      <div class="price-breakdown">
+        <div class="price-row">
+          <span class="label">Base fenêtres</span>
+          <span class="value" id="calc-base">0$</span>
+        </div>
+        <div class="price-row" id="calc-interior-row" style="display: none;">
+          <span class="label">Multiplicateur intérieur+extérieur (×1.8)</span>
+          <span class="value" id="calc-interior">0$</span>
+        </div>
+        <div class="price-row" id="calc-dirty-row" style="display: none;">
+          <span class="label">Multiplicateur très sale (×1.3)</span>
+          <span class="value" id="calc-dirty">0$</span>
+        </div>
+        <div class="price-row" id="calc-screens-row" style="display: none;">
+          <span class="label">Moustiquaires (+3$ × n)</span>
+          <span class="value" id="calc-screens">0$</span>
+        </div>
+        <div class="price-row" id="calc-minimum-row" style="display: none;">
+          <span class="label">Ajustement minimum (150$)</span>
+          <span class="value" id="calc-minimum">0$</span>
+        </div>
+        <div class="price-row">
+          <span class="label">Subtotal avant taxes</span>
+          <span class="value" id="calc-subtotal">0$</span>
+        </div>
+        <div class="price-row">
+          <span class="label">TPS 5%</span>
+          <span class="value" id="calc-tps">0$</span>
+        </div>
+        <div class="price-row">
+          <span class="label">TVQ 9.975%</span>
+          <span class="value" id="calc-tvq">0$</span>
+        </div>
+        <div class="price-row total">
+          <span>TOTAL</span>
+          <span id="calc-total">0$</span>
+        </div>
+      </div>
+
+      <div class="comparison-box">
+        <div class="label">Comparaison avec services inclus</div>
+        <div class="comparison-text">
+          Client paierait <strong id="comp-vitres">0$</strong> pour les vitres + <strong id="comp-haies">0$</strong> pour les haies = <strong id="comp-total">0$</strong> total annuel
+        </div>
+      </div>
+    </div>
+
+    <footer>
+      Haie Lite — Calculateur vitres. Minimum 150$ par visite. Taxes TPS 5% + TVQ 9.975%. Pour devis détaillé, contacter l'équipe.
+    </footer>
+  </div>
+
+  <script>
+    const state = {
+      windows: { small: 0, medium: 0, large: 0, difficult: 0, patio: 0, skylights: 0 },
+      options: { interior: false, dirty: false, screens: false }
+    };
+
+    const prices = {
+      small: 8,
+      medium: 12,
+      large: 18,
+      difficult: 22,
+      patio: 15,
+      skylights: 25
+    };
+
+    const presets = {
+      bungalow: { small: 8, medium: 2, large: 0, difficult: 0, patio: 1, skylights: 0 },
+      cottage: { small: 6, medium: 8, large: 2, difficult: 0, patio: 2, skylights: 0 },
+      splitLevel: { small: 10, medium: 4, large: 1, difficult: 0, patio: 1, skylights: 0 },
+      commercial: { small: 0, medium: 0, large: 20, difficult: 0, patio: 0, skylights: 0 }
+    };
+
+    function adjustWindow(type, delta) {
+      const newVal = Math.max(0, state.windows[type] + delta);
+      state.windows[type] = newVal;
+      document.getElementById(type).textContent = newVal;
+      calculate();
+    }
+
+    function toggleOption(opt) {
+      state.options[opt] = !state.options[opt];
+      const btn = document.getElementById('toggle-' + opt);
+      btn.classList.toggle('active');
+      calculate();
+    }
+
+    function loadPreset(key) {
+      if (key === 'clear') {
+        state.windows = { small: 0, medium: 0, large: 0, difficult: 0, patio: 0, skylights: 0 };
+        state.options = { interior: false, dirty: false, screens: false };
+      } else {
+        state.windows = { ...presets[key] };
+      }
+
+      // Reset all toggles
+      state.options = { interior: false, dirty: false, screens: false };
+      document.querySelectorAll('.toggle-switch').forEach(btn => btn.classList.remove('active'));
+
+      // Update UI
+      document.querySelectorAll('.preset-btn').forEach(b => b.classList.remove('active'));
+      event.target.classList.add('active');
+
+      Object.keys(state.windows).forEach(type => {
+        document.getElementById(type).textContent = state.windows[type];
+      });
+
+      calculate();
+    }
+
+    function calculate() {
+      const totalWindows = Object.values(state.windows).reduce((a, b) => a + b, 0);
+
+      // Base calculation
+      let basePrice = 0;
+      Object.entries(state.windows).forEach(([type, count]) => {
+        basePrice += prices[type] * count;
+      });
+
+      // Apply multipliers
+      let subtotal = basePrice;
+      let multiplierPrice = basePrice;
+
+      if (state.options.interior) {
+        multiplierPrice = basePrice * (1.8 - 1); // Additional cost for 1.8x
+        subtotal += multiplierPrice;
+      }
+
+      if (state.options.dirty) {
+        const dirtyPrice = subtotal * (1.3 - 1); // 30% additional
+        subtotal += dirtyPrice;
+      }
+
+      // Screens
+      let screenPrice = 0;
+      if (state.options.screens) {
+        screenPrice = totalWindows * 3;
+        subtotal += screenPrice;
+      }
+
+      // Minimum
+      const finalBeforeTax = Math.max(subtotal, 150);
+      const minAdjust = finalBeforeTax - subtotal;
+
+      // Taxes
+      const tps = finalBeforeTax * 0.05;
+      const tvq = finalBeforeTax * 0.09975;
+      const total = finalBeforeTax + tps + tvq;
+
+      // Update display
+      document.getElementById('summary-count').textContent = totalWindows;
+      document.getElementById('summary-base').textContent = fmt(basePrice);
+      document.getElementById('summary-subtotal').textContent = fmt(subtotal);
+      document.getElementById('summary-min').textContent = minAdjust > 0 ? `+${fmt(minAdjust)}` : '✓ Pas appliqué';
+
+      // Breakdown
+      document.getElementById('calc-base').textContent = fmt(basePrice);
+
+      const interiorRow = document.getElementById('calc-interior-row');
+      if (state.options.interior) {
+        document.getElementById('calc-interior').textContent = fmt(multiplierPrice);
+        interiorRow.style.display = '';
+      } else {
+        interiorRow.style.display = 'none';
+      }
+
+      const dirtyRow = document.getElementById('calc-dirty-row');
+      if (state.options.dirty) {
+        const dirtyPrice = (basePrice + (state.options.interior ? multiplierPrice : 0)) * 0.3;
+        document.getElementById('calc-dirty').textContent = fmt(dirtyPrice);
+        dirtyRow.style.display = '';
+      } else {
+        dirtyRow.style.display = 'none';
+      }
+
+      const screensRow = document.getElementById('calc-screens-row');
+      if (state.options.screens && screenPrice > 0) {
+        document.getElementById('calc-screens').textContent = fmt(screenPrice);
+        screensRow.style.display = '';
+      } else {
+        screensRow.style.display = 'none';
+      }
+
+      const minimumRow = document.getElementById('calc-minimum-row');
+      if (minAdjust > 0) {
+        document.getElementById('calc-minimum').textContent = fmt(minAdjust);
+        minimumRow.style.display = '';
+      } else {
+        minimumRow.style.display = 'none';
+      }
+
+      document.getElementById('calc-subtotal').textContent = fmt(finalBeforeTax);
+      document.getElementById('calc-tps').textContent = fmt(tps);
+      document.getElementById('calc-tvq').textContent = fmt(tvq);
+      document.getElementById('calc-total').textContent = fmt(total);
+
+      // Comparison (assume 150$ for haies, plan tranquillite includes 1 window wash)
+      const haiesBase = 150;
+      document.getElementById('comp-vitres').textContent = fmt(total);
+      document.getElementById('comp-haies').textContent = fmt(haiesBase);
+      document.getElementById('comp-total').textContent = fmt(total + haiesBase);
+    }
+
+    function fmt(n) {
+      return Math.round(n).toLocaleString('fr-CA') + '$';
+    }
+
+    // Init with cottage preset
+    calculate();
+  </script>
+</body>
+</html>
