@@ -44,10 +44,28 @@ Règles sur les chantiers :
 - Alcool/drogues : strictement interdits
 - Ponctualité obligatoire, respecter les propriétés des clients
 
-Fin de chaque contrat — OBLIGATOIRE :
-1. Faire le tour complet avec le client
-2. Demander : "Êtes-vous satisfait des travaux ?"
-3. Remettre la carte de satisfaction remplie
+CHECKLIST DE SERVICE — À SUIVRE À CHAQUE JOB :
+
+AVANT le travail :
+☐ Photo AVANT (obligatoire — envoyer au superviseur)
+☐ Demander au client : "Qu'est-ce que vous attendez comme résultat?"
+☐ Vérifier fils électriques, clôtures, obstacles
+☐ Porter tout l'EPI (lunettes, gants, bottes)
+
+PENDANT le travail :
+☐ Taille conique (côtés légèrement inclinés vers l'intérieur)
+☐ Uniformité ±2cm
+☐ Ramassage des résidus au fur et à mesure
+
+APRÈS le travail :
+☐ Photo APRÈS (obligatoire)
+☐ Tour complet avec le client : "Êtes-vous satisfait?"
+☐ Carte de satisfaction remplie et signée
+☐ UPSELL #1 : "On offre aussi le lavage de vitres. Voulez-vous une soumission?"
+☐ UPSELL #2 : "On fait aussi l'entretien des gouttières."
+☐ UPSELL #3 : "On a des engrais spéciaux pour les cèdres."
+☐ Demander un avis Google 5 étoiles : "Si vous êtes satisfait, un petit avis Google nous aide beaucoup!"
+☐ Remettre carte d'affaires : "Si un voisin a besoin, on donne 50$ de crédit pour chaque référence!"
 
 PAYE ET CONDITIONS :
 - Paye à la quinzaine (toutes les 2 semaines)
@@ -56,6 +74,18 @@ PAYE ET CONDITIONS :
 - Si retard dans remise des documents : paiement décalé d'une semaine
 - Déductions légales : impôt fédéral, provincial, RRQ, AE, RQAP
 - Questions sur la paye : Jean-Samuel (450-280-3222)
+
+TARIFICATION (pour info des employés seulement — NE PAS communiquer aux clients) :
+- Taux de base : 100$/gars/heure
+- 1 côté standard : 250-350$
+- 2 côtés : 350-500$
+- 3-4 côtés : 500-800$
+- Haie très haute (>3m) : +50-80%
+- Rabattage : 800-1500$+
+- Lavage de vitres : à partir de 150$
+- Gouttières : à partir de 100$
+- Engrais cèdres : 75-150$ selon taille
+- Montréal : +20-30% sur tous les prix
 
 SÉCURITÉ ET EPI (Équipements de Protection Individuelle) :
 Obligatoire en tout temps :
@@ -70,6 +100,37 @@ Règles de sécurité :
 - En cas d'accident : appeler le 911 EN PREMIER, puis avertir Henri
 - Premiers soins : trousse dans chaque véhicule
 - CSST (accidents de travail) : 1-844-838-0808
+
+RÈGLES MÉTÉO :
+- Pluie légère : on travaille (porter imperméable)
+- Pluie forte / orage : ARRÊT IMMÉDIAT. Se mettre à l'abri. Attendre 30 min après le dernier éclair.
+- Canicule (>30°C) : pauses aux 45 min, boire beaucoup d'eau, chercher l'ombre
+- Vent fort (>40 km/h) : pas de travail en hauteur (échelle/nacelle interdit)
+- Gel au sol : attention aux surfaces glissantes
+
+EN CAS D'ACCIDENT :
+1. APPELER 911 si c'est grave
+2. Appeler Henri immédiatement
+3. Trousse de premiers soins dans chaque véhicule
+4. NE PAS déplacer une personne blessée sauf danger immédiat
+5. Prendre des photos si possible
+6. Numéro CSST : 1-844-838-0808
+7. Clinique sans rendez-vous la plus proche : demander à Henri
+
+VÉHICULES :
+- Inspection quotidienne AVANT de partir : huile, pneus, freins, lumières
+- Juan Luis et Julio Cesar ont leur permis de conduire
+- Le gars de 40 ans N'A PAS de permis — ne peut pas conduire
+- Camion F-450, F-350, Duramax 2500
+- TOUJOURS attacher l'équipement dans la remorque
+- Vitesse maximale sur autoroute avec remorque : 100 km/h
+
+ÉQUIPEMENT :
+- Cisailles électriques : recharger chaque soir
+- Tronçonneuse : vérifier chaîne et huile avant utilisation
+- Souffleur : essence sans plomb seulement
+- Échelle : vérifier état avant montée, toujours 3 points de contact
+- Bâches : 2 par véhicule minimum pour ramassage résidus
 
 TECHNIQUES DE TAILLE DE HAIES (Técnicas de poda) :
 
@@ -194,6 +255,26 @@ const HTML = `<!DOCTYPE html>
     #send-btn:hover { background: var(--green-light); transform: scale(1.05); }
     #send-btn:disabled { background: #ccc; cursor: default; box-shadow: none; transform: none; }
     #send-btn svg { width: 18px; height: 18px; fill: white; }
+    .modal { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,.4); z-index: 1000; align-items: center; justify-content: center; }
+    .modal.active { display: flex; }
+    .modal-content { background: white; border-radius: 16px; max-width: 500px; max-height: 90vh; width: 90%; overflow-y: auto; box-shadow: 0 10px 40px rgba(0,0,0,.2); }
+    .modal-header { background: linear-gradient(135deg, var(--green-dark) 0%, var(--green) 100%); color: white; padding: 18px; display: flex; align-items: center; justify-content: space-between; border-bottom: 1px solid var(--green-light); }
+    .modal-header h2 { font-size: 18px; font-weight: 700; margin: 0; }
+    .modal-close { background: rgba(255,255,255,.15); border: none; border-radius: 8px; width: 34px; height: 34px; cursor: pointer; color: white; font-size: 20px; display: flex; align-items: center; justify-content: center; }
+    .modal-close:hover { background: rgba(255,255,255,.25); }
+    .modal-body { padding: 18px; }
+    .checklist-section { margin-bottom: 20px; }
+    .checklist-section h3 { font-size: 14px; font-weight: 700; color: var(--green-dark); margin-bottom: 10px; display: flex; align-items: center; gap: 6px; }
+    .checklist-item { display: flex; align-items: center; gap: 10px; padding: 8px; margin-bottom: 6px; border-radius: 8px; cursor: pointer; transition: background .15s; }
+    .checklist-item:hover { background: var(--green-pale); }
+    .checklist-item input[type="checkbox"] { width: 18px; height: 18px; cursor: pointer; accent-color: var(--green); }
+    .checklist-item label { flex: 1; cursor: pointer; font-size: 14px; }
+    .checklist-item input:checked ~ label { text-decoration: line-through; color: #999; }
+    .modal-footer { padding: 14px 18px; border-top: 1px solid #e0e0e0; display: flex; gap: 10px; }
+    .btn-primary { flex: 1; background: var(--green); color: white; border: none; padding: 12px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; }
+    .btn-primary:hover { background: var(--green-light); }
+    .btn-secondary { flex: 1; background: #f0f0f0; color: var(--text-dark); border: none; padding: 12px; border-radius: 10px; font-size: 14px; font-weight: 600; cursor: pointer; }
+    .btn-secondary:hover { background: #e0e0e0; }
   </style>
 </head>
 <body>
@@ -214,16 +295,23 @@ const HTML = `<!DOCTYPE html>
   <div class="emergency-banner">
     🚨 <span><strong>Emergencia / Urgence :</strong> 911 &nbsp;|&nbsp; Accident travail CSST : 1-844-838-0808 &nbsp;|&nbsp; Jean-Samuel : 450-280-3222</span>
   </div>
-  <div class="section-label">Preguntas frecuentes / Questions fr\xe9quentes</div>
+  <div class="section-label">Herramientas / Outils</div>
+  <div class="quick-actions">
+    <button class="quick-btn" onclick="showChecklist()">✅ Checklist</button>
+    <button class="quick-btn" onclick="quickSend('Como hago para vender servicios adicionales? (upsells)')">\ud83d\udcb0 Upsells</button>
+    <button class="quick-btn" onclick="quickSend('Cuales son las reglas de clima y lluvia?')">\ud83c\udf17 Méteo</button>
+    <button class="quick-btn" onclick="quickSend('Cuales son las reglas del vehiculo y mantenimiento?')">\ud83d\ude98 Véhicule</button>
+    <button class="quick-btn" onclick="quickSend('Como tomar las fotos ANTES y DESPUES de un job?')">\ud83d\udcc7 Photos</button>
+    <button class="quick-btn" onclick="quickSend('Que hago en caso de accidente de trabajo?')">\ud83d\ude91 Accident</button>
+  </div>
+  <div class="section-label" style="margin-top: 12px;">Preguntas frecuentes / Questions fr\xe9quentes</div>
   <div class="quick-actions">
     <button class="quick-btn" onclick="quickSend('Cuales son mis horarios de trabajo?')">\u23f0 Horarios</button>
     <button class="quick-btn" onclick="quickSend('Cuando y como me pagan?')">💵 Pago</button>
-    <button class="quick-btn" onclick="quickSend('Que hago en caso de accidente?')">🚑 Urgencias</button>
     <button class="quick-btn" onclick="quickSend('Que equipo de proteccion debo usar?')">🦺 Seguridad</button>
-    <button class="quick-btn" onclick="quickSend('Como hacer el corte conico del seto de cedro?')">\u2702\ufe0f T\xe9cnica poda</button>
+    <button class="quick-btn" onclick="quickSend('Como hacer el corte conico del seto de cedro?')">\u2702\ufe0f Técnica poda</button>
     <button class="quick-btn" onclick="quickSend('Quien es mi supervisor y como contactarlo?')">👷 Contactos</button>
     <button class="quick-btn" onclick="quickSend('Comment fonctionne le logement fourni?')">🏠 Logement</button>
-    <button class="quick-btn" onclick="quickSend('Cuales son las reglas en los sitios de trabajo?')">📋 R\xe8gles</button>
   </div>
 </div>
 <div class="input-area">
@@ -233,15 +321,138 @@ const HTML = `<!DOCTYPE html>
     <svg viewBox="0 0 24 24"><path d="M2.01 21L23 12 2.01 3 2 10l15 2-15 2z"/></svg>
   </button>
 </div>
+
+<div id="checklistModal" class="modal">
+  <div class="modal-content">
+    <div class="modal-header">
+      <h2>✅ Checklist de Service</h2>
+      <button class="modal-close" onclick="closeChecklist()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="checklist-section">
+        <h3>🔴 AVANT le travail</h3>
+        <div class="checklist-item">
+          <input type="checkbox" id="check_before_1" onchange="saveChecklist()">
+          <label for="check_before_1">Photo AVANT (obligatoire)</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="check_before_2" onchange="saveChecklist()">
+          <label for="check_before_2">Demander résultat attendu au client</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="check_before_3" onchange="saveChecklist()">
+          <label for="check_before_3">Vérifier fils électriques, clôtures</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="check_before_4" onchange="saveChecklist()">
+          <label for="check_before_4">Porter tout l'EPI (lunettes, gants, bottes)</label>
+        </div>
+      </div>
+
+      <div class="checklist-section">
+        <h3>🟡 PENDANT le travail</h3>
+        <div class="checklist-item">
+          <input type="checkbox" id="check_during_1" onchange="saveChecklist()">
+          <label for="check_during_1">Taille conique (côtés inclinés)</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="check_during_2" onchange="saveChecklist()">
+          <label for="check_during_2">Uniformité ±2cm</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="check_during_3" onchange="saveChecklist()">
+          <label for="check_during_3">Ramassage des résidus au fur et à mesure</label>
+        </div>
+      </div>
+
+      <div class="checklist-section">
+        <h3>🟢 APRÈS le travail</h3>
+        <div class="checklist-item">
+          <input type="checkbox" id="check_after_1" onchange="saveChecklist()">
+          <label for="check_after_1">Photo APRÈS (obligatoire)</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="check_after_2" onchange="saveChecklist()">
+          <label for="check_after_2">Tour complet avec client</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="check_after_3" onchange="saveChecklist()">
+          <label for="check_after_3">Carte de satisfaction remplie et signée</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="check_after_4" onchange="saveChecklist()">
+          <label for="check_after_4">UPSELL: Lavage de vitres</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="check_after_5" onchange="saveChecklist()">
+          <label for="check_after_5">UPSELL: Gouttières</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="check_after_6" onchange="saveChecklist()">
+          <label for="check_after_6">UPSELL: Engrais cèdres</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="check_after_7" onchange="saveChecklist()">
+          <label for="check_after_7">Demander avis Google 5 étoiles</label>
+        </div>
+        <div class="checklist-item">
+          <input type="checkbox" id="check_after_8" onchange="saveChecklist()">
+          <label for="check_after_8">Remettre carte d'affaires + info référence</label>
+        </div>
+      </div>
+    </div>
+    <div class="modal-footer">
+      <button class="btn-secondary" onclick="resetChecklist()">Réinitialiser</button>
+      <button class="btn-primary" onclick="closeChecklist()">Fermer</button>
+    </div>
+  </div>
+</div>
+
 <script>
 const messagesEl=document.getElementById('messages');
 const inputEl=document.getElementById('input');
 const sendBtn=document.getElementById('send-btn');
+const checklistModal=document.getElementById('checklistModal');
 let history=[],streaming=false;
+
 function autoResize(el){el.style.height='auto';el.style.height=Math.min(el.scrollHeight,120)+'px';}
 function handleKey(e){if(e.key==='Enter'&&!e.shiftKey){e.preventDefault();sendMessage();}}
 function quickSend(t){inputEl.value=t;sendMessage();}
 function scrollBottom(){setTimeout(()=>{messagesEl.scrollTop=messagesEl.scrollHeight;},50);}
+
+function showChecklist(){
+  checklistModal.classList.add('active');
+  loadChecklist();
+}
+
+function closeChecklist(){
+  checklistModal.classList.remove('active');
+}
+
+function saveChecklist(){
+  const state={};
+  document.querySelectorAll('[id^="check_"]').forEach(cb=>{
+    state[cb.id]=cb.checked;
+  });
+  localStorage.setItem('haielite_checklist',JSON.stringify(state));
+}
+
+function loadChecklist(){
+  const saved=localStorage.getItem('haielite_checklist');
+  if(saved){
+    const state=JSON.parse(saved);
+    Object.keys(state).forEach(id=>{
+      const el=document.getElementById(id);
+      if(el)el.checked=state[id];
+    });
+  }
+}
+
+function resetChecklist(){
+  document.querySelectorAll('[id^="check_"]').forEach(cb=>{cb.checked=false;});
+  localStorage.removeItem('haielite_checklist');
+}
+
 function clearChat(){
   if(streaming)return;
   history=[];
