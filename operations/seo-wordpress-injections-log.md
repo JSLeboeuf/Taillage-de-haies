@@ -143,3 +143,32 @@ Montreal (1583) et Laval (1585) marques comme cornerstone.
 - 8 fichiers SEO dans operations/ (~9000+ lignes)
 - 1 mu-plugin tracking PHP (outils/)
 - 1 guide tracking complet (operations/)
+
+## Session 4 — Execution finale (31 mars 2026)
+
+### PUBLIE sur le site (25 pages/articles)
+- 12 articles blog → LIVE
+- 8 pages zones → LIVE
+- 3 pages services → LIVE
+- 2 pages index → LIVE
+
+### Sitemap mis a jour automatiquement
+- page-sitemap.xml: 19 URLs
+- post-sitemap.xml: 12 URLs (Bonjour tout le monde retire)
+
+### Nettoyage
+- "Bonjour tout le monde" (ID:1) → brouillon
+- Schemas JSON-LD: tentative injection post_content echouee (Elementor ignore post_content), reverted clean. Necessite plugin WPCode (admin).
+
+### Pages avec OG images specifiques (6 live + 25 publiees)
+
+### TOTAL FINAL LIVE SUR LE SITE
+- 9 pages originales optimisees (title, meta desc, focus kw, OG, excerpts)
+- 12 articles blog publies
+- 8 pages zones de service publiees
+- 3 pages nouveaux services publiees
+- 2 pages index publiees
+- 30 images avec alt text + titles
+- 4 categories + 14 tags
+- 7 pages cornerstone
+= 34 pages/articles LIVE au total (avant: 9)
