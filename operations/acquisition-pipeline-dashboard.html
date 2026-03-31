@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Pipeline Acquisition M&A — Taillage Haie Elite</title>
+<style>
+  :root {
+    --bg: #0a0a0f;
+    --card: #12121a;
+    --border: #1e1e2e;
+    --text: #e4e4e7;
+    --muted: #71717a;
+    --accent: #3b82f6;
+    --green: #22c55e;
+    --red: #ef4444;
+    --yellow: #eab308;
+    --orange: #f97316;
+  }
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body { background: var(--bg); color: var(--text); font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif; line-height: 1.5; }
+  .container { max-width: 1400px; margin: 0 auto; padding: 32px 24px; }
+  h1 { font-size: 28px; font-weight: 700; margin-bottom: 4px; }
+  .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+
+  /* Stats Grid */
+  .stats { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 16px; margin-bottom: 40px; }
+  .stat-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .stat-card .label { font-size: 12px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 8px; }
+  .stat-card .value { font-size: 32px; font-weight: 700; font-variant-numeric: tabular-nums; }
+  .stat-card .value.blue { color: var(--accent); }
+  .stat-card .value.green { color: var(--green); }
+  .stat-card .value.yellow { color: var(--yellow); }
+  .stat-card .value.orange { color: var(--orange); }
+
+  /* Architecture Section */
+  .section { margin-bottom: 40px; }
+  .section h2 { font-size: 20px; font-weight: 600; margin-bottom: 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); }
+  .arch-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 16px; }
+  .arch-card { background: var(--card); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .arch-card h3 { font-size: 14px; font-weight: 600; color: var(--accent); margin-bottom: 8px; }
+  .arch-card p { font-size: 13px; color: var(--muted); margin-bottom: 4px; }
+  .arch-card code { background: #1a1a2e; padding: 2px 6px; border-radius: 4px; font-size: 12px; color: var(--green); }
+
+  /* Sequence Flow */
+  .flow { display: flex; flex-wrap: wrap; gap: 8px; margin: 16px 0; }
+  .flow-step { background: var(--card); border: 1px solid var(--border); border-radius: 8px; padding: 10px 16px; font-size: 12px; position: relative; }
+  .flow-step .step-num { font-weight: 700; color: var(--accent); margin-right: 4px; }
+  .flow-step .delay { color: var(--muted); font-size: 11px; display: block; }
+  .flow-arrow { color: var(--muted); display: flex; align-items: center; font-size: 18px; }
+
+  /* Sequences Table */
+  .seq-table { width: 100%; border-collapse: collapse; margin-bottom: 24px; }
+  .seq-table th { text-align: left; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; padding: 8px 12px; border-bottom: 1px solid var(--border); }
+  .seq-table td { padding: 10px 12px; font-size: 13px; border-bottom: 1px solid var(--border); }
+  .seq-table tr:hover { background: rgba(59, 130, 246, 0.05); }
+  .badge { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
+  .badge-cold { background: #1e3a5f; color: #60a5fa; }
+  .badge-warm { background: #422006; color: #fbbf24; }
+  .badge-hot { background: #450a0a; color: #f87171; }
+  .badge-nurture { background: #14532d; color: #4ade80; }
+  .badge-referral { background: #312e81; color: #a78bfa; }
+  .badge-blast { background: #431407; color: #fb923c; }
+
+  /* Prospects Table */
+  .prospect-table { width: 100%; border-collapse: collapse; font-size: 13px; }
+  .prospect-table th { text-align: left; font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.05em; padding: 8px 12px; border-bottom: 2px solid var(--border); position: sticky; top: 0; background: var(--bg); }
+  .prospect-table td { padding: 8px 12px; border-bottom: 1px solid var(--border); }
+  .prospect-table tr:hover { background: rgba(59, 130, 246, 0.05); }
+  .territory { display: inline-block; padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 500; }
+  .t-monteregie { background: #1e3a5f; color: #60a5fa; }
+  .t-rive-nord { background: #14532d; color: #4ade80; }
+  .t-rive-sud { background: #422006; color: #fbbf24; }
+  .t-montreal { background: #312e81; color: #a78bfa; }
+  .t-lanaudiere { background: #431407; color: #fb923c; }
+  .t-laurentides { background: #134e4a; color: #5eead4; }
+  .has-contact { color: var(--green); }
+  .no-contact { color: #333; }
+
+  /* Cron / Timeline */
+  .timeline { display: flex; flex-direction: column; gap: 12px; }
+  .timeline-item { display: flex; align-items: flex-start; gap: 12px; }
+  .timeline-dot { width: 10px; height: 10px; border-radius: 50%; margin-top: 6px; flex-shrink: 0; }
+  .timeline-dot.active { background: var(--green); box-shadow: 0 0 8px rgba(34, 197, 94, 0.4); }
+  .timeline-dot.pending { background: var(--muted); }
+  .timeline-content { font-size: 13px; }
+  .timeline-content strong { color: var(--text); }
+  .timeline-content span { color: var(--muted); }
+
+  /* Checklist */
+  .checklist { list-style: none; }
+  .checklist li { padding: 8px 0; border-bottom: 1px solid var(--border); font-size: 13px; display: flex; align-items: center; gap: 8px; }
+  .checklist li::before { content: ''; width: 16px; height: 16px; border: 2px solid var(--border); border-radius: 4px; flex-shrink: 0; }
+  .checklist li.done::before { background: var(--green); border-color: var(--green); content: ''; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='white'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z'/%3E%3C/svg%3E"); background-size: 12px; background-repeat: no-repeat; background-position: center; }
+  .checklist li.done { color: var(--muted); }
+
+  .print-hide { }
+  @media print { .print-hide { display: none; } body { background: white; color: black; } }
+  @media (max-width: 768px) { .stats { grid-template-columns: repeat(2, 1fr); } .arch-grid { grid-template-columns: 1fr; } }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <h1>Pipeline Acquisition M&A</h1>
+  <p class="subtitle">Taillage Haie Elite — Systeme automatise — 31 mars 2026</p>
+
+  <!-- STATS -->
+  <div class="stats">
+    <div class="stat-card">
+      <div class="label">Prospects actifs</div>
+      <div class="value blue">72</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Avec telephone</div>
+      <div class="value green">10</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Avec email</div>
+      <div class="value yellow">1</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Territoires</div>
+      <div class="value orange">6</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Sequences email</div>
+      <div class="value blue">9</div>
+    </div>
+    <div class="stat-card">
+      <div class="label">Templates email</div>
+      <div class="value green">28</div>
+    </div>
+  </div>
+
+  <!-- ARCHITECTURE -->
+  <div class="section">
+    <h2>Architecture du systeme</h2>
+    <div class="arch-grid">
+      <div class="arch-card">
+        <h3>Base de donnees (Supabase)</h3>
+        <p><code>acquisition_prospects</code> — Pipeline + profil vendeur</p>
+        <p><code>acquisition_emails</code> — Log chaque email envoye</p>
+        <p><code>acquisition_activities</code> — Audit trail complet</p>
+        <p style="margin-top:8px">Projet: <code>haie-lite</code> (ca-central-1)</p>
+      </div>
+      <div class="arch-card">
+        <h3>Cron automatique (Vercel)</h3>
+        <p><code>/api/cron/acquisition-outreach</code></p>
+        <p>Lun-Ven 14:00 UTC (10h EDT)</p>
+        <p>Max 20 prospects par execution</p>
+        <p>Envoie via <code>Resend</code> (noreply@haielite.ca)</p>
+      </div>
+      <div class="arch-card">
+        <h3>API REST</h3>
+        <p><code>GET/POST</code> /api/acquisitions/prospects</p>
+        <p><code>GET/PATCH/DELETE</code> /api/acquisitions/prospects/[id]</p>
+        <p><code>POST</code> /api/acquisitions/import</p>
+        <p><code>GET</code> /api/acquisitions/stats</p>
+        <p style="margin-top:8px">Auth: <code>Bearer DASHBOARD_KEY</code></p>
+      </div>
+      <div class="arch-card">
+        <h3>Dashboard</h3>
+        <p>URL: <code>haie-lite-app.vercel.app/dashboard/acquisitions</code></p>
+        <p>Pipeline Kanban (7 colonnes)</p>
+        <p>Stats temps reel</p>
+        <p>Formulaire ajout rapide</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- SEQUENCES -->
+  <div class="section">
+    <h2>9 Sequences d'emails (Roland Frasier / Codie Sanchez)</h2>
+    <table class="seq-table">
+      <thead>
+        <tr><th>#</th><th>Sequence</th><th>Cible</th><th>Emails</th><th>Duree</th><th>Strategie</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>1</td><td><span class="badge badge-cold">FROID</span></td><td>Prospect inconnu (Google, Pages Jaunes, RBQ)</td><td>3</td><td>12 jours</td><td>9-Word Email + approche complete + dernier mot</td></tr>
+        <tr><td>2</td><td><span class="badge badge-warm">TIEDE</span></td><td>Apres premier appel telephonique</td><td>3</td><td>21 jours</td><td>Recap post-appel + relance documents + 3 options</td></tr>
+        <tr><td>3</td><td><span class="badge badge-hot">HOT</span></td><td>Financiers recus, offre prete</td><td>3</td><td>14 jours</td><td>Plan A/B double offre + FAQ objections + closing</td></tr>
+        <tr><td>4</td><td><span class="badge badge-nurture">NURTURE</span></td><td>"Pas maintenant" — long terme</td><td>5</td><td>2-5 ans</td><td>Check-in saisonnier + valeur croissante</td></tr>
+        <tr><td>5</td><td><span class="badge badge-referral">REFERENCE</span></td><td>Recommande par un tiers</td><td>2</td><td>7 jours</td><td>Introduction par referent + relance</td></tr>
+        <tr><td>6</td><td><span class="badge badge-warm">CARRIERE</span></td><td>Entrepreneur qui change de domaine</td><td>2</td><td>3 jours</td><td>Offre directe rapide + urgence timing</td></tr>
+        <tr><td>7</td><td><span class="badge badge-blast">BLAST</span></td><td>Envoi masse (50-100+ cibles)</td><td>1</td><td>1 jour</td><td>Seller Event System — mouvement industrie</td></tr>
+        <tr><td>8</td><td><span class="badge badge-cold">REACTIVATION</span></td><td>Prospect qui avait dit non (6+ mois)</td><td>2</td><td>7 jours</td><td>9-Word Reactivation + nouveau contexte</td></tr>
+        <tr><td>9</td><td><span class="badge badge-nurture">PARTENARIAT</span></td><td>Proprietaire mefiant (Host-Beneficiary)</td><td>2</td><td>7 jours</td><td>Proposition revenus partages, pas achat</td></tr>
+      </tbody>
+    </table>
+
+    <h3 style="font-size:15px; margin-bottom:12px; color:var(--muted)">Flux d'execution automatique</h3>
+    <div class="flow">
+      <div class="flow-step"><span class="step-num">1</span> Prospect importe<span class="delay">sequence_type=cold, step=0</span></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step"><span class="step-num">2</span> Cron detecte next_email_at<span class="delay">Lun-Ven 10h EDT</span></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step"><span class="step-num">3</span> Email envoye via Resend<span class="delay">Log dans acquisition_emails</span></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step"><span class="step-num">4</span> Step++ / next_email_at calcule<span class="delay">Delai selon sequence</span></div>
+      <div class="flow-arrow">&rarr;</div>
+      <div class="flow-step"><span class="step-num">5</span> Fin sequence &rarr; nurture<span class="delay">Ou reponse &rarr; status change</span></div>
+    </div>
+  </div>
+
+  <!-- PROSPECTS -->
+  <div class="section">
+    <h2>72 Prospects actifs par territoire</h2>
+    <div style="overflow-x:auto; max-height: 600px; overflow-y: auto; border: 1px solid var(--border); border-radius: 12px;">
+    <table class="prospect-table">
+      <thead>
+        <tr><th>Entreprise</th><th>Proprietaire</th><th>Territoire</th><th>Tel</th><th>Email</th><th>Notes</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Andre Emondeur et Fils</td><td>Andre</td><td><span class="territory t-lanaudiere">Lanaudiere</span></td><td class="no-contact">—</td><td class="no-contact">—</td><td>4.8/5, 125+ avis, 30+ ans famille</td></tr>
+        <tr><td>BP Emondage</td><td>Proprietaire</td><td><span class="territory t-lanaudiere">Lanaudiere</span></td><td class="no-contact">—</td><td class="no-contact">—</td><td>4.7/5, 98+ avis, 30+ ans</td></tr>
+        <tr><td>Abattage d'Arbres Expert</td><td>Proprietaire</td><td><span class="territory t-lanaudiere">Lanaudiere</span></td><td class="no-contact">—</td><td class="no-contact">—</td><td>4.6/5, 82+ avis, DEP arboriculture</td></tr>
+        <tr><td>Marc Fontaine Inc.</td><td>Marc Fontaine</td><td><span class="territory t-lanaudiere">Lanaudiere</span></td><td class="no-contact">—</td><td class="no-contact">—</td><td>4.5/5, 71+ avis</td></tr>
+        <tr><td>Emondage Joliette</td><td>Proprietaire</td><td><span class="territory t-lanaudiere">Lanaudiere</span></td><td class="no-contact">—</td><td class="no-contact">—</td><td>4.5/5, 60+ avis</td></tr>
+        <tr><td>Arbre et Compagnie</td><td>Proprietaire</td><td><span class="territory t-lanaudiere">Lanaudiere</span></td><td class="no-contact">—</td><td class="no-contact">—</td><td>4.6/5, 71+ avis</td></tr>
+        <tr><td>Elagage Pro Joliette</td><td>Proprietaire</td><td><span class="territory t-lanaudiere">Lanaudiere</span></td><td class="no-contact">—</td><td class="no-contact">—</td><td>4.5/5, 67+ avis</td></tr>
+        <tr><td>Emondage Lanaudiere</td><td>Proprietaire</td><td><span class="territory t-lanaudiere">Lanaudiere</span></td><td class="no-contact">—</td><td class="no-contact">—</td><td>4.4/5, 52+ avis</td></tr>
+        <tr><td>Taille Arbres Lanaudiere</td><td>Proprietaire</td><td><span class="territory t-lanaudiere">Lanaudiere</span></td><td class="no-contact">—</td><td class="no-contact">—</td><td>4.4/5, 55+ avis</td></tr>
+
+        <tr><td>Haies Cetera</td><td>Proprietaire</td><td><span class="territory t-laurentides">Laurentides</span></td><td class="has-contact">819-996-4243</td><td class="no-contact">—</td><td>4.6/5, 73+ avis, Saint-Sauveur</td></tr>
+        <tr><td>Services Arboricoles Saint-Sauveur</td><td>Proprietaire</td><td><span class="territory t-laurentides">Laurentides</span></td><td class="no-contact">—</td><td class="no-contact">—</td><td>4.6/5, Saint-Sauveur</td></tr>
+        <tr><td>Elagage Vallee</td><td>Proprietaire</td><td><span class="territory t-laurentides">Laurentides</span></td><td class="no-contact">—</td><td class="no-contact">—</td><td>4.5/5, region</td></tr>
+        <tr><td>Paysagement Morin Heights</td><td>Proprietaire</td><td><span class="territory t-laurentides">Laurentides</span></td><td class="no-contact">—</td><td class="no-contact">—</td><td>4.4/5, Morin Heights</td></tr>
+
+        <tr><td>Mr. Emondeur</td><td>Proprietaire</td><td><span class="territory t-rive-nord">Rive-Nord</span></td><td class="has-contact">438-230-0619</td><td class="no-contact">—</td><td>4.8/5, 120+ avis, multi-locations</td></tr>
+        <tr><td>Taillage HaieExcellence</td><td>Proprietaire</td><td><span class="territory t-rive-nord">Rive-Nord</span></td><td class="no-contact">—</td><td class="no-contact">—</td><td>4.8/5, 110+ avis, 3 equipes</td></tr>
+        <tr><td>CedCedre</td><td>Proprietaire</td><td><span class="territory t-rive-nord">Rive-Nord</span></td><td class="has-contact">514-506-9633</td><td class="no-contact">—</td><td>4.7/5, 95+ avis, concurrent direct</td></tr>
+        <tr><td>Emondage Simard</td><td>Proprietaire</td><td><span class="territory t-rive-nord">Rive-Nord</span></td><td class="no-contact">—</td><td class="no-contact">—</td><td>4.7/5, 95+ avis, 24/7</td></tr>
+        <tr><td>Arbre Safe-T</td><td>Proprietaire</td><td><span class="territory t-rive-nord">Rive-Nord</span></td><td class="no-contact">—</td><td class="no-contact">—</td><td>4.7/5, 105+ avis, depuis 1998</td></tr>
+        <tr><td>Taille HaieExpress</td><td>Proprietaire</td><td><span class="territory t-rive-nord">Rive-Nord</span></td><td class="no-contact">—</td><td class="no-contact">—</td><td>4.7/5, 82+ avis, Mascouche</td></tr>
+        <tr><td>Emondeur Expert</td><td>Proprietaire</td><td><span class="territory t-rive-nord">Rive-Nord</span></td><td class="has-contact">450-231-7333</td><td class="no-contact">—</td><td>4.7/5, 88+ avis, urgence</td></tr>
+        <tr><td>Taillage Professionnel</td><td>Proprietaire</td><td><span class="territory t-rive-nord">Rive-Nord</span></td><td class="no-contact">—</td><td class="no-contact">—</td><td>4.6/5, 75+ avis, est 2016</td></tr>
+        <tr><td>Novert</td><td>Proprietaire</td><td><span class="territory t-rive-nord">Rive-Nord</span></td><td class="no-contact">—</td><td class="no-contact">—</td><td>4.6/5, 78+ avis</td></tr>
+        <tr><td>Groupe DUC</td><td>Proprietaire</td><td><span class="territory t-rive-nord">Rive-Nord</span></td><td class="no-contact">—</td><td class="no-contact">—</td><td>4.6/5, 70+ avis</td></tr>
+        <tr><td>Elagage MC</td><td>Proprietaire</td><td><span class="territory t-rive-nord">Rive-Nord</span></td><td class="no-contact">—</td><td class="no-contact">—</td><td>4.6/5, 20+ ans</td></tr>
+        <tr><td>Paysagement Cozzy</td><td>Proprietaire</td><td><span class="territory t-rive-nord">Rive-Nord</span></td><td class="has-contact">438-408-2868</td><td class="no-contact">—</td><td>4.5/5, 60+ avis, Mascouche</td></tr>
+        <tr><td>Arboricureuil</td><td>Proprietaire</td><td><span class="territory t-rive-nord">Rive-Nord</span></td><td class="no-contact">—</td><td class="no-contact">—</td><td>4.5/5, depuis 2007</td></tr>
+        <tr><td>Les As de la Coupe</td><td>Proprietaire</td><td><span class="territory t-rive-nord">Rive-Nord</span></td><td class="no-contact">—</td><td class="no-contact">—</td><td>4.5/5, specialiste</td></tr>
+        <tr><td>Wynut Amenagement</td><td>Proprietaire</td><td><span class="territory t-rive-nord">Rive-Nord</span></td><td class="no-contact">—</td><td class="no-contact">—</td><td>4.5/5, 45+ avis</td></tr>
+
+        <tr><td>Robi-Taille</td><td>Proprietaire</td><td><span class="territory t-rive-sud">Rive-Sud</span></td><td class="has-contact">438-505-9067</td><td class="has-contact">info@robi-taille.ca</td><td>Specialiste haies, email verifie</td></tr>
+        <tr><td>Haie Prestige</td><td>Proprietaire</td><td><span class="territory t-rive-sud">Rive-Sud</span></td><td class="has-contact">514-424-8994</td><td class="no-contact">—</td><td>Napierville, specialiste haies</td></tr>
+        <tr><td>Paysagiste Andre Lussier Inc</td><td>Andre Lussier</td><td><span class="territory t-rive-sud">Rive-Sud</span></td><td class="no-contact">—</td><td class="no-contact">—</td><td>Etabli, South Shore</td></tr>
+        <tr><td>Paysagiste Michel Brousseau</td><td>Michel Brousseau</td><td><span class="territory t-rive-sud">Rive-Sud</span></td><td class="no-contact">—</td><td class="no-contact">—</td><td>Etabli, South Shore</td></tr>
+        <tr><td>Paysagiste D Lussier</td><td>D Lussier</td><td><span class="territory t-rive-sud">Rive-Sud</span></td><td class="no-contact">—</td><td class="no-contact">—</td><td>Landscape South Shore</td></tr>
+        <tr><td colspan="6" style="color:var(--muted); font-style:italic">+ 9 autres prospects Rive-Sud + 20 Monteregie + 11 Montreal...</td></tr>
+      </tbody>
+    </table>
+    </div>
+  </div>
+
+  <!-- CHECKLIST -->
+  <div class="section">
+    <h2>Checklist — Prochaines etapes</h2>
+    <ul class="checklist">
+      <li class="done">Migration DB (3 tables, 12 index, RLS) — Supabase haie-lite</li>
+      <li class="done">Secrets configures — Vercel (7 env vars) + Infisical (5 cles HAIELITE_*)</li>
+      <li class="done">Cron outreach — Lun-Ven 10h EDT, 20 prospects/run</li>
+      <li class="done">9 sequences email codees — 28 templates (cold, warm, hot, nurture, referral, career, blast, reactivation, partnership)</li>
+      <li class="done">API CRUD + import batch + stats pipeline</li>
+      <li class="done">Dashboard Kanban + Stats + Form</li>
+      <li class="done">72 prospects importes dans 6 territoires</li>
+      <li class="done">Deploye sur Vercel production</li>
+      <li>Enrichir emails proprietaires — Hunter.io, Apollo, ou recherche manuelle (72 prospects sans email)</li>
+      <li>Verifier domaine Resend — haielite.ca doit etre verifie pour envoyer</li>
+      <li>Premier batch d'emails test — envoyer a 5 prospects avec email pour valider le flow</li>
+      <li>Enrichir noms proprietaires — REQ (Registre des entreprises), LinkedIn, Facebook</li>
+      <li>Ajouter webhook Resend — tracker opens/replies automatiquement</li>
+      <li>Connecter Google Business Profile — scraper avis/ratings en continu</li>
+      <li>Configurer alertes Slack/email — notification quand un prospect repond</li>
+    </ul>
+  </div>
+
+  <!-- SECRETS REFERENCE -->
+  <div class="section">
+    <h2>Reference technique</h2>
+    <div class="arch-grid">
+      <div class="arch-card">
+        <h3>URLs</h3>
+        <p>App: <code>haie-lite-app.vercel.app</code></p>
+        <p>Dashboard: <code>.../dashboard/acquisitions</code></p>
+        <p>Supabase: <code>ydtmnqqqmfxvrcpjprwi.supabase.co</code></p>
+      </div>
+      <div class="arch-card">
+        <h3>Secrets (Infisical prod)</h3>
+        <p><code>HAIELITE_CRON_SECRET</code></p>
+        <p><code>HAIELITE_DASHBOARD_KEY</code></p>
+        <p><code>HAIELITE_SUPABASE_URL</code></p>
+        <p><code>HAIELITE_SUPABASE_ANON_KEY</code></p>
+        <p><code>HAIELITE_SUPABASE_SERVICE_ROLE_KEY</code></p>
+      </div>
+      <div class="arch-card">
+        <h3>Fichiers cles</h3>
+        <p><code>lib/acquisition-emails.ts</code> — 1066 lignes, 9 sequences</p>
+        <p><code>api/cron/acquisition-outreach/route.ts</code> — Cron</p>
+        <p><code>api/acquisitions/prospects/route.ts</code> — CRUD</p>
+        <p><code>operations/sequences-courriels-acquisition.md</code> — Doc complete</p>
+      </div>
+      <div class="arch-card">
+        <h3>Commits cles</h3>
+        <p><code>f260545</code> — Build fixes (Next.js 15, Supabase, JSX)</p>
+        <p><code>4fba704</code> — Cron schema mismatch fixes</p>
+        <p><code>0f24599</code> — Systeme acquisition initial</p>
+        <p><code>7703bcb</code> — Cron + 14 templates + docs</p>
+      </div>
+    </div>
+  </div>
+
+  <p style="text-align:center; color:var(--muted); font-size:12px; margin-top:40px; padding-top:20px; border-top:1px solid var(--border);">
+    Genere le 31 mars 2026 — Taillage Haie Elite — Pipeline Acquisition M&A
+  </p>
+
+</div>
+</body>
+</html>
