@@ -1,31 +1,94 @@
-export const runtime = 'edge';
+export const runtime = "edge";
 
-import { NextRequest, NextResponse } from 'next/server';
-import { classifySMSIntent } from '@/lib/openai';
-import { supabaseAdmin, getLeadByPhone, logMessageSent } from '@/lib/supabase';
-import { sendSMS } from '@/lib/twilio';
-import { servicem8 } from '@/lib/servicem8';
-import { SMS } from '@/lib/sms-templates';
+import { NextRequest, NextResponse } from "next/server";
+import { classifySMSIntent } from "@/lib/openai";
+import { supabaseAdmin, getLeadByPhone, logMessageSent } from "@/lib/supabase";
+import { sendSMS } from "@/lib/twilio";
+import { servicem8 } from "@/lib/servicem8";
+import { SMS } from "@/lib/sms-templates";
+
+const OPT_OUT_KEYWORDS = [
+  "stop",
+  "arret",
+  "arrêt",
+  "desinscrire",
+  "désinscrire",
+  "unsubscribe",
+];
+const SMS_AI_WORKER_URL =
+  process.env.SMS_AI_WORKER_URL ||
+  "https://sms-ai-qualifier.haielite.workers.dev";
 
 export async function POST(request: NextRequest) {
   try {
     // Twilio sends form-encoded data
     const formData = await request.formData();
-    const from = (formData.get('From') as string) || '';
-    const body = ((formData.get('Body') as string) || '').trim();
-    const messageSid = formData.get('MessageSid') as string;
+    const from = (formData.get("From") as string) || "";
+    const body = ((formData.get("Body") as string) || "").trim();
+    const messageSid = formData.get("MessageSid") as string;
 
     if (!from || !body) {
-      return twimlResponse('');
+      return twimlResponse("");
+    }
+
+    // Handle STOP/opt-out (CASL compliance — always process first)
+    if (OPT_OUT_KEYWORDS.some((kw) => body.toLowerCase().trim() === kw)) {
+      await supabaseAdmin
+        .from("sms_conversations")
+        .update({ opt_out: true, state: "dead" })
+        .eq("phone_number", from)
+        .neq("state", "dead");
+      return twimlResponse(
+        "C'est note, tu es desinscrits. Bonne journee! - Haie Lite",
+      );
     }
 
     // Log inbound message
     await logMessageSent({
-      channel: 'sms',
-      type: 'inbound',
+      channel: "sms",
+      type: "inbound",
       content: body,
       recipient_phone: from,
     });
+
+    // Check if there's an active AI conversation for this number
+    const { data: activeConv } = await supabaseAdmin
+      .from("sms_conversations")
+      .select("id, state")
+      .eq("phone_number", from)
+      .not("state", "in", '("dead","completed")')
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    if (activeConv) {
+      // Forward to SMS AI Worker for AI-powered qualification
+      try {
+        const workerFormData = new URLSearchParams({
+          From: from,
+          To: (formData.get("To") as string) || "",
+          Body: body,
+          MessageSid: messageSid,
+        });
+
+        const workerResponse = await fetch(`${SMS_AI_WORKER_URL}/sms`, {
+          method: "POST",
+          headers: { "Content-Type": "application/x-www-form-urlencoded" },
+          body: workerFormData.toString(),
+        });
+
+        // Return the TwiML from the worker directly
+        const twiml = await workerResponse.text();
+        return new NextResponse(twiml, {
+          headers: { "Content-Type": "text/xml" },
+        });
+      } catch (workerError) {
+        console.error("SMS AI Worker error, falling back:", workerError);
+        // Fall through to legacy handling below
+      }
+    }
+
+    // === LEGACY HANDLING (no active AI conversation) ===
 
     // Find the lead by phone number
     const lead = await getLeadByPhone(from);
@@ -35,18 +98,21 @@ export async function POST(request: NextRequest) {
 
     // Check if this is an upsell response
     const pendingUpsell = await supabaseAdmin
-      .from('upsell_opportunities')
-      .select('*')
-      .eq('status', 'quoted')
-      .order('quote_sent_at', { ascending: false })
+      .from("upsell_opportunities")
+      .select("*")
+      .eq("status", "quoted")
+      .order("quote_sent_at", { ascending: false })
       .limit(1)
       .maybeSingle();
 
     // Route based on intent
     switch (intent) {
-      case 'confirm':
-      case 'upsell_accept': {
-        if (pendingUpsell?.data && (intent === 'upsell_accept' || body.toUpperCase() === 'OUI')) {
+      case "confirm":
+      case "upsell_accept": {
+        if (
+          pendingUpsell?.data &&
+          (intent === "upsell_accept" || body.toUpperCase() === "OUI")
+        ) {
           // Accept upsell
           await handleUpsellAccepted(pendingUpsell.data, from);
         } else if (lead) {
@@ -56,97 +122,98 @@ export async function POST(request: NextRequest) {
         break;
       }
 
-      case 'cancel':
-      case 'upsell_decline': {
+      case "cancel":
+      case "upsell_decline": {
         if (pendingUpsell?.data) {
           await supabaseAdmin
-            .from('upsell_opportunities')
-            .update({ status: 'declined', client_response: body })
-            .eq('id', pendingUpsell.data.id);
+            .from("upsell_opportunities")
+            .update({ status: "declined", client_response: body })
+            .eq("id", pendingUpsell.data.id);
         }
         if (lead) {
           await supabaseAdmin
-            .from('leads')
-            .update({ status: 'cancelled' })
-            .eq('id', lead.id);
+            .from("leads")
+            .update({ status: "cancelled" })
+            .eq("id", lead.id);
         }
         break;
       }
 
-      case 'reschedule': {
+      case "reschedule": {
         if (lead) {
-          await sendSMS(from,
-            `Pas de problème! Appelez-nous au 514-XXX-XXXX pour reprogrammer. - Haie Lite`
+          await sendSMS(
+            from,
+            `Pas de problème! Appelez-nous au 514-XXX-XXXX pour reprogrammer. - Haie Lite`,
           );
         }
         break;
       }
 
-      case 'question':
+      case "question":
       default: {
         // Forward to Henri for manual handling
         await sendSMS(
-          process.env.HENRI_PHONE || '',
-          `📩 SMS de ${lead?.name || from}: "${body}"\nRépondre à: ${from}`
+          process.env.HENRI_PHONE || "",
+          `📩 SMS de ${lead?.name || from}: "${body}"\nRépondre à: ${from}`,
         );
         break;
       }
     }
 
     // Return empty TwiML (Twilio expects XML response)
-    return twimlResponse('');
+    return twimlResponse("");
   } catch (error) {
-    console.error('Twilio SMS webhook error:', error);
-    return twimlResponse('');
+    console.error("Twilio SMS webhook error:", error);
+    return twimlResponse("");
   }
 }
 
 async function handleQuoteConfirmed(lead: any, phone: string) {
   // Update lead status
   await supabaseAdmin
-    .from('leads')
+    .from("leads")
     .update({
-      status: 'confirmed',
+      status: "confirmed",
       confirmed_at: new Date().toISOString(),
     })
-    .eq('id', lead.id);
+    .eq("id", lead.id);
 
   // Update ServiceM8 job to Work Order
   if (lead.servicem8_job_uuid) {
     await servicem8.updateJob(lead.servicem8_job_uuid, {
-      status: 'Work Order',
+      status: "Work Order",
     });
   }
 
   // Send confirmation SMS
-  const name = lead.name?.split(' ')[0] || '';
-  await sendSMS(phone, SMS.bookingConfirmation(name, 'bientôt', 'AM'));
+  const name = lead.name?.split(" ")[0] || "";
+  await sendSMS(phone, SMS.bookingConfirmation(name, "bientôt", "AM"));
 
   // Notify Henri
   await sendSMS(
-    process.env.HENRI_PHONE || '',
-    `✅ NOUVEAU BOOKING: ${lead.name} (${phone}) a confirmé! Soumission: ${lead.estimated_amount || '?'}$`
+    process.env.HENRI_PHONE || "",
+    `✅ NOUVEAU BOOKING: ${lead.name} (${phone}) a confirmé! Soumission: ${lead.estimated_amount || "?"}$`,
   );
 }
 
 async function handleUpsellAccepted(upsell: any, phone: string) {
   // Update upsell status
   await supabaseAdmin
-    .from('upsell_opportunities')
+    .from("upsell_opportunities")
     .update({
-      status: 'accepted',
-      client_response: 'OUI',
+      status: "accepted",
+      client_response: "OUI",
     })
-    .eq('id', upsell.id);
+    .eq("id", upsell.id);
 
   // Create new job in ServiceM8 for the upsell service
   const serviceDescriptions: Record<string, string> = {
-    fertilisation: 'Fertilisation deep root - haie de cèdre',
-    pest_treatment: 'Traitement anti-parasites - haie de cèdre',
-    winter_protection: 'Protection hivernale - installation toile',
-    rejuvenation: 'Rabattage sévère - haie de cèdre',
-    cedar_replacement: 'Remplacement de cèdres morts',
-    mulching: 'Paillis - base de haie',
+    fertilisation: "Fertilisation deep root - haie de cèdre",
+    pest_treatment: "Traitement anti-parasites - haie de cèdre",
+    winter_protection: "Protection hivernale - installation toile",
+    rejuvenation: "Rabattage sévère - haie de cèdre",
+    cedar_replacement: "Remplacement de cèdres morts",
+    mulching: "Paillis - base de haie",
   };
 
   // Get original job to find client
@@ -154,27 +221,27 @@ async function handleUpsellAccepted(upsell: any, phone: string) {
 
   await servicem8.createJob({
     company_uuid: originalJob.company_uuid,
-    status: 'Work Order',
+    status: "Work Order",
     description: serviceDescriptions[upsell.service_type] || upsell.description,
-    job_is_quoted: '1',
+    job_is_quoted: "1",
   });
 
   // Attribute commission to employee
   if (upsell.employee_id && upsell.commission_amount) {
-    await supabaseAdmin.from('employee_incentives').insert({
+    await supabaseAdmin.from("employee_incentives").insert({
       employee_id: upsell.employee_id,
-      type: 'upsell_commission',
+      type: "upsell_commission",
       amount: upsell.commission_amount,
       job_uuid: upsell.job_uuid,
       description: `Upsell ${upsell.service_type} accepté`,
-      status: 'pending',
+      status: "pending",
     });
 
     // Notify employee
     const employee = await supabaseAdmin
-      .from('employees')
-      .select('phone, first_name')
-      .eq('id', upsell.employee_id)
+      .from("employees")
+      .select("phone, first_name")
+      .eq("id", upsell.employee_id)
       .single();
 
     if (employee.data?.phone) {
@@ -183,8 +250,8 @@ async function handleUpsellAccepted(upsell: any, phone: string) {
         SMS.employeeBonusUpsell(
           employee.data.first_name,
           upsell.service_type,
-          upsell.commission_amount
-        )
+          upsell.commission_amount,
+        ),
       );
     }
   }
@@ -196,6 +263,6 @@ function twimlResponse(message: string): NextResponse {
     : `<?xml version="1.0" encoding="UTF-8"?><Response></Response>`;
 
   return new NextResponse(xml, {
-    headers: { 'Content-Type': 'text/xml' },
+    headers: { "Content-Type": "text/xml" },
   });
 }

@@ -1,0 +1,15 @@
+name = "sms-ai-qualifier"
+main = "src/index.ts"
+compatibility_date = "2024-12-01"
+compatibility_flags = ["nodejs_compat"]
+
+[observability]
+enabled = true
+
+# Secrets (set via `wrangler secret put`):
+# ANTHROPIC_API_KEY
+# TWILIO_ACCOUNT_SID
+# TWILIO_AUTH_TOKEN
+# TWILIO_PHONE_NUMBER
+# SUPABASE_URL
+# SUPABASE_SERVICE_ROLE_KEY
