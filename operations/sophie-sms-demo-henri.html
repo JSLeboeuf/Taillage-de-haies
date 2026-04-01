@@ -1,0 +1,557 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Sophie SMS — Demo Haie Lite</title>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: #0a0a0a;
+    color: #e5e5e5;
+    min-height: 100vh;
+  }
+  .container { max-width: 800px; margin: 0 auto; padding: 24px 16px; }
+
+  /* Header */
+  .header {
+    text-align: center;
+    padding: 40px 0 32px;
+    border-bottom: 1px solid #222;
+    margin-bottom: 32px;
+  }
+  .header h1 {
+    font-size: 28px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 8px;
+  }
+  .header .badge {
+    display: inline-block;
+    background: #16a34a;
+    color: #fff;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 4px 12px;
+    border-radius: 100px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+  .header p {
+    color: #888;
+    margin-top: 12px;
+    font-size: 15px;
+    line-height: 1.5;
+  }
+
+  /* Section */
+  .section {
+    margin-bottom: 40px;
+  }
+  .section h2 {
+    font-size: 20px;
+    font-weight: 600;
+    color: #fff;
+    margin-bottom: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .section h2 .num {
+    background: #16a34a;
+    color: #fff;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    flex-shrink: 0;
+  }
+
+  /* Explanation cards */
+  .card {
+    background: #141414;
+    border: 1px solid #222;
+    border-radius: 12px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .card p { color: #aaa; line-height: 1.6; font-size: 15px; }
+  .card strong { color: #fff; }
+  .card .highlight {
+    background: #16a34a15;
+    border-left: 3px solid #16a34a;
+    padding: 12px 16px;
+    margin: 12px 0;
+    border-radius: 0 8px 8px 0;
+    color: #ccc;
+  }
+
+  /* Stats */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+    gap: 12px;
+    margin-bottom: 24px;
+  }
+  .stat {
+    background: #141414;
+    border: 1px solid #222;
+    border-radius: 12px;
+    padding: 16px;
+    text-align: center;
+  }
+  .stat .value {
+    font-size: 28px;
+    font-weight: 700;
+    color: #16a34a;
+  }
+  .stat .label {
+    font-size: 12px;
+    color: #666;
+    margin-top: 4px;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  /* Chat simulation */
+  .chat {
+    background: #141414;
+    border: 1px solid #222;
+    border-radius: 16px;
+    padding: 20px;
+    margin-bottom: 16px;
+  }
+  .chat-title {
+    font-size: 13px;
+    color: #666;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    margin-bottom: 16px;
+    font-weight: 600;
+  }
+  .msg {
+    display: flex;
+    margin-bottom: 12px;
+    gap: 8px;
+  }
+  .msg.out { justify-content: flex-end; }
+  .msg.in { justify-content: flex-start; }
+  .bubble {
+    max-width: 80%;
+    padding: 10px 14px;
+    border-radius: 16px;
+    font-size: 14px;
+    line-height: 1.45;
+  }
+  .msg.out .bubble {
+    background: #16a34a;
+    color: #fff;
+    border-bottom-right-radius: 4px;
+  }
+  .msg.in .bubble {
+    background: #1e1e1e;
+    color: #ddd;
+    border-bottom-left-radius: 4px;
+  }
+  .msg-label {
+    font-size: 11px;
+    color: #555;
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+  .msg.out .msg-label { text-align: right; }
+
+  /* Flow diagram */
+  .flow {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 16px 0;
+  }
+  .flow-step {
+    display: flex;
+    align-items: flex-start;
+    gap: 12px;
+    padding: 12px 0;
+  }
+  .flow-icon {
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    flex-shrink: 0;
+    position: relative;
+  }
+  .flow-icon.green { background: #16a34a22; color: #16a34a; }
+  .flow-icon.blue { background: #2563eb22; color: #2563eb; }
+  .flow-icon.purple { background: #7c3aed22; color: #7c3aed; }
+  .flow-icon.orange { background: #ea580c22; color: #ea580c; }
+  .flow-step:not(:last-child) .flow-icon::after {
+    content: '';
+    position: absolute;
+    top: 36px;
+    left: 50%;
+    width: 2px;
+    height: 24px;
+    background: #222;
+    transform: translateX(-50%);
+  }
+  .flow-text h3 { font-size: 14px; color: #fff; font-weight: 600; }
+  .flow-text p { font-size: 13px; color: #888; margin-top: 2px; }
+
+  /* How to test */
+  .steps {
+    counter-reset: step;
+  }
+  .step {
+    display: flex;
+    gap: 16px;
+    padding: 16px 0;
+    border-bottom: 1px solid #1a1a1a;
+  }
+  .step:last-child { border-bottom: none; }
+  .step-num {
+    counter-increment: step;
+    width: 32px;
+    height: 32px;
+    background: #1e1e1e;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 14px;
+    font-weight: 700;
+    color: #16a34a;
+    flex-shrink: 0;
+  }
+  .step-num::before { content: counter(step); }
+  .step-content h3 { font-size: 15px; color: #fff; font-weight: 600; margin-bottom: 4px; }
+  .step-content p { font-size: 14px; color: #888; line-height: 1.5; }
+
+  /* CTA */
+  .cta {
+    text-align: center;
+    padding: 32px;
+    background: linear-gradient(135deg, #16a34a15, #2563eb15);
+    border: 1px solid #222;
+    border-radius: 16px;
+    margin-top: 32px;
+  }
+  .cta h2 { font-size: 22px; color: #fff; margin-bottom: 8px; }
+  .cta p { color: #888; font-size: 14px; margin-bottom: 20px; }
+  .cta .phone {
+    font-size: 24px;
+    font-weight: 700;
+    color: #16a34a;
+    text-decoration: none;
+  }
+  .cta .note { font-size: 12px; color: #555; margin-top: 12px; }
+
+  /* FAQ */
+  .faq-item {
+    border-bottom: 1px solid #1a1a1a;
+    padding: 16px 0;
+  }
+  .faq-item:last-child { border-bottom: none; }
+  .faq-q { font-size: 15px; color: #fff; font-weight: 600; margin-bottom: 6px; }
+  .faq-a { font-size: 14px; color: #888; line-height: 1.5; }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <!-- Header -->
+  <div class="header">
+    <h1>Sophie SMS</h1>
+    <span class="badge">En ligne</span>
+    <p>L'assistante IA qui qualifie et pre-close tes leads Facebook<br>en moins de 30 secondes, 24/7.</p>
+  </div>
+
+  <!-- Stats -->
+  <div class="stats">
+    <div class="stat">
+      <div class="value">&lt;30s</div>
+      <div class="label">Temps de reponse</div>
+    </div>
+    <div class="stat">
+      <div class="value">$0.005</div>
+      <div class="label">Cout par lead</div>
+    </div>
+    <div class="stat">
+      <div class="value">24/7</div>
+      <div class="label">Disponibilite</div>
+    </div>
+    <div class="stat">
+      <div class="value">4 msg</div>
+      <div class="label">Pour qualifier</div>
+    </div>
+  </div>
+
+  <!-- What is it -->
+  <div class="section">
+    <h2><span class="num">1</span> C'est quoi Sophie SMS?</h2>
+    <div class="card">
+      <p>
+        Sophie est une <strong>intelligence artificielle</strong> qui repond automatiquement par SMS aux leads
+        qui arrivent de Facebook Ads. Elle pose les bonnes questions, qualifie le prospect,
+        et <strong>pre-close le rendez-vous de soumission gratuite</strong> — tout ca en 4-5 messages.
+      </p>
+      <div class="highlight">
+        En ce moment, quand un lead arrive de Facebook, il attend 2-3 heures avant d'etre appele.
+        60%+ des leads sont deja froids. Avec Sophie, le premier SMS part en <strong>moins de 30 secondes</strong>.
+      </div>
+      <p style="margin-top: 12px;">
+        Sophie utilise la meme approche que la receptionniste vocale (VAPI), mais par SMS.
+        Elle est polie, professionnelle, et connait bien nos services.
+      </p>
+    </div>
+  </div>
+
+  <!-- How it works -->
+  <div class="section">
+    <h2><span class="num">2</span> Comment ca marche?</h2>
+    <div class="card">
+      <div class="flow">
+        <div class="flow-step">
+          <div class="flow-icon green">1</div>
+          <div class="flow-text">
+            <h3>Lead Facebook arrive</h3>
+            <p>Quelqu'un remplit le formulaire Facebook Ads</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-icon green">2</div>
+          <div class="flow-text">
+            <h3>Sophie envoie le 1er SMS (&lt;30 sec)</h3>
+            <p>"Bonjour Jean! C'est Sophie de Haie Lite. T'es proprietaire?"</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-icon blue">3</div>
+          <div class="flow-text">
+            <h3>Qualification en 4 questions</h3>
+            <p>Proprietaire? Cedres? Combien de cotes? Secteur?</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-icon purple">4</div>
+          <div class="flow-text">
+            <h3>Pre-close le rendez-vous</h3>
+            <p>"On a des dispos cette semaine. Matin ou apres-midi?"</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-icon orange">5</div>
+          <div class="flow-text">
+            <h3>Tu recois une alerte SMS</h3>
+            <p>"LEAD CHAUD! Jean Tremblay — Score 9/10. Appeler ASAP!"</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Example conversation -->
+  <div class="section">
+    <h2><span class="num">3</span> Exemple de conversation reelle</h2>
+
+    <div class="chat">
+      <div class="chat-title">Scenario: Lead chaud de Laval</div>
+
+      <div class="msg-label" style="text-align:right;">Sophie (IA)</div>
+      <div class="msg out">
+        <div class="bubble">Bonjour Jean! C'est Sophie de Haie Lite. Merci pour ta demande! T'es proprietaire de la maison? STOP pour se desinscrire.</div>
+      </div>
+
+      <div class="msg-label">Jean (prospect)</div>
+      <div class="msg in">
+        <div class="bubble">Oui c'est ma maison</div>
+      </div>
+
+      <div class="msg out">
+        <div class="bubble">Parfait! C'est des cedres que tu veux faire tailler, ou une autre sorte de haie?</div>
+      </div>
+
+      <div class="msg in">
+        <div class="bubble">C'est 4 cotes de cedres plus le dessus, ca pousse en titi</div>
+      </div>
+
+      <div class="msg out">
+        <div class="bubble">Ah oui, ca pousse vite hein! Cinq cotes a faire, c'est du travail. Tu restes dans quel secteur?</div>
+      </div>
+
+      <div class="msg in">
+        <div class="bubble">A Laval dans Fabreville</div>
+      </div>
+
+      <div class="msg out">
+        <div class="bubble">Super, on est beaucoup a Fabreville! Nos clients avec des haies similaires sont vraiment contents. On offre la soumission gratuite sur place.</div>
+      </div>
+
+      <div class="msg in">
+        <div class="bubble">Oui je suis libre cette semaine</div>
+      </div>
+
+      <div class="msg out">
+        <div class="bubble">Excellent! On a encore des creneaux cette semaine. Tu preferes quel jour, et c'est le matin ou l'apres-midi qui te convient le mieux?</div>
+      </div>
+    </div>
+
+    <div class="card" style="border-left: 3px solid #16a34a;">
+      <p><strong>Resultat:</strong> Score 8/10 — Prospect qualifie, pret pour la soumission. Henri recoit un SMS d'alerte immediat.</p>
+    </div>
+
+    <div class="chat" style="margin-top: 16px;">
+      <div class="chat-title">Scenario: Objection "je vais y penser"</div>
+
+      <div class="msg in">
+        <div class="bubble">Je vais y penser, peut-etre plus tard</div>
+      </div>
+
+      <div class="msg out">
+        <div class="bubble">Pas de stress! Juste pour info, notre calendrier se remplit vite en avril-mai. Je peux te reserver un creneau sans engagement?</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Cascade -->
+  <div class="section">
+    <h2><span class="num">4</span> Si le prospect repond pas?</h2>
+    <div class="card">
+      <p>Sophie fait partie d'un <strong>systeme en cascade</strong>. Si le prospect ne repond pas aux SMS, on escalade automatiquement:</p>
+      <div class="flow" style="margin-top: 16px;">
+        <div class="flow-step">
+          <div class="flow-icon green">1</div>
+          <div class="flow-text">
+            <h3>SMS IA (Sophie)</h3>
+            <p>Reponse en 30 secondes. Si pas de reponse apres 2 heures...</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-icon blue">2</div>
+          <div class="flow-text">
+            <h3>Appel vocal IA (Sophie VAPI)</h3>
+            <p>L'IA appelle directement le prospect. Si pas de reponse apres 4 heures...</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-icon purple">3</div>
+          <div class="flow-text">
+            <h3>Message WhatsApp</h3>
+            <p>Photos avant/apres + offre soumission. Si pas de reponse apres 24 heures...</p>
+          </div>
+        </div>
+        <div class="flow-step">
+          <div class="flow-icon orange">4</div>
+          <div class="flow-text">
+            <h3>Sequence email (5 emails / 14 jours)</h3>
+            <p>Temoignages, offre, relance finale</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- How to test -->
+  <div class="section">
+    <h2><span class="num">5</span> Comment l'essayer?</h2>
+    <div class="card">
+      <p style="margin-bottom: 16px;"><strong>Sophie est en ligne maintenant.</strong> Pour la tester sans toucher aux vrais leads Facebook:</p>
+
+      <div class="steps">
+        <div class="step">
+          <div class="step-num"></div>
+          <div class="step-content">
+            <h3>Envoie un SMS au numero Twilio</h3>
+            <p>Envoie n'importe quel message au <strong>+1 (662) 654-8845</strong> depuis ton telephone.
+            C'est le meme numero que la receptionniste vocale.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num"></div>
+          <div class="step-content">
+            <h3>Sophie va te repondre</h3>
+            <p>Si tu as une conversation IA active dans le systeme, Sophie va repondre automatiquement.
+            Sinon, le message va etre route normalement comme avant.</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num"></div>
+          <div class="step-content">
+            <h3>Joue le role du client</h3>
+            <p>Reponds comme un vrai client le ferait: "oui je suis proprietaire", "3 cotes de cedres",
+            "a Laval", "oui cette semaine". Regarde comment Sophie gere les objections aussi!</p>
+          </div>
+        </div>
+        <div class="step">
+          <div class="step-num"></div>
+          <div class="step-content">
+            <h3>Verifie le score</h3>
+            <p>Quand Sophie juge que le lead est chaud (score 8+), tu vas recevoir un SMS d'alerte
+            a ton numero avec "LEAD CHAUD!" et les details.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="section">
+    <h2><span class="num">6</span> Questions frequentes</h2>
+    <div class="card">
+      <div class="faq-item">
+        <div class="faq-q">Est-ce que Sophie remplace les appels telephoniques?</div>
+        <div class="faq-a">Non. Sophie est le <strong>premier contact</strong> par SMS. Quand le lead est qualifie,
+        c'est TOI qui appelles pour confirmer le rendez-vous et donner le prix final. Sophie te prepare
+        le terrain — tu recois un lead chaud, qualifie, avec les details (cedres, 4 cotes, Laval, dispo cette semaine).</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Combien ca coute?</div>
+        <div class="faq-a">Environ <strong>$0.005 par lead</strong> en intelligence artificielle + le cout SMS Twilio (~$0.08/lead).
+        Pour 40 leads par mois, ca fait environ <strong>$36/mois total</strong>. Comparez a 5 heures/semaine
+        d'appels manuels ($500/mois).</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Est-ce que les clients savent que c'est un robot?</div>
+        <div class="faq-a">Sophie se presente comme "Sophie de Haie Lite". Elle ecrit en francais quebecois
+        naturel, repond aux objections de facon humaine, et ne dit jamais qu'elle est une IA.
+        Les messages sont courts (max 155 caracteres) comme un vrai SMS.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Et si le client dit STOP?</div>
+        <div class="faq-a">On respecte la loi (CASL). Si le client ecrit STOP, ARRET ou DESINSCRIRE,
+        Sophie confirme la desinscription et on ne le contacte plus jamais. C'est automatique.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Sophie peut-elle donner des prix?</div>
+        <div class="faq-a">Non, par design. Sophie dit toujours que ca depend des dimensions et propose
+        la soumission gratuite sur place. C'est toi qui donnes le prix final en personne.</div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q">Qu'est-ce qui se passe si Sophie ne sait pas quoi repondre?</div>
+        <div class="faq-a">Sophie a des reponses de secours et peut toujours te transferer le lead.
+        Si le prospect pose une question trop complexe, elle dit "Un de nos specialistes va te recontacter"
+        et tu recois un SMS d'alerte.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- CTA -->
+  <div class="cta">
+    <h2>Pret a tester?</h2>
+    <p>Envoie un SMS a ce numero pour voir Sophie en action</p>
+    <a href="sms:+16626548845" class="phone">+1 (662) 654-8845</a>
+    <div class="note">Note: ton numero doit avoir une conversation active dans le systeme pour que Sophie reponde.<br>Demande a JS de configurer un test avec ton numero.</div>
+  </div>
+
+</div>
+</body>
+</html>

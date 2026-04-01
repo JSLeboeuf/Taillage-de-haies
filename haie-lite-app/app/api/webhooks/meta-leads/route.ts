@@ -15,7 +15,7 @@ import { SMS } from "@/lib/sms-templates";
 
 // CASL-compliant first SMS for AI qualification
 const GREETING_SMS = (firstName: string): string =>
-  `Salut ${firstName}! C'est Haie Lite, suite a ta demande de soumission. T'es proprietaire? Reponds STOP pour te desinscrire.`;
+  `Bonjour ${firstName}! C'est Sophie de Haie Lite. Merci pour ta demande! T'es proprietaire de la maison? STOP pour se desinscrire.`;
 
 export async function POST(request: NextRequest) {
   try {

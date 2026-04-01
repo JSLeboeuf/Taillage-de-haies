@@ -3,24 +3,24 @@ import { QUALIFICATION_SYSTEM_PROMPT, OPT_OUT_CONFIRMATION, FALLBACK_RESPONSES }
 import { getConversation, updateConversation, updateCascadeResponse, getLeadByPhone, notifyHenri } from "./supabase";
 
 const OPT_OUT_KEYWORDS = ["stop", "arret", "arrêt", "desinscrire", "désinscrire", "unsubscribe", "cancel"];
-const HAIKU_MODEL = "claude-3-5-haiku-20241022";
+const HAIKU_MODEL = "claude-haiku-4-5-20251001";
 const MAX_SMS_LENGTH = 155;
 const MAX_TURNS = 8;
 
 export default {
   async fetch(request: Request, env: Env): Promise<Response> {
+    const url = new URL(request.url);
+
+    if (url.pathname === "/health") {
+      return Response.json({ status: "ok", timestamp: new Date().toISOString() });
+    }
+
     if (request.method !== "POST") {
       return new Response("Method not allowed", { status: 405 });
     }
 
-    const url = new URL(request.url);
-
     if (url.pathname === "/sms") {
       return handleIncomingSms(request, env);
-    }
-
-    if (url.pathname === "/health") {
-      return Response.json({ status: "ok", timestamp: new Date().toISOString() });
     }
 
     return new Response("Not found", { status: 404 });
@@ -155,13 +155,7 @@ async function callClaude(
     body: JSON.stringify({
       model: HAIKU_MODEL,
       max_tokens: 200,
-      system: [
-        {
-          type: "text",
-          text: QUALIFICATION_SYSTEM_PROMPT,
-          cache_control: { type: "ephemeral" },
-        },
-      ],
+      system: QUALIFICATION_SYSTEM_PROMPT,
       messages: messages.map((m) => ({
         role: m.role,
         content: m.content,
