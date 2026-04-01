@@ -125,11 +125,13 @@ Changer "© 2024" par "© 2026"
 
 Étapes détaillées dans `operations/tracking-setup-complet.md`
 
-#### 10. Microsoft Clarity (5 min)
-**Requiert** : Navigateur + compte Microsoft/Google + Admin WordPress
+#### 10. Microsoft Clarity — COMPTE CREE
+**Project ID** : `w4plzkeqkr`
+**Dashboard** : https://clarity.microsoft.com/projects/view/w4plzkeqkr
+**Requiert** : Admin WordPress pour installer le plugin ou le mu-plugin
 
-1. Créer compte sur https://clarity.microsoft.com
-2. Installer plugin "Microsoft Clarity" ou utiliser le mu-plugin
+1. Installer plugin "Microsoft Clarity" dans WP et connecter au projet existant
+2. OU utiliser le mu-plugin `outils/haielite-tracking.php` (Clarity ID deja configure)
 
 #### 11. Meta Pixel (5 min)
 **Requiert** : Navigateur + compte Facebook Business
@@ -185,6 +187,7 @@ Merci! — Henri
 | Pages services | 3 | 6 |
 | Schemas JSON-LD | 0 | 0 (prêts, pas installés) |
 | Google Business Profile | Non | Non (guide prêt) |
+| Microsoft Clarity | Non | Compte créé (`w4plzkeqkr`), pas installé |
 | Google Analytics | Non | Non (mu-plugin prêt) |
 | Sitemap URLs | ~9 | ~34 |
 | Score SEO estimé | ~15/100 | ~55/100 |

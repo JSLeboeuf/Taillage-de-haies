@@ -68,15 +68,16 @@ Tu dois executer des taches d'optimisation SEO sur le site WordPress https://tai
    - `phone_click`
    - `email_click`
 
-### TACHE 5 : Installer Microsoft Clarity (5 min)
+### TACHE 5 : Installer Microsoft Clarity (2 min) — COMPTE DEJA CREE
+
+Le projet Clarity existe deja : **ID `w4plzkeqkr`**
 
 1. Aller dans **Extensions > Ajouter**
 2. Chercher **"Microsoft Clarity"**
 3. Installer et activer
-4. Se connecter avec un compte Microsoft ou Google
-5. Creer un projet : `Taillage Haielite`
-6. URL : `https://taillagehaielite.com`
-7. Le plugin s'occupe du reste
+4. Se connecter avec le compte Google (joannettehenri06@gmail.com)
+5. Selectionner le projet **"Taillage Haielite"** existant
+6. Le plugin s'occupe du reste
 
 ### TACHE 6 : Installer le mu-plugin de tracking avance (5 min)
 
@@ -87,10 +88,10 @@ Tu dois executer des taches d'optimisation SEO sur le site WordPress https://tai
 3. Si le dossier n'existe pas, le creer
 4. Uploader le fichier `haielite-tracking.php` depuis le repo GitHub :
    `https://github.com/JSLeboeuf/Taillage-de-haies/blob/main/outils/haielite-tracking.php`
-5. Editer le fichier et remplacer les IDs placeholder par les vrais IDs :
+5. Editer le fichier et remplacer les IDs placeholder restants :
    - `G-XXXXXXXXXX` → votre ID Google Analytics 4
    - `GTM-XXXXXXX` → votre ID Google Tag Manager (si cree)
-   - `abcdef1234` → votre ID Microsoft Clarity
+   - Clarity est deja configure : `w4plzkeqkr` (pas besoin de changer)
    - `123456789012345` → votre ID Meta Pixel (si cree)
 
 ### TACHE 7 : Publier les articles de blog (15 min)

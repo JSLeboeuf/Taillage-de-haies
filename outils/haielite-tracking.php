@@ -16,7 +16,7 @@
 // ============================================================
 define('HAIELITE_GA4_ID', 'G-XXXXXXXXXX');          // Google Analytics 4
 define('HAIELITE_GTM_ID', 'GTM-XXXXXXX');            // Google Tag Manager
-define('HAIELITE_CLARITY_ID', 'abcdef1234');          // Microsoft Clarity
+define('HAIELITE_CLARITY_ID', 'w4plzkeqkr');          // Microsoft Clarity
 define('HAIELITE_META_PIXEL_ID', '123456789012345');  // Meta/Facebook Pixel
 // ============================================================
 

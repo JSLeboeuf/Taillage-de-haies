@@ -1,9 +1,9 @@
 # HANDOFF — SEO & Admin WordPress taillagehaielite.com
 
-**Date** : 31 mars 2026
+**Date** : 1er avril 2026
 **Dernier engine** : Claude Opus 4.6 (1M context)
 **Branche** : `main`
-**Dernier commit** : `e1b310a` — SEO statut complet + actions restantes
+**Dernier commit** : voir `git log -1 --oneline`
 
 ---
 
@@ -127,8 +127,12 @@ Le login via curl/Python fonctionne. Pattern :
 
 ### Clarity
 - **Compte** : cree et connecte (joannettehenri06@gmail.com)
-- **Projet** : PAS ENCORE CREE (bug SPA dans navigateur Comet)
-- **A faire** : creer projet sur https://clarity.microsoft.com/projects
+- **Project ID** : `w4plzkeqkr`
+- **Nom** : Taillage Haielite
+- **Secteur** : Services B2C
+- **Statut** : Projet cree, code de tracking pret, PAS ENCORE installe sur le site
+- **Dashboard** : https://clarity.microsoft.com/projects/view/w4plzkeqkr
+- **Integrations dispo** : GA4, GTM, WordPress — a connecter apres installation
 
 ---
 

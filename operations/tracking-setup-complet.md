@@ -1,6 +1,12 @@
 # Setup Tracking Complet — taillagehaielite.com
 
-## Statut actuel : ZERO tracking installe
+## Statut actuel (1er avril 2026)
+
+- Microsoft Clarity : COMPTE CREE, projet `w4plzkeqkr`, code pret, PAS INSTALLE sur le site
+- Google Analytics 4 : PAS CREE (requiert navigateur + OAuth)
+- Google Tag Manager : PAS CREE
+- Meta Pixel : PAS CREE
+- MU-plugin : `outils/haielite-tracking.php` pret avec Clarity ID reel (`w4plzkeqkr`), GA4/GTM/Pixel en placeholder
 
 ---
 
@@ -26,13 +32,13 @@
 3. Creer un conteneur : `taillagehaielite.com` (type: Web)
 4. **NOTER l'ID conteneur** (format `GTM-XXXXXXX`)
 
-### Microsoft Clarity (gratuit, illimite)
-1. Aller sur https://clarity.microsoft.com
-2. Se connecter (compte Microsoft ou Google)
-3. Ajouter un projet : `Taillage Haielite`
-4. URL : `https://taillagehaielite.com`
-5. Categorie : Home Services
-6. **NOTER l'ID projet** (format alphanum, ex: `abc123def4`)
+### Microsoft Clarity (gratuit, illimite) — FAIT
+- Compte cree (joannettehenri06@gmail.com)
+- **Project ID : `w4plzkeqkr`**
+- Nom : Taillage Haielite
+- URL : https://taillagehaielite.com
+- Secteur : Services B2C
+- Dashboard : https://clarity.microsoft.com/projects/view/w4plzkeqkr
 
 ### Meta Pixel (Facebook)
 1. Aller sur https://business.facebook.com/events_manager
