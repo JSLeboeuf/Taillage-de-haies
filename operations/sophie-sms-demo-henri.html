@@ -3,555 +3,847 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Sophie SMS — Demo Haie Lite</title>
+<title>Sophie SMS — Haie Lite</title>
 <style>
+  @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
   * { margin: 0; padding: 0; box-sizing: border-box; }
-  body {
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-    background: #0a0a0a;
-    color: #e5e5e5;
+  body { font-family: 'Inter', -apple-system, sans-serif; background: #050505; color: #e5e5e5; overflow-x: hidden; }
+  .container { max-width: 720px; margin: 0 auto; padding: 0 20px; }
+
+  /* ==================== HERO ==================== */
+  .hero {
     min-height: 100vh;
-  }
-  .container { max-width: 800px; margin: 0 auto; padding: 24px 16px; }
-
-  /* Header */
-  .header {
-    text-align: center;
-    padding: 40px 0 32px;
-    border-bottom: 1px solid #222;
-    margin-bottom: 32px;
-  }
-  .header h1 {
-    font-size: 28px;
-    font-weight: 700;
-    color: #fff;
-    margin-bottom: 8px;
-  }
-  .header .badge {
-    display: inline-block;
-    background: #16a34a;
-    color: #fff;
-    font-size: 12px;
-    font-weight: 600;
-    padding: 4px 12px;
-    border-radius: 100px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-  .header p {
-    color: #888;
-    margin-top: 12px;
-    font-size: 15px;
-    line-height: 1.5;
-  }
-
-  /* Section */
-  .section {
-    margin-bottom: 40px;
-  }
-  .section h2 {
-    font-size: 20px;
-    font-weight: 600;
-    color: #fff;
-    margin-bottom: 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-  }
-  .section h2 .num {
-    background: #16a34a;
-    color: #fff;
-    width: 28px;
-    height: 28px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    font-weight: 700;
-    flex-shrink: 0;
-  }
-
-  /* Explanation cards */
-  .card {
-    background: #141414;
-    border: 1px solid #222;
-    border-radius: 12px;
-    padding: 20px;
-    margin-bottom: 16px;
-  }
-  .card p { color: #aaa; line-height: 1.6; font-size: 15px; }
-  .card strong { color: #fff; }
-  .card .highlight {
-    background: #16a34a15;
-    border-left: 3px solid #16a34a;
-    padding: 12px 16px;
-    margin: 12px 0;
-    border-radius: 0 8px 8px 0;
-    color: #ccc;
-  }
-
-  /* Stats */
-  .stats {
-    display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-    gap: 12px;
-    margin-bottom: 24px;
-  }
-  .stat {
-    background: #141414;
-    border: 1px solid #222;
-    border-radius: 12px;
-    padding: 16px;
-    text-align: center;
-  }
-  .stat .value {
-    font-size: 28px;
-    font-weight: 700;
-    color: #16a34a;
-  }
-  .stat .label {
-    font-size: 12px;
-    color: #666;
-    margin-top: 4px;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-  }
-
-  /* Chat simulation */
-  .chat {
-    background: #141414;
-    border: 1px solid #222;
-    border-radius: 16px;
-    padding: 20px;
-    margin-bottom: 16px;
-  }
-  .chat-title {
-    font-size: 13px;
-    color: #666;
-    text-transform: uppercase;
-    letter-spacing: 0.5px;
-    margin-bottom: 16px;
-    font-weight: 600;
-  }
-  .msg {
-    display: flex;
-    margin-bottom: 12px;
-    gap: 8px;
-  }
-  .msg.out { justify-content: flex-end; }
-  .msg.in { justify-content: flex-start; }
-  .bubble {
-    max-width: 80%;
-    padding: 10px 14px;
-    border-radius: 16px;
-    font-size: 14px;
-    line-height: 1.45;
-  }
-  .msg.out .bubble {
-    background: #16a34a;
-    color: #fff;
-    border-bottom-right-radius: 4px;
-  }
-  .msg.in .bubble {
-    background: #1e1e1e;
-    color: #ddd;
-    border-bottom-left-radius: 4px;
-  }
-  .msg-label {
-    font-size: 11px;
-    color: #555;
-    margin-bottom: 4px;
-    font-weight: 600;
-  }
-  .msg.out .msg-label { text-align: right; }
-
-  /* Flow diagram */
-  .flow {
     display: flex;
     flex-direction: column;
-    gap: 0;
-    margin: 16px 0;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    padding: 60px 20px;
+    position: relative;
+    overflow: hidden;
   }
-  .flow-step {
+  .hero::before {
+    content: '';
+    position: absolute;
+    top: -200px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(22,163,74,0.15) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    background: rgba(22,163,74,0.12);
+    border: 1px solid rgba(22,163,74,0.3);
+    color: #4ade80;
+    font-size: 13px;
+    font-weight: 600;
+    padding: 6px 16px;
+    border-radius: 100px;
+    margin-bottom: 24px;
+    animation: fadeInDown 0.6s ease;
+  }
+  .hero-badge .dot { width: 8px; height: 8px; background: #4ade80; border-radius: 50%; animation: pulse 2s infinite; }
+  @keyframes pulse { 0%, 100% { opacity: 1; } 50% { opacity: 0.4; } }
+  @keyframes fadeInDown { from { opacity: 0; transform: translateY(-10px); } to { opacity: 1; transform: translateY(0); } }
+  @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
+
+  .hero h1 {
+    font-size: clamp(36px, 7vw, 56px);
+    font-weight: 900;
+    color: #fff;
+    line-height: 1.05;
+    letter-spacing: -0.03em;
+    margin-bottom: 20px;
+    animation: fadeInUp 0.8s ease 0.1s both;
+  }
+  .hero h1 .accent {
+    background: linear-gradient(135deg, #4ade80, #16a34a);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+  }
+  .hero-sub {
+    font-size: 18px;
+    color: #888;
+    line-height: 1.6;
+    max-width: 520px;
+    margin: 0 auto 40px;
+    animation: fadeInUp 0.8s ease 0.2s both;
+  }
+  .hero-sub strong { color: #ccc; }
+
+  /* Hero stats row */
+  .hero-stats {
     display: flex;
-    align-items: flex-start;
-    gap: 12px;
-    padding: 12px 0;
+    gap: 2px;
+    animation: fadeInUp 0.8s ease 0.3s both;
+    background: #111;
+    border-radius: 16px;
+    overflow: hidden;
+    border: 1px solid #1a1a1a;
   }
-  .flow-icon {
+  .hero-stat {
+    padding: 20px 28px;
+    text-align: center;
+    flex: 1;
+  }
+  .hero-stat:not(:last-child) { border-right: 1px solid #1a1a1a; }
+  .hero-stat .val { font-size: 32px; font-weight: 800; color: #4ade80; letter-spacing: -0.02em; }
+  .hero-stat .lbl { font-size: 11px; color: #555; text-transform: uppercase; letter-spacing: 1px; margin-top: 4px; font-weight: 600; }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 32px;
+    left: 50%;
+    transform: translateX(-50%);
+    color: #333;
+    font-size: 13px;
+    animation: bounce 2s infinite;
+  }
+  @keyframes bounce { 0%, 100% { transform: translateX(-50%) translateY(0); } 50% { transform: translateX(-50%) translateY(6px); } }
+
+  /* ==================== SECTIONS ==================== */
+  section { padding: 80px 0; }
+  .section-label {
+    font-size: 12px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 2px;
+    color: #4ade80;
+    margin-bottom: 12px;
+  }
+  .section-title {
+    font-size: clamp(24px, 4vw, 36px);
+    font-weight: 800;
+    color: #fff;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 16px;
+  }
+  .section-desc { font-size: 16px; color: #777; line-height: 1.6; margin-bottom: 32px; }
+
+  /* ==================== PROBLEM / BEFORE-AFTER ==================== */
+  .problem-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin-bottom: 32px;
+  }
+  @media (max-width: 600px) { .problem-grid { grid-template-columns: 1fr; } }
+
+  .problem-card {
+    border-radius: 16px;
+    padding: 24px;
+    border: 1px solid;
+  }
+  .problem-card.before {
+    background: linear-gradient(135deg, #1a0a0a, #0a0a0a);
+    border-color: rgba(239,68,68,0.2);
+  }
+  .problem-card.after {
+    background: linear-gradient(135deg, #0a1a0a, #0a0a0a);
+    border-color: rgba(22,163,74,0.3);
+  }
+  .problem-card .tag {
+    display: inline-block;
+    font-size: 11px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    padding: 4px 10px;
+    border-radius: 6px;
+    margin-bottom: 16px;
+  }
+  .problem-card.before .tag { background: rgba(239,68,68,0.15); color: #f87171; }
+  .problem-card.after .tag { background: rgba(22,163,74,0.15); color: #4ade80; }
+  .problem-card ul { list-style: none; }
+  .problem-card li {
+    font-size: 14px;
+    color: #999;
+    padding: 8px 0;
+    padding-left: 20px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .problem-card.before li::before { content: '✕'; position: absolute; left: 0; color: #ef4444; font-weight: 700; font-size: 12px; }
+  .problem-card.after li::before { content: '✓'; position: absolute; left: 0; color: #4ade80; font-weight: 700; }
+  .problem-card li strong { color: #ddd; }
+
+  /* ==================== SPEED TO LEAD CHART ==================== */
+  .chart-section { background: #0a0a0a; }
+  .chart-container {
+    background: #111;
+    border: 1px solid #1a1a1a;
+    border-radius: 20px;
+    padding: 32px;
+    margin-bottom: 20px;
+  }
+  .chart-title {
+    font-size: 15px;
+    font-weight: 700;
+    color: #fff;
+    margin-bottom: 24px;
+    text-align: center;
+  }
+  .chart-bar-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 14px;
+  }
+  .chart-label {
+    width: 90px;
+    font-size: 13px;
+    color: #888;
+    text-align: right;
+    flex-shrink: 0;
+    font-weight: 500;
+  }
+  .chart-track {
+    flex: 1;
+    height: 36px;
+    background: #1a1a1a;
+    border-radius: 8px;
+    overflow: hidden;
+    position: relative;
+  }
+  .chart-fill {
+    height: 100%;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding-right: 12px;
+    font-size: 13px;
+    font-weight: 700;
+    color: #fff;
+    transition: width 1.5s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  .chart-fill.green { background: linear-gradient(90deg, #16a34a, #4ade80); }
+  .chart-fill.yellow { background: linear-gradient(90deg, #a16207, #eab308); }
+  .chart-fill.orange { background: linear-gradient(90deg, #c2410c, #f97316); }
+  .chart-fill.red { background: linear-gradient(90deg, #991b1b, #ef4444); }
+  .chart-fill.darkred { background: linear-gradient(90deg, #450a0a, #7f1d1d); }
+
+  .chart-callout {
+    background: rgba(22,163,74,0.08);
+    border: 1px solid rgba(22,163,74,0.2);
+    border-radius: 12px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    margin-top: 4px;
+  }
+  .chart-callout .big { font-size: 36px; font-weight: 900; color: #4ade80; flex-shrink: 0; letter-spacing: -0.02em; }
+  .chart-callout p { font-size: 14px; color: #aaa; line-height: 1.5; }
+  .chart-callout strong { color: #fff; }
+
+  /* ==================== ROI CARDS ==================== */
+  .roi-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+    margin: 24px 0;
+  }
+  @media (max-width: 600px) { .roi-grid { grid-template-columns: 1fr; } }
+  .roi-card {
+    background: #111;
+    border: 1px solid #1a1a1a;
+    border-radius: 16px;
+    padding: 24px;
+    text-align: center;
+  }
+  .roi-card .before-val { font-size: 24px; font-weight: 700; color: #666; text-decoration: line-through; margin-bottom: 4px; }
+  .roi-card .after-val { font-size: 36px; font-weight: 900; color: #4ade80; letter-spacing: -0.02em; }
+  .roi-card .roi-label { font-size: 12px; color: #555; text-transform: uppercase; letter-spacing: 1px; margin-top: 8px; font-weight: 600; }
+  .roi-card .roi-diff { font-size: 12px; color: #f97316; font-weight: 700; margin-top: 4px; }
+
+  /* ==================== CHAT ==================== */
+  .chat {
+    background: #111;
+    border: 1px solid #1a1a1a;
+    border-radius: 20px;
+    padding: 24px;
+    margin-bottom: 16px;
+  }
+  .chat-header {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 20px;
+    padding-bottom: 16px;
+    border-bottom: 1px solid #1a1a1a;
+  }
+  .chat-avatar {
     width: 36px;
     height: 36px;
     border-radius: 50%;
+    background: linear-gradient(135deg, #16a34a, #4ade80);
     display: flex;
     align-items: center;
     justify-content: center;
     font-size: 16px;
-    flex-shrink: 0;
-    position: relative;
+    font-weight: 800;
+    color: #fff;
   }
-  .flow-icon.green { background: #16a34a22; color: #16a34a; }
-  .flow-icon.blue { background: #2563eb22; color: #2563eb; }
-  .flow-icon.purple { background: #7c3aed22; color: #7c3aed; }
-  .flow-icon.orange { background: #ea580c22; color: #ea580c; }
-  .flow-step:not(:last-child) .flow-icon::after {
-    content: '';
-    position: absolute;
-    top: 36px;
-    left: 50%;
-    width: 2px;
-    height: 24px;
-    background: #222;
-    transform: translateX(-50%);
-  }
-  .flow-text h3 { font-size: 14px; color: #fff; font-weight: 600; }
-  .flow-text p { font-size: 13px; color: #888; margin-top: 2px; }
+  .chat-name { font-size: 14px; font-weight: 700; color: #fff; }
+  .chat-role { font-size: 12px; color: #555; }
 
-  /* How to test */
-  .steps {
-    counter-reset: step;
+  .msg { display: flex; margin-bottom: 10px; }
+  .msg.out { justify-content: flex-end; }
+  .msg.in { justify-content: flex-start; }
+  .bubble {
+    max-width: 82%;
+    padding: 11px 15px;
+    border-radius: 18px;
+    font-size: 14px;
+    line-height: 1.5;
   }
-  .step {
+  .msg.out .bubble { background: #16a34a; color: #fff; border-bottom-right-radius: 4px; }
+  .msg.in .bubble { background: #1a1a1a; color: #ccc; border-bottom-left-radius: 4px; }
+  .msg-time { font-size: 10px; color: #444; margin-top: 4px; padding: 0 4px; }
+  .msg.out .msg-time { text-align: right; }
+
+  .chat-result {
+    margin-top: 16px;
+    padding: 14px 16px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+  }
+  .chat-result.hot {
+    background: rgba(22,163,74,0.1);
+    border: 1px solid rgba(22,163,74,0.2);
+    color: #4ade80;
+  }
+  .chat-result.save {
+    background: rgba(234,179,8,0.08);
+    border: 1px solid rgba(234,179,8,0.2);
+    color: #facc15;
+  }
+
+  /* ==================== CASCADE ==================== */
+  .cascade-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+    margin: 24px 0;
+  }
+  .cascade-step {
     display: flex;
     gap: 16px;
-    padding: 16px 0;
-    border-bottom: 1px solid #1a1a1a;
+    padding: 18px 0;
+    position: relative;
   }
-  .step:last-child { border-bottom: none; }
-  .step-num {
-    counter-increment: step;
-    width: 32px;
-    height: 32px;
-    background: #1e1e1e;
-    border-radius: 50%;
+  .cascade-step:not(:last-child)::after {
+    content: '';
+    position: absolute;
+    left: 23px;
+    top: 54px;
+    bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, #222, #111);
+  }
+  .cascade-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 14px;
     display: flex;
     align-items: center;
     justify-content: center;
-    font-size: 14px;
-    font-weight: 700;
-    color: #16a34a;
+    font-size: 20px;
+    flex-shrink: 0;
+    font-weight: 800;
+    z-index: 1;
+  }
+  .cascade-icon.c1 { background: linear-gradient(135deg, #16a34a, #166534); color: #fff; }
+  .cascade-icon.c2 { background: linear-gradient(135deg, #2563eb, #1e3a8a); color: #fff; }
+  .cascade-icon.c3 { background: linear-gradient(135deg, #7c3aed, #4c1d95); color: #fff; }
+  .cascade-icon.c4 { background: linear-gradient(135deg, #ea580c, #7c2d12); color: #fff; }
+  .cascade-text h3 { font-size: 16px; font-weight: 700; color: #fff; }
+  .cascade-text p { font-size: 14px; color: #666; margin-top: 4px; line-height: 1.5; }
+  .cascade-text .when { font-size: 12px; color: #444; font-weight: 600; margin-top: 6px; text-transform: uppercase; letter-spacing: 0.5px; }
+
+  /* ==================== MENTAL LOAD ==================== */
+  .mental-section { background: linear-gradient(180deg, #0a0a0a, #050505); }
+  .mental-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 16px;
+    margin: 24px 0;
+  }
+  @media (max-width: 600px) { .mental-grid { grid-template-columns: 1fr; } }
+  .mental-card {
+    background: #111;
+    border: 1px solid #1a1a1a;
+    border-radius: 16px;
+    padding: 24px;
+  }
+  .mental-card h3 { font-size: 15px; font-weight: 700; color: #fff; margin-bottom: 8px; }
+  .mental-card p { font-size: 14px; color: #777; line-height: 1.6; }
+
+  /* ==================== HOW TO TEST ==================== */
+  .test-steps {
+    margin: 24px 0;
+    counter-reset: ts;
+  }
+  .test-step {
+    display: flex;
+    gap: 16px;
+    padding: 20px 0;
+    border-bottom: 1px solid #111;
+  }
+  .test-step:last-child { border-bottom: none; }
+  .test-num {
+    counter-increment: ts;
+    width: 40px;
+    height: 40px;
+    background: linear-gradient(135deg, #16a34a, #166534);
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 16px;
+    font-weight: 800;
+    color: #fff;
     flex-shrink: 0;
   }
-  .step-num::before { content: counter(step); }
-  .step-content h3 { font-size: 15px; color: #fff; font-weight: 600; margin-bottom: 4px; }
-  .step-content p { font-size: 14px; color: #888; line-height: 1.5; }
+  .test-num::before { content: counter(ts); }
+  .test-text h3 { font-size: 16px; font-weight: 700; color: #fff; margin-bottom: 4px; }
+  .test-text p { font-size: 14px; color: #777; line-height: 1.5; }
+  .test-text strong { color: #4ade80; }
 
-  /* CTA */
-  .cta {
-    text-align: center;
-    padding: 32px;
-    background: linear-gradient(135deg, #16a34a15, #2563eb15);
-    border: 1px solid #222;
-    border-radius: 16px;
-    margin-top: 32px;
-  }
-  .cta h2 { font-size: 22px; color: #fff; margin-bottom: 8px; }
-  .cta p { color: #888; font-size: 14px; margin-bottom: 20px; }
-  .cta .phone {
-    font-size: 24px;
-    font-weight: 700;
-    color: #16a34a;
-    text-decoration: none;
-  }
-  .cta .note { font-size: 12px; color: #555; margin-top: 12px; }
-
-  /* FAQ */
+  /* ==================== FAQ ==================== */
   .faq-item {
-    border-bottom: 1px solid #1a1a1a;
-    padding: 16px 0;
+    border-bottom: 1px solid #151515;
+    padding: 20px 0;
   }
   .faq-item:last-child { border-bottom: none; }
-  .faq-q { font-size: 15px; color: #fff; font-weight: 600; margin-bottom: 6px; }
-  .faq-a { font-size: 14px; color: #888; line-height: 1.5; }
+  .faq-q { font-size: 15px; color: #fff; font-weight: 700; margin-bottom: 8px; }
+  .faq-a { font-size: 14px; color: #777; line-height: 1.6; }
+  .faq-a strong { color: #ccc; }
+
+  /* ==================== CTA ==================== */
+  .cta {
+    text-align: center;
+    padding: 60px 24px;
+    margin: 40px 0;
+    background: linear-gradient(135deg, rgba(22,163,74,0.08), rgba(37,99,235,0.05));
+    border: 1px solid rgba(22,163,74,0.15);
+    border-radius: 24px;
+    position: relative;
+    overflow: hidden;
+  }
+  .cta::before {
+    content: '';
+    position: absolute;
+    top: -100px;
+    right: -100px;
+    width: 300px;
+    height: 300px;
+    background: radial-gradient(circle, rgba(22,163,74,0.1) 0%, transparent 70%);
+  }
+  .cta h2 { font-size: 28px; font-weight: 800; color: #fff; margin-bottom: 8px; position: relative; }
+  .cta p { color: #777; font-size: 15px; margin-bottom: 24px; position: relative; }
+  .cta-phone {
+    display: inline-block;
+    font-size: 28px;
+    font-weight: 900;
+    color: #fff;
+    text-decoration: none;
+    background: linear-gradient(135deg, #16a34a, #166534);
+    padding: 16px 40px;
+    border-radius: 16px;
+    position: relative;
+    transition: transform 0.2s;
+  }
+  .cta-phone:hover { transform: scale(1.03); }
+  .cta-note { font-size: 13px; color: #444; margin-top: 16px; position: relative; line-height: 1.5; }
+
+  /* ==================== FOOTER ==================== */
+  .footer {
+    text-align: center;
+    padding: 40px 0;
+    color: #333;
+    font-size: 13px;
+  }
+
+  /* ==================== DIVIDER ==================== */
+  .divider {
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #222, transparent);
+    margin: 0;
+  }
 </style>
 </head>
 <body>
-<div class="container">
 
-  <!-- Header -->
-  <div class="header">
-    <h1>Sophie SMS</h1>
-    <span class="badge">En ligne</span>
-    <p>L'assistante IA qui qualifie et pre-close tes leads Facebook<br>en moins de 30 secondes, 24/7.</p>
+<!-- ==================== HERO ==================== -->
+<div class="hero">
+  <div class="hero-badge"><span class="dot"></span> Systeme actif — pret a deployer</div>
+  <h1>Plus jamais de<br><span class="accent">leads perdus.</span></h1>
+  <p class="hero-sub">
+    Sophie repond a chaque lead Facebook en <strong>moins de 30 secondes</strong>, qualifie le prospect,
+    et te livre des rendez-vous prets a closer.<br>Toi, tu fais juste les soumissions.
+  </p>
+  <div class="hero-stats">
+    <div class="hero-stat">
+      <div class="val">&lt;30s</div>
+      <div class="lbl">Reponse</div>
+    </div>
+    <div class="hero-stat">
+      <div class="val">24/7</div>
+      <div class="lbl">Toujours la</div>
+    </div>
+    <div class="hero-stat">
+      <div class="val">$0.08</div>
+      <div class="lbl">Par lead</div>
+    </div>
+    <div class="hero-stat">
+      <div class="val">3x</div>
+      <div class="lbl">Conversion</div>
+    </div>
   </div>
+  <div class="scroll-hint">Descends pour voir comment ca marche</div>
+</div>
 
-  <!-- Stats -->
-  <div class="stats">
-    <div class="stat">
-      <div class="value">&lt;30s</div>
-      <div class="label">Temps de reponse</div>
-    </div>
-    <div class="stat">
-      <div class="value">$0.005</div>
-      <div class="label">Cout par lead</div>
-    </div>
-    <div class="stat">
-      <div class="value">24/7</div>
-      <div class="label">Disponibilite</div>
-    </div>
-    <div class="stat">
-      <div class="value">4 msg</div>
-      <div class="label">Pour qualifier</div>
-    </div>
-  </div>
+<div class="divider"></div>
 
-  <!-- What is it -->
-  <div class="section">
-    <h2><span class="num">1</span> C'est quoi Sophie SMS?</h2>
-    <div class="card">
-      <p>
-        Sophie est une <strong>intelligence artificielle</strong> qui repond automatiquement par SMS aux leads
-        qui arrivent de Facebook Ads. Elle pose les bonnes questions, qualifie le prospect,
-        et <strong>pre-close le rendez-vous de soumission gratuite</strong> — tout ca en 4-5 messages.
-      </p>
-      <div class="highlight">
-        En ce moment, quand un lead arrive de Facebook, il attend 2-3 heures avant d'etre appele.
-        60%+ des leads sont deja froids. Avec Sophie, le premier SMS part en <strong>moins de 30 secondes</strong>.
+<!-- ==================== LE PROBLEME ==================== -->
+<section>
+  <div class="container">
+    <div class="section-label">Le probleme</div>
+    <div class="section-title">Chaque minute qui passe, ton lead refroidit.</div>
+    <div class="section-desc">Quand quelqu'un remplit ton formulaire Facebook, il est interesse MAINTENANT. Pas dans 2 heures.</div>
+
+    <div class="problem-grid">
+      <div class="problem-card before">
+        <div class="tag">Aujourd'hui</div>
+        <ul>
+          <li>Lead arrive de Facebook pendant que t'es sur un job</li>
+          <li>Tu rappelles <strong>2-3 heures plus tard</strong></li>
+          <li>Le prospect a deja appele un concurrent</li>
+          <li><strong>6 leads sur 10</strong> sont deja froids</li>
+          <li>Tu perds du temps a filtrer les pas serieux</li>
+          <li>Charge mentale: "faut que j'appelle mes leads"</li>
+        </ul>
       </div>
-      <p style="margin-top: 12px;">
-        Sophie utilise la meme approche que la receptionniste vocale (VAPI), mais par SMS.
-        Elle est polie, professionnelle, et connait bien nos services.
-      </p>
-    </div>
-  </div>
-
-  <!-- How it works -->
-  <div class="section">
-    <h2><span class="num">2</span> Comment ca marche?</h2>
-    <div class="card">
-      <div class="flow">
-        <div class="flow-step">
-          <div class="flow-icon green">1</div>
-          <div class="flow-text">
-            <h3>Lead Facebook arrive</h3>
-            <p>Quelqu'un remplit le formulaire Facebook Ads</p>
-          </div>
-        </div>
-        <div class="flow-step">
-          <div class="flow-icon green">2</div>
-          <div class="flow-text">
-            <h3>Sophie envoie le 1er SMS (&lt;30 sec)</h3>
-            <p>"Bonjour Jean! C'est Sophie de Haie Lite. T'es proprietaire?"</p>
-          </div>
-        </div>
-        <div class="flow-step">
-          <div class="flow-icon blue">3</div>
-          <div class="flow-text">
-            <h3>Qualification en 4 questions</h3>
-            <p>Proprietaire? Cedres? Combien de cotes? Secteur?</p>
-          </div>
-        </div>
-        <div class="flow-step">
-          <div class="flow-icon purple">4</div>
-          <div class="flow-text">
-            <h3>Pre-close le rendez-vous</h3>
-            <p>"On a des dispos cette semaine. Matin ou apres-midi?"</p>
-          </div>
-        </div>
-        <div class="flow-step">
-          <div class="flow-icon orange">5</div>
-          <div class="flow-text">
-            <h3>Tu recois une alerte SMS</h3>
-            <p>"LEAD CHAUD! Jean Tremblay — Score 9/10. Appeler ASAP!"</p>
-          </div>
-        </div>
+      <div class="problem-card after">
+        <div class="tag">Avec Sophie</div>
+        <ul>
+          <li>Lead arrive — <strong>SMS automatique en 30 secondes</strong></li>
+          <li>Sophie qualifie: proprietaire? cedres? secteur?</li>
+          <li>Sophie pre-close le rendez-vous de soumission</li>
+          <li>Tu recois un SMS: <strong>"Lead chaud, score 9/10"</strong></li>
+          <li>T'appelles juste les leads qualifies et prets</li>
+          <li>Zero charge mentale, zero lead perdu</li>
+        </ul>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- Example conversation -->
-  <div class="section">
-    <h2><span class="num">3</span> Exemple de conversation reelle</h2>
+<div class="divider"></div>
+
+<!-- ==================== SPEED TO LEAD ==================== -->
+<section class="chart-section">
+  <div class="container">
+    <div class="section-label">Les chiffres parlent</div>
+    <div class="section-title">La vitesse de reponse change tout.</div>
+    <div class="section-desc">Etude sur 100,000+ leads (InsideSales.com, Harvard Business Review). Plus tu reponds vite, plus tu closes.</div>
+
+    <div class="chart-container">
+      <div class="chart-title">Taux de contact selon le temps de reponse</div>
+
+      <div class="chart-bar-row">
+        <div class="chart-label">< 1 min</div>
+        <div class="chart-track">
+          <div class="chart-fill green" style="width: 100%;">391%</div>
+        </div>
+      </div>
+      <div class="chart-bar-row">
+        <div class="chart-label">5 min</div>
+        <div class="chart-track">
+          <div class="chart-fill yellow" style="width: 46%;">180%</div>
+        </div>
+      </div>
+      <div class="chart-bar-row">
+        <div class="chart-label">30 min</div>
+        <div class="chart-track">
+          <div class="chart-fill orange" style="width: 15%;">60%</div>
+        </div>
+      </div>
+      <div class="chart-bar-row">
+        <div class="chart-label">1 heure</div>
+        <div class="chart-track">
+          <div class="chart-fill red" style="width: 9%;">35%</div>
+        </div>
+      </div>
+      <div class="chart-bar-row">
+        <div class="chart-label">2-3 heures</div>
+        <div class="chart-track">
+          <div class="chart-fill darkred" style="width: 5%;">10%</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="chart-callout">
+      <div class="big">391%</div>
+      <div>
+        <p>
+          Un lead contacte en <strong>moins d'une minute</strong> a <strong>391% plus de chances</strong>
+          de repondre qu'un lead contacte apres 24 heures. Sophie repond en 30 secondes.
+          <strong>C'est comme avoir quelqu'un au bureau 24/7 juste pour ca.</strong>
+        </p>
+      </div>
+    </div>
+
+    <!-- ROI -->
+    <div class="roi-grid">
+      <div class="roi-card">
+        <div class="before-val">2-3h</div>
+        <div class="after-val">&lt;30s</div>
+        <div class="roi-label">Temps de reponse</div>
+        <div class="roi-diff">400x plus rapide</div>
+      </div>
+      <div class="roi-card">
+        <div class="before-val">~8%</div>
+        <div class="after-val">25%+</div>
+        <div class="roi-label">Taux de conversion</div>
+        <div class="roi-diff">3x plus de clients</div>
+      </div>
+      <div class="roi-card">
+        <div class="before-val">$500/mo</div>
+        <div class="after-val">$36/mo</div>
+        <div class="roi-label">Cout de qualification</div>
+        <div class="roi-diff">93% d'economie</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ==================== CONVERSATIONS ==================== -->
+<section>
+  <div class="container">
+    <div class="section-label">En action</div>
+    <div class="section-title">Voici ce que Sophie fait avec tes leads.</div>
+    <div class="section-desc">Ce sont de vraies conversations generees par Sophie. Chaque mot est adapte au prospect.</div>
 
     <div class="chat">
-      <div class="chat-title">Scenario: Lead chaud de Laval</div>
-
-      <div class="msg-label" style="text-align:right;">Sophie (IA)</div>
-      <div class="msg out">
-        <div class="bubble">Bonjour Jean! C'est Sophie de Haie Lite. Merci pour ta demande! T'es proprietaire de la maison? STOP pour se desinscrire.</div>
+      <div class="chat-header">
+        <div class="chat-avatar">S</div>
+        <div>
+          <div class="chat-name">Sophie &middot; Lead chaud de Laval</div>
+          <div class="chat-role">Score final: 8/10 — Rendez-vous pre-close</div>
+        </div>
       </div>
 
-      <div class="msg-label">Jean (prospect)</div>
-      <div class="msg in">
-        <div class="bubble">Oui c'est ma maison</div>
-      </div>
+      <div class="msg out"><div class="bubble">Bonjour Jean! C'est Sophie de Haie Lite. Merci pour ta demande! T'es proprietaire de la maison?</div></div>
+      <div class="msg-time" style="text-align:right;">14:32 — 28 secondes apres le lead Facebook</div>
 
-      <div class="msg out">
-        <div class="bubble">Parfait! C'est des cedres que tu veux faire tailler, ou une autre sorte de haie?</div>
-      </div>
+      <div class="msg in"><div class="bubble">Oui c'est ma maison</div></div>
+      <div class="msg out"><div class="bubble">Parfait! C'est des cedres que tu veux faire tailler, ou une autre sorte de haie?</div></div>
 
-      <div class="msg in">
-        <div class="bubble">C'est 4 cotes de cedres plus le dessus, ca pousse en titi</div>
-      </div>
+      <div class="msg in"><div class="bubble">C'est 4 cotes de cedres plus le dessus, ca pousse en titi</div></div>
+      <div class="msg out"><div class="bubble">Ah oui, ca pousse vite hein! Cinq cotes a faire, c'est du travail. Tu restes dans quel secteur?</div></div>
 
-      <div class="msg out">
-        <div class="bubble">Ah oui, ca pousse vite hein! Cinq cotes a faire, c'est du travail. Tu restes dans quel secteur?</div>
-      </div>
+      <div class="msg in"><div class="bubble">A Laval dans Fabreville</div></div>
+      <div class="msg out"><div class="bubble">Super, on est beaucoup a Fabreville! Nos clients sont vraiment contents. On offre la soumission gratuite sur place.</div></div>
 
-      <div class="msg in">
-        <div class="bubble">A Laval dans Fabreville</div>
-      </div>
+      <div class="msg in"><div class="bubble">Oui je suis libre cette semaine</div></div>
+      <div class="msg out"><div class="bubble">Excellent! On a encore des creneaux. Tu preferes quel jour, matin ou apres-midi?</div></div>
 
-      <div class="msg out">
-        <div class="bubble">Super, on est beaucoup a Fabreville! Nos clients avec des haies similaires sont vraiment contents. On offre la soumission gratuite sur place.</div>
-      </div>
-
-      <div class="msg in">
-        <div class="bubble">Oui je suis libre cette semaine</div>
-      </div>
-
-      <div class="msg out">
-        <div class="bubble">Excellent! On a encore des creneaux cette semaine. Tu preferes quel jour, et c'est le matin ou l'apres-midi qui te convient le mieux?</div>
-      </div>
+      <div class="chat-result hot">LEAD CHAUD! Jean Tremblay, Fabreville — 4 cotes cedres + dessus — Dispo cette semaine — Score 8/10</div>
     </div>
 
-    <div class="card" style="border-left: 3px solid #16a34a;">
-      <p><strong>Resultat:</strong> Score 8/10 — Prospect qualifie, pret pour la soumission. Henri recoit un SMS d'alerte immediat.</p>
-    </div>
-
-    <div class="chat" style="margin-top: 16px;">
-      <div class="chat-title">Scenario: Objection "je vais y penser"</div>
-
-      <div class="msg in">
-        <div class="bubble">Je vais y penser, peut-etre plus tard</div>
+    <div class="chat">
+      <div class="chat-header">
+        <div class="chat-avatar">S</div>
+        <div>
+          <div class="chat-name">Sophie &middot; Objection "je vais y penser"</div>
+          <div class="chat-role">Sophie recupere le lead avec urgence</div>
+        </div>
       </div>
 
-      <div class="msg out">
-        <div class="bubble">Pas de stress! Juste pour info, notre calendrier se remplit vite en avril-mai. Je peux te reserver un creneau sans engagement?</div>
-      </div>
+      <div class="msg in"><div class="bubble">Je vais y penser, peut-etre plus tard</div></div>
+      <div class="msg out"><div class="bubble">Pas de stress! Juste pour info, notre calendrier se remplit vite en avril-mai. Je peux te reserver un creneau sans engagement?</div></div>
+
+      <div class="chat-result save">Lead recupere — Sophie cree l'urgence sans pression. Le prospect garde sa place.</div>
     </div>
   </div>
+</section>
 
-  <!-- Cascade -->
-  <div class="section">
-    <h2><span class="num">4</span> Si le prospect repond pas?</h2>
-    <div class="card">
-      <p>Sophie fait partie d'un <strong>systeme en cascade</strong>. Si le prospect ne repond pas aux SMS, on escalade automatiquement:</p>
-      <div class="flow" style="margin-top: 16px;">
-        <div class="flow-step">
-          <div class="flow-icon green">1</div>
-          <div class="flow-text">
-            <h3>SMS IA (Sophie)</h3>
-            <p>Reponse en 30 secondes. Si pas de reponse apres 2 heures...</p>
-          </div>
+<div class="divider"></div>
+
+<!-- ==================== CASCADE ==================== -->
+<section>
+  <div class="container">
+    <div class="section-label">Filet de securite</div>
+    <div class="section-title">Si le prospect repond pas,<br>on lache pas.</div>
+    <div class="section-desc">Systeme de relance automatique en 4 etapes. Aucun lead tombe entre les craques.</div>
+
+    <div class="cascade-steps">
+      <div class="cascade-step">
+        <div class="cascade-icon c1">1</div>
+        <div class="cascade-text">
+          <h3>SMS intelligent (Sophie)</h3>
+          <p>Premier contact en 30 secondes. Qualification en 4 messages. Pre-close le rendez-vous.</p>
+          <div class="when">Si pas de reponse apres 2 heures...</div>
         </div>
-        <div class="flow-step">
-          <div class="flow-icon blue">2</div>
-          <div class="flow-text">
-            <h3>Appel vocal IA (Sophie VAPI)</h3>
-            <p>L'IA appelle directement le prospect. Si pas de reponse apres 4 heures...</p>
-          </div>
+      </div>
+      <div class="cascade-step">
+        <div class="cascade-icon c2">2</div>
+        <div class="cascade-text">
+          <h3>Appel vocal IA</h3>
+          <p>Sophie appelle directement le prospect. Meme voix professionnelle, meme script de qualification.</p>
+          <div class="when">Si pas de reponse apres 4 heures...</div>
         </div>
-        <div class="flow-step">
-          <div class="flow-icon purple">3</div>
-          <div class="flow-text">
-            <h3>Message WhatsApp</h3>
-            <p>Photos avant/apres + offre soumission. Si pas de reponse apres 24 heures...</p>
-          </div>
+      </div>
+      <div class="cascade-step">
+        <div class="cascade-icon c3">3</div>
+        <div class="cascade-text">
+          <h3>Message WhatsApp</h3>
+          <p>Photos avant/apres de nos realisations + offre de soumission gratuite.</p>
+          <div class="when">Si pas de reponse apres 24 heures...</div>
         </div>
-        <div class="flow-step">
-          <div class="flow-icon orange">4</div>
-          <div class="flow-text">
-            <h3>Sequence email (5 emails / 14 jours)</h3>
-            <p>Temoignages, offre, relance finale</p>
-          </div>
+      </div>
+      <div class="cascade-step">
+        <div class="cascade-icon c4">4</div>
+        <div class="cascade-text">
+          <h3>Sequence email (14 jours)</h3>
+          <p>5 emails: temoignages clients, portfolio, offre speciale, derniere chance.</p>
         </div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- How to test -->
-  <div class="section">
-    <h2><span class="num">5</span> Comment l'essayer?</h2>
-    <div class="card">
-      <p style="margin-bottom: 16px;"><strong>Sophie est en ligne maintenant.</strong> Pour la tester sans toucher aux vrais leads Facebook:</p>
+<div class="divider"></div>
 
-      <div class="steps">
-        <div class="step">
-          <div class="step-num"></div>
-          <div class="step-content">
-            <h3>Envoie un SMS au numero Twilio</h3>
-            <p>Envoie n'importe quel message au <strong>+1 (662) 654-8845</strong> depuis ton telephone.
-            C'est le meme numero que la receptionniste vocale.</p>
-          </div>
+<!-- ==================== CHARGE MENTALE ==================== -->
+<section class="mental-section">
+  <div class="container">
+    <div class="section-label">Pour toi</div>
+    <div class="section-title">Fini la charge mentale des leads.</div>
+    <div class="section-desc">Sophie s'occupe du tri et de la qualification. Toi, tu fais ce que tu fais le mieux: les soumissions et le travail.</div>
+
+    <div class="mental-grid">
+      <div class="mental-card">
+        <h3>Plus de "faut que j'appelle"</h3>
+        <p>Chaque lead est contacte automatiquement. T'as plus besoin de checker ton telephone entre deux jobs.</p>
+      </div>
+      <div class="mental-card">
+        <h3>Juste les leads serieux</h3>
+        <p>Sophie filtre les curieux, les locataires et les pas-dans-ton-secteur. Tu recois juste les 8/10 et plus.</p>
+      </div>
+      <div class="mental-card">
+        <h3>Infos deja pretes</h3>
+        <p>Quand tu appelles: tu sais deja que c'est un proprietaire, 4 cotes cedres, Laval, dispo jeudi. T'arrives prepare.</p>
+      </div>
+      <div class="mental-card">
+        <h3>Meme le soir et la fin de semaine</h3>
+        <p>Un lead arrive a 22h samedi? Sophie repond. Lundi matin, tu as un rendez-vous deja pre-close qui t'attend.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ==================== COMMENT ESSAYER ==================== -->
+<section>
+  <div class="container">
+    <div class="section-label">Essaye-la</div>
+    <div class="section-title">Teste Sophie en 2 minutes.</div>
+    <div class="section-desc">Sophie est active en ce moment. Voici comment la tester toi-meme.</div>
+
+    <div class="test-steps">
+      <div class="test-step">
+        <div class="test-num"></div>
+        <div class="test-text">
+          <h3>Demande a JS d'activer ton numero</h3>
+          <p>JS cree une conversation de test dans le systeme avec ton numero de telephone. Ca prend 30 secondes.</p>
         </div>
-        <div class="step">
-          <div class="step-num"></div>
-          <div class="step-content">
-            <h3>Sophie va te repondre</h3>
-            <p>Si tu as une conversation IA active dans le systeme, Sophie va repondre automatiquement.
-            Sinon, le message va etre route normalement comme avant.</p>
-          </div>
+      </div>
+      <div class="test-step">
+        <div class="test-num"></div>
+        <div class="test-text">
+          <h3>Envoie un SMS au <strong>+1 (662) 654-8845</strong></h3>
+          <p>C'est le meme numero que la receptionniste vocale. Ecris "Oui je suis proprietaire" pour commencer.</p>
         </div>
-        <div class="step">
-          <div class="step-num"></div>
-          <div class="step-content">
-            <h3>Joue le role du client</h3>
-            <p>Reponds comme un vrai client le ferait: "oui je suis proprietaire", "3 cotes de cedres",
-            "a Laval", "oui cette semaine". Regarde comment Sophie gere les objections aussi!</p>
-          </div>
+      </div>
+      <div class="test-step">
+        <div class="test-num"></div>
+        <div class="test-text">
+          <h3>Joue le role du client</h3>
+          <p>Reponds naturellement: "3 cotes de cedres", "a Laval", "oui cette semaine". Essaie aussi "c'est combien?" ou "je vais y penser".</p>
         </div>
-        <div class="step">
-          <div class="step-num"></div>
-          <div class="step-content">
-            <h3>Verifie le score</h3>
-            <p>Quand Sophie juge que le lead est chaud (score 8+), tu vas recevoir un SMS d'alerte
-            a ton numero avec "LEAD CHAUD!" et les details.</p>
-          </div>
+      </div>
+      <div class="test-step">
+        <div class="test-num"></div>
+        <div class="test-text">
+          <h3>Recois l'alerte "Lead chaud"</h3>
+          <p>Quand Sophie juge que le lead est pret (score 8+), tu recois un SMS avec tous les details. Exactement comme en production.</p>
         </div>
       </div>
     </div>
   </div>
+</section>
 
-  <!-- FAQ -->
-  <div class="section">
-    <h2><span class="num">6</span> Questions frequentes</h2>
-    <div class="card">
-      <div class="faq-item">
-        <div class="faq-q">Est-ce que Sophie remplace les appels telephoniques?</div>
-        <div class="faq-a">Non. Sophie est le <strong>premier contact</strong> par SMS. Quand le lead est qualifie,
-        c'est TOI qui appelles pour confirmer le rendez-vous et donner le prix final. Sophie te prepare
-        le terrain — tu recois un lead chaud, qualifie, avec les details (cedres, 4 cotes, Laval, dispo cette semaine).</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Combien ca coute?</div>
-        <div class="faq-a">Environ <strong>$0.005 par lead</strong> en intelligence artificielle + le cout SMS Twilio (~$0.08/lead).
-        Pour 40 leads par mois, ca fait environ <strong>$36/mois total</strong>. Comparez a 5 heures/semaine
-        d'appels manuels ($500/mois).</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Est-ce que les clients savent que c'est un robot?</div>
-        <div class="faq-a">Sophie se presente comme "Sophie de Haie Lite". Elle ecrit en francais quebecois
-        naturel, repond aux objections de facon humaine, et ne dit jamais qu'elle est une IA.
-        Les messages sont courts (max 155 caracteres) comme un vrai SMS.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Et si le client dit STOP?</div>
-        <div class="faq-a">On respecte la loi (CASL). Si le client ecrit STOP, ARRET ou DESINSCRIRE,
-        Sophie confirme la desinscription et on ne le contacte plus jamais. C'est automatique.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Sophie peut-elle donner des prix?</div>
-        <div class="faq-a">Non, par design. Sophie dit toujours que ca depend des dimensions et propose
-        la soumission gratuite sur place. C'est toi qui donnes le prix final en personne.</div>
-      </div>
-      <div class="faq-item">
-        <div class="faq-q">Qu'est-ce qui se passe si Sophie ne sait pas quoi repondre?</div>
-        <div class="faq-a">Sophie a des reponses de secours et peut toujours te transferer le lead.
-        Si le prospect pose une question trop complexe, elle dit "Un de nos specialistes va te recontacter"
-        et tu recois un SMS d'alerte.</div>
-      </div>
+<div class="divider"></div>
+
+<!-- ==================== FAQ ==================== -->
+<section>
+  <div class="container">
+    <div class="section-label">Questions</div>
+    <div class="section-title">Ce que tu veux probablement savoir.</div>
+
+    <div class="faq-item">
+      <div class="faq-q">Est-ce que Sophie remplace mes appels?</div>
+      <div class="faq-a">Non. Sophie fait le <strong>premier contact et la qualification</strong>. Quand le lead est chaud, c'est TOI qui appelles pour confirmer le rendez-vous et donner le prix. Sophie te prepare le terrain — tu arrives avec un prospect qui a deja dit oui a la soumission gratuite.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Est-ce que les clients savent que c'est un robot?</div>
+      <div class="faq-a">Sophie se presente comme "Sophie de Haie Lite". Elle ecrit en <strong>francais quebecois naturel</strong>, repond aux objections comme une vraie personne, et ne dit jamais qu'elle est une IA. Les messages sont courts (155 caracteres max) exactement comme un vrai SMS.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Ca coute combien?</div>
+      <div class="faq-a">L'IA coute <strong>$0.005 par lead</strong>. Avec les SMS Twilio, ca fait environ <strong>$36 par mois pour 40 leads</strong>. Compare a passer 5 heures par semaine a appeler des leads froids ($500/mois de ton temps), c'est 93% d'economie.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Et si le client ecrit STOP?</div>
+      <div class="faq-a">Sophie respecte la loi canadienne (CASL). Si le client ecrit STOP, ARRET ou DESINSCRIRE, on confirme et <strong>on ne le contacte plus jamais</strong>. C'est automatique et instantane.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Sophie peut donner des prix?</div>
+      <div class="faq-a">Non, et c'est voulu. Sophie dit que <strong>ca depend des dimensions</strong> et propose la soumission gratuite sur place. Le prix final, c'est toi qui le donnes en personne. C'est la meilleure facon de closer.</div>
+    </div>
+    <div class="faq-item">
+      <div class="faq-q">Ca marche juste avec Facebook?</div>
+      <div class="faq-a">Pour l'instant oui — chaque lead Facebook declenche Sophie automatiquement. Plus tard, on peut ajouter Google Ads, le formulaire du site web, et meme les appels entrants.</div>
     </div>
   </div>
+</section>
 
-  <!-- CTA -->
+<!-- ==================== CTA ==================== -->
+<div class="container">
   <div class="cta">
-    <h2>Pret a tester?</h2>
-    <p>Envoie un SMS a ce numero pour voir Sophie en action</p>
-    <a href="sms:+16626548845" class="phone">+1 (662) 654-8845</a>
-    <div class="note">Note: ton numero doit avoir une conversation active dans le systeme pour que Sophie reponde.<br>Demande a JS de configurer un test avec ton numero.</div>
+    <h2>Pret a essayer?</h2>
+    <p>Demande a JS d'activer ton numero, puis texte Sophie.</p>
+    <a href="sms:+16626548845" class="cta-phone">+1 (662) 654-8845</a>
+    <div class="cta-note">Sophie repond en moins de 30 secondes, jour et nuit.<br>Aucun lead perdu. Aucun appel a froid. Juste des rendez-vous.</div>
   </div>
-
 </div>
+
+<div class="footer">Haie Lite &middot; Sophie SMS v1.0 &middot; Avril 2026</div>
+
 </body>
 </html>
