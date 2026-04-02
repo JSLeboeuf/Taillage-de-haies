@@ -19,7 +19,7 @@ On a monte toute l'infrastructure technologique de Haie Lite en mars. Le site we
 | Receptionniste AI (telephone) | ✅ Fonctionnel | Repond aux appels, donne des prix, prend les infos |
 | Sophie (qualification par texto) | 🟡 Pret a deployer | Texte les leads automatiquement en <30 secondes |
 | Systeme acquisitions (M&A) | ✅ Actif | 73 prospects identifies, campagne email prete |
-| Google Ads | 🟡 Demarre | 2 leads recus, en periode de rodage |
+| Google Ads (Jean-Michel) | 🟡 Demarre | 2 leads recus, en periode de rodage |
 | Google Business Profile | 🔴 En attente | Besoin de tes acces Google |
 | Tracking (statistiques site) | 🔴 En attente | Besoin d'acces admin au site WordPress |
 
@@ -106,6 +106,31 @@ On a monte toute l'infrastructure technologique de Haie Lite en mars. Le site we
 | Leads Facebook recu | 2 (periode faible, ads en rodage) |
 | Conversations SMS AI | 2 (tests) |
 | Vocabulaire AI | 28 termes custom |
+
+---
+
+## Projets discutes (meeting du 31 mars)
+
+### Acquisition paysagement Martin Dutout (~3M$)
+- JS a laisse un message vocal a Martin (450-280-3222)
+- C'est loin geographiquement — il faudrait quelqu'un sur place ou Henri demenagerait
+- Questions de due diligence preparees (baisse de vente 2025, BAIIA sans Stephane, % cash vs declare, balance de vente)
+- Pas beaucoup d'acheteurs = on a du leverage pour negocier le prix a la baisse
+
+### Expansion — Lavage de vitres Rive-Sud
+- Idee : creer une mini-compagnie sous la meme banniere au REQ
+- Donner 20% de parts aux chefs d'equipe pour les retenir
+- A evaluer quand la saison de taillage sera lancee
+
+### Revenus trailers
+- Henri loue des trailers 5x10 pour les dechets de taille : 150$ cash par trailer plein
+- ~10 000$/an de revenu supplementaire
+- Question a regler avec le CPA : declarer ou non
+
+### RH — Etudiantes d'ete
+- Marguerite commence le 1er mai, Rose aussi en mai
+- Augmentation de 4% (indice cout de la vie) a preparer
+- JS envoie les documents d'augmentation
 
 ---
 
