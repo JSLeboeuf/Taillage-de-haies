@@ -2,7 +2,8 @@ import { Resend } from 'resend';
 
 const resend = new Resend(process.env.RESEND_API_KEY);
 
-const FROM_EMAIL = 'Haie Lite <noreply@haielite.ca>';
+const FROM_EMAIL = process.env.RESEND_FROM_EMAIL || 'Jean-Samuel Leboeuf <js@taillagedehaies.ai>';
+const REPLY_TO_EMAIL = process.env.RESEND_REPLY_TO || 'js@taillagedehaies.ai';
 
 export async function sendEmail({
   to,
@@ -17,6 +18,7 @@ export async function sendEmail({
 }) {
   const emailData: any = {
     from: FROM_EMAIL,
+    reply_to: REPLY_TO_EMAIL,
     to,
     subject,
   };
