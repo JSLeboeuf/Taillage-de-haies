@@ -111,7 +111,10 @@ async function triggerVapiCall(lead: {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
-      phoneNumber: lead.phone,
+      phoneNumberId: process.env.VAPI_PHONE_NUMBER_ID || "3b4b5315-7340-4544-97b0-c67634b933bc",
+      customer: {
+        number: lead.phone,
+      },
       assistantId: VAPI_SOPHIE_ASSISTANT_ID,
       assistantOverrides: {
         variableValues: {

@@ -53,7 +53,7 @@ const SIGNATURE_HTML = `<p>
 /**
  * Get next email delay in days based on sequence type and step
  */
-export function getNextEmailDelay(sequenceType: string, step: number): number {
+export function getNextEmailDelay(sequenceType: string, step: number): number | null {
   const delays: Record<string, Record<number, number>> = {
     cold: { 1: 4, 2: 8 },
     warm: { 1: 7, 2: 14 },
@@ -66,7 +66,7 @@ export function getNextEmailDelay(sequenceType: string, step: number): number {
     partnership: { 1: 7 },
   };
 
-  return delays[sequenceType]?.[step] ?? 0;
+  return delays[sequenceType]?.[step] ?? null;
 }
 
 /**

@@ -143,7 +143,7 @@ export async function POST(request: NextRequest) {
         if (lead) {
           await sendSMS(
             from,
-            `Pas de problème! Appelez-nous au 514-XXX-XXXX pour reprogrammer. - Haie Lite`,
+            `Pas de problème! Appelez-nous au (514) 813-8956 pour reprogrammer. - Haie Lite`,
           );
         }
         break;

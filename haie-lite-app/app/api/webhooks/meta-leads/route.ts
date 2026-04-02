@@ -21,7 +21,10 @@ export async function POST(request: NextRequest) {
   try {
     // Validate X-Hub-Signature-256
     const signature = request.headers.get("x-hub-signature-256");
-    if (process.env.META_APP_SECRET && signature) {
+    if (process.env.META_APP_SECRET) {
+      if (!signature) {
+        return NextResponse.json({ error: "Missing signature" }, { status: 403 });
+      }
       const rawBody = await request.clone().text();
       const isValid = await verifyMetaSignature(
         rawBody,
@@ -71,7 +74,7 @@ export async function POST(request: NextRequest) {
       parseInt(fields.hedge_sides || fields.nombre_cotes || "0") || null;
     const notes = fields.comments || fields.notes || "";
     const consentSms =
-      fields.sms_consent === "true" || fields.sms_consent === "1" || true; // Default true from lead form
+      fields.sms_consent === "true" || fields.sms_consent === "1" || fields.sms_consent === undefined; // CASL: true if consent given or field absent (implicit from lead form opt-in)
 
     if (!phone || !isValidQCPhone(phone)) {
       console.error("Invalid phone number from Meta lead:", phone);

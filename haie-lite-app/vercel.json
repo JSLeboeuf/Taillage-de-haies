@@ -51,6 +51,14 @@
     {
       "path": "/api/cron/annual-contract-renewal",
       "schedule": "0 12 1 * *"
+    },
+    {
+      "path": "/api/cron/acquisition-outreach",
+      "schedule": "0 14 * * 1-5"
+    },
+    {
+      "path": "/api/cron/cascade-escalation",
+      "schedule": "0 */2 * * *"
     }
   ]
 }
