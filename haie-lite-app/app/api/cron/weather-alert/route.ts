@@ -1,168 +1,332 @@
-export const runtime = 'edge';
+export const runtime = "edge";
 
-import { NextRequest, NextResponse } from 'next/server';
-import { servicem8 } from '@/lib/servicem8';
-import { sendSMS } from '@/lib/twilio';
-import { supabaseAdmin } from '@/lib/supabase';
+import { NextRequest, NextResponse } from "next/server";
+import type { SupabaseClient } from "@supabase/supabase-js";
+import { servicem8 } from "@/lib/servicem8";
+import { sendSMS } from "@/lib/twilio";
+import { supabaseAdmin } from "@/lib/supabase";
+import { SMS } from "@/lib/sms-templates";
+import {
+  analyzeWeatherForDates,
+  findNextAvailableSlot,
+  processStaleReschedules,
+  getNextDays,
+  mapAlertType,
+} from "@/lib/weather-scheduler";
 
 const MONTREAL_LAT = 45.5017;
 const MONTREAL_LON = -73.5673;
+const MAX_JOBS_PER_RUN = 10;
 
 /**
- * Cron: Weather alert for scheduled jobs
- * Schedule: Daily at 6:00am EDT (10:00 UTC)
- * Checks weather forecast and alerts team about potential delays
+ * Cron: Weather-based intelligent scheduler
+ * Schedule: Daily at 20:00 EDT (00:00 UTC next day)
+ * Checks 3-day forecast, auto-reschedules affected jobs, notifies clients + employees
  */
 export async function GET(request: NextRequest) {
-  const authHeader = request.headers.get('authorization');
+  const authHeader = request.headers.get("authorization");
   if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 });
+    return NextResponse.json({ error: "Unauthorized" }, { status: 401 });
   }
 
   try {
-    const today = new Date();
-    const tomorrow = new Date(today);
-    tomorrow.setDate(tomorrow.getDate() + 1);
+    // Step 0: Auto-confirm stale reschedules from previous runs
+    const autoConfirmed = await processStaleReschedules(supabaseAdmin);
 
-    const todayStr = today.toISOString().split('T')[0];
-    const tomorrowStr = tomorrow.toISOString().split('T')[0];
-
-    // Fetch weather forecast from OpenWeather
+    // Step 1: Fetch 5-day forecast from OpenWeather (1 API call, 40 data points)
     const weatherUrl = `https://api.openweathermap.org/data/2.5/forecast?lat=${MONTREAL_LAT}&lon=${MONTREAL_LON}&units=metric&appid=${process.env.OPENWEATHER_API_KEY}`;
     const weatherRes = await fetch(weatherUrl);
     const weatherData = await weatherRes.json();
 
     if (!weatherData.list) {
-      throw new Error('Invalid weather data');
+      return NextResponse.json(
+        {
+          success: false,
+          error: "Invalid weather data from OpenWeather",
+          auto_confirmed: autoConfirmed,
+        },
+        { status: 500 },
+      );
     }
 
-    // Analyze weather for today and tomorrow
-    const alerts: string[] = [];
-    const affectedDates: string[] = [];
+    // Step 2: Analyze weather for J+1, J+2, J+3
+    const targetDates = getNextDays(3);
+    const decisions = analyzeWeatherForDates(weatherData.list, targetDates);
+    const cancelDates = decisions.filter((d) => d.decision === "cancel");
+    const cautionDates = decisions.filter((d) => d.decision === "caution");
 
-    for (const forecast of weatherData.list) {
-      const dt = new Date(forecast.dt * 1000);
-      const dateStr = dt.toISOString().split('T')[0];
-
-      if (dateStr !== todayStr && dateStr !== tomorrowStr) continue;
-
-      const temp = forecast.main.temp;
-      const rain = forecast.rain?.['3h'] || 0;
-      const wind = forecast.wind.speed * 3.6; // m/s to km/h
-      const weather = forecast.weather[0].main;
-
-      // Check for concerning conditions
-      if (rain > 10) {
-        alerts.push(`Pluie forte (${rain.toFixed(1)}mm) - ${dateStr} ${dt.toLocaleTimeString('fr-CA', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Toronto' })}`);
-        if (!affectedDates.includes(dateStr)) affectedDates.push(dateStr);
+    // If no cancellations, just notify caution and exit
+    if (cancelDates.length === 0) {
+      // Caution alerts (heat) → notify Henri only
+      if (cautionDates.length > 0 && process.env.HENRI_PHONE) {
+        const cautionMsg = cautionDates
+          .map((d) => `${d.date}: ${d.reason}`)
+          .join("\n");
+        await sendSMS(
+          process.env.HENRI_PHONE,
+          `METEO (prudence):\n${cautionMsg}\n\nAucune annulation. Ajustez les heures si necessaire.`,
+        );
       }
-
-      if (wind > 40) {
-        alerts.push(`Vents forts (${wind.toFixed(0)}km/h) - ${dateStr} ${dt.toLocaleTimeString('fr-CA', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Toronto' })}`);
-        if (!affectedDates.includes(dateStr)) affectedDates.push(dateStr);
-      }
-
-      if (temp > 32) {
-        alerts.push(`Chaleur extrême (${temp.toFixed(0)}°C) - ${dateStr} ${dt.toLocaleTimeString('fr-CA', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Toronto' })}`);
-        if (!affectedDates.includes(dateStr)) affectedDates.push(dateStr);
-      }
-
-      if (weather === 'Thunderstorm') {
-        alerts.push(`Orages - ${dateStr} ${dt.toLocaleTimeString('fr-CA', { hour: '2-digit', minute: '2-digit', timeZone: 'America/Toronto' })}`);
-        if (!affectedDates.includes(dateStr)) affectedDates.push(dateStr);
-      }
-    }
-
-    // If no alerts, exit early
-    if (alerts.length === 0) {
       return NextResponse.json({
         success: true,
-        message: 'No weather alerts',
-        executed_at: new Date().toISOString(),
+        message:
+          cancelDates.length === 0 ? "No cancellations needed" : undefined,
+        auto_confirmed: autoConfirmed,
+        caution_dates: cautionDates.map((d) => d.date),
       });
     }
 
-    // Get scheduled jobs for affected dates
-    const affectedJobs: any[] = [];
-    for (const dateStr of affectedDates) {
-      const jobs = await servicem8.getJobActivities(
-        `start_date gt '${dateStr} 00:00:00' and start_date lt '${dateStr} 23:59:59' and active eq 1`
+    // Step 3: Fetch scheduled activities for cancelled dates
+    const allActivities: any[] = [];
+    for (const d of cancelDates) {
+      const activities = await servicem8.getScheduledActivitiesForDate(d.date);
+      allActivities.push(
+        ...activities.map((a) => ({
+          ...a,
+          cancelDate: d.date,
+          reason: d.reason,
+        })),
       );
-      affectedJobs.push(...jobs);
     }
 
-    // Log weather alert to Supabase
-    const { error: insertError } = await supabaseAdmin
-      .from('weather_alerts')
+    // Deduplicate by job_uuid (one reschedule per job, not per activity)
+    const seenJobs = new Set<string>();
+    const uniqueActivities = allActivities.filter((a) => {
+      if (seenJobs.has(a.job_uuid)) return false;
+      seenJobs.add(a.job_uuid);
+      return true;
+    });
+
+    // Step 4: Exclude jobs already rescheduled recently
+    const jobUuids = uniqueActivities.map((a) => a.job_uuid);
+    const { data: existingReschedules } = await supabaseAdmin
+      .from("weather_reschedules")
+      .select("job_uuid")
+      .in("job_uuid", jobUuids.length > 0 ? jobUuids : ["__none__"])
+      .in("status", [
+        "pending_confirmation",
+        "confirmed",
+        "auto_confirmed",
+        "servicem8_updated",
+      ]);
+
+    const alreadyRescheduled = new Set(
+      (existingReschedules || []).map((r) => r.job_uuid),
+    );
+    const toReschedule = uniqueActivities
+      .filter((a) => !alreadyRescheduled.has(a.job_uuid))
+      .slice(0, MAX_JOBS_PER_RUN);
+
+    // Step 5: Log weather alert
+    const primaryDecision = cancelDates[0];
+    const { data: alertRow } = await supabaseAdmin
+      .from("weather_alerts")
       .insert({
-        date: todayStr,
-        conditions: alerts,
-        affected_dates: affectedDates,
-        affected_jobs_count: affectedJobs.length,
-        severity: alerts.some(a => a.includes('Orages') || a.includes('Pluie forte')) ? 'high' : 'medium',
-      });
+        date: new Date().toISOString().split("T")[0],
+        alert_type: mapAlertType(primaryDecision.reason),
+        severity: "high",
+        description: cancelDates
+          .map((d) => `${d.date}: ${d.reason}`)
+          .join("; "),
+        temperature_c: primaryDecision.details.maxTemp,
+        wind_speed_kmh: primaryDecision.details.maxWind,
+        precipitation_mm: primaryDecision.details.maxRain,
+        jobs_affected: toReschedule.length,
+        affected_job_uuids: toReschedule.map((a) => a.job_uuid),
+        reschedule_run_at: new Date().toISOString(),
+      })
+      .select("id")
+      .single();
 
-    if (insertError) {
-      console.error('Failed to log weather alert:', insertError);
-    }
+    const alertId = alertRow?.id;
 
-    // Send SMS to Henri with summary
-    const henriMessage = [
-      `⚠️ ALERTE MÉTÉO`,
-      ``,
-      ...alerts.slice(0, 5),
-      alerts.length > 5 ? `... et ${alerts.length - 5} autres` : '',
-      ``,
-      `Jobs affectés: ${affectedJobs.length}`,
-      ``,
-      `Planifiez ajustements au besoin.`,
-    ].filter(Boolean).join('\n');
+    // Step 6: Reschedule each job + notify customer
+    let smsCount = 0;
+    const rescheduled: { job: string; from: string; to: string }[] = [];
 
-    if (process.env.HENRI_PHONE) {
-      await sendSMS(process.env.HENRI_PHONE, henriMessage);
-    }
+    for (const activity of toReschedule) {
+      try {
+        // Find next available slot for this staff member
+        const newDate = await findNextAvailableSlot(
+          activity.staff_uuid,
+          activity.cancelDate,
+          decisions,
+        );
 
-    // Send SMS to affected customers (if severe weather only)
-    const severeWeather = alerts.some(a => a.includes('Orages') || a.includes('Pluie forte'));
-    let customersSent = 0;
+        if (!newDate) continue;
 
-    if (severeWeather && affectedJobs.length > 0) {
-      const uniqueJobUuids = Array.from(new Set(affectedJobs.map(a => a.job_uuid)));
+        // Get customer info from ServiceM8
+        const job = await servicem8.getJob(activity.job_uuid);
+        if (!job.company_uuid) continue;
 
-      for (const jobUuid of uniqueJobUuids.slice(0, 10)) { // Limit to 10 to avoid SMS spam
-        try {
-          const job = await servicem8.getJob(jobUuid);
-          if (!job.company_uuid) continue;
+        const contacts = await servicem8.getContacts(job.company_uuid);
+        const contact = contacts[0];
+        if (!contact?.mobile) continue;
 
-          const company = await servicem8.getCompany(job.company_uuid);
-          const contacts = await servicem8.getContacts(job.company_uuid);
-          const contact = contacts[0];
+        const company = await servicem8.getCompany(job.company_uuid);
+        const customerName = contact.first || company.name.split(" ")[0];
 
-          if (!contact?.mobile) continue;
+        // Format dates for SMS
+        const origDateFr = formatDateFr(activity.cancelDate);
+        const newDateFr = formatDateFr(newDate);
 
-          const customerMessage = `Bonjour ${contact.first || company.name.split(' ')[0]}, météo défavorable prévue pour votre rendez-vous. Notre équipe vous contactera pour confirmer ou reporter. Merci de votre compréhension. - Haie Lite`;
+        // Insert reschedule record
+        await supabaseAdmin.from("weather_reschedules").insert({
+          weather_alert_id: alertId,
+          job_uuid: activity.job_uuid,
+          activity_uuid: activity.uuid,
+          company_uuid: job.company_uuid,
+          customer_phone: contact.mobile,
+          customer_name: customerName,
+          original_date: activity.cancelDate,
+          new_date: newDate,
+          weather_reason: activity.reason,
+          status: "pending_confirmation",
+          sms_sent_at: new Date().toISOString(),
+          auto_confirm_after: new Date(
+            Date.now() + 20 * 60 * 60 * 1000,
+          ).toISOString(),
+        });
 
-          await sendSMS(contact.mobile, customerMessage);
-          customersSent++;
-        } catch (err) {
-          console.error(`Failed to notify customer for job ${jobUuid}:`, err);
-        }
+        // Send interactive SMS to customer
+        await sendSMS(
+          contact.mobile,
+          SMS.weatherDelay(
+            customerName,
+            origDateFr,
+            newDateFr,
+            activity.reason,
+          ),
+        );
+        smsCount++;
+        rescheduled.push({
+          job: activity.job_uuid,
+          from: activity.cancelDate,
+          to: newDate,
+        });
+      } catch (err) {
+        console.error(`Failed to reschedule job ${activity.job_uuid}:`, err);
       }
     }
+
+    // Step 7: Update weather_alerts counts
+    if (alertId) {
+      await supabaseAdmin
+        .from("weather_alerts")
+        .update({
+          jobs_rescheduled: rescheduled.length,
+          sms_sent: smsCount,
+          customers_notified: smsCount > 0,
+          henri_notified: true,
+        })
+        .eq("id", alertId);
+    }
+
+    // Step 8: Notify Henri with summary
+    if (process.env.HENRI_PHONE) {
+      const summary = [
+        `METEO — ALERTE`,
+        ...cancelDates.map((d) => `${d.date}: ${d.reason}`),
+        "",
+        `${rescheduled.length} job(s) reportes:`,
+        ...rescheduled.slice(0, 5).map((r) => `  ${r.from} -> ${r.to}`),
+        rescheduled.length > 5
+          ? `  ... et ${rescheduled.length - 5} autres`
+          : "",
+        "",
+        `${smsCount} client(s) notifies par SMS.`,
+        autoConfirmed > 0
+          ? `${autoConfirmed} reschedule(s) auto-confirme(s).`
+          : "",
+      ]
+        .filter(Boolean)
+        .join("\n");
+
+      await sendSMS(process.env.HENRI_PHONE, summary);
+    }
+
+    // Step 9: Notify crew leaders
+    await notifyCrewLeaders(rescheduled, supabaseAdmin);
 
     return NextResponse.json({
       success: true,
-      message: 'Weather alerts sent',
       executed_at: new Date().toISOString(),
-      alerts_count: alerts.length,
-      affected_jobs: affectedJobs.length,
-      customers_notified: customersSent,
+      auto_confirmed: autoConfirmed,
+      cancel_dates: cancelDates.map((d) => ({
+        date: d.date,
+        reason: d.reason,
+      })),
+      caution_dates: cautionDates.map((d) => ({
+        date: d.date,
+        reason: d.reason,
+      })),
+      jobs_affected: toReschedule.length,
+      jobs_rescheduled: rescheduled.length,
+      customers_notified: smsCount,
     });
   } catch (error) {
-    console.error('Weather alert error:', error);
-    return NextResponse.json({
-      success: false,
-      error: error instanceof Error ? error.message : 'Failed',
-    }, { status: 500 });
+    console.error("Weather scheduler error:", error);
+    return NextResponse.json(
+      {
+        success: false,
+        error: error instanceof Error ? error.message : "Failed",
+      },
+      { status: 500 },
+    );
   }
+}
+
+/**
+ * Notify crew leaders about rescheduled jobs for their truck
+ */
+async function notifyCrewLeaders(
+  rescheduled: { job: string; from: string; to: string }[],
+  supabase: SupabaseClient,
+) {
+  if (rescheduled.length === 0) return;
+
+  // Get employees with phone numbers
+  const { data: employees } = await supabase
+    .from("employees")
+    .select("id, first_name, phone, truck, role")
+    .eq("is_active", true)
+    .not("phone", "is", null);
+
+  if (!employees?.length) return;
+
+  // Get unique dates affected
+  const affectedDates = [...new Set(rescheduled.map((r) => r.from))];
+
+  // Notify employees who have a truck assignment (crew leaders)
+  const leaders = employees.filter((e) => e.truck && e.phone);
+
+  for (const leader of leaders) {
+    const dateStr = affectedDates.map((d) => formatDateFr(d)).join(", ");
+    await sendSMS(
+      leader.phone,
+      SMS.weatherDelayEmployee(leader.truck, dateStr, rescheduled.length),
+    );
+  }
+}
+
+/**
+ * Format YYYY-MM-DD to French date string (ex: "3 avril")
+ */
+function formatDateFr(dateStr: string): string {
+  const months = [
+    "janvier",
+    "fevrier",
+    "mars",
+    "avril",
+    "mai",
+    "juin",
+    "juillet",
+    "aout",
+    "septembre",
+    "octobre",
+    "novembre",
+    "decembre",
+  ];
+  const [, m, d] = dateStr.split("-");
+  return `${parseInt(d)} ${months[parseInt(m) - 1]}`;
 }

@@ -46,7 +46,7 @@
     },
     {
       "path": "/api/cron/weather-alert",
-      "schedule": "0 10 * * *"
+      "schedule": "0 0 * * *"
     },
     {
       "path": "/api/cron/annual-contract-renewal",
@@ -55,10 +55,6 @@
     {
       "path": "/api/cron/acquisition-outreach",
       "schedule": "0 14 * * 1-5"
-    },
-    {
-      "path": "/api/cron/cascade-escalation",
-      "schedule": "0 */2 * * *"
     }
   ]
 }

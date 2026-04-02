@@ -147,10 +147,18 @@ export const SMS = {
   // WEATHER
   // ============================================================
 
-  weatherDelay: (name: string, originalDate: string, newDate: string) =>
-    `${name}, en raison de la météo, votre rendez-vous du ${originalDate} ` +
-    `est reporté au ${newDate}. Désolé pour l'inconvénient! ` +
-    `Répondez OK pour confirmer ou appelez-nous. - Haie Lite`,
+  weatherDelay: (name: string, originalDate: string, newDate: string, reason: string) =>
+    `${name}, en raison de ${reason}, votre RDV du ${originalDate} ` +
+    `est reporte au ${newDate}. ` +
+    `Repondez OK pour confirmer ou APPELER pour nous joindre. - Haie Lite`,
+
+  weatherDelayEmployee: (crewName: string, date: string, jobsCount: number) =>
+    `METEO ${date}: ${jobsCount} job(s) reportes pour ${crewName}. ` +
+    `Consultez votre horaire mis a jour. - Haie Lite`,
+
+  weatherRescheduleConfirmed: (name: string, newDate: string) =>
+    `Parfait ${name}! Votre RDV du ${newDate} est confirme. ` +
+    `Notre equipe vous contactera la veille. - Haie Lite`,
 
   // ============================================================
   // RAPPORT PHOTO POST-VISITE

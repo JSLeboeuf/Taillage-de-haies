@@ -107,6 +107,13 @@ class ServiceM8Client {
     });
   }
 
+  async updateJobActivity(uuid: string, data: Partial<ServiceM8JobActivity>) {
+    return this.request<void>(`/jobactivity/${uuid}.json`, {
+      method: 'POST',
+      body: JSON.stringify(data),
+    });
+  }
+
   // Staff
   async getStaff() {
     return this.request<ServiceM8Staff[]>('/staff.json');
@@ -163,6 +170,13 @@ class ServiceM8Client {
   async getActivitiesForDate(date: string) {
     return this.getJobActivities(
       `start_date gt '${date} 00:00:00' and start_date lt '${date} 23:59:59'`
+    );
+  }
+
+  // Convenience: Get only scheduled (planned) activities for a date
+  async getScheduledActivitiesForDate(date: string) {
+    return this.getJobActivities(
+      `start_date gt '${date} 00:00:00' and start_date lt '${date} 23:59:59' and activity_was_scheduled eq '1'`
     );
   }
 

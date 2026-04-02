@@ -51,6 +51,66 @@ export async function POST(request: NextRequest) {
       recipient_phone: from,
     });
 
+    // Check pending weather reschedule FIRST (before AI conversation)
+    const { data: pendingReschedule } = await supabaseAdmin
+      .from("weather_reschedules")
+      .select("*")
+      .eq("customer_phone", from)
+      .eq("status", "pending_confirmation")
+      .order("created_at", { ascending: false })
+      .limit(1)
+      .maybeSingle();
+
+    if (pendingReschedule) {
+      const upper = body.trim().toUpperCase();
+
+      if (["OK", "OUI", "CONFIRME", "CONFIRMER", "YES"].includes(upper)) {
+        await servicem8.updateJobActivity(pendingReschedule.activity_uuid, {
+          start_date: `${pendingReschedule.new_date} 08:00:00`,
+          end_date: `${pendingReschedule.new_date} 12:00:00`,
+        });
+        await supabaseAdmin
+          .from("weather_reschedules")
+          .update({
+            status: "confirmed",
+            customer_responded_at: new Date().toISOString(),
+            customer_response: body,
+            servicem8_updated: true,
+            servicem8_updated_at: new Date().toISOString(),
+          })
+          .eq("id", pendingReschedule.id);
+        await sendSMS(
+          from,
+          SMS.weatherRescheduleConfirmed(
+            pendingReschedule.customer_name,
+            pendingReschedule.new_date,
+          ),
+        );
+        return twimlResponse("");
+      }
+
+      if (["APPELER", "APPEL", "CALL", "TELEPHONE"].includes(upper)) {
+        await supabaseAdmin
+          .from("weather_reschedules")
+          .update({
+            status: "human_requested",
+            customer_responded_at: new Date().toISOString(),
+            customer_response: body,
+          })
+          .eq("id", pendingReschedule.id);
+        await sendSMS(
+          process.env.HENRI_PHONE || "",
+          `TEL: ${pendingReschedule.customer_name} (${from}) demande rappel — report meteo du ${pendingReschedule.original_date}`,
+        );
+        await sendSMS(
+          from,
+          `Bien recu! Henri vous rappellera sous peu. - Haie Lite`,
+        );
+        return twimlResponse("");
+      }
+      // Ambiguous response → fall through to normal flow
+    }
+
     // Check if there's an active AI conversation for this number
     const { data: activeConv } = await supabaseAdmin
       .from("sms_conversations")
@@ -143,7 +203,7 @@ export async function POST(request: NextRequest) {
         if (lead) {
           await sendSMS(
             from,
-            `Pas de problème! Appelez-nous au (514) 813-8956 pour reprogrammer. - Haie Lite`,
+            `Pas de problème! Appelez-nous au 514-XXX-XXXX pour reprogrammer. - Haie Lite`,
           );
         }
         break;
