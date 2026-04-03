@@ -1,151 +1,145 @@
-# HANDOFF — Session Strategie Satellite + Onboarding TET
+# HANDOFF — Continuer demain (4 avril 2026)
 
-**Date** : 3 avril 2026
+**Date** : 3 avril 2026 (fin de session)
 **Engine** : Claude Opus 4.6 (1M context)
 **Branche** : `main`
-**Derniers commits** : `67e09c0` (modele satellite) + `9098918` (Connecteam setup)
+**Derniers commits** : `67e09c0` → `9098918` → `2bd6047` → `dd20573`
 
 ---
 
-## RESUME DE LA SESSION
+## CE QUI A ETE FAIT CETTE SESSION
 
-Session strategique majeure avec JS (CEO). On a concu et formalise le modele complet "Chick-fil-A du taillage de haies" — un systeme de satellites avec equity 20% pour les chefs d'equipe, parcours 5 niveaux pour TOUS les employes, ecosysteme IA complet, et comparaison au modele Gym Launch d'Hormozi (mais en mieux: 80% equity, IA comme moat, 0$ d'investissement du chef).
+### Decisions strategiques majeures
+1. **Modele Satellite 80/20** — Holding (JS+Henri) 80% Class A + Chef 20% Class B. Vesting 3 ans cliff 1 an.
+2. **Parcours 5 niveaux Chick-fil-A** — Aide-tailleur → Tailleur autonome → Chef equipe → Chef partenaire → Directeur territoire
+3. **Gym Launch framing** — Operating system IA installe chez un gars motive. On garde 80%. L'IA est le moat.
+4. **CLI-FIRST** — Tout se controle depuis Claude Code. Aucun outil sans API. Connecteam ANNULE → on construit notre Employee OS sur Supabase + SMS + chatbot IA.
+5. **Henri = partenaire 50/50** — Pas un employe. Respect absolu.
+6. **WaterFed** — Tucker RIVAL-V2 ~5,300$ decide.
+7. **PRIIME** — Conditionnel (pas impossible) pour TET/EIMT. Henri appelle CLE.
 
-## DOCUMENTS CREES CETTE SESSION
+### Documents crees / commites
+| Commit | Fichier | Contenu |
+|--------|---------|---------|
+| `67e09c0` | `operations/MODELE-SATELLITE-CHEFS-EQUIPE.md` | 776 lignes: modele complet satellite |
+| `9098918` | `operations/CONNECTEAM-SETUP-ONBOARDING.md` | Setup + onboarding (A REMPLACER par Employee OS) |
+| `dd20573` | `CLAUDE.md` | Principes CLI-first, stack, conventions |
+| earlier | `2026-saison/WATERFED-SETUP-ET-PRICING-VITRES.md` | WaterFed + pricing vitres |
+| earlier | `subventions/FORMULAIRE-FINAL-JUAN-LUIS.md` | MAJ candidat TET |
+| earlier | `subventions/FORMULAIRE-FINAL-JULIO-CESAR.md` | MAJ candidat TET |
 
-| Fichier | Contenu |
-|---------|---------|
-| `operations/MODELE-SATELLITE-CHEFS-EQUIPE.md` | Document maitre 776 lignes: 5 niveaux carriere, structure satellite 80/20, vesting 3 ans, ecosysteme IA, pitchs par niveau, chiffres, implementation |
-| `operations/CONNECTEAM-SETUP-ONBOARDING.md` | Setup Connecteam 7 etapes + checklist onboarding TET J-30 a Semaine 2 + quiz securite espagnol |
-
-## DOCUMENTS CREES SESSIONS PRECEDENTES (meme conversation)
-
-| Fichier | Contenu |
-|---------|---------|
-| `2026-saison/WATERFED-SETUP-ET-PRICING-VITRES.md` | Setup WaterFed (Tucker RIVAL-V2 ~5,300$) + pricing vitres (8$/fenetre ext, 12$ int+ext) |
-| `subventions/FORMULAIRE-FINAL-JUAN-LUIS.md` | MAJ avec nom complet + email + tel Guatemala |
-| `subventions/FORMULAIRE-FINAL-JULIO-CESAR.md` | MAJ avec nom complet + tel Guatemala |
-
-## DECISIONS STRATEGIQUES PRISES
-
-1. **Modele Satellite 80/20** : Holding (JS+Henri 50/50) garde 80% Class A (vote). Chef recoit 20% Class B (sans vote). Vesting 3 ans cliff 1 an.
-2. **Parcours 5 niveaux Chick-fil-A** : Aide-tailleur → Tailleur autonome → Chef d'equipe → Chef partenaire → Directeur territoire
-3. **Gym Launch framing** : Le modele est un "operating system IA" qu'on installe chez un gars motive. On garde 80% car on apporte TOUT sauf les bras.
-4. **Henri = partenaire 50/50** : JAMAIS dire "mon operateur". C'est un partenaire qui execute le terrain. JS = strategie/tech/capital.
-5. **4 vehicules de JS** : Taillage-de-haies (avec Henri), ServiceOS (SaaS), Rollup-Entretien (acquisitions), Plateforme-Services (marketplace)
-6. **WaterFed Option A** : Tucker RIVAL-V2 + Gardiner SLX 39' + Shurflo 12V = ~5,300$ CAD
-7. **Connecteam** : Adopte comme outil gratuit pour formation/engagement employes (gratuit <10 users)
-8. **PRIIME conditionnel** : Pas un non ferme pour TET/EIMT. Agent CLE decide. Henri doit appeler 450-778-6567.
-
-## ECOSYSTEME TECHNOLOGIQUE COMPLET POUR LES SATELLITES
-
-### Deja construit (dans le repo)
-- Sophie SMS qualifier (Cloudflare Worker DEPLOYED)
-- VAPI receptionniste 24/7 (DEPLOYED)
-- Chatbot guatemalteques FR/ES (Cloudflare Worker DEPLOYED)
-- Weather scheduler intelligent (Vercel cron)
-- Cascade escalation SMS→Call→WhatsApp→Email
-- 14 crons Vercel actifs
-- ~20 tables Supabase
-- 25 templates SMS
-- 9 sequences email M&A
-- 73 prospects pipeline acquisitions
-- 52 pages SEO indexees
-- Manuel employe complet (FR + resume ES)
-- SOP-005 onboarding TET (5 jours structures)
-- KPIs chefs d'equipe (dashboards quotidien/hebdo/mensuel)
-- Profit-sharing 3 niveaux
-- Strategie equity 7 leviers
-- Moat & avatar ideal
-- Tracking temps + 4 types incentives
-- Contrats employe (TET + local)
-
-### A deployer / construire
-- Coach IA formation (upgrade chatbot existant → academy avec quiz)
-- Comptabilite automatisee (ServiceM8 → QBO via Booke.ai)
-- Route optimization IA (Google Maps Distance Matrix)
-- Equipment tracker QR codes
-- Gamification / leaderboard
-- AI Financial Advisor (chatbot P&L pour chefs)
-- Client retention AI (prediction churn)
-- Connecteam (gratuit, a setup maintenant)
-- Benefits pool (assurance collective quand 5+ employes)
-
-## CANDIDATS CHEFS D'EQUIPE
-
-1. **"Gars de 40 ans"** (nom inconnu) — Henri l'a re-contacte, travaille dans un entrepot, dispo toute la saison, pret a quitter si full-time garanti, Henri le paie 25$/h. CANDIDAT #1 pour Niveau 3→4.
-2. **Juan Luis Terete Toj** — TET Guatemala, permis EW 1907, email Teretejuan25@gmail.com, tel +502 31-02 10-80. Arrive fin avril. Niveau 1→2 puis potentiel Niveau 3.
-3. **Julio Cesar Riz Salvador** — TET Guatemala, permis EW G33, 11 ans experience, tel +502 37-68 05-36. Arrive fin avril. Niveau 1→2.
-4. **"Autre candidat"** — JS a mentionne avoir un contact. Pas de details.
-
-## BLOCKERS ACTIFS
-
-1. PRIIME conditionnel pour TET/EIMT — Henri doit appeler CLE 450-778-6567
-2. Capital ~14K$ cash vs besoins — subventions + seller financing
-3. Role WordPress Editeur (pas Admin) — appeler Shooga (mariane@shooga.ca)
-4. Acces Google + Facebook d'Henri non recus
-5. 10DLC Canada non enregistre (Twilio)
-6. GCP Billing pas active (bloque Places API)
-7. 72/73 prospects M&A sans email (enrichissement requis)
-
-## PROCHAINES ACTIONS IMMEDIATES
-
-1. **Setup Connecteam** — Guide PRET (`operations/CONNECTEAM-SETUP-ONBOARDING.md`). Henri cree le compte, JS configure les cours.
-2. **Preparer onboarding TET** — Checklist J-30 a S2 PRETE dans le meme document, integree avec Connecteam
-3. **Henri appelle CLE** — Confirmer PRIIME pour TET/EIMT
-4. **Henri appelle Shooga** — WordPress admin
-5. **Commander WaterFed** — Tucker RIVAL-V2 quand budget permet
-6. **Gars de 40 ans** — Henri confirme le nom + disponibilite + salaire
-
-## RECHERCHE WEB COMPLETEE (3 agents)
-
-### Agent 1 — Formation IA + Outils terrain
-- Connecteam: gratuit <10 users, formation + quiz + certifications + scheduling
-- Booke.ai: bookkeeper IA pour QBO (~50$/mois)
-- LeanScaper: IA specifique paysagement (gratuit 250 credits/mois)
-- Gamification: +40% retention connaissances, +25% revenus
-
-### Agent 2 — Franchises tech platforms
-- Neighborly: 8.7M$/an rabais fournisseurs, coaching dedie, appels 24/7
-- ServiceTitan: 245-398$/tech/mois, Titan Intelligence (AI dispatch)
-- Jobber franchise: 69-349$/mois, route optimization, multi-account
-- Aucun concurrent n'offre: coach IA bilingue, recrutement intl, traducteur IA, equity operateur
-
-### Agent 3 — Inventaire repo complet
-- 14 crons, 3 Workers CF, ~20 tables Supabase
-- Tout documente dans le output file de l'agent
-
-## STRUCTURE REPO CLES
-
-```
-operations/
-  MODELE-SATELLITE-CHEFS-EQUIPE.md  <- DOCUMENT MAITRE (cette session)
-  profit-sharing-chef-equipe.md
-  strategie-equity-chefs.md
-  moat-et-avatar-chefs.md
-  kpi-chefs-equipe.md
-  manuel-employe.md
-  SOP-005-onboarding-TET.md
-systemes-ia/
-  chatbot-guatemalteques/          <- Cloudflare Worker DEPLOYED
-  sms-ai-qualifier/                <- Cloudflare Worker DEPLOYED
-  receptionniste-ia/               <- VAPI + CF Worker DEPLOYED
-  ia-traducteur-tet.md
-  TRACKING-TEMPS-INCENTIVES.md
-  CEO-AGENT-ARCHITECTURE.md
-2026-saison/
-  WATERFED-SETUP-ET-PRICING-VITRES.md
-  MODELE-UNITAIRE-REALISTE.md
-subventions/
-  FORMULAIRE-FINAL-JUAN-LUIS.md
-  FORMULAIRE-FINAL-JULIO-CESAR.md
-  RESUME-SUBVENTIONS-MAX.md
-```
-
-## ACCES & CREDENTIALS
-
-Voir `memory/MEMORY.md` pour tous les credentials (Supabase, VAPI, Twilio, Infisical, Meta, GCP, WordPress, Cloudflare, etc.)
+### Recherche web (3 agents paralleles)
+- **Connecteam** — gratuit <10 users MAIS pas d'API → ANNULE
+- **Neighborly** — #1 mondial, 8.7M$/an rabais, coaching → benchmark
+- **ServiceTitan** — 245-398$/tech/mois, Titan Intelligence → trop cher
+- **Booke.ai** — bookkeeper IA QBO ~50$/mois → A ADOPTER
+- **Aucun concurrent** n'offre coach IA bilingue + recrutement intl + equity
 
 ---
 
-*HANDOFF cree le 3 avril 2026 — Session strategie satellite + Gym Launch model + Connecteam onboarding*
+## PLAN — CE QU'IL FAUT FAIRE DEMAIN
+
+### PRIORITE 1 — Employee OS (construire, pas acheter)
+
+Migration Supabase + 4 crons pour remplacer Connecteam par notre propre systeme CLI-first.
+
+```
+TABLES A CREER (migration Supabase):
+  training_modules        — Cours de formation (FR + ES)
+  quiz_questions          — Questions + reponses
+  quiz_results            — Scores par employe
+  employee_checklists     — Checklists matin/soir
+  onboarding_progress     — Progression J1-J10
+
+CRONS A CREER (Next.js API routes):
+  /api/cron/morning-checklist     — SMS 6h30, checklist equipement
+  /api/cron/daily-quiz            — SMS quiz securite/technique
+  /api/cron/onboarding-sequence   — SMS onboarding J1-J10
+  /api/cron/weekly-leaderboard    — SMS vendredi 17h, score + rang
+
+WEBHOOK:
+  /api/webhooks/quiz-response     — Traite reponses SMS quiz
+
+UPGRADE CHATBOT GUATEMALTEQUES:
+  Ajouter mode "quiz" au system prompt
+  Ajouter progression employe (query Supabase)
+  Ajouter contenu formation (securite, techniques, upsell)
+```
+
+### PRIORITE 2 — Onboarding TET (fin avril)
+
+Mettre a jour `operations/CONNECTEAM-SETUP-ONBOARDING.md` → renommer en `EMPLOYEE-OS-ONBOARDING.md` et remplacer toutes les refs Connecteam par SMS + chatbot IA + Supabase.
+
+### PRIORITE 3 — Henri actions terrain
+
+| Action | Qui | Quand |
+|--------|-----|-------|
+| Appeler CLE 450-778-6567 (PRIIME) | Henri | 4 avril 8h30 |
+| Appeler Shooga (admin WordPress) | Henri | 4 avril |
+| Confirmer nom "gars de 40 ans" | Henri | Cette semaine |
+| Verifier documents TET Equinox | Henri | J-30 |
+| Preparer logement TET | Henri | J-30 |
+
+### PRIORITE 4 — Tech blockers
+
+| Blocker | Action | Temps |
+|---------|--------|-------|
+| GCP Billing | Activer (carte credit, $200/mois gratuit) | 5 min |
+| 10DLC Twilio | Enregistrer marque + campagne | 1-2 semaines |
+| WordPress admin | Shooga upgrade role | 2 min (si elle repond) |
+| Prospects M&A emails | Enrichir via Clay MCP | 1-2h |
+
+---
+
+## CONTEXTE POUR LA PROCHAINE SESSION
+
+### L'entreprise en un paragraphe
+Taillage Haie Lite Inc. — compagnie de taillage de haies de cedres a Montreal/Rive-Sud. Henri (partenaire 50/50) opere le terrain, JS gere la tech/strategie. 173 jobs pre-bookes pour la saison 2026. 2 TET du Guatemala (Juan Luis + Julio Cesar) arrivent fin avril. 1 candidat local ("gars de 40 ans") pour devenir chef d'equipe. Target 700K$ CA en 2026. Modele satellite: creer des divisions autonomes avec des chefs partenaires a 20% equity, propulsees par un stack IA complet.
+
+### Le modele en un paragraphe
+On est le Gym Launch du service residentiel. On prend un gars motive, on lui donne un operating system IA complet (receptionniste 24/7, qualification SMS, weather scheduling, traducteur ES↔FR, coach formation, route optimization, comptabilite auto), on lui recrute des TET au Guatemala, on lui envoie les clients (SEO, Ads), on lui fournit l'equipement, et on garde 80% de l'entite. Le chef garde 20%, fait 110-160K$/an, et a un chemin de carriere de 5 niveaux jusqu'a directeur de territoire. Le switching cost est ~300K$ — il ne part jamais.
+
+### Stack technique
+- **Supabase** : DB principale (20+ tables, MCP connecte)
+- **Vercel** : Next.js 15, 14 crons actifs
+- **Cloudflare Workers** : 3 deployes (SMS qualifier, chatbot TET, VAPI webhook)
+- **VAPI** : Receptionniste IA Sophie (production)
+- **Twilio** : SMS (a enregistrer 10DLC)
+- **ServiceM8** : Jobs, scheduling, time tracking
+- **Stripe** : Paiements + abonnements
+- **Resend** : Emails transactionnels
+- **GitHub** : `JSLeboeuf/Taillage-de-haies`
+
+### Candidats chefs d'equipe
+1. **"Gars de 40 ans"** — nom inconnu, Henri le connait, 25$/h, pret full-time. CANDIDAT #1.
+2. **Juan Luis Terete Toj** — TET Guatemala, EW 1907, arrive fin avril
+3. **Julio Cesar Riz Salvador** — TET Guatemala, EW G33, 11 ans exp, arrive fin avril
+
+### Blockers actifs
+Voir `memory/blockers.md` pour la liste complete.
+
+### Credentials
+Voir `memory/MEMORY.md` — tout est la (Supabase, VAPI, Twilio, Infisical, Meta, GCP, WordPress, Cloudflare, ServiceM8, Stripe, Resend, etc.)
+
+---
+
+## COMMANDE POUR DEMARRER DEMAIN
+
+```
+Lis CLAUDE.md + HANDOFF.md + memory/MEMORY.md.
+
+Priorite 1: Construire Employee OS CLI-first.
+- Migration Supabase (5 tables)
+- 4 crons Next.js (morning-checklist, daily-quiz, onboarding-sequence, weekly-leaderboard)
+- 1 webhook (quiz-response)
+- Upgrade chatbot guatemalteques (mode quiz + formation)
+- Renommer CONNECTEAM-SETUP-ONBOARDING.md → EMPLOYEE-OS-ONBOARDING.md
+- Deploy Vercel
+
+Priorite 2: Verifier si Henri a appele CLE (PRIIME).
+Priorite 3: Enrichir emails prospects M&A via Clay.
+```
+
+---
+
+*HANDOFF finalise le 3 avril 2026 — Pret a continuer demain matin.*
