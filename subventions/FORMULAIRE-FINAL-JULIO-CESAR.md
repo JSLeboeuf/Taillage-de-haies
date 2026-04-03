@@ -119,14 +119,14 @@ Supervision directe et continue par le president (Henri Joannette) et le chef d'
 
 ## 4. Renseignements sur le candidat recrute
 
-**Nom du candidat:**  Julio Cesar  >>> NOM DE FAMILLE A CONFIRMER AVEC EQUINOX WORLD <<<
+**Nom du candidat:**  Julio Cesar Riz Salvador
 
-**Ind. reg.:**  >>> DEMANDER A EQUINOX WORLD <<<
-**Numero:**  >>> DEMANDER A EQUINOX WORLD <<<
+**Ind. reg.:**  *(numero canadien a obtenir a l'arrivee)*
+**Numero:**  *(numero canadien a obtenir a l'arrivee)*
 **Poste:**  *(vide)*
-**Courriel:**  >>> DEMANDER A EQUINOX WORLD <<<
+**Courriel:**  *(en attente — Yankiel Sarduy d'Equinox verifie)*
 
-**Telephone:**  >>> DEMANDER A EQUINOX WORLD <<<
+**Telephone Guatemala (temporaire):**  +502 37-68 05-36
 
 **Le candidat a-t-il un lien de parente avec l'employeur?**
 [ ] Oui    [X] Non

@@ -1,4 +1,4 @@
-# FORMULAIRE PRET A COPIER — JUAN LUIS TERETE
+# FORMULAIRE PRET A COPIER — JUAN LUIS TERETE TOJ
 ## EQ-6444-01 | PRIIME | Chef d'equipe | Subvention: 27 160$
 
 Instructions: Imprimer le formulaire vierge, puis copier chaque valeur
@@ -118,14 +118,14 @@ Supervision directe par le president (Henri Joannette) a temps plein pendant les
 
 ## 4. Renseignements sur le candidat recrute
 
-**Nom du candidat:**  Juan Luis Terete
+**Nom du candidat:**  Juan Luis Terete Toj
 
-**Ind. reg.:**  >>> DEMANDER A EQUINOX WORLD <<<
-**Numero:**  >>> DEMANDER A EQUINOX WORLD <<<
+**Ind. reg.:**  *(numero canadien a obtenir a l'arrivee)*
+**Numero:**  *(numero canadien a obtenir a l'arrivee)*
 **Poste:**  *(vide)*
-**Courriel:**  >>> DEMANDER A EQUINOX WORLD <<<
+**Courriel:**  Teretejuan25@gmail.com
 
-**Telephone:**  >>> DEMANDER A EQUINOX WORLD <<<
+**Telephone Guatemala (temporaire):**  +502 31-02 10-80
 
 **Le candidat a-t-il un lien de parente avec l'employeur?**
 [ ] Oui    [X] Non
