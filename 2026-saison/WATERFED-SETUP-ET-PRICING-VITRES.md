@@ -1,15 +1,35 @@
 # WaterFed Setup Bulletproof + Pricing Vitres — Haie Lite 2026
 
 **Date**: 3 avril 2026
-**Decision**: Acheter systeme WaterFed van-mounted premium
+**Decision**: Acheter systeme WaterFed RO/DI professionnel
 **Target**: 100$/h minimum par technicien en lavage de vitres
 **Recherche**: Tucker, Gardiner, IPC Eagle, XERO, Ionic Systems, Unger
+**Sources**: 48 recherches web, 30+ produits compares, donnees eau Quebec reelles
 
 ---
 
-## SETUP RECOMMANDE
+## SETUP RECOMMANDE — 2 OPTIONS
 
-### Tucker Fill N Go — 50 Gallon Single User Van-Mounted
+### Option A — Demarrage serieux (RECOMMANDE avec 14K$ cash)
+
+**Tucker RIVAL-V2 4-Stage RO/DI Cart + Gardiner SLX 39'**
+
+| Composant | Prix CAD |
+|-----------|----------|
+| Tucker RIVAL-V2 RO/DI Cart | 2,699.95$ (solde, reg 3,382$) |
+| Pompe Shurflo 12V + controleur Variflo | ~345$ |
+| Gardiner SLX 39' 100% carbone (~5.5 lbs) | 1,290$ |
+| Tucker 27' Bravo Hybrid (backup) | 675.95$ |
+| TDS metre double (entree+sortie) | ~65$ |
+| Tuyaux + raccords + adaptateurs | ~200$ |
+| XERO Sill Brush (cadres) | ~50$ |
+| **TOTAL** | **~5,326$** |
+
+**Pourquoi commencer ici**: Se branche sur le robinet du client (pas besoin de reservoir). Se paie en 5 jours de travail. Upgrade vers Fill N Go quand le volume justifie.
+
+### Option B — Van-mounted premium (quand le volume le justifie)
+
+**Tucker Fill N Go — 50 Gallon Single User Van-Mounted**
 
 **Prix**: 12,099.95$ CAD (tuckercanada.com)
 **Garantie**: 10 ans sur defauts de fabrication
@@ -23,6 +43,8 @@ Ce que le systeme inclut:
 - Controleur de debit digital
 - TDS metre + cles incluses
 - Pre-assemble, plug & play
+
+**Quand upgrader**: Quand 50%+ des chantiers n'ont pas acces a un robinet (chalets, copros sans acces), ou quand 2 techniciens font des vitres full-time.
 
 ### Filtration 4 stages (CRITIQUE pour eau Quebec)
 
@@ -111,14 +133,30 @@ Avec RO/DI: resine dure 10-15x plus longtemps. Cout annuel: ~400-600$.
 
 ---
 
-## SUBVENTION FLI (Fonds local d'investissement)
+## FINANCEMENT FLI (Fonds local d'investissement)
 
-- Programme du MEI Quebec, administre par les MRC
-- **Couverture**: Pret a taux reduit (0-3%) pour achat d'equipement PME
-- **Peut couvrir jusqu'a 50% du cout**
-- **Modalites 2026-2028**: Nouveau cadre publie
-- **Demarche**: Appeler la MRC de la Vallee-du-Richelieu ou Longueuil
-- **Documents requis**: NEQ, plan d'affaires, facture pro-forma Tucker
+**IMPORTANT: Le FLI est un PRET a taux prefere, PAS une subvention/don.**
+
+| Element | Detail |
+|---------|--------|
+| Type d'aide | **Pret** (pas une subvention) |
+| Montant max | 150,000$ sur 12 mois |
+| Pourcentage max | 50% des depenses admissibles |
+| Taux | Prefere (0-3%, varie par MRC) |
+| Moratoire | Possible (commencer a rembourser apres 6-12 mois) |
+| Admissibilite | PME a but lucratif, legalement constituee au QC |
+| Secteur nettoyage | Admissible — a confirmer avec la MRC |
+
+**Demarche concrete**:
+1. Appeler la MRC de ton territoire (Vallee-du-Richelieu pour Saint-Hyacinthe)
+2. Preparer plan d'affaires + liste equipements + facture pro-forma Tucker
+3. Demander financement pour 50% du cout (~2,650$ sur 5,326$)
+4. Remboursement a taux prefere sur 3-5 ans
+
+**Autres programmes a verifier**:
+- **SADC locale** — certaines offrent des subventions reelles pour equipements
+- **Investissement Quebec** — programme demarrage PME (prets avec moratoire)
+- **CDEVR** — garanties de pret pour PME
 
 ---
 
@@ -255,56 +293,91 @@ Revenue journalier:
 
 ### Packages combo
 
-| Package | Contenu | Prix | Rabais |
-|---------|---------|------|--------|
-| Haie seule | Taillage standard | 450$ | - |
-| Vitres seules | 20 fenetres ext | 160$ | - |
-| **Combo Haie+Vitres** | Taillage + 20 vitres ext | **520$** | **15%** |
-| **Plan Tranquillite** | 2x haies + 2x vitres + 2x gouttieres/an | **1,400$/an** | **~20%** |
+| Package | Prix individuel | Prix bundle | Rabais |
+|---------|----------------|-------------|--------|
+| Haie + Vitres ext | 400$ + 175$ = 575$ | **499$** | 13% |
+| Haie + Vitres int+ext | 400$ + 310$ = 710$ | **599$** | 16% |
+| Haie + Vitres + Gouttieres | 400$ + 175$ + 150$ = 725$ | **599-649$** | 11-17% |
+
+**Condition**: Les deux services le meme jour ou dans la meme semaine. Sinon, prix standards.
+
+### Plan Tranquillite — Contrats annuels
+
+| | Standard | Premium |
+|---|---------|---------|
+| Taillage haies | 2x/an (printemps+automne) | 3x/an |
+| Lavage vitres ext | 2x/an (mai+septembre) | 2x int+ext |
+| Nettoyage gouttieres | 2x/an (printemps+automne) | 2x/an |
+| Valeur a la carte | 1,320$ | 2,540$ |
+| **Prix Plan** | **1,099$/an** | **1,999$/an** |
+| Rabais | 17% | 21% |
+| Mensualisation | 92$/mois | 167$/mois |
 
 ### Impact sur le revenue par client
 
 ```
-Client haie seule:        450$/an (1 visite)
-Client haie+vitres:       520$/visite × 1 = 520$/an
-Client Plan Tranquillite: 1,400$/an (6 visites)
+Client haie seule:           350-450$/an (1-2 visites)
+Client bundle haie+vitres:   499$/visite
+Client Plan Standard:        1,099$/an (6 visites)
+Client Plan Premium:         1,999$/an (7 visites)
 
-Revenue multiplier: 1x → 1.2x → 3.1x
+Revenue multiplier: 1x → 1.4x → 2.7x → 5x
 CAC pour tous: 40$ (identique)
+
+100 clients Plan Tranquillite (mix 70/30):
+= 70 × 1,099$ + 30 × 1,999$ = 136,900$/an RECURRENT
 ```
 
 ---
 
 ## ROI DE L'INVESTISSEMENT WATERFED
 
+### Option A (demarrage — recommande)
 ```
-Investissement: 14,256$ (avant subvention)
+Investissement: 5,326$
 Revenue vitres/jour: 1,000$
-Jours pour rembourser: 14.3 jours
-
-Avec subvention FLI 50%: 7,128$ net
-Jours pour rembourser: 7.1 jours
+Jours pour rembourser: 5.3 jours
 
 Revenue vitres/saison (mai-dec, 8 mois):
   22 jours/mois × 8 mois × 1,000$/jour = 176,000$
 
-ROI annuel: 176,000$ / 14,256$ = 1,234%
+ROI annuel: 176,000$ / 5,326$ = 3,306%
 ```
 
-**L'equipement se paie en 2 semaines.**
+### Option B (van-mounted)
+```
+Investissement: 14,300$
+Revenue vitres/jour: 1,000$
+Jours pour rembourser: 14.3 jours
+
+ROI annuel: 176,000$ / 14,300$ = 1,231%
+```
+
+**Option A se paie en 1 semaine. Option B en 2 semaines.**
 
 ---
 
 ## CHECKLIST POUR COMMANDER
 
-- [ ] Henri appelle MRC pour demande FLI (subvention 50%)
-- [ ] Commander sur tuckercanada.com: Fill N Go 50gal + 40' CF pole + 27' Bravo
-- [ ] Acheter XERO Sill Brush (~40$)
-- [ ] Tester eau locale avec TDS metre (inclus avec Tucker)
+### Phase 1 — Maintenant (Option A, ~5,300$)
+- [ ] Commander Tucker RIVAL-V2 RO/DI Cart sur tuckercanada.com (2,700$)
+- [ ] Commander Gardiner SLX 39' sur squeegees.net (1,290$)
+- [ ] Commander Tucker 27' Bravo backup sur tuckercanada.com (676$)
+- [ ] Commander pompe Shurflo 12V + controleur Variflo (~345$)
+- [ ] Acheter XERO Sill Brush (~50$) + TDS metre double (~65$)
+- [ ] Henri appelle MRC pour pret FLI (taux prefere, pas une subvention)
+
+### Phase 2 — Operations
+- [ ] Tester eau locale avec TDS metre
 - [ ] Former le gars PRIIME sur la technique (cadres→vitres→rinse)
 - [ ] Ajouter "Lavage de vitres — cadres et tracks inclus" sur le site
 - [ ] Configurer prix dans ServiceM8 (8$/ext, 12$/int+ext, min 150$)
-- [ ] SMS cross-sell a envoyer aux clients haies existants
+- [ ] SMS cross-sell a envoyer aux 1,300+ clients haies existants
+- [ ] Creer forfait "Plan Tranquillite" sur le site (1,099$/an)
+
+### Phase 3 — Upgrade (quand volume le justifie)
+- [ ] Commander Tucker Fill N Go 50gal (12,100$)
+- [ ] Installation van (supports, fixations, ~800$)
 
 ---
 
